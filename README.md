@@ -12,23 +12,60 @@ it to ship better projects.
 - A shipping checklist that reinforces repeatable project habits
 - Responsive layouts for desktop, tablet, and mobile screens
 
-## How to open the course in Cursor
+## Easiest way to open the course
 
-If someone has already started the app for you, you do not need to run any
-commands.
+You do not need to use the terminal or type commands.
 
-1. Look for a **Ports**, **Preview**, or **Open in Browser** button in Cursor.
-2. Choose port **4173**.
-3. If Cursor asks to open or forward the port, click **Open**.
-4. The course should appear in your browser.
+### On Windows
 
-The page address is:
+Double-click:
 
 ```text
-http://localhost:4173
+Open Cursor Course.bat
 ```
 
-## If you need to start it yourself
+If you want a desktop icon:
+
+1. Right-click `Open Cursor Course.bat`.
+2. Choose **Show more options** if Windows shows that menu.
+3. Choose **Send to**.
+4. Choose **Desktop (create shortcut)**.
+5. Use that desktop shortcut whenever you want to open the course.
+
+### On Mac
+
+Double-click:
+
+```text
+Open Cursor Course.command
+```
+
+### On Linux
+
+Double-click:
+
+```text
+Open Cursor Course.desktop
+```
+
+### Any computer
+
+You can also double-click:
+
+```text
+Open Cursor Course.html
+```
+
+or:
+
+```text
+index.html
+```
+
+## Optional: run as a local website
+
+This is only needed if you specifically want to run the course as a local
+website.
 
 ```bash
 npm run start

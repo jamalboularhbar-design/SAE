@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Open Cursor Course
+Comment=Open the Cursor Launchpad Course
+Exec=sh -c 'cd "$(dirname "$1")" && xdg-open index.html' dummy %k
+Terminal=false
+Icon=web-browser
+Categories=Education;
