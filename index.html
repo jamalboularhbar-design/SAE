@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="An interactive beginner course for learning Cursor and shipping better software projects."
+    />
+    <title>Cursor Launchpad Course</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="background-orb orb-one"></div>
+    <div class="background-orb orb-two"></div>
+    <div class="background-grid" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Cursor Launchpad home">
+        <span class="brand-mark">CL</span>
+        <span>Cursor Launchpad</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#path">Path</a>
+        <a href="#lab">Lab</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#ship">Ship</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section-shell">
+        <div class="hero-copy">
+          <p class="eyebrow">Interactive course for new Cursor users</p>
+          <h1>Learn Cursor by building, prompting, debugging, and shipping.</h1>
+          <p class="hero-summary">
+            A responsive, hands-on course that turns Cursor fundamentals into
+            practice: bite-size lessons, guided prompts, progress tracking, and
+            interactive quizzes that reinforce real project workflows.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#path">Start the course</a>
+            <a class="button button-secondary" href="#quiz">Take a quiz</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Course progress overview">
+          <div class="hero-card-topline">
+            <span>Course readiness</span>
+            <strong id="progressPercent">0%</strong>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <span id="progressBar"></span>
+          </div>
+          <ul class="stat-list">
+            <li>
+              <strong>8</strong>
+              <span>modules</span>
+            </li>
+            <li>
+              <strong>24</strong>
+              <span>micro drills</span>
+            </li>
+            <li>
+              <strong>12</strong>
+              <span>quiz checks</span>
+            </li>
+          </ul>
+          <div class="terminal-preview">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+            <code>Agent: inspect -> plan -> implement -> verify</code>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section-shell quick-start" aria-labelledby="quickStartTitle">
+        <div>
+          <p class="eyebrow">How it works</p>
+          <h2 id="quickStartTitle">A practical loop you can repeat on every project.</h2>
+        </div>
+        <div class="loop-grid">
+          <article>
+            <span>01</span>
+            <h3>Understand</h3>
+            <p>Ask Cursor to map the codebase, relevant files, and existing patterns.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Plan</h3>
+            <p>Turn fuzzy ideas into a small, reviewable implementation plan.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Build</h3>
+            <p>Let Agent edit, run commands, and keep the diff focused.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Verify</h3>
+            <p>Run tests, inspect the UI, review changes, and capture reusable rules.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-shell" id="path" aria-labelledby="pathTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Learning path</p>
+            <h2 id="pathTitle">Choose a module and complete the mission.</h2>
+          </div>
+          <button class="button button-ghost" id="resetProgress" type="button">
+            Reset progress
+          </button>
+        </div>
+        <div class="module-grid" id="moduleGrid" aria-live="polite"></div>
+      </section>
+
+      <section class="section-shell split-section" id="lab" aria-labelledby="labTitle">
+        <div class="prompt-builder">
+          <p class="eyebrow">Prompt lab</p>
+          <h2 id="labTitle">Build a strong Cursor prompt in seconds.</h2>
+          <p>
+            Combine a goal, context, constraints, and verification steps. Use the
+            generated prompt in Ask, Plan, Agent, or Debug mode.
+          </p>
+
+          <label>
+            Goal
+            <textarea id="goalInput" rows="3">Add loading and error states to the dashboard.</textarea>
+          </label>
+          <label>
+            Context
+            <textarea id="contextInput" rows="3">Relevant files: @app/dashboard/page.tsx and @components/ui.</textarea>
+          </label>
+          <label>
+            Constraints
+            <textarea id="constraintsInput" rows="3">Do not add dependencies. Match the existing design system.</textarea>
+          </label>
+          <label>
+            Verification
+            <textarea id="verificationInput" rows="3">Run lint, typecheck, and explain remaining risks.</textarea>
+          </label>
+          <button class="button button-primary" id="buildPrompt" type="button">
+            Generate prompt
+          </button>
+        </div>
+
+        <aside class="prompt-output" aria-live="polite">
+          <div class="prompt-output-header">
+            <span>Generated prompt</span>
+            <button class="copy-button" id="copyPrompt" type="button">Copy</button>
+          </div>
+          <pre id="promptPreview"></pre>
+        </aside>
+      </section>
+
+      <section class="section-shell quiz-section" id="quiz" aria-labelledby="quizTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Interactive quizzes</p>
+            <h2 id="quizTitle">Check your judgment before you ship.</h2>
+          </div>
+          <div class="score-pill" id="scorePill">Score: 0 / 0</div>
+        </div>
+        <div class="quiz-layout">
+          <div class="quiz-card">
+            <div class="quiz-meta">
+              <span id="questionCounter">Question 1 of 1</span>
+              <span id="questionTopic">Workflow</span>
+            </div>
+            <h3 id="questionText"></h3>
+            <div class="answer-list" id="answerList"></div>
+            <div class="quiz-feedback" id="quizFeedback" aria-live="polite"></div>
+            <div class="quiz-actions">
+              <button class="button button-secondary" id="previousQuestion" type="button">
+                Previous
+              </button>
+              <button class="button button-primary" id="nextQuestion" type="button">
+                Next
+              </button>
+            </div>
+          </div>
+
+          <aside class="quiz-map" aria-label="Quiz progress">
+            <h3>Quiz map</h3>
+            <div id="quizDots" class="quiz-dots"></div>
+            <p>
+              Green means correct, amber means answered but needs review, and dark
+              means untouched.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section-shell" id="ship" aria-labelledby="shipTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Shipping checklist</p>
+            <h2 id="shipTitle">Turn learning into a repeatable delivery habit.</h2>
+          </div>
+        </div>
+        <div class="checklist-grid">
+          <label>
+            <input type="checkbox" data-ship-check />
+            Ask Cursor to explain the relevant code path.
+          </label>
+          <label>
+            <input type="checkbox" data-ship-check />
+            Use Plan mode for multi-file or ambiguous work.
+          </label>
+          <label>
+            <input type="checkbox" data-ship-check />
+            Keep the diff small and review it before accepting.
+          </label>
+          <label>
+            <input type="checkbox" data-ship-check />
+            Run lint, tests, typecheck, or a browser verification.
+          </label>
+          <label>
+            <input type="checkbox" data-ship-check />
+            Ask for a senior-engineer review before opening a PR.
+          </label>
+          <label>
+            <input type="checkbox" data-ship-check />
+            Capture repeated project preferences in Cursor rules.
+          </label>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Built for learning Cursor through deliberate practice and real project habits.</p>
+      <a href="#top">Back to top</a>
+    </footer>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
