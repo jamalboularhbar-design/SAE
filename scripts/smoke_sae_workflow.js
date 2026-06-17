@@ -41,7 +41,30 @@ for (const [key, value] of Object.entries(expected)) {
   }
 }
 
+if (!output.persistenceRecord || output.persistenceRecord.status !== 'Discovery call needed') {
+  throw new Error('Expected persistenceRecord.status to be Discovery call needed.');
+}
+
+if (!output.notification || output.notification.shouldNotify !== true) {
+  throw new Error('Expected hot lead notification to be enabled.');
+}
+
+if (!output.proposalDraft || output.proposalDraft.title !== 'Business Automation Sprint for Atlas Dental Clinic') {
+  throw new Error('Expected proposalDraft title for Atlas Dental Clinic.');
+}
+
+if (!output.proposalDraft.aiPrompt.includes('Atlas Dental Clinic')) {
+  throw new Error('Expected proposalDraft.aiPrompt to include the lead company.');
+}
+
+if (!output.connectorTargets || !output.connectorTargets.notion || !output.connectorTargets.crm) {
+  throw new Error('Expected connector targets for persistence and CRM.');
+}
+
 console.log('SAE workflow smoke test passed.');
 console.log(`- ${output.companyName}: ${output.qualification} lead`);
 console.log(`- recommended offer: ${output.recommendedOffer}`);
 console.log(`- next action: ${output.nextAction}`);
+console.log(`- persistence status: ${output.persistenceRecord.status}`);
+console.log(`- hot notification: ${output.notification.shouldNotify}`);
+console.log(`- proposal draft: ${output.proposalDraft.title}`);

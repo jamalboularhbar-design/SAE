@@ -1,13 +1,13 @@
 {
   "id": "sae-first-intake-webhook",
   "name": "SAE First AI Opportunity Intake",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "status": "ship-ready",
   "market": [
     "Morocco",
     "International outsourcing"
   ],
-  "positioning": "A credential-free n8n template that qualifies AI automation leads from NexusAI.ma, Intch, WhatsApp, or partner referrals.",
+  "positioning": "A credential-free n8n template that qualifies AI automation leads from NexusAI.ma, Intch, WhatsApp, or partner referrals, then prepares persistence, notification, and proposal payloads.",
   "workflow": {
     "platform": "n8n",
     "path": "workflows/sae-first-intake-webhook.json",
@@ -52,23 +52,63 @@
     }
   ],
   "outputs": [
+    "leadId",
     "qualification",
     "score",
     "recommendedOffer",
     "nextAction",
-    "summary"
+    "summary",
+    "persistenceRecord",
+    "notification",
+    "proposalDraft",
+    "connectorTargets"
+  ],
+  "connectorTargets": [
+    {
+      "name": "Notion",
+      "mode": "create database item",
+      "source": "persistenceRecord"
+    },
+    {
+      "name": "Airtable",
+      "mode": "create record",
+      "source": "persistenceRecord"
+    },
+    {
+      "name": "Google Sheets",
+      "mode": "append row",
+      "source": "persistenceRecord"
+    },
+    {
+      "name": "CRM",
+      "mode": "create or update lead",
+      "source": "persistenceRecord"
+    },
+    {
+      "name": "WhatsApp, email, Slack, or Telegram",
+      "mode": "send hot-lead alert",
+      "source": "notification"
+    },
+    {
+      "name": "Claude, OpenAI, Gemini, or Cursor",
+      "mode": "generate proposal",
+      "source": "proposalDraft.aiPrompt"
+    }
   ],
   "shippingChecklist": [
     "Import workflow into n8n.",
     "Activate workflow or use test webhook mode.",
     "Send the sample payload.",
-    "Confirm the JSON response contains a qualification and recommended offer.",
-    "Connect the webhook URL to NexusAI.ma, Intch follow-up forms, or a WhatsApp intake form."
+    "Confirm the JSON response contains a qualification, persistence record, notification payload, and proposal draft.",
+    "Connect the webhook URL to NexusAI.ma, Intch follow-up forms, or a WhatsApp intake form.",
+    "Map persistenceRecord into the selected CRM or spreadsheet.",
+    "Map notification into WhatsApp, email, Slack, or Telegram for hot leads.",
+    "Send proposalDraft.aiPrompt to the preferred AI model once credentials are ready."
   ],
   "upgradePath": [
-    "Persist leads to Airtable, Google Sheets, Notion, or CRM.",
-    "Send hot leads to WhatsApp, email, Slack, or Telegram.",
-    "Add an AI summary node once credentials are available.",
-    "Generate a proposal draft from the recommended offer."
+    "Replace connectorTargets guidance with live n8n app nodes for the chosen CRM.",
+    "Replace notification guidance with a live WhatsApp, email, Slack, or Telegram node.",
+    "Replace proposalDraft.aiPrompt with a live Claude, OpenAI, or Gemini node.",
+    "Store generated proposals against the persisted lead record."
   ]
 }

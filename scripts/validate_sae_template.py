@@ -104,7 +104,16 @@ def validate_workflow(workflow: dict) -> None:
     code_node = nodes_by_name["Normalize + Score Lead"]
     require(code_node.get("type") == "n8n-nodes-base.code", "lead scoring must use an n8n code node")
     js_code = code_node.get("parameters", {}).get("jsCode", "")
-    for expected in ["qualification", "recommendedOffer", "Business Automation Sprint", "AI WhatsApp Assistant"]:
+    for expected in [
+        "qualification",
+        "recommendedOffer",
+        "Business Automation Sprint",
+        "AI WhatsApp Assistant",
+        "persistenceRecord",
+        "notification",
+        "proposalDraft",
+        "connectorTargets",
+    ]:
         require(expected in js_code, f"lead scoring code is missing {expected}")
 
     for node in workflow["nodes"]:
@@ -126,7 +135,11 @@ def validate_blueprint(blueprint: dict) -> None:
     require(blueprint.get("status") == "ship-ready", "blueprint must be marked ship-ready")
     require(blueprint.get("workflow", {}).get("path") == "workflows/sae-first-intake-webhook.json", "blueprint workflow path is invalid")
     require(blueprint.get("workflow", {}).get("requiresCredentials") is False, "first template must remain credential-free")
-    require(len(blueprint.get("shippingChecklist", [])) >= 5, "blueprint needs a practical shipping checklist")
+    outputs = blueprint.get("outputs", [])
+    for expected in ["persistenceRecord", "notification", "proposalDraft", "connectorTargets"]:
+        require(expected in outputs, f"blueprint outputs must include {expected}")
+    require(len(blueprint.get("connectorTargets", [])) >= 6, "blueprint needs connector target mappings")
+    require(len(blueprint.get("shippingChecklist", [])) >= 8, "blueprint needs a practical shipping checklist")
 
 
 def validate_sample_result(sample_payload: dict) -> None:

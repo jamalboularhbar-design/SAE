@@ -5,7 +5,7 @@ SAE is the operating layer for shipping practical AI automation templates for Ne
 
 ## First shippable template
 
-`SAE - First AI Opportunity Intake` is a credential-free n8n workflow that qualifies incoming AI automation leads and recommends the right starter offer.
+`SAE - First AI Opportunity Intake` is a credential-free n8n workflow that qualifies incoming AI automation leads, recommends the right starter offer, and prepares persistence, notification, and proposal payloads.
 
 Key files:
 
@@ -13,6 +13,7 @@ Key files:
 - `blueprints/sae-first-intake-webhook.json`
 - `examples/sae-first-intake-payload.json`
 - `docs/first-template.md`
+- `docs/connectors.md`
 
 ## Validate
 
