@@ -1,0 +1,74 @@
+{
+  "id": "sae-first-intake-webhook",
+  "name": "SAE First AI Opportunity Intake",
+  "version": "1.0.0",
+  "status": "ship-ready",
+  "market": [
+    "Morocco",
+    "International outsourcing"
+  ],
+  "positioning": "A credential-free n8n template that qualifies AI automation leads from NexusAI.ma, Intch, WhatsApp, or partner referrals.",
+  "workflow": {
+    "platform": "n8n",
+    "path": "workflows/sae-first-intake-webhook.json",
+    "trigger": "POST /webhook/sae-ai-opportunity-intake",
+    "requiresCredentials": false
+  },
+  "inputs": [
+    {
+      "name": "companyName",
+      "required": false,
+      "example": "Atlas Dental Clinic"
+    },
+    {
+      "name": "market",
+      "required": false,
+      "example": "Casablanca, Morocco"
+    },
+    {
+      "name": "problem",
+      "required": true,
+      "example": "We receive many WhatsApp questions and need faster qualification before booking appointments."
+    },
+    {
+      "name": "channel",
+      "required": false,
+      "example": "intch"
+    },
+    {
+      "name": "urgency",
+      "required": false,
+      "example": "this week"
+    },
+    {
+      "name": "budget",
+      "required": false,
+      "example": "starter"
+    },
+    {
+      "name": "language",
+      "required": false,
+      "example": "fr"
+    }
+  ],
+  "outputs": [
+    "qualification",
+    "score",
+    "recommendedOffer",
+    "nextAction",
+    "summary"
+  ],
+  "shippingChecklist": [
+    "Import workflow into n8n.",
+    "Activate workflow or use test webhook mode.",
+    "Send the sample payload.",
+    "Confirm the JSON response contains a qualification and recommended offer.",
+    "Connect the webhook URL to NexusAI.ma, Intch follow-up forms, or a WhatsApp intake form."
+  ],
+  "upgradePath": [
+    "Persist leads to Airtable, Google Sheets, Notion, or CRM.",
+    "Send hot leads to WhatsApp, email, Slack, or Telegram.",
+    "Add an AI summary node once credentials are available.",
+    "Generate a proposal draft from the recommended offer."
+  ]
+}

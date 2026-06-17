@@ -1,0 +1,96 @@
+{
+  "id": "sae-first-intake-webhook",
+  "name": "SAE - First AI Opportunity Intake",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "sae-ai-opportunity-intake",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "f8c42d35-9bb3-4dc9-a08d-4e21ab780a1f",
+      "name": "SAE Intake Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "sae-ai-opportunity-intake"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nconst body = item.body && typeof item.body === 'object' ? item.body : item;\n\nconst text = (...values) => values.find((value) => typeof value === 'string' && value.trim())?.trim() || '';\nconst lower = (value) => text(value).toLowerCase();\n\nconst companyName = text(body.companyName, body.company, body.businessName, 'Unknown company');\nconst market = text(body.market, body.country, body.region, 'Morocco');\nconst problem = text(body.problem, body.challenge, body.request, body.message);\nconst channel = lower(body.channel, body.source, 'website');\nconst urgency = lower(body.urgency, body.timeline, 'standard');\nconst budget = lower(body.budget, body.budgetRange);\nconst language = text(body.language, body.preferredLanguage, 'fr');\n\nconst hasProblem = problem.length >= 20;\nconst hasBudget = Boolean(budget);\nconst isHighUrgency = ['urgent', 'this week', 'asap', 'now'].some((term) => urgency.includes(term));\nconst isWarmChannel = ['intch', 'referral', 'partner', 'whatsapp'].some((term) => channel.includes(term));\nconst isMoroccanMarket = ['morocco', 'maroc', 'ma', 'casablanca', 'rabat', 'marrakech', 'tanger', 'agadir'].some((term) => lower(market).includes(term));\n\nconst score = [hasProblem, hasBudget, isHighUrgency, isWarmChannel, isMoroccanMarket].filter(Boolean).length;\nconst qualification = score >= 4 ? 'hot' : score >= 2 ? 'warm' : 'early';\n\nlet recommendedOffer = 'Free AI Opportunity Audit';\nif (qualification === 'hot') {\n  recommendedOffer = 'Business Automation Sprint';\n} else if (problem.match(/app|mvp|platform|dashboard|portal/i)) {\n  recommendedOffer = 'MVP/App Launch Sprint';\n} else if (problem.match(/whatsapp|support|customer|lead|sales/i)) {\n  recommendedOffer = 'AI WhatsApp Assistant';\n}\n\nconst nextAction = qualification === 'hot'\n  ? 'Book a discovery call and prepare a paid pilot proposal.'\n  : 'Offer a free 30-minute AI audit and collect workflow details.';\n\nreturn [{\n  json: {\n    saeTemplate: 'first-ai-opportunity-intake',\n    status: 'qualified',\n    companyName,\n    market,\n    language,\n    sourceChannel: channel,\n    qualification,\n    score,\n    recommendedOffer,\n    nextAction,\n    summary: `${companyName} is a ${qualification} lead for ${recommendedOffer}.`,\n    capturedAt: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "dfca8f4a-d1c8-48b4-a0ff-0e2961740f13",
+      "name": "Normalize + Score Lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "b15ef08d-f61a-4855-8306-3bcafad813a3",
+      "name": "Return SAE Intake Result",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        800,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "SAE Intake Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize + Score Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize + Score Lead": {
+      "main": [
+        [
+          {
+            "node": "Return SAE Intake Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "SAE"
+    },
+    {
+      "name": "Template"
+    },
+    {
+      "name": "Lead Intake"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2026-06-17T00:00:00.000Z",
+  "versionId": "1"
+}
