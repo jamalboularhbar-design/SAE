@@ -1,0 +1,1462 @@
+From a7993cef6256395d3db9fd8f989b4caab9c8266c Mon Sep 17 00:00:00 2001
+From: Cursor Agent <cursoragent@cursor.com>
+Date: Thu, 18 Jun 2026 18:15:52 +0000
+Subject: [PATCH] feat: NexusAI rebrand, product page, and Intelligence Hub
+ surfacing
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- Rebrand to NexusAI Playbooks under nexusai.ma domain config
+- Product page (/product): Intelligence section, comparison matrix, AI CTAs
+- Header + homepage: Intelligence nav, AIHubPromo banner
+- AIHubPage → NexusAI Intelligence Hub (11 tools)
+- Central brand config (shared/brand.ts)
+- Fix category dropdown in AdminEditor, TS errors in env/webhooks
+- Support email: hello@nexusai.ma
+---
+ .env.example                                  |   2 +-
+ README.md                                     |  61 +++++
+ client/index.html                             |   2 +-
+ client/src/components/AIHubPromo.tsx          |  59 +++++
+ client/src/components/Footer.tsx              |   7 +-
+ .../src/components/GlobalCommandPalette.tsx   |   3 +-
+ client/src/components/Header.tsx              |  20 +-
+ client/src/components/SEO.tsx                 |  36 +--
+ client/src/lib/brand.ts                       |   1 +
+ client/src/pages/AIHubPage.tsx                |  79 ++++--
+ client/src/pages/AdminCommandCenterPage.tsx   |   3 +-
+ client/src/pages/AdminEditor.tsx              |  63 ++++-
+ client/src/pages/Home.tsx                     |  44 ++--
+ client/src/pages/LandingPage.tsx              | 237 +++++++++++++-----
+ client/src/pages/LoginPage.tsx                |  11 +-
+ package.json                                  |   2 +-
+ server/_core/env.ts                           |   8 +-
+ server/brand.ts                               |   1 +
+ server/totp.ts                                |   6 +-
+ server/webhookNotifications.ts                |   4 +-
+ shared/brand.ts                               |  56 +++++
+ 21 files changed, 546 insertions(+), 159 deletions(-)
+ create mode 100644 README.md
+ create mode 100644 client/src/components/AIHubPromo.tsx
+ create mode 100644 client/src/lib/brand.ts
+ create mode 100644 server/brand.ts
+ create mode 100644 shared/brand.ts
+
+diff --git a/.env.example b/.env.example
+index 51f2dbf..39f528e 100644
+--- a/.env.example
++++ b/.env.example
+@@ -6,7 +6,7 @@ DATABASE_URL=mysql://user:password@host:3306/dbname
+ # Generate with: openssl rand -base64 32
+ JWT_SECRET=your-random-secret-min-32-chars
+ 
+-ADMIN_EMAIL=admin@argbuilder.io
++ADMIN_EMAIL=admin@nexusai.ma
+ ADMIN_PASSWORD=your-secure-password
+ 
+ # ─── AI / LLM ─────────────────────────────────────────────────────────────────
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..bb89c0a
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1,61 @@
++# NexusAI Playbooks
++
++> **NexusAI Playbooks** — Multi-brand operational documentation platform.
++> Part of the [NexusAI / SAE](../../README.md) product suite.
++
++**Upstream:** [jamalboularhbar-design/agent-reference-guide](https://github.com/jamalboularhbar-design/agent-reference-guide)
++
++## Stack
++
++| Layer | Technology |
++|-------|-----------|
++| Frontend | React 19 + Tailwind CSS 4 + shadcn/ui |
++| Backend | Express 4 + tRPC 11 |
++| Database | MySQL + Drizzle ORM (109 tables) |
++| Auth | JWT sessions + TOTP 2FA |
++| AI | OpenAI-compatible LLM (Gemini default) |
++| Payments | Stripe (3-tier subscriptions) |
++| Storage | S3-compatible (Cloudflare R2) |
++
++## What's Already Built
++
++This codebase is **far more complete** than a typical MVP:
++
++- 525 seeded documents, 170 pages, 132 tRPC routers
++- Multi-workspace support (Batch 22)
++- 10 AI services (summarize, writer, semantic search, chat, etc.)
++- Enterprise admin (SSO/SAML, audit trail, white-label, webhooks)
++- Stripe billing, Close CRM integration, lead nurturing
++- 364 passing tests
++
++## NexusAI Rebrand Status
++
++- [x] Central brand config (`shared/brand.ts`)
++- [x] Header, Footer, Login, SEO updated
++- [x] Category dropdown bug fixed (AdminEditor)
++- [ ] Remaining ARG Builder references (~40 client files, server emails)
++- [ ] Generic demo workspaces (replace Riad & Routes / ArtKech)
++- [ ] nexusai.ma domain configuration
++
++## Setup
++
++```bash
++cd apps/playbooks
++cp .env.example .env.local
++# Configure DATABASE_URL, JWT_SECRET, LLM_API_KEY
++pnpm install
++pnpm dev
++```
++
++## Scripts
++
++```bash
++pnpm dev          # Development server
++pnpm build        # Production build
++pnpm test         # Run 364 tests
++pnpm db:push      # Run Drizzle migrations
++```
++
++## License
++
++MIT (inherited from upstream agent-reference-guide)
+diff --git a/client/index.html b/client/index.html
+index 8aa59da..0bd6f5a 100644
+--- a/client/index.html
++++ b/client/index.html
+@@ -6,7 +6,7 @@
+     <meta
+       name="viewport"
+       content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=yes" />
+-    <title>ARG Builder — AI-Powered Operational Intelligence</title>
++    <title>NexusAI Playbooks — AI-Powered Operational Intelligence</title>
+     <link rel="manifest" href="/manifest.json" />
+     <meta name="theme-color" content="#14b8a6" />
+     <meta name="apple-mobile-web-app-capable" content="yes" />
+diff --git a/client/src/components/AIHubPromo.tsx b/client/src/components/AIHubPromo.tsx
+new file mode 100644
+index 0000000..d1b446c
+--- /dev/null
++++ b/client/src/components/AIHubPromo.tsx
+@@ -0,0 +1,59 @@
++import { Link } from 'wouter';
++import { Brain, Pen, Search, MessageSquare, Sparkles, ArrowRight } from 'lucide-react';
++import { Button } from '@/components/ui/button';
++import { BRAND } from '@/lib/brand';
++
++const quickTools = [
++  { label: 'Writing Assistant', path: '/ai/writer', icon: Pen },
++  { label: 'Semantic Search', path: '/ai/search', icon: Search },
++  { label: 'AI Chat', path: '/ai/chat', icon: MessageSquare },
++  { label: 'Summarizer', path: '/ai/summarize', icon: Sparkles },
++];
++
++export default function AIHubPromo() {
++  return (
++    <div className="mb-10 sm:mb-12 rounded-xl border border-purple-500/25 bg-gradient-to-br from-purple-500/10 via-background to-blue-500/10 p-5 sm:p-6">
++      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
++        <div className="flex items-start gap-4">
++          <div className="p-3 rounded-lg bg-purple-500/20 shrink-0">
++            <Brain className="w-6 h-6 text-purple-400" />
++          </div>
++          <div>
++            <p className="text-xs font-semibold uppercase tracking-wider text-purple-400 mb-1">
++              {BRAND.aiHubName}
++            </p>
++            <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1">
++              {BRAND.aiHubTitle}
++            </h3>
++            <p className="text-sm text-muted-foreground max-w-xl">
++              {BRAND.aiHubTagline}. Draft SOPs, search in natural language, summarize docs, and automate workflows — all in one place.
++            </p>
++          </div>
++        </div>
++        <Link href={BRAND.aiHubPath}>
++          <Button className="gap-2 bg-purple-600 hover:bg-purple-700 shrink-0 w-full lg:w-auto">
++            <Brain className="w-4 h-4" />
++            Open Intelligence Hub
++            <ArrowRight className="w-4 h-4" />
++          </Button>
++        </Link>
++      </div>
++      <div className="flex flex-wrap gap-2 mt-5 pt-5 border-t border-purple-500/15">
++        {quickTools.map(({ label, path, icon: Icon }) => (
++          <Link key={path} href={path}>
++            <button className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-card/80 border border-border/50 text-muted-foreground hover:text-foreground hover:border-purple-500/40 transition-colors">
++              <Icon className="w-3 h-3" />
++              {label}
++            </button>
++          </Link>
++        ))}
++        <Link href={BRAND.aiHubPath}>
++          <button className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-purple-400 hover:text-purple-300 transition-colors">
++            +6 more tools
++            <ArrowRight className="w-3 h-3" />
++          </button>
++        </Link>
++      </div>
++    </div>
++  );
++}
+diff --git a/client/src/components/Footer.tsx b/client/src/components/Footer.tsx
+index 2e2574c..478fe4a 100644
+--- a/client/src/components/Footer.tsx
++++ b/client/src/components/Footer.tsx
+@@ -1,4 +1,5 @@
+ import { Link } from 'wouter';
++import { BRAND } from '@/lib/brand';
+ 
+ export default function Footer() {
+   return (
+@@ -54,11 +55,11 @@ export default function Footer() {
+         {/* Bottom */}
+         <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+           <div className="flex items-center gap-2">
+-            <span className="text-sm font-bold text-primary">ARG Builder</span>
+-            <span className="text-xs text-muted-foreground">AI-Powered Operational Intelligence</span>
++            <span className="text-sm font-bold text-primary">{BRAND.productName}</span>
++            <span className="text-xs text-muted-foreground">{BRAND.tagline}</span>
+           </div>
+           <p className="text-xs text-muted-foreground">
+-            &copy; {new Date().getFullYear()} ARG Builder. All rights reserved.
++            &copy; {new Date().getFullYear()} {BRAND.parentName}. All rights reserved.
+           </p>
+         </div>
+       </div>
+diff --git a/client/src/components/GlobalCommandPalette.tsx b/client/src/components/GlobalCommandPalette.tsx
+index 60ea0c9..db35a80 100644
+--- a/client/src/components/GlobalCommandPalette.tsx
++++ b/client/src/components/GlobalCommandPalette.tsx
+@@ -8,6 +8,7 @@ import {
+   BookOpen, Layout, Activity, Bell, Key, Terminal, Clock, Download,
+   PenTool, FolderOpen, Star, TrendingUp
+ } from 'lucide-react';
++import { BRAND } from '@/lib/brand';
+ 
+ interface CommandEntry {
+   id: string;
+@@ -36,7 +37,7 @@ export default function GlobalCommandPalette() {
+     { id: 'team', title: 'Team Workspace', description: 'Collaboration and tasks', icon: <Users className="w-4 h-4" />, action: () => go('/team'), category: 'Navigation', keywords: ['collaborate', 'tasks'] },
+ 
+     // AI Tools
+-    { id: 'ai-hub', title: 'AI Services Hub', description: 'All AI tools in one place', icon: <Brain className="w-4 h-4" />, action: () => go('/ai'), category: 'AI Tools', keywords: ['artificial intelligence', 'ml'] },
++    { id: 'ai-hub', title: BRAND.aiHubTitle, description: 'All AI tools in one place', icon: <Brain className="w-4 h-4" />, action: () => go('/ai'), category: 'AI Tools', keywords: ['artificial intelligence', 'ml', 'intelligence'] },
+     { id: 'ai-chat', title: 'AI Chat Assistant', description: 'Conversational AI helper', icon: <MessageSquare className="w-4 h-4" />, action: () => go('/ai/chat'), category: 'AI Tools', keywords: ['chatbot', 'ask'] },
+     { id: 'ai-summarize', title: 'AI Summarizer', description: 'Summarize documents with AI', icon: <Sparkles className="w-4 h-4" />, action: () => go('/ai/summarize'), category: 'AI Tools', keywords: ['tldr', 'summary'] },
+     { id: 'ai-writer', title: 'AI Writer', description: 'Draft, rewrite, expand content', icon: <PenTool className="w-4 h-4" />, action: () => go('/ai/writer'), category: 'AI Tools', keywords: ['write', 'generate', 'draft'] },
+diff --git a/client/src/components/Header.tsx b/client/src/components/Header.tsx
+index 15dd4eb..39c3596 100644
+--- a/client/src/components/Header.tsx
++++ b/client/src/components/Header.tsx
+@@ -1,9 +1,10 @@
+-import { Sparkles, List, BookOpen, FileText, Tag, Columns, Book, Target, Code, Bookmark, Sun, Moon, Clock, Library, Bell, Network, Trophy, Settings, FileDown, User, Package } from 'lucide-react';
++import { Sparkles, List, BookOpen, FileText, Tag, Columns, Book, Target, Code, Bookmark, Sun, Moon, Clock, Library, Bell, Network, Trophy, Settings, FileDown, User, Brain } from 'lucide-react';
+ import { trpc } from '@/lib/trpc';
+ import { useTheme } from '@/contexts/ThemeContext';
+ import { useLocation } from 'wouter';
+ import { useAuth } from '@/_core/hooks/useAuth';
+ import AdminNavDropdown from './AdminNavDropdown';
++import { BRAND } from '@/lib/brand';
+ 
+ function NotificationBell({ navigate }: { navigate: (path: string) => void }) {
+   const { isAuthenticated } = useAuth();
+@@ -37,11 +38,20 @@ export default function Header() {
+             <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-accent-foreground" />
+           </div>
+           <div className="min-w-0">
+-            <h1 className="font-display text-lg sm:text-2xl font-bold text-foreground truncate">ARG Builder</h1>
+-            <p className="text-[10px] sm:text-xs text-muted-foreground tracking-wide hidden sm:block">Operational Reference System</p>
++            <h1 className="font-display text-lg sm:text-2xl font-bold text-foreground truncate">{BRAND.productName}</h1>
++            <p className="text-[10px] sm:text-xs text-muted-foreground tracking-wide hidden sm:block">{BRAND.tagline}</p>
+           </div>
+         </div>
+         <nav className="flex items-center gap-1 sm:gap-2" aria-label="Main navigation">
++          <button
++            onClick={() => navigate('/ai')}
++            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-500/30 text-purple-300 hover:from-purple-500/30 hover:to-blue-500/30 transition-colors shrink-0"
++            title={BRAND.aiHubTitle}
++            aria-label={BRAND.aiHubTitle}
++          >
++            <Brain className="w-4 h-4" aria-hidden="true" />
++            <span className="text-xs sm:text-sm font-medium hidden xs:inline sm:inline">Intelligence</span>
++          </button>
+           <button
+             onClick={() => navigate('/toc')}
+             className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card/80 border border-border/50 transition-colors active:bg-card/60"
+@@ -169,10 +179,6 @@ export default function Header() {
+               {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+             </button>
+           )}
+-          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/5 border border-accent/20 ml-1" aria-hidden="true">
+-            <div className="w-2 h-2 rounded-full bg-accent/60 animate-pulse" />
+-            <span className="text-xs font-medium text-muted-foreground">Manus & Claude Compatible</span>
+-          </div>
+         </nav>
+       </div>
+     </header>
+diff --git a/client/src/components/SEO.tsx b/client/src/components/SEO.tsx
+index b9250a4..9861bdf 100644
+--- a/client/src/components/SEO.tsx
++++ b/client/src/components/SEO.tsx
+@@ -1,4 +1,5 @@
+ import { useEffect } from 'react';
++import { BRAND, brandTitle } from '@/lib/brand';
+ 
+ interface SEOProps {
+   title?: string;
+@@ -10,8 +11,8 @@ interface SEOProps {
+   noindex?: boolean;
+ }
+ 
+-const DEFAULT_TITLE = 'ARG Builder | AI-Powered Operational Reference Guide';
+-const DEFAULT_DESCRIPTION = 'Build comprehensive operational reference guides with AI-powered search, dual personas, process timelines, and team collaboration. Reduce onboarding time by 60%.';
++const DEFAULT_TITLE = BRAND.seoTitle;
++const DEFAULT_DESCRIPTION = BRAND.seoDescription;
+ const DEFAULT_OG_IMAGE = '/og-image.png';
+ 
+ export default function SEO({
+@@ -23,7 +24,7 @@ export default function SEO({
+   canonical,
+   noindex = false,
+ }: SEOProps) {
+-  const fullTitle = title ? `${title} | ARG Builder` : DEFAULT_TITLE;
++  const fullTitle = title ? brandTitle(title) : DEFAULT_TITLE;
+ 
+   useEffect(() => {
+     // Update document title
+@@ -79,53 +80,58 @@ export default function SEO({
+ }
+ 
+ // Pre-configured SEO for common pages
++const pn = BRAND.productName;
+ export const PAGE_SEO: Record<string, SEOProps> = {
+   product: {
+     title: 'Product',
+-    description: 'Discover ARG Builder — the AI-powered operational reference platform with dual personas, knowledge graphs, process timelines, and enterprise-grade collaboration.',
++    description: `Discover ${pn} — multi-brand operational playbooks with ${BRAND.aiHubName}, knowledge graphs, process timelines, and enterprise collaboration.`,
+   },
+   pricing: {
+     title: 'Pricing',
+-    description: 'Simple, transparent pricing for teams of all sizes. Start with a 14-day free trial. Plans from $29/month for startups to custom enterprise solutions.',
++    description: 'Simple, transparent pricing for teams of all sizes. Start with a 14-day free trial. Plans from $299/month for agencies to custom enterprise solutions.',
+   },
+   resources: {
+     title: 'Resources & Learning Center',
+-    description: 'Guides, whitepapers, video tutorials, and case studies to help your team build better operational systems with ARG Builder.',
++    description: `Guides, whitepapers, and case studies to help your team build better operational systems with ${pn}.`,
+   },
+   caseStudies: {
+     title: 'Case Studies',
+-    description: 'See how travel agencies, creative studios, and enterprise SaaS companies transformed their operations with ARG Builder.',
++    description: `See how agencies and multi-brand operators transformed their operations with ${pn} and ${BRAND.aiHubName}.`,
+   },
+   changelog: {
+     title: 'Changelog',
+-    description: 'Latest product updates, new features, and improvements to ARG Builder. See what we shipped this month.',
++    description: `Latest product updates, new features, and improvements to ${pn}. See what we shipped this month.`,
+   },
+   roi: {
+     title: 'ROI Calculator',
+-    description: 'Calculate how much time and money your team can save with ARG Builder. Input your team size and see annual savings instantly.',
++    description: `Calculate how much time and money your team can save with ${pn}. Input your team size and see annual savings instantly.`,
+   },
+   successMetrics: {
+     title: 'Customer Success Metrics',
+-    description: 'Real results from ARG Builder customers: 60% faster onboarding, 73% less time searching, 45% fewer compliance incidents.',
++    description: `Real results from ${pn} customers: 60% faster onboarding, 73% less time searching, 45% fewer compliance incidents.`,
+   },
+   faq: {
+     title: 'FAQ',
+-    description: 'Frequently asked questions about ARG Builder — pricing, features, integrations, security, and getting started.',
++    description: `Frequently asked questions about ${pn} — pricing, AI tools, integrations, security, and getting started.`,
+   },
+   requestDemo: {
+     title: 'Request a Demo',
+-    description: 'Schedule a personalized demo of ARG Builder. Tell us about your team and we\'ll show you how to transform your operations.',
++    description: `Schedule a personalized demo of ${pn}. Tell us about your team and we'll show you how to transform your operations.`,
+   },
+   startTrial: {
+     title: 'Start Free Trial',
+-    description: 'Start your 14-day free trial of ARG Builder. No credit card required. Full access to all features.',
++    description: `Start your 14-day free trial of ${pn}. No credit card required. Full access to playbooks and ${BRAND.aiHubName}.`,
+   },
+   referral: {
+     title: 'Referral Program',
+-    description: 'Refer ARG Builder to your network and earn 1 free month for every successful signup. Share your unique referral link.',
++    description: `Refer ${pn} to your network and earn 1 free month for every successful signup. Share your unique referral link.`,
+   },
+   apiDocs: {
+     title: 'API Documentation',
+-    description: 'Integrate ARG Builder with your existing tools. REST API documentation with authentication, endpoints, and code examples.',
++    description: `Integrate ${pn} with your existing tools. REST API documentation with authentication, endpoints, and code examples.`,
++  },
++  aiHub: {
++    title: BRAND.aiHubName,
++    description: `${BRAND.aiHubTagline}. Writing assistant, semantic search, AI chat, summarizer, workflows, and more.`,
+   },
+ };
+diff --git a/client/src/lib/brand.ts b/client/src/lib/brand.ts
+new file mode 100644
+index 0000000..996711d
+--- /dev/null
++++ b/client/src/lib/brand.ts
+@@ -0,0 +1 @@
++export { BRAND, TERMINOLOGY, brandTitle } from "@shared/brand";
+diff --git a/client/src/pages/AIHubPage.tsx b/client/src/pages/AIHubPage.tsx
+index 4186d08..b411a7a 100644
+--- a/client/src/pages/AIHubPage.tsx
++++ b/client/src/pages/AIHubPage.tsx
+@@ -1,20 +1,24 @@
+ import { useAuth } from '@/_core/hooks/useAuth';
+ import { Link } from 'wouter';
+-import { Brain, FileText, Pen, Target, Search, Tags, ClipboardList, Workflow, BarChart3, Settings, Sparkles, ArrowRight } from 'lucide-react';
++import { Brain, FileText, Pen, Target, Search, Tags, ClipboardList, Workflow, BarChart3, Settings, Sparkles, ArrowRight, MessageSquare } from 'lucide-react';
+ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+ import { Badge } from '@/components/ui/badge';
+ import { Button } from '@/components/ui/button';
+ import { trpc } from '@/lib/trpc';
++import { BRAND } from '@/lib/brand';
++import SEO from '@/components/SEO';
+ 
+ const aiServices = [
+-  { name: 'Document Summarizer', description: 'Generate executive summaries, key points, and action items from any document', icon: FileText, path: '/ai/summarize', color: 'text-blue-400', category: 'Content' },
++  { name: 'AI Chat Assistant', description: 'Ask questions about your operations — doc-aware, conversational, actionable', icon: MessageSquare, path: '/ai/chat', color: 'text-violet-400', category: 'Discovery' },
+   { name: 'Writing Assistant', description: 'Draft, rewrite, expand, translate, or simplify content with AI', icon: Pen, path: '/ai/writer', color: 'text-emerald-400', category: 'Content' },
+-  { name: 'Smart Recommendations', description: 'Get personalized content suggestions based on your interests and reading history', icon: Sparkles, path: '/ai/recommendations', color: 'text-purple-400', category: 'Discovery' },
++  { name: 'Document Summarizer', description: 'Generate executive summaries, key points, and action items from any document', icon: FileText, path: '/ai/summarize', color: 'text-blue-400', category: 'Content' },
+   { name: 'Semantic Search', description: 'Natural language queries with intent detection and contextual results', icon: Search, path: '/ai/search', color: 'text-cyan-400', category: 'Discovery' },
+-  { name: 'Lead Scoring', description: 'Predict conversion probability with explainable AI-driven scoring factors', icon: Target, path: '/ai/lead-scoring', color: 'text-orange-400', category: 'Analytics' },
++  { name: 'Smart Recommendations', description: 'Personalized content suggestions based on reading history and context', icon: Sparkles, path: '/ai/recommendations', color: 'text-purple-400', category: 'Discovery' },
++  { name: 'Template Generator', description: 'Describe a document and AI generates a full template with sections', icon: FileText, path: '/ai/templates', color: 'text-teal-400', category: 'Content' },
+   { name: 'Auto-Tag', description: 'Automatically classify and tag content with confidence-scored categories', icon: Tags, path: '/ai/auto-tag', color: 'text-pink-400', category: 'Automation' },
+-  { name: 'Meeting Notes', description: 'Extract action items, decisions, and follow-ups from meeting transcripts', icon: ClipboardList, path: '/ai/meeting-notes', color: 'text-yellow-400', category: 'Productivity' },
+   { name: 'Workflow Builder', description: 'Describe workflows in plain English and get automated trigger-action sequences', icon: Workflow, path: '/ai/workflows', color: 'text-indigo-400', category: 'Automation' },
++  { name: 'Meeting Notes', description: 'Extract action items, decisions, and follow-ups from meeting transcripts', icon: ClipboardList, path: '/ai/meeting-notes', color: 'text-yellow-400', category: 'Productivity' },
++  { name: 'Lead Scoring', description: 'Predict conversion probability with explainable AI-driven scoring factors', icon: Target, path: '/ai/lead-scoring', color: 'text-orange-400', category: 'Analytics' },
+   { name: 'Sentiment Analysis', description: 'Analyze feedback and comments for sentiment trends, keywords, and alerts', icon: BarChart3, path: '/ai/sentiment', color: 'text-rose-400', category: 'Analytics' },
+ ];
+ 
+@@ -25,33 +29,52 @@ export default function AIHubPage() {
+   const { data: configs } = trpc.aiConfigManager.getAll.useQuery();
+ 
+   const getServiceStats = (serviceName: string) => {
+-    const config = configs?.find((c: { serviceName: string }) => c.serviceName === serviceName.toLowerCase().replace(/\s+/g, ''));
++    const key = serviceName.toLowerCase().replace(/\s+/g, '');
++    const config = configs?.find((c: { serviceName: string }) => c.serviceName === key || c.serviceName.includes(key.slice(0, 8)));
+     return config ? { calls: config.totalCalls, tokens: config.totalTokensUsed, enabled: config.isEnabled === 1 } : { calls: 0, tokens: 0, enabled: true };
+   };
+ 
+   return (
+     <div className="min-h-screen bg-background">
++      <SEO
++        title={BRAND.aiHubName}
++        description={`${BRAND.aiHubTagline}. Part of ${BRAND.productName} by ${BRAND.parentName}.`}
++      />
+       <div className="container max-w-7xl mx-auto px-4 py-8">
+         {/* Header */}
+         <div className="mb-10">
+-          <div className="flex items-center gap-3 mb-3">
+-            <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500/20 to-blue-500/20">
+-              <Brain className="h-8 w-8 text-purple-400" />
+-            </div>
+-            <div>
+-              <h1 className="text-3xl font-bold text-foreground">AI Services Hub</h1>
+-              <p className="text-muted-foreground">Intelligent tools powered by advanced language models</p>
++          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-3">
++            <div className="flex items-center gap-3">
++              <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500/20 to-blue-500/20">
++                <Brain className="h-8 w-8 text-purple-400" />
++              </div>
++              <div>
++                <p className="text-xs font-semibold uppercase tracking-wider text-purple-400 mb-0.5">
++                  {BRAND.parentName}
++                </p>
++                <h1 className="text-3xl font-bold text-foreground">{BRAND.aiHubTitle}</h1>
++                <p className="text-muted-foreground">{BRAND.aiHubTagline}</p>
++              </div>
+             </div>
++            <Link href="/ai/chat">
++              <Button className="gap-2 bg-purple-600 hover:bg-purple-700 shrink-0">
++                <MessageSquare className="h-4 w-4" />
++                Start AI Chat
++              </Button>
++            </Link>
+           </div>
+-          <div className="flex items-center gap-4 mt-4">
+-            <Badge variant="outline" className="text-sm px-3 py-1">
+-              {aiServices.length} AI Tools Available
++          <div className="flex flex-wrap items-center gap-3 mt-4">
++            <Badge variant="outline" className="text-sm px-3 py-1 border-purple-500/30 text-purple-300">
++              {aiServices.length} AI Tools
+             </Badge>
+             {configs && (
+               <Badge variant="outline" className="text-sm px-3 py-1">
+                 {configs.reduce((sum: number, c: { totalCalls: number }) => sum + c.totalCalls, 0).toLocaleString()} Total API Calls
+               </Badge>
+             )}
++            <Badge variant="outline" className="text-sm px-3 py-1">
++              Powered by {BRAND.productName}
++            </Badge>
+             {user?.role === 'admin' && (
+               <Link href="/admin/ai-config">
+                 <Button variant="outline" size="sm" className="gap-2">
+@@ -70,7 +93,7 @@ export default function AIHubPage() {
+           return (
+             <div key={category} className="mb-8">
+               <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+-                <span className="w-2 h-2 rounded-full bg-primary" />
++                <span className="w-2 h-2 rounded-full bg-purple-500" />
+                 {category}
+               </h2>
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+@@ -79,7 +102,7 @@ export default function AIHubPage() {
+                   const Icon = service.icon;
+                   return (
+                     <Link key={service.path} href={service.path}>
+-                      <Card className="h-full hover:border-primary/50 transition-colors cursor-pointer group">
++                      <Card className="h-full hover:border-purple-500/40 transition-colors cursor-pointer group">
+                         <CardHeader className="pb-3">
+                           <div className="flex items-start justify-between">
+                             <div className="flex items-center gap-3">
+@@ -111,17 +134,19 @@ export default function AIHubPage() {
+           );
+         })}
+ 
+-        {/* AI Template Generator CTA */}
+-        <div className="mt-8 p-6 rounded-lg border border-dashed border-primary/30 bg-primary/5">
+-          <div className="flex items-center justify-between">
++        {/* Back to playbooks */}
++        <div className="mt-8 p-6 rounded-lg border border-dashed border-border bg-card/30">
++          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+             <div>
+-              <h3 className="text-lg font-semibold text-foreground">AI Template Generator</h3>
+-              <p className="text-sm text-muted-foreground mt-1">Describe the document you need and AI will generate a full template with sections</p>
++              <h3 className="text-lg font-semibold text-foreground">Operational Playbooks</h3>
++              <p className="text-sm text-muted-foreground mt-1">
++                Browse 525+ SOPs, process docs, and workspace playbooks — then use AI tools to write, search, and summarize.
++              </p>
+             </div>
+-            <Link href="/ai/templates">
+-              <Button className="gap-2">
+-                <Sparkles className="h-4 w-4" />
+-                Generate Template
++            <Link href="/">
++              <Button variant="outline" className="gap-2 shrink-0">
++                Back to {BRAND.productName}
++                <ArrowRight className="h-4 w-4" />
+               </Button>
+             </Link>
+           </div>
+diff --git a/client/src/pages/AdminCommandCenterPage.tsx b/client/src/pages/AdminCommandCenterPage.tsx
+index 500178d..1a82999 100644
+--- a/client/src/pages/AdminCommandCenterPage.tsx
++++ b/client/src/pages/AdminCommandCenterPage.tsx
+@@ -9,6 +9,7 @@ import {
+   Command, Search, Users, FileText, Brain, Shield, Settings, BarChart3,
+   Zap, Globe, Bell, Key, Workflow, Database, Activity, ArrowRight, Sparkles
+ } from 'lucide-react';
++import { BRAND } from '@/lib/brand';
+ 
+ interface QuickAction {
+   id: string;
+@@ -21,7 +22,7 @@ interface QuickAction {
+ }
+ 
+ const quickActions: QuickAction[] = [
+-  { id: 'ai-hub', label: 'AI Services Hub', description: 'Access all AI-powered tools', icon: Brain, path: '/ai', category: 'ai' },
++  { id: 'ai-hub', label: BRAND.aiHubTitle, description: 'Access all AI-powered tools', icon: Brain, path: '/ai', category: 'ai' },
+   { id: 'ai-chat', label: 'AI Chat Assistant', description: 'Ask the AI anything', icon: Sparkles, path: '/ai/chat', category: 'ai', shortcut: '⌘K' },
+   { id: 'ai-summarize', label: 'Summarize Document', description: 'Quick AI summary', icon: FileText, path: '/ai/summarize', category: 'ai' },
+   { id: 'ai-writer', label: 'AI Writer', description: 'Generate or rewrite content', icon: Zap, path: '/ai/writer', category: 'ai' },
+diff --git a/client/src/pages/AdminEditor.tsx b/client/src/pages/AdminEditor.tsx
+index f330191..dc0d9b2 100644
+--- a/client/src/pages/AdminEditor.tsx
++++ b/client/src/pages/AdminEditor.tsx
+@@ -10,6 +10,9 @@ import { Badge } from '@/components/ui/badge';
+ import {
+   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription
+ } from '@/components/ui/dialog';
++import {
++  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
++} from '@/components/ui/select';
+ import {
+   Plus, Pencil, Trash2, Search, FileText, ArrowLeft, Save, X, AlertTriangle, Loader2,
+   Pin, PinOff, CheckSquare, Square, Tag, ArrowUpDown, Download
+@@ -19,6 +22,8 @@ import { toast } from 'sonner';
+ 
+ type DocStatus = 'draft' | 'review' | 'published';
+ 
++const CATEGORY_CUSTOM = '__custom__';
++
+ const statusColors: Record<DocStatus, string> = {
+   draft: 'bg-gray-500/20 text-gray-400',
+   review: 'bg-amber-500/20 text-amber-400',
+@@ -43,6 +48,7 @@ export default function AdminEditor() {
+   const [batchAction, setBatchAction] = useState<'none' | 'status' | 'tag' | 'delete'>('none');
+   const [batchStatus, setBatchStatus] = useState<DocStatus>('published');
+   const [batchTag, setBatchTag] = useState('');
++  const [useCustomCategory, setUseCustomCategory] = useState(false);
+ 
+   const { data: categoriesData } = trpc.documents.categories.useQuery();
+   const { data: customCatsData } = trpc.customCategories.list.useQuery();
+@@ -98,6 +104,8 @@ export default function AdminEditor() {
+     try {
+       const doc = await utils.documents.getBySlug.fetch({ slug });
+       if (doc) {
++        const categoryNames = categories.map(c => c.category);
++        setUseCustomCategory(Boolean(doc.category && !categoryNames.includes(doc.category)));
+         setEditingDoc({
+           slug,
+           title: doc.title,
+@@ -212,7 +220,7 @@ export default function AdminEditor() {
+               <p className="text-xs text-muted-foreground hidden sm:block">Admin Panel — Create, edit, manage, and batch-operate documents</p>
+             </div>
+           </div>
+-          <Button onClick={() => setEditingDoc({ title: '', category: '', content: '', status: 'published' })} size="sm">
++          <Button onClick={() => { setUseCustomCategory(false); setEditingDoc({ title: '', category: '', content: '', status: 'published' }); }} size="sm">
+             <Plus className="w-4 h-4 mr-1" /> New Document
+           </Button>
+         </div>
+@@ -349,7 +357,7 @@ export default function AdminEditor() {
+       </div>
+ 
+       {/* Edit/Create Dialog */}
+-      <Dialog open={!!editingDoc} onOpenChange={open => !open && setEditingDoc(null)}>
++      <Dialog open={!!editingDoc} onOpenChange={open => { if (!open) { setEditingDoc(null); setUseCustomCategory(false); } }}>
+         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+           <DialogHeader>
+             <DialogTitle>{editingDoc?.slug ? 'Edit Document' : 'Create New Document'}</DialogTitle>
+@@ -370,15 +378,48 @@ export default function AdminEditor() {
+                 </div>
+                 <div>
+                   <label className="text-xs font-medium text-muted-foreground mb-1 block">Category</label>
+-                  <Input
+-                    value={editingDoc.category}
+-                    onChange={e => setEditingDoc({ ...editingDoc, category: e.target.value })}
+-                    placeholder="e.g., Engineering, Sales..."
+-                    list="category-suggestions"
+-                  />
+-                  <datalist id="category-suggestions">
+-                    {categories.map(c => <option key={c.category} value={c.category} />)}
+-                  </datalist>
++                  {!useCustomCategory ? (
++                    <Select
++                      value={editingDoc.category || undefined}
++                      onValueChange={(val) => {
++                        if (val === CATEGORY_CUSTOM) {
++                          setUseCustomCategory(true);
++                          setEditingDoc({ ...editingDoc, category: '' });
++                        } else {
++                          setEditingDoc({ ...editingDoc, category: val });
++                        }
++                      }}
++                    >
++                      <SelectTrigger className="w-full">
++                        <SelectValue placeholder="Select category..." />
++                      </SelectTrigger>
++                      <SelectContent>
++                        {categories.map(c => (
++                          <SelectItem key={c.category} value={c.category}>
++                            {c.category}
++                          </SelectItem>
++                        ))}
++                        <SelectItem value={CATEGORY_CUSTOM}>Custom category...</SelectItem>
++                      </SelectContent>
++                    </Select>
++                  ) : (
++                    <div className="flex gap-2">
++                      <Input
++                        value={editingDoc.category}
++                        onChange={e => setEditingDoc({ ...editingDoc, category: e.target.value })}
++                        placeholder="Enter custom category..."
++                        className="flex-1"
++                      />
++                      <Button
++                        type="button"
++                        variant="outline"
++                        size="sm"
++                        onClick={() => setUseCustomCategory(false)}
++                      >
++                        List
++                      </Button>
++                    </div>
++                  )}
+                 </div>
+               </div>
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+diff --git a/client/src/pages/Home.tsx b/client/src/pages/Home.tsx
+index ce23455..84b3904 100644
+--- a/client/src/pages/Home.tsx
++++ b/client/src/pages/Home.tsx
+@@ -21,6 +21,8 @@ import ReadingStreak from '@/components/ReadingStreak';
+ import SmartSuggestions from '@/components/SmartSuggestions';
+ import PinnedDocuments from '@/components/PinnedDocuments';
+ import StickyHeader from '@/components/StickyHeader';
++import AIHubPromo from '@/components/AIHubPromo';
++import { BRAND } from '@/lib/brand';
+ import { generatePersonaContent, exportToPDF } from '@/lib/exportPdf';
+ 
+ export default function Home() {
+@@ -28,7 +30,7 @@ export default function Home() {
+   const [showSearch, setShowSearch] = useState(false);
+ 
+   useEffect(() => {
+-    document.title = 'ARG Builder — AI-Powered Operational Intelligence Platform';
++    document.title = BRAND.seoTitle;
+     
+     // Meta description
+     let metaDesc = document.querySelector('meta[name="description"]') as HTMLMetaElement;
+@@ -37,7 +39,7 @@ export default function Home() {
+       metaDesc.name = 'description';
+       document.head.appendChild(metaDesc);
+     }
+-    metaDesc.content = 'ARG Builder helps mid-market companies automate operational processes with AI-powered reference guides, knowledge management, and workflow intelligence across all verticals.';
++    metaDesc.content = BRAND.seoDescription;
+ 
+     // Meta keywords
+     let metaKeywords = document.querySelector('meta[name="keywords"]') as HTMLMetaElement;
+@@ -46,16 +48,16 @@ export default function Home() {
+       metaKeywords.name = 'keywords';
+       document.head.appendChild(metaKeywords);
+     }
+-    metaKeywords.content = 'AI operational intelligence, knowledge management platform, mid-market SaaS, operational reference guide, workflow automation, AI-powered operations, business process management, ARG Builder';
++    metaKeywords.content = `NexusAI, operational intelligence, knowledge management, multi-brand playbooks, AI writing assistant, semantic search, ${BRAND.productName}`;
+ 
+     // Open Graph meta tags
+     const ogImageUrl = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663609289051/2ZSCuHTjdaVo7h4vqS7dZB/og-image-argbuilder-ZutmaYZHU87mr4cVDB2dma.png';
+     const ogTags: Record<string, string> = {
+       'og:type': 'website',
+       'og:url': window.location.origin,
+-      'og:title': 'ARG Builder — AI-Powered Operational Intelligence Platform',
+-      'og:description': 'ARG Builder helps mid-market companies automate operational processes with AI-powered reference guides, knowledge management, and workflow intelligence across all verticals.',
+-      'og:site_name': 'ARG Builder',
++      'og:title': BRAND.seoTitle,
++      'og:description': BRAND.seoDescription,
++      'og:site_name': BRAND.parentName,
+       'og:image': ogImageUrl,
+       'og:image:width': '2560',
+       'og:image:height': '1440',
+@@ -73,8 +75,8 @@ export default function Home() {
+     // Twitter Card meta tags
+     const twitterTags: Record<string, string> = {
+       'twitter:card': 'summary_large_image',
+-      'twitter:title': 'ARG Builder — AI-Powered Operational Intelligence Platform',
+-      'twitter:description': 'AI-powered operational intelligence for mid-market companies. Automate knowledge management, workflows, and team processes across all verticals.',
++      'twitter:title': BRAND.seoTitle,
++      'twitter:description': BRAND.seoDescription,
+       'twitter:image': ogImageUrl,
+     };
+     Object.entries(twitterTags).forEach(([name, content]) => {
+@@ -97,20 +99,20 @@ export default function Home() {
+     canonical.href = window.location.origin;
+ 
+     // JSON-LD Structured Data (SoftwareApplication schema)
+-    let jsonLd = document.querySelector('script[data-schema="arg-builder"]') as HTMLScriptElement;
++    let jsonLd = document.querySelector('script[data-schema="nexusai-playbooks"]') as HTMLScriptElement;
+     if (!jsonLd) {
+       jsonLd = document.createElement('script');
+       jsonLd.type = 'application/ld+json';
+-      jsonLd.setAttribute('data-schema', 'arg-builder');
++      jsonLd.setAttribute('data-schema', 'nexusai-playbooks');
+       document.head.appendChild(jsonLd);
+     }
+     jsonLd.textContent = JSON.stringify({
+       '@context': 'https://schema.org',
+       '@type': 'SoftwareApplication',
+-      'name': 'ARG Builder',
++      'name': BRAND.productName,
+       'applicationCategory': 'BusinessApplication',
+       'operatingSystem': 'Web',
+-      'description': 'AI-powered operational intelligence platform for mid-market companies. Automate knowledge management, workflows, and team processes across all verticals.',
++      'description': BRAND.seoDescription,
+       'url': window.location.origin,
+       'offers': [
+         {
+@@ -132,8 +134,8 @@ export default function Home() {
+       ],
+       'publisher': {
+         '@type': 'Organization',
+-        'name': 'ARG Builder',
+-        'url': 'https://www.argbuilder.io'
++        'name': BRAND.parentName,
++        'url': BRAND.marketingUrl
+       },
+       'featureList': [
+         'AI-Powered Knowledge Management',
+@@ -147,7 +149,7 @@ export default function Home() {
+ 
+     // Cleanup on unmount
+     return () => {
+-      const schemaScript = document.querySelector('script[data-schema="arg-builder"]');
++      const schemaScript = document.querySelector('script[data-schema="nexusai-playbooks"]');
+       if (schemaScript) schemaScript.remove();
+     };
+   }, []);
+@@ -257,8 +259,8 @@ export default function Home() {
+         {/* Top toolbar */}
+         <div className="flex items-center justify-between mb-12 gap-4 flex-wrap">
+           <div>
+-            <h2 className="font-display text-3xl mb-1 text-foreground">AI-Powered Operational Reference Guide</h2>
+-            <p className="text-muted-foreground text-sm">Operational processes & best practices</p>
++            <h2 className="font-display text-3xl mb-1 text-foreground">{BRAND.productName}</h2>
++            <p className="text-muted-foreground text-sm">{BRAND.tagline}</p>
+           </div>
+           <div className="flex items-center gap-2">
+             <button
+@@ -284,16 +286,18 @@ export default function Home() {
+           </Card>
+         )}
+ 
++        <AIHubPromo />
++
+         {/* Hero Section */}
+         <div className="mb-10 sm:mb-16 text-center py-8 sm:py-12">
+           <div className="inline-block mb-4 sm:mb-6 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-accent/10 border border-accent/20">
+-            <p className="text-xs sm:text-sm font-semibold text-accent">Dual Persona System</p>
++            <p className="text-xs sm:text-sm font-semibold text-accent">Multi-Brand Workspaces</p>
+           </div>
+           <h1 className="font-display text-3xl sm:text-5xl md:text-7xl mb-4 sm:mb-6 text-foreground leading-tight">
+-            ARG Builder
++            {BRAND.parentName}
+           </h1>
+           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed px-2">
+-            A comprehensive interactive guide for managing operational processes across Riad & Routes and your creative design studio. Seamlessly switch between personas and explore detailed process frameworks.
++            {BRAND.description}
+           </p>
+           <div className="max-w-lg mx-auto" data-tour="search">
+             <SearchAutocomplete placeholder="Quick search 525+ documents..." className="text-left" />
+diff --git a/client/src/pages/LandingPage.tsx b/client/src/pages/LandingPage.tsx
+index feaede3..9060509 100644
+--- a/client/src/pages/LandingPage.tsx
++++ b/client/src/pages/LandingPage.tsx
+@@ -3,19 +3,22 @@ import { useAuth } from '@/_core/hooks/useAuth';
+ import { Link } from 'wouter';
+ import {
+   Search, Layers, History, FolderOpen, Download, Bookmark,
+-  CheckCircle2, ArrowRight,
++  CheckCircle2, ArrowRight, Brain, Pen, MessageSquare, Sparkles, X, Minus,
+ } from 'lucide-react';
+ import { Button } from '@/components/ui/button';
+ import { toast } from 'sonner';
+ import { totalDocuments, categoryCounts } from '@/lib/documentCatalog';
++import { BRAND } from '@/lib/brand';
++import SEO from '@/components/SEO';
+ 
+ const FUNCTION_COUNT = Object.keys(categoryCounts).length;
++const AI_TOOL_COUNT = 11;
+ 
+ function LogoMark({ size = 'md' }: { size?: 'sm' | 'md' }) {
+   const cls = size === 'sm' ? 'w-7 h-7 text-[10px]' : 'w-8 h-8 text-[11px]';
+   return (
+-    <div className={`${cls} rounded-lg bg-teal-500 text-black font-bold flex items-center justify-center tracking-tight shrink-0`}>
+-      ARG
++    <div className={`${cls} rounded-lg bg-gradient-to-br from-teal-500 to-purple-600 text-white font-bold flex items-center justify-center tracking-tight shrink-0`}>
++      NX
+     </div>
+   );
+ }
+@@ -23,37 +26,66 @@ function LogoMark({ size = 'md' }: { size?: 'sm' | 'md' }) {
+ const STATS = [
+   { n: String(totalDocuments), label: 'structured operating documents, each one decision-ready' },
+   { n: String(FUNCTION_COUNT), label: 'business functions covered, from pricing to security compliance' },
+-  { n: '0', label: 'documents you have to write before your company has an operating manual' },
++  { n: String(AI_TOOL_COUNT), label: 'AI tools built in — writing, search, chat, summarizer, and more' },
+ ];
+ 
+ const AUDIENCES = [
+   { title: 'Solo founders', desc: 'Run with the structure of a 50-person company. Reference, decide, execute.' },
+   { title: 'Small teams (2–20)', desc: 'One shared source of truth. Onboard people into documented process, not tribal memory.' },
+-  { title: 'Fractional COOs, consultants & agencies', desc: 'Deliver structured operational documentation to clients without writing it from zero.' },
++  { title: 'Fractional COOs, consultants & agencies', desc: 'Manage playbooks for multiple brands in one workspace — with AI to write, search, and summarize.' },
+ ];
+ 
+ const FEATURES = [
+   { icon: Search, title: 'Full-text search', desc: `Find the exact framework in seconds, across all ${totalDocuments} documents.` },
+   { icon: Layers, title: 'Structured categories', desc: `${FUNCTION_COUNT} functions, consistently organized. No orphan docs, no duplicates.` },
+-  { icon: History, title: 'Versioning & freshness', desc: 'Documents carry version history and review status. You know what’s current.' },
++  { icon: History, title: 'Versioning & freshness', desc: "Documents carry version history and review status. You know what's current." },
+   { icon: FolderOpen, title: 'Collections & reading paths', desc: 'Sequence documents into onboarding tracks, launch checklists, or client deliverables.' },
+   { icon: Download, title: 'Export', desc: 'PDF, DOCX, and zip export. Your reference travels with you.' },
+   { icon: Bookmark, title: 'Annotations & bookmarks', desc: 'Mark what applies to your company. The reference adapts to you.' },
+ ];
+ 
++const AI_TOOLS = [
++  { icon: Pen, title: 'Writing Assistant', desc: 'Draft, rewrite, and expand SOPs in your voice.' },
++  { icon: Search, title: 'Semantic Search', desc: 'Ask in plain English — find the right playbook instantly.' },
++  { icon: MessageSquare, title: 'AI Chat', desc: 'Doc-aware assistant for operational questions.' },
++  { icon: Sparkles, title: 'Summarizer & more', desc: 'Executive summaries, auto-tagging, workflows, meeting notes.' },
++];
++
++const COMPARISON = [
++  { feature: 'Pre-written operating library', us: `${totalDocuments} docs ready`, notion: 'Start blank', templates: 'Static files' },
++  { feature: 'Built-in AI tools', us: `${AI_TOOL_COUNT} tools at /ai`, notion: 'Add-on AI', templates: 'None' },
++  { feature: 'Multi-brand workspaces', us: 'Native', notion: 'Workspaces only', templates: 'N/A' },
++  { feature: 'Structured architecture', us: 'COO-grade taxonomy', notion: 'You design it', templates: 'Inconsistent' },
++  { feature: 'Search & versioning', us: 'Full platform', notion: 'Yes', templates: 'Manual' },
++  { feature: 'Time to deploy', us: 'Minutes', notion: 'Weeks–months', templates: 'Hours (setup)' },
++];
++
+ const STEPS = [
+   { title: 'Join', desc: 'One plan, full library access. No onboarding calls, no configuration.' },
+   { title: 'Search or browse', desc: 'Start from your most urgent function: pricing, hiring, launch, compliance.' },
+-  { title: 'Apply', desc: 'Every document ends in templates and decision tables. Take the structure, fill in your company.' },
++  { title: 'Apply with AI', desc: 'Use NexusAI Intelligence to summarize, rewrite, and query your playbooks as you work.' },
+ ];
+ 
+ const FAQS = [
+-  { q: 'Is this just a template pack?', a: 'No. Templates are dead files. This is a maintained platform: versioned documents, consistent architecture, search, collections, and updates as the library grows. The difference is the same as between a map PDF and a navigation system.' },
+-  { q: 'Who writes the documents?', a: 'The library is built and maintained by the founder with AI-assisted research and drafting, structured under a single editorial architecture. Every document carries its preparation credit and review status.' },
+-  { q: 'What if a document I need is missing?', a: 'Founding Members request documents directly. The library grows where its members operate.' },
+-  { q: 'Can I use these for client work?', a: 'Yes — consultants and fractional operators use the reference to structure client deliverables. White-label arrangements: ask.' },
++  { q: 'Is this just a template pack?', a: 'No. Templates are dead files. NexusAI Playbooks is a maintained platform: versioned documents, consistent architecture, search, collections, 11 AI tools, and updates as the library grows.' },
++  { q: 'What AI features are included?', a: `All members get access to ${BRAND.aiHubTitle}: writing assistant, semantic search, AI chat, document summarizer, auto-tagging, workflow builder, and more — at ${BRAND.aiHubPath}.` },
++  { q: 'Who writes the documents?', a: 'The library is built and maintained with AI-assisted research and drafting, structured under a single editorial architecture. Every document carries its preparation credit and review status.' },
++  { q: 'Can I use these for client work?', a: 'Yes — consultants and agencies use Playbooks to structure client deliverables across multiple brand workspaces. White-label arrangements: ask.' },
+ ];
+ 
++function CompareCell({ value, highlight }: { value: string; highlight?: boolean }) {
++  if (value === 'Yes' || value === 'Native' || value.startsWith(String(totalDocuments)) || value.includes('tools')) {
++    return <span className="text-teal-400 font-medium">{value}</span>;
++  }
++  if (value === 'None' || value === 'Start blank' || value === 'N/A') {
++    return <span className="text-gray-500 flex items-center justify-center gap-1"><X className="w-3.5 h-3.5" />{value}</span>;
++  }
++  if (value === 'Add-on AI' || value === 'Manual' || value === 'Inconsistent') {
++    return <span className="text-gray-500 flex items-center justify-center gap-1"><Minus className="w-3.5 h-3.5" />{value}</span>;
++  }
++  return <span className={highlight ? 'text-teal-400 font-medium' : 'text-gray-400'}>{value}</span>;
++}
++
+ export default function LandingPage() {
+   const { user } = useAuth({ redirectOnUnauthenticated: false });
+   const { data: stripeConfig } = trpc.stripe.isConfigured.useQuery();
+@@ -75,7 +107,7 @@ export default function LandingPage() {
+       return;
+     }
+     if (!stripeConfig?.configured) {
+-      toast.error('Payments are not enabled yet. Email hello@argbuilder.io and we will set you up directly.');
++      toast.error(`Payments are not enabled yet. Email ${BRAND.supportEmail} and we will set you up directly.`);
+       return;
+     }
+     createCheckout.mutate({ tierId: 'membership', billingPeriod });
+@@ -85,21 +117,31 @@ export default function LandingPage() {
+ 
+   return (
+     <div className="min-h-screen bg-[#0B1120] text-white overflow-x-hidden">
++      <SEO {...{ title: 'Product', description: `${BRAND.description} ${totalDocuments}+ documents, ${AI_TOOL_COUNT} AI tools, ${FUNCTION_COUNT} business functions.` }} />
++
+       {/* Navigation */}
+       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0B1120]/80 backdrop-blur-xl border-b border-white/5">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+           <div className="flex items-center gap-3">
+             <LogoMark />
+-            <span className="text-xl font-bold tracking-tight">ARG-Builder</span>
++            <span className="text-xl font-bold tracking-tight">{BRAND.parentName}</span>
++            <span className="hidden sm:inline text-xs text-gray-500 font-normal">Playbooks</span>
+           </div>
+           <div className="hidden md:flex items-center gap-8 text-sm text-gray-400">
+             <a href="#why" className="hover:text-white transition-colors">Why</a>
+             <a href="#library" className="hover:text-white transition-colors">Library</a>
++            <a href="#intelligence" className="hover:text-purple-300 transition-colors text-purple-400/90">Intelligence</a>
+             <a href="#platform" className="hover:text-white transition-colors">Platform</a>
++            <a href="#compare" className="hover:text-white transition-colors">Compare</a>
+             <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
+             <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
+           </div>
+           <div className="flex items-center gap-3">
++            <Link href="/ai">
++              <Button size="sm" variant="outline" className="hidden sm:flex border-purple-500/30 text-purple-300 hover:bg-purple-500/10 gap-1.5">
++                <Brain className="w-4 h-4" /> Intelligence
++              </Button>
++            </Link>
+             {user ? (
+               <Link href="/">
+                 <Button size="sm" className="bg-teal-500 hover:bg-teal-400 text-black font-semibold">
+@@ -119,22 +161,26 @@ export default function LandingPage() {
+ 
+       {/* Hero */}
+       <section className="pt-32 pb-20 px-4 relative">
+-        <div className="absolute inset-0 bg-gradient-to-b from-teal-500/5 via-transparent to-transparent" />
++        <div className="absolute inset-0 bg-gradient-to-b from-teal-500/5 via-purple-500/5 to-transparent" />
+         <div className="max-w-7xl mx-auto relative text-center">
+-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/20 mb-8">
++          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/20 mb-4">
+             <span className="w-2 h-2 rounded-full bg-teal-400" />
+-            <span className="text-sm font-medium text-teal-300">The complete operating reference for small companies</span>
++            <span className="text-sm font-medium text-teal-300">{BRAND.productName}</span>
++          </div>
++          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-8 ml-0 sm:ml-2">
++            <Brain className="w-3.5 h-3.5 text-purple-400" />
++            <span className="text-sm font-medium text-purple-300">{AI_TOOL_COUNT} AI tools included</span>
+           </div>
+           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 tracking-tight">
+             Every playbook your company needs.<br />
+-            <span className="bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">
+-              Already written. Already structured.
++            <span className="bg-gradient-to-r from-teal-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
++              Already written. AI-powered.
+             </span>
+           </h1>
+           <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
+-            ARG-Builder is an operating reference platform: {totalDocuments} structured documents covering
+-            all {FUNCTION_COUNT} functions of a running company — sales, marketing, engineering, finance,
+-            customer success, security, and more. Searchable, versioned, and organized the way a COO would build it.
++            {BRAND.productName} is an operating reference platform: {totalDocuments} structured documents covering
++            all {FUNCTION_COUNT} functions of a running company — plus {BRAND.aiHubTitle} for writing, semantic search,
++            and doc-aware chat. Searchable, versioned, and organized the way a COO would build it.
+           </p>
+           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+             <a href="#pricing">
+@@ -142,30 +188,28 @@ export default function LandingPage() {
+                 Become a Founding Member <ArrowRight className="w-5 h-5 ml-2" />
+               </Button>
+             </a>
+-            <a href="#library">
+-              <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/5 px-8 py-6 text-lg">
+-                Browse the Library
++            <Link href="/ai">
++              <Button size="lg" variant="outline" className="border-purple-500/40 text-purple-200 hover:bg-purple-500/10 px-8 py-6 text-lg gap-2">
++                <Brain className="w-5 h-5" /> Explore AI Hub
+               </Button>
+-            </a>
++            </Link>
+           </div>
+-          <p className="mt-5 text-sm text-gray-600 font-mono">{totalDocuments} documents · {FUNCTION_COUNT} functions · one decision</p>
++          <p className="mt-5 text-sm text-gray-600 font-mono">{totalDocuments} documents · {FUNCTION_COUNT} functions · {AI_TOOL_COUNT} AI tools</p>
+           <div className="relative mt-16 mx-auto max-w-5xl">
+-            <div className="absolute -inset-4 bg-gradient-to-r from-teal-500/20 via-cyan-500/10 to-teal-500/20 rounded-2xl blur-3xl" />
++            <div className="absolute -inset-4 bg-gradient-to-r from-teal-500/20 via-purple-500/10 to-teal-500/20 rounded-2xl blur-3xl" />
+             <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-[#0E1628] p-6 sm:p-8 text-left">
+-              {/* Mock search bar */}
+               <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-white/[0.04] border border-white/10 mb-6">
+                 <Search className="w-4 h-4 text-teal-400 shrink-0" />
+                 <span className="text-sm text-gray-500">Search {totalDocuments} documents — pricing, hiring, incident response…</span>
+               </div>
+-              {/* Mock document cards */}
+               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                 {[
+                   { cat: 'Revenue & Pricing', title: 'Pricing Strategy & Financial Models', meta: 'Frameworks · Decision tables · Templates' },
+                   { cat: 'Strategy & Operations', title: 'Annual Planning & OKR System', meta: 'Cadence · Metrics · Review templates' },
+-                  { cat: 'Engineering', title: 'Incident Response Playbook', meta: 'Severity levels · Escalation · Postmortems' },
++                  { cat: 'AI Intelligence', title: 'Writing Assistant + Semantic Search', meta: 'Draft SOPs · Natural language query · Chat' },
+                 ].map((d) => (
+                   <div key={d.title} className="p-5 rounded-lg bg-white/[0.03] border border-white/5">
+-                    <span className="inline-block text-[11px] text-teal-400 font-medium px-2 py-0.5 rounded-full bg-teal-500/10 border border-teal-500/20 mb-3">{d.cat}</span>
++                    <span className={`inline-block text-[11px] font-medium px-2 py-0.5 rounded-full mb-3 ${d.cat === 'AI Intelligence' ? 'text-purple-400 bg-purple-500/10 border border-purple-500/20' : 'text-teal-400 bg-teal-500/10 border border-teal-500/20'}`}>{d.cat}</span>
+                     <p className="text-sm font-semibold text-white leading-snug mb-2">{d.title}</p>
+                     <p className="text-xs text-gray-500">{d.meta}</p>
+                   </div>
+@@ -187,11 +231,10 @@ export default function LandingPage() {
+             <span className="text-teal-400">Nobody has time to write one.</span>
+           </h2>
+           <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+-            Solo founders and small teams run on memory and improvisation. The knowledge exists — in courses
+-            you bought, threads you bookmarked, advice you half-remember — but none of it is structured,
+-            current, or findable at the moment of decision. Consultants charge five figures to document what
+-            you need. Template packs give you forty Word files and silence. ARG-Builder is the third option:
+-            a complete, interconnected operating reference, maintained as software.
++            Solo founders and small teams run on memory and improvisation. Consultants charge five figures to document what
++            you need. Template packs give you forty Word files and silence. Notion gives you blank pages.
++            {BRAND.productName} is the third option: a complete operating reference with {AI_TOOL_COUNT} AI tools built in —
++            maintained as software, not a folder of files.
+           </p>
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+             {STATS.map((s) => (
+@@ -204,12 +247,43 @@ export default function LandingPage() {
+         </div>
+       </section>
+ 
++      {/* Intelligence */}
++      <section id="intelligence" className="py-24 px-4 relative">
++        <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent pointer-events-none" />
++        <div className="max-w-6xl mx-auto text-center relative">
++          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-medium mb-6">
++            <Brain className="w-3.5 h-3.5" /> {BRAND.aiHubName}
++          </div>
++          <h2 className="text-3xl sm:text-4xl font-bold mb-4">{BRAND.aiHubTitle}</h2>
++          <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
++            {BRAND.aiHubTagline}. Not a bolt-on — {AI_TOOL_COUNT} AI tools wired into your playbooks from day one.
++          </p>
++          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
++            {AI_TOOLS.map((t) => (
++              <div key={t.title} className="p-6 rounded-xl bg-white/[0.03] border border-purple-500/20 hover:border-purple-500/40 transition-colors text-left">
++                <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4">
++                  <t.icon className="w-5 h-5 text-purple-400" />
++                </div>
++                <h3 className="font-semibold mb-2">{t.title}</h3>
++                <p className="text-sm text-gray-400">{t.desc}</p>
++              </div>
++            ))}
++          </div>
++          <Link href="/ai">
++            <Button size="lg" className="bg-purple-600 hover:bg-purple-500 text-white font-semibold gap-2">
++              <Brain className="w-5 h-5" /> Open {BRAND.aiHubTitle}
++              <ArrowRight className="w-5 h-5" />
++            </Button>
++          </Link>
++        </div>
++      </section>
++
+       {/* Audience */}
+       <section className="py-24 px-4">
+         <div className="max-w-6xl mx-auto text-center">
+           <h2 className="text-3xl sm:text-4xl font-bold mb-4">Built for operators, not enterprises</h2>
+           <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+-            ARG-Builder isn't a wiki you have to fill or an enterprise tool you have to configure. It deploys
++            {BRAND.productName} isn't a wiki you have to fill or an enterprise tool you have to configure. It deploys
+             complete. Each document follows the same architecture — frameworks, decision tables, templates,
+             metrics. Learn the structure once, navigate everything.
+           </p>
+@@ -261,8 +335,40 @@ export default function LandingPage() {
+         </div>
+       </section>
+ 
++      {/* Compare */}
++      <section id="compare" className="py-24 px-4 bg-gradient-to-b from-transparent to-white/[0.02]">
++        <div className="max-w-5xl mx-auto">
++          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">How {BRAND.parentName} compares</h2>
++          <p className="text-lg text-gray-400 text-center mb-12 max-w-2xl mx-auto">
++            Pre-built library + AI intelligence + platform — not blank pages or dead template files.
++          </p>
++          <div className="overflow-x-auto rounded-xl border border-white/10">
++            <table className="w-full text-sm">
++              <thead>
++                <tr className="border-b border-white/10 bg-white/[0.02]">
++                  <th className="text-left p-4 font-semibold text-gray-400">Feature</th>
++                  <th className="p-4 font-semibold text-teal-400">{BRAND.productName}</th>
++                  <th className="p-4 font-semibold text-gray-400">Notion</th>
++                  <th className="p-4 font-semibold text-gray-400">Template packs</th>
++                </tr>
++              </thead>
++              <tbody>
++                {COMPARISON.map((row) => (
++                  <tr key={row.feature} className="border-b border-white/5 hover:bg-white/[0.02]">
++                    <td className="p-4 text-gray-300 font-medium">{row.feature}</td>
++                    <td className="p-4 text-center"><CompareCell value={row.us} highlight /></td>
++                    <td className="p-4 text-center"><CompareCell value={row.notion} /></td>
++                    <td className="p-4 text-center"><CompareCell value={row.templates} /></td>
++                  </tr>
++                ))}
++              </tbody>
++            </table>
++          </div>
++        </div>
++      </section>
++
+       {/* How it works */}
+-      <section className="py-24 px-4 bg-gradient-to-b from-transparent to-white/[0.02]">
++      <section className="py-24 px-4">
+         <div className="max-w-6xl mx-auto text-center">
+           <h2 className="text-3xl sm:text-4xl font-bold mb-12">Working in minutes, not months</h2>
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+@@ -280,17 +386,16 @@ export default function LandingPage() {
+       </section>
+ 
+       {/* Pricing */}
+-      <section id="pricing" className="py-24 px-4">
++      <section id="pricing" className="py-24 px-4 bg-gradient-to-b from-transparent to-white/[0.02]">
+         <div className="max-w-4xl mx-auto text-center">
+           <h2 className="text-3xl sm:text-4xl font-bold mb-3">One plan. Everything.</h2>
+-          <p className="text-lg text-gray-400 mb-14">No tiers, no per-seat math, no "Contact us."</p>
++          <p className="text-lg text-gray-400 mb-14">Library + platform + {AI_TOOL_COUNT} AI tools. No tiers, no per-seat math.</p>
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+-            {/* Monthly */}
+             <div className="p-8 rounded-2xl bg-white/[0.03] border border-white/10 text-left flex flex-col">
+               <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Membership</h3>
+               <div className="text-5xl font-bold my-4">$39<span className="text-base text-gray-400 font-medium">/month</span></div>
+               <ul className="space-y-3 mb-8 flex-1">
+-                {[`Full access to all ${totalDocuments} documents`, 'Search, collections, annotations', 'PDF, DOCX & zip export', 'Every update as the library grows', 'Cancel anytime'].map((f) => (
++                {[`Full access to all ${totalDocuments} documents`, `${BRAND.aiHubTitle} (${AI_TOOL_COUNT} tools)`, 'Search, collections, annotations', 'PDF, DOCX & zip export', 'Every update as the library grows', 'Cancel anytime'].map((f) => (
+                   <li key={f} className="flex items-start gap-2.5 text-sm text-gray-400">
+                     <CheckCircle2 className="w-4 h-4 text-teal-400 mt-0.5 shrink-0" />{f}
+                   </li>
+@@ -305,14 +410,13 @@ export default function LandingPage() {
+                 {createCheckout.isPending ? 'Processing...' : 'Start now'}
+               </Button>
+             </div>
+-            {/* Founding annual */}
+             <div className="relative p-8 rounded-2xl bg-gradient-to-b from-teal-500/10 to-white/[0.02] border border-teal-500/30 text-left flex flex-col">
+               <span className="absolute -top-3 left-7 px-3.5 py-1 rounded-full bg-teal-500 text-black text-xs font-bold">Founding Member</span>
+               <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mt-1">Annual</h3>
+               <div className="text-5xl font-bold mt-4 mb-1">$290<span className="text-base text-gray-400 font-medium">/year</span></div>
+               <p className="text-teal-400 text-sm font-semibold mb-4">Save 38% — price locked permanently</p>
+               <ul className="space-y-3 mb-8 flex-1">
+-                {['Everything in Membership', 'Price locked at $290 — forever', 'Direct line to the founder', 'Your requests shape what gets documented next'].map((f) => (
++                {['Everything in Membership', 'All AI tools included', 'Price locked at $290 — forever', 'Direct line to the founder', 'Your requests shape what gets documented next'].map((f) => (
+                   <li key={f} className="flex items-start gap-2.5 text-sm text-gray-400">
+                     <CheckCircle2 className="w-4 h-4 text-teal-400 mt-0.5 shrink-0" />{f}
+                   </li>
+@@ -333,7 +437,7 @@ export default function LandingPage() {
+       </section>
+ 
+       {/* FAQ */}
+-      <section id="faq" className="py-24 px-4 bg-gradient-to-b from-transparent to-white/[0.02]">
++      <section id="faq" className="py-24 px-4">
+         <div className="max-w-3xl mx-auto">
+           <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">Fair questions</h2>
+           <div className="space-y-4">
+@@ -353,21 +457,28 @@ export default function LandingPage() {
+       <section className="py-28 px-4 relative">
+         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(45,212,191,0.08),transparent_70%)]" />
+         <div className="max-w-3xl mx-auto text-center relative">
+-          <h2 className="text-3xl sm:text-5xl font-bold mb-5">Your company, documented.</h2>
++          <h2 className="text-3xl sm:text-5xl font-bold mb-5">Your company, documented — with AI built in.</h2>
+           <p className="text-lg text-gray-400 mb-10">
+-            The companies that scale cleanly are the ones that run on structure instead of memory.
+-            The structure is built. Deploy it.
++            The companies that scale cleanly run on structure instead of memory.
++            {BRAND.productName} gives you the structure and the intelligence to use it.
+           </p>
+-          <Button
+-            size="lg"
+-            className="bg-teal-500 hover:bg-teal-400 text-black font-semibold px-8 py-6 text-lg"
+-            onClick={() => subscribe('annual')}
+-            disabled={createCheckout.isPending}
+-          >
+-            {createCheckout.isPending ? 'Processing...' : 'Become a Founding Member — $290/year'}
+-            {!createCheckout.isPending && <ArrowRight className="w-5 h-5 ml-2" />}
+-          </Button>
+-          <p className="mt-6 text-sm text-gray-600 font-mono">{totalDocuments} documents. {FUNCTION_COUNT} functions. One decision.</p>
++          <div className="flex flex-col sm:flex-row gap-4 justify-center">
++            <Button
++              size="lg"
++              className="bg-teal-500 hover:bg-teal-400 text-black font-semibold px-8 py-6 text-lg"
++              onClick={() => subscribe('annual')}
++              disabled={createCheckout.isPending}
++            >
++              {createCheckout.isPending ? 'Processing...' : 'Become a Founding Member — $290/year'}
++              {!createCheckout.isPending && <ArrowRight className="w-5 h-5 ml-2" />}
++            </Button>
++            <Link href="/ai">
++              <Button size="lg" variant="outline" className="border-purple-500/40 text-purple-200 hover:bg-purple-500/10 px-8 py-6 text-lg">
++                Try AI Hub free inside app
++              </Button>
++            </Link>
++          </div>
++          <p className="mt-6 text-sm text-gray-600 font-mono">{totalDocuments} documents · {FUNCTION_COUNT} functions · {AI_TOOL_COUNT} AI tools</p>
+         </div>
+       </section>
+ 
+@@ -376,12 +487,16 @@ export default function LandingPage() {
+         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+           <div className="flex items-center gap-3">
+             <LogoMark size="sm" />
+-            <span className="text-sm text-gray-500">ARG-Builder — the operating reference for companies that run on structure.</span>
++            <span className="text-sm text-gray-500">
++              {BRAND.productName} — {BRAND.tagline.toLowerCase()}.
++            </span>
+           </div>
+           <div className="flex items-center gap-6 text-xs text-gray-600">
+-            <span>&copy; {new Date().getFullYear()} ARG-Builder</span>
++            <span>&copy; {new Date().getFullYear()} {BRAND.parentName}</span>
++            <span>·</span>
++            <span>{BRAND.domain}</span>
+             <span>·</span>
+-            <span>hello@argbuilder.io</span>
++            <span>{BRAND.supportEmail}</span>
+           </div>
+         </div>
+       </footer>
+diff --git a/client/src/pages/LoginPage.tsx b/client/src/pages/LoginPage.tsx
+index 3407b9b..810a3d1 100644
+--- a/client/src/pages/LoginPage.tsx
++++ b/client/src/pages/LoginPage.tsx
+@@ -1,4 +1,5 @@
+ import { useState } from 'react';
++import { BRAND } from '@/lib/brand';
+ 
+ export default function LoginPage() {
+   const [email, setEmail] = useState("");
+@@ -200,7 +201,7 @@ export default function LoginPage() {
+                   required
+                   value={resetEmail}
+                   onChange={e => setResetEmail(e.target.value)}
+-                  placeholder="admin@argbuilder.io"
++                  placeholder={BRAND.adminEmail}
+                   className="w-full px-4 py-2.5 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
+                 />
+               </div>
+@@ -243,7 +244,7 @@ export default function LoginPage() {
+           )}
+ 
+           <p className="text-center text-xs text-muted-foreground mt-8">
+-            ARG Builder · Operational Reference System
++            {BRAND.productName} · Operational Reference System
+           </p>
+         </div>
+       </div>
+@@ -256,7 +257,7 @@ export default function LoginPage() {
+         {/* Logo / title */}
+         <div className="text-center mb-10">
+           <h1 className="text-3xl font-bold text-foreground tracking-tight mb-1">
+-            ARG Builder
++            {BRAND.productName}
+           </h1>
+           <p className="text-muted-foreground text-sm">Sign in to your workspace</p>
+         </div>
+@@ -271,7 +272,7 @@ export default function LoginPage() {
+               required
+               value={email}
+               onChange={e => setEmail(e.target.value)}
+-              placeholder="admin@argbuilder.io"
++              placeholder={BRAND.adminEmail}
+               className="w-full px-4 py-2.5 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
+             />
+           </div>
+@@ -325,7 +326,7 @@ export default function LoginPage() {
+         </form>
+ 
+         <p className="text-center text-xs text-muted-foreground mt-8">
+-          ARG Builder · Operational Reference System
++            {BRAND.productName} · {BRAND.tagline}
+         </p>
+       </div>
+     </div>
+diff --git a/package.json b/package.json
+index 5ec05a1..cbaabf4 100644
+--- a/package.json
++++ b/package.json
+@@ -1,5 +1,5 @@
+ {
+-  "name": "agent-reference-guide",
++  "name": "@nexusai/playbooks",
+   "version": "1.0.0",
+   "type": "module",
+   "license": "MIT",
+diff --git a/server/_core/env.ts b/server/_core/env.ts
+index eb972b3..e000f03 100644
+--- a/server/_core/env.ts
++++ b/server/_core/env.ts
+@@ -1,10 +1,12 @@
++import { BRAND } from "../brand";
++
+ export const ENV = {
+   cookieSecret: process.env.JWT_SECRET ?? "dev-secret-change-in-production",
+   databaseUrl: process.env.DATABASE_URL ?? "",
+   isProduction: process.env.NODE_ENV === "production",
+ 
+   // Admin credentials
+-  adminEmail: process.env.ADMIN_EMAIL ?? "admin@argbuilder.io",
++  adminEmail: process.env.ADMIN_EMAIL ?? BRAND.adminEmail,
+   adminPassword: process.env.ADMIN_PASSWORD ?? "changeme",
+ 
+   // Owner openId — fixed to "admin" for standalone deployment
+@@ -39,4 +41,8 @@ export const ENV = {
+   // ── Stripe (optional) ────────────────────────────────────────────────────
+   stripeSecretKey: process.env.STRIPE_SECRET_KEY ?? "",
+   stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET ?? "",
++
++  // ── Manus platform APIs (optional — legacy hosting integration) ─────────
++  forgeApiUrl: process.env.BUILT_IN_FORGE_API_URL ?? "",
++  forgeApiKey: process.env.BUILT_IN_FORGE_API_KEY ?? "",
+ };
+diff --git a/server/brand.ts b/server/brand.ts
+new file mode 100644
+index 0000000..dee6b0c
+--- /dev/null
++++ b/server/brand.ts
+@@ -0,0 +1 @@
++export { BRAND, TERMINOLOGY, brandTitle } from "../shared/brand";
+diff --git a/server/totp.ts b/server/totp.ts
+index 6fde0bd..27861d7 100644
+--- a/server/totp.ts
++++ b/server/totp.ts
+@@ -15,11 +15,13 @@ export function getTotpSecret(): string | null {
+   return totpSecret;
+ }
+ 
++import { BRAND } from './brand';
++
+ export function generateTotpSecretAndUri(): { secret: string; otpauthUrl: string } {
+   const secret = generateSecret();
+   const otpauthUrl = generateURI({
+-    issuer: 'ARG Builder',
+-    label: 'admin@argbuilder.io',
++    issuer: BRAND.productName,
++    label: BRAND.adminEmail,
+     secret,
+     algorithm: 'sha1',
+     digits: 6,
+diff --git a/server/webhookNotifications.ts b/server/webhookNotifications.ts
+index ca7f017..664d6a1 100644
+--- a/server/webhookNotifications.ts
++++ b/server/webhookNotifications.ts
+@@ -70,8 +70,8 @@ export async function notifyConversionEvent(payload: EventPayload): Promise<bool
+       title: template.title,
+       content: template.formatContent(payload),
+     });
+-    console.log(`[Webhook] Notification sent for ${payload.event}: ${result}`);
+-    return result;
++    console.log(`[Webhook] Notification sent for ${payload.event}: ${result.sent}`);
++    return result.sent;
+   } catch (error) {
+     console.error(`[Webhook] Failed to send notification for ${payload.event}:`, error);
+     return false;
+diff --git a/shared/brand.ts b/shared/brand.ts
+new file mode 100644
+index 0000000..4047e18
+--- /dev/null
++++ b/shared/brand.ts
+@@ -0,0 +1,56 @@
++/**
++ * NexusAI Playbooks — centralized brand configuration.
++ * Replaces scattered "ARG Builder" references across the app.
++ */
++export const BRAND = {
++  /** Primary product name under NexusAI suite */
++  productName: "NexusAI Playbooks",
++  /** Parent company / suite name */
++  parentName: "NexusAI",
++  /** Short tagline shown in header/footer */
++  tagline: "Operational Intelligence for Multi-Brand Teams",
++  /** Legacy name — used during transition period only */
++  legacyName: "ARG Builder",
++  /** Marketing description */
++  description:
++    "Manage operational playbooks for every brand you operate — with AI-powered search, multi-brand workspaces, and battle-tested SOP templates.",
++  /** Domains */
++  domain: "nexusai.ma",
++  appUrl: "https://app.nexusai.ma",
++  marketingUrl: "https://nexusai.ma",
++  templatesUrl: "https://templates.nexusai.ma",
++  /** Legacy domain (redirect during transition) */
++  legacyDomain: "argbuilder.io",
++  legacyAppUrl: "https://argbuilder.io",
++  /** Support / admin defaults */
++  adminEmail: "admin@nexusai.ma",
++  supportEmail: "hello@nexusai.ma",
++  /** AI Hub branding */
++  aiHubName: "NexusAI Intelligence",
++  aiHubTitle: "NexusAI Intelligence Hub",
++  aiHubTagline: "10 AI tools for writing, search, automation, and operational intelligence",
++  aiHubPath: "/ai",
++  /** SEO defaults */
++  seoTitle: "NexusAI Playbooks | AI-Powered Operational Intelligence",
++  seoDescription:
++    "Multi-brand operational documentation platform with AI search, playbooks, process timelines, and team collaboration.",
++} as const;
++
++/** Workspace terminology (replaces "Persona") */
++export const TERMINOLOGY = {
++  workspace: "Workspace",
++  workspaces: "Workspaces",
++  /** @deprecated Use workspace */
++  persona: "Workspace",
++  /** @deprecated Use workspaces */
++  personas: "Workspaces",
++} as const;
++
++export function brandTitle(pageTitle?: string): string {
++  return pageTitle ? `${pageTitle} | ${BRAND.productName}` : BRAND.seoTitle;
++}
++
++/** Replace legacy product name in copy */
++export function brandCopy(text: string): string {
++  return text.replace(/ARG Builder/g, BRAND.productName);
++}
+-- 
+2.43.0
+
