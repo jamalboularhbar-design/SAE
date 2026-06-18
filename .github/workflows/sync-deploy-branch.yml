@@ -1,0 +1,27 @@
+name: Sync deploy/production branch
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/playbooks/**"
+      - "scripts/sync-deploy-branch.sh"
+      - ".github/workflows/sync-deploy-branch.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build deploy branch
+        run: bash scripts/sync-deploy-branch.sh
+
+      - name: Push deploy/production
+        run: git push -f origin deploy/production
