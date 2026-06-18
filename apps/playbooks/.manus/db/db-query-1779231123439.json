@@ -1,0 +1,9 @@
+{
+  "query": "ALTER TABLE leads ADD COLUMN utmSource VARCHAR(255) DEFAULT NULL, ADD COLUMN utmMedium VARCHAR(255) DEFAULT NULL, ADD COLUMN utmCampaign VARCHAR(255) DEFAULT NULL, ADD COLUMN utmContent VARCHAR(255) DEFAULT NULL, ADD COLUMN referrer VARCHAR(500) DEFAULT NULL;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3AU4feyxZpdZ8pZ.root --database 2ZSCuHTjdaVo7h4vqS7dZB --execute ALTER TABLE leads ADD COLUMN utmSource VARCHAR(255) DEFAULT NULL, ADD COLUMN utmMedium VARCHAR(255) DEFAULT NULL, ADD COLUMN utmCampaign VARCHAR(255) DEFAULT NULL, ADD COLUMN utmContent VARCHAR(255) DEFAULT NULL, ADD COLUMN referrer VARCHAR(500) DEFAULT NULL;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 888
+}

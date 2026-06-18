@@ -6,7 +6,7 @@
 
 | Product | Codename | Status | Description |
 |---------|----------|--------|-------------|
-| **NexusAI Playbooks** | ARG Builder | Beta | Multi-brand operational reference guides for agencies and service businesses |
+| **NexusAI Playbooks** | agent-reference-guide | ✅ Imported | Multi-brand operational reference guides — [apps/playbooks](./apps/playbooks/) |
 | **NexusAI Templates** | — | Planned | Curated operational playbook templates (Notion, Markdown, hosted) |
 | **NexusAI Ops Core** | — | Planned | Open-source self-hosted documentation engine |
 
@@ -15,7 +15,7 @@
 ```
 sae/
 ├── apps/
-│   └── playbooks/          # ARG Builder → NexusAI Playbooks (import from GitHub)
+│   └── playbooks/          # NexusAI Playbooks (imported from agent-reference-guide)
 ├── packages/
 │   ├── core/               # Shared types, auth, multi-tenancy
 │   ├── ai/                 # AI writing, search, Q&A
@@ -32,17 +32,17 @@ sae/
 - [Brand Positioning](./docs/product/positioning.md)
 - [Pricing Model](./docs/product/pricing.md)
 - [90-Day Roadmap](./docs/roadmap/90-day-plan.md)
+- [Codebase Audit](./docs/product/codebase-audit.md)
 - [Three-Path Flywheel](./docs/product/flywheel.md)
 
 ## Getting Started
 
-> **Next step:** Import the ARG Builder codebase into `apps/playbooks/` once GitHub access is granted.
-
 ```bash
-git clone https://github.com/jamalboularhbar-design/sae.git
-cd sae
-# After playbooks repo is linked:
-# cd apps/playbooks && npm install && npm run dev
+git clone https://github.com/jamalboularhbar-design/SAE.git
+cd SAE/apps/playbooks
+cp .env.example .env.local
+pnpm install
+pnpm dev
 ```
 
 ## License
