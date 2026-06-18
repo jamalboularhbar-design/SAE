@@ -1,0 +1,42 @@
+name: CI — NexusAI Playbooks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/playbooks/**"
+      - "Dockerfile"
+      - "railway.toml"
+      - ".github/workflows/ci-playbooks.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "apps/playbooks/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/playbooks
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: apps/playbooks/pnpm-lock.yaml
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm check
+
+      - name: Build
+        run: pnpm build

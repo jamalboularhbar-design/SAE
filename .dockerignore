@@ -1,0 +1,9 @@
+node_modules
+dist
+.git
+**/.manus
+.env
+.env.local
+*.log
+agent-reference-guide
+SAE
