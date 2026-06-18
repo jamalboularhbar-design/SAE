@@ -10,11 +10,19 @@ set -euo pipefail
 
 SAE_PLAYBOOKS="${SAE_PLAYBOOKS:-$(cd "$(dirname "$0")/../apps/playbooks" && pwd)}"
 PROD_REPO="${PROD_REPO:-agent-reference-guide}"
-PROD_DIR="${PROD_DIR:-/tmp/${PROD_REPO}-sync}"
+# Default: clone beside SAE repo (workspace/agent-reference-guide)
+PROD_DIR="${PROD_DIR:-$(cd "$(dirname "$0")/.." && pwd)/${PROD_REPO}}"
+DEPLOY_CONFIRM="${DEPLOY_CONFIRM:-}"
 
-echo ">>> Cloning ${PROD_REPO}..."
-rm -rf "$PROD_DIR"
-git clone "https://github.com/jamalboularhbar-design/${PROD_REPO}.git" "$PROD_DIR"
+echo ">>> Cloning ${PROD_REPO} to ${PROD_DIR}..."
+if [[ -d "$PROD_DIR/.git" ]]; then
+  echo "    (repo exists — pulling latest main)"
+  git -C "$PROD_DIR" fetch origin main
+  git -C "$PROD_DIR" checkout main
+  git -C "$PROD_DIR" pull origin main
+else
+  git clone "https://github.com/jamalboularhbar-design/${PROD_REPO}.git" "$PROD_DIR"
+fi
 
 echo ">>> Syncing from ${SAE_PLAYBOOKS}..."
 cd "$SAE_PLAYBOOKS"
