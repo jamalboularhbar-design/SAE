@@ -11,7 +11,7 @@ The live argbuilder.io deployment exposes a subset of features. The **full codeb
 | Authentication | ❌ Missing | ✅ JWT login + TOTP 2FA |
 | Stripe billing | ❌ Missing | ✅ 3-tier subscriptions + webhooks |
 | Multi-tenancy | ❌ Missing | ✅ Workspaces (Batch 22) |
-| AI features | ❌ Not visible | ✅ 10 AI services with LLM |
+| AI features | ❌ Not visible in browser test | ✅ **Full AI Hub at `/ai`** — 10 tools (writer, semantic search, chat, summarizer, auto-tag, workflows, etc.) |
 | SSO/SAML | ❌ Missing | ✅ Admin SSO config page |
 | Collaboration | ❌ Missing | ✅ Comments, annotations, activity feed |
 | Export formats | ❌ CSV only | ✅ Markdown, DOCX, PDF |
@@ -39,10 +39,11 @@ The gap is no longer engineering — it's **positioning, rebranding, and go-to-m
 - Onboarding flow polish
 - Product Hunt / agency community launch
 
-### Weeks 7–8: AI Differentiation
-- Surface existing AI tools more prominently
-- "Ask your operations" Q&A using existing chat service
-- NexusAI branding on AI hub
+### Weeks 7–8: NexusAI AI Hub (surface, don't rebuild)
+- Rebrand `/ai` → **NexusAI Intelligence Hub** (already has writer, semantic search, chat, summarizer, etc.)
+- Add prominent AI Hub link in header + onboarding tour
+- Update marketing/landing to lead with existing AI capabilities
+- Meter usage by plan tier (infrastructure likely exists via `aiConfigManager`)
 
 ### Weeks 9–12: Open Source + Scale
 - Extract core engine to `open-source/nexusai-ops-core`

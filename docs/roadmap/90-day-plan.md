@@ -7,7 +7,7 @@
 | **0. Foundation** | 1–2 | Import code, rebrand, fix bugs | Dev environment + NexusAI branding |
 | **1. Templates** | 3–4 | Package & sell template bundles | Gumroad live, first revenue |
 | **2. SaaS Core** | 5–8 | Auth, multi-tenancy, billing | Private beta with 5 agencies |
-| **3. AI + Polish** | 9–10 | AI features, onboarding, UX | Public beta launch |
+| **3. AI + Polish** | 9–10 | Rebrand AI Hub, onboarding, UX | Public beta launch |
 | **4. Open Source** | 11–12 | Extract core, Docker, launch | GitHub + Product Hunt |
 
 ---
@@ -104,13 +104,15 @@
 
 ## Phase 3: AI + Polish (Weeks 9–10)
 
-### Week 9: NexusAI Intelligence Layer
+### Week 9: NexusAI Intelligence Hub (already built at `/ai`)
 
-- [ ] AI writing assist in document editor (OpenAI/Anthropic API)
-- [ ] Semantic search upgrade (embeddings + vector search)
-- [ ] Process Q&A chatbot ("Ask about your operations")
-- [ ] AI request metering per plan tier
-- [ ] "Generate SOP from description" feature
+> **Do not rebuild.** The AI Hub already includes writing assist, semantic search, chat, summarizer, auto-tag, meeting notes, workflow builder, sentiment analysis, lead scoring, and template generator.
+
+- [ ] Rebrand AIHubPage → **NexusAI Intelligence Hub**
+- [ ] Add `/ai` link to main header navigation (currently buried in command palette)
+- [ ] Update landing page hero to showcase existing AI tools
+- [ ] Connect plan-tier AI request limits to existing `aiConfigManager` metering
+- [ ] Rename routes optionally: `/ai` → `/intelligence` (or keep `/ai` with NexusAI branding)
 
 ### Week 10: UX Polish & Public Beta
 
@@ -123,7 +125,7 @@
 - [ ] Public beta launch on Product Hunt / Hacker News
 - [ ] `app.nexusai.io` production deployment
 
-**Exit criteria:** Public beta live, 20+ signups in first week, AI features functional.
+**Exit criteria:** Public beta live, 20+ signups in first week, AI Hub prominently surfaced in nav and onboarding.
 
 ---
 
