@@ -30,29 +30,35 @@ Railway dashboard → **pretty-nourishment** → **ARG-Builder** → **Settings*
 
 ---
 
-### Step 2 — Push deploy fix
+### Step 2 — Point Railway at SAE (recommended)
 
-#### Option A — ARG-Builder (current Railway default)
+SAE is public. Use the **`deploy/production`** branch — it mirrors `apps/playbooks/` at repo root with Dockerfile + NexusAI rebrand. Auto-syncs on every push to `main`.
 
-On **your machine** (not the cloud agent — it cannot push to ARG-Builder):
+1. Railway → **ARG-Builder** → **Settings** → **Source**
+2. Set **Repository** = `jamalboularhbar-design/SAE`
+3. Set **Branch** = `deploy/production`
+4. Set **Root Directory** = `/` (empty)
+5. **Save** → **Redeploy**
+
+Verify branch: https://github.com/jamalboularhbar-design/SAE/tree/deploy/production
+
+#### Alternative — SAE `main` with subdirectory
+
+| Repository | Branch | Root Directory |
+|------------|--------|----------------|
+| `SAE` | `main` | `apps/playbooks` |
+
+Root `main` also has a monorepo `Dockerfile` at SAE root if Root Directory is `/`.
+
+#### Legacy — ARG-Builder repo
+
+Only if Railway still watches `ARG-Builder`:
 
 ```bash
 git clone https://github.com/jamalboularhbar-design/SAE.git
 cd SAE
 DEPLOY_CONFIRM=y ./scripts/sync-to-production-repo.sh
 ```
-
-This copies `apps/playbooks/` (with `Dockerfile` + `railway.toml`) into ARG-Builder and pushes to `main`.
-
-Verify GitHub: https://github.com/jamalboularhbar-design/ARG-Builder/commits/main  
-Latest commit should mention **NexusAI rebrand** or **Dockerfile deploy fix**.
-
-#### Option B — SAE monorepo (no ARG-Builder push needed)
-
-1. Pull latest SAE `main` (includes `apps/playbooks/Dockerfile` and `railway.toml`)
-2. Railway → Settings → Source → change repo to **`jamalboularhbar-design/SAE`**
-3. Set **Root Directory** = `apps/playbooks`
-4. Save → **Redeploy**
 
 ---
 
