@@ -1,74 +1,75 @@
 # Railway Deployment — NexusAI Playbooks
 
-## What triggers deploy
+## Production repo (IMPORTANT)
 
-Railway watches **`jamalboularhbar-design/agent-reference-guide`** (`main` branch).
+Railway service **ARG-Builder** deploys from:
 
-The NexusAI rebrand lives in **SAE** at `apps/playbooks/`. Sync to production repo before deploy.
+**`https://github.com/jamalboularhbar-design/ARG-Builder`** — branch `main`
 
-## Option A — One-command sync (recommended)
+| Repo | Railway? | Notes |
+|------|----------|-------|
+| **`ARG-Builder`** | ✅ **YES** | Production — argbuilder.io |
+| `agent-reference-guide` | ❌ No | Older mirror; pushes here do nothing |
+| `SAE` (root) | ❌ **Breaks build** | No `package.json` at root → Railpack fails |
 
-From your machine (with push access to `agent-reference-guide`):
+---
+
+## Why deploy failed (Railpack error)
+
+If you see:
+
+```
+Railpack could not determine how to build the app
+Detected: Cpp, Staticfile, Shell
+Script start.sh not found
+```
+
+**Cause:** Railway built the **wrong directory** — usually `SAE` repo root (docs + `apps/` folder) instead of the Node app.
+
+**Fix:** Deploy from **`ARG-Builder`** OR set Railway **Root Directory** = `apps/playbooks` if using SAE.
+
+---
+
+## Deploy (correct repo)
 
 ```bash
 git clone https://github.com/jamalboularhbar-design/SAE.git
 cd SAE
-chmod +x scripts/sync-to-production-repo.sh
-./scripts/sync-to-production-repo.sh
+DEPLOY_CONFIRM=y ./scripts/sync-to-production-repo.sh
 ```
 
-This clones `agent-reference-guide`, copies `apps/playbooks/`, runs `pnpm check && pnpm build`, commits, and pushes to `main`.
+This syncs `apps/playbooks/` → `ARG-Builder` and pushes to `main`.
 
-## Option B — Manual sync
+---
 
-```bash
-git clone https://github.com/jamalboularhbar-design/agent-reference-guide.git
-cd agent-reference-guide
-
-# Copy from your SAE checkout
-rsync -a --exclude node_modules --exclude dist --exclude .git --exclude .manus \
-  ../SAE/apps/playbooks/ .
-
-pnpm install && pnpm check && pnpm build
-git add -A
-git commit -m "feat: NexusAI rebrand and Intelligence Hub surfacing"
-git push origin main
-```
-
-## Option C — Point Railway at SAE (future)
-
-In Railway dashboard → Service → Settings:
+## Railway dashboard settings
 
 | Setting | Value |
 |---------|-------|
-| Repository | `jamalboularhbar-design/SAE` |
-| Root directory | `apps/playbooks` |
-| Branch | `main` |
+| **Repository** | `jamalboularhbar-design/ARG-Builder` |
+| **Branch** | `main` |
+| **Root directory** | `/` (leave empty) |
+| **Builder** | Dockerfile (via `railway.toml`) |
 
-Build/start commands are in `apps/playbooks/railway.toml`.
+Do **not** connect the SAE monorepo unless Root Directory = `apps/playbooks`.
 
-## Required environment variables
+---
 
-Set in Railway → Variables (copy from `.env.example`):
+## After push
 
-| Variable | Required |
-|----------|----------|
-| `DATABASE_URL` | ✅ (MySQL plugin auto-sets) |
-| `JWT_SECRET` | ✅ |
-| `ADMIN_EMAIL` | ✅ |
-| `ADMIN_PASSWORD` | ✅ |
-| `LLM_API_KEY` | ✅ |
-| `LLM_API_URL` | ✅ |
-| `LLM_MODEL` | ✅ |
-| `S3_*` | ✅ for file uploads |
-| `STRIPE_*` | optional |
+1. Railway → **ARG-Builder** → Deployments → wait for **Success**
+2. Verify:
 
-## Verify after deploy
+```bash
+curl -s https://argbuilder.io/ | grep '<title>'
+# NexusAI Playbooks — AI-Powered Operational Intelligence
+```
 
-1. `https://argbuilder.io/product` — NexusAI branding, Intelligence section, comparison table
-2. `https://argbuilder.io/ai` — NexusAI Intelligence Hub
-3. Header — purple **Intelligence** button on all app pages
+3. Cloudflare: only purge cache if `curl` shows NexusAI but browser doesn't (`cf-cache-status: DYNAMIC` usually means no HTML cache).
 
-## Custom domain (Phase 3)
+---
 
-Railway → Settings → Domains → add `app.nexusai.ma` when DNS is ready.
+## Custom domain
+
+Railway → ARG-Builder → Settings → Networking → `argbuilder.io`  
+Cloudflare → DNS → CNAME to Railway (proxy on is fine)

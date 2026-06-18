@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# Sync NexusAI Playbooks changes from SAE → agent-reference-guide and push.
-# Run locally (requires push access to agent-reference-guide):
+# Sync NexusAI Playbooks changes from SAE → ARG-Builder (Railway production) and push.
+# Run locally (requires push access to ARG-Builder):
 #
-#   ./scripts/sync-to-production-repo.sh
+#   DEPLOY_CONFIRM=y ./scripts/sync-to-production-repo.sh
 #
-# Railway auto-deploys on push to agent-reference-guide main.
+# Railway service: jamalboularhbar-design/ARG-Builder (NOT agent-reference-guide, NOT SAE root)
 
 set -euo pipefail
 
 SAE_PLAYBOOKS="${SAE_PLAYBOOKS:-$(cd "$(dirname "$0")/../apps/playbooks" && pwd)}"
-PROD_REPO="${PROD_REPO:-agent-reference-guide}"
+PROD_REPO="${PROD_REPO:-ARG-Builder}"
 # Default: clone beside SAE repo (workspace/agent-reference-guide)
 PROD_DIR="${PROD_DIR:-$(cd "$(dirname "$0")/.." && pwd)/${PROD_REPO}}"
 DEPLOY_CONFIRM="${DEPLOY_CONFIRM:-}"
@@ -43,7 +43,11 @@ pnpm install
 pnpm check
 pnpm build
 
-read -r -p "Commit and push to main? [y/N] " confirm
+if [[ "${DEPLOY_CONFIRM,,}" == "y" ]]; then
+  confirm="y"
+else
+  read -r -p "Commit and push to main? [y/N] " confirm
+fi
 if [[ "${confirm,,}" != "y" ]]; then
   echo "Aborted. Changes remain in ${PROD_DIR}"
   exit 0
