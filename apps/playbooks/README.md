@@ -35,7 +35,7 @@ This codebase is **far more complete** than a typical MVP:
 - [x] Category dropdown bug fixed (AdminEditor)
 - [ ] Remaining ARG Builder references (~40 client files, server emails)
 - [ ] Generic demo workspaces (replace Riad & Routes / ArtKech)
-- [ ] nexusai.io domain configuration
+- [ ] nexusai.ma domain configuration
 
 ## Setup
 

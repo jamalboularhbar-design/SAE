@@ -8,6 +8,7 @@ import {
   BookOpen, Layout, Activity, Bell, Key, Terminal, Clock, Download,
   PenTool, FolderOpen, Star, TrendingUp
 } from 'lucide-react';
+import { BRAND } from '@/lib/brand';
 
 interface CommandEntry {
   id: string;
@@ -36,7 +37,7 @@ export default function GlobalCommandPalette() {
     { id: 'team', title: 'Team Workspace', description: 'Collaboration and tasks', icon: <Users className="w-4 h-4" />, action: () => go('/team'), category: 'Navigation', keywords: ['collaborate', 'tasks'] },
 
     // AI Tools
-    { id: 'ai-hub', title: 'AI Services Hub', description: 'All AI tools in one place', icon: <Brain className="w-4 h-4" />, action: () => go('/ai'), category: 'AI Tools', keywords: ['artificial intelligence', 'ml'] },
+    { id: 'ai-hub', title: BRAND.aiHubTitle, description: 'All AI tools in one place', icon: <Brain className="w-4 h-4" />, action: () => go('/ai'), category: 'AI Tools', keywords: ['artificial intelligence', 'ml', 'intelligence'] },
     { id: 'ai-chat', title: 'AI Chat Assistant', description: 'Conversational AI helper', icon: <MessageSquare className="w-4 h-4" />, action: () => go('/ai/chat'), category: 'AI Tools', keywords: ['chatbot', 'ask'] },
     { id: 'ai-summarize', title: 'AI Summarizer', description: 'Summarize documents with AI', icon: <Sparkles className="w-4 h-4" />, action: () => go('/ai/summarize'), category: 'AI Tools', keywords: ['tldr', 'summary'] },
     { id: 'ai-writer', title: 'AI Writer', description: 'Draft, rewrite, expand content', icon: <PenTool className="w-4 h-4" />, action: () => go('/ai/writer'), category: 'AI Tools', keywords: ['write', 'generate', 'draft'] },

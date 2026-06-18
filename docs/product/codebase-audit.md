@@ -55,7 +55,7 @@ The gap is no longer engineering — it's **positioning, rebranding, and go-to-m
 1. **Org-level multi-tenancy** — Workspaces exist but need org isolation for true SaaS
 2. **Full rebrand sweep** — ~40 client files + server email templates still say "ARG Builder"
 3. **Demo content sanitization** — Remove hardcoded Riad & Routes / ArtKech from default seed
-4. **nexusai.io domain** — DNS + deployment configuration
+4. **nexusai.ma domain** — DNS + deployment configuration (domain acquisition in progress)
 5. **Template export pipeline** — Automated Notion/Markdown bundle generation
 
 ## Metrics (from PROJECT-SUMMARY.md)

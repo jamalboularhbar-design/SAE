@@ -1,4 +1,4 @@
-import { Sparkles, List, BookOpen, FileText, Tag, Columns, Book, Target, Code, Bookmark, Sun, Moon, Clock, Library, Bell, Network, Trophy, Settings, FileDown, User, Package } from 'lucide-react';
+import { Sparkles, List, BookOpen, FileText, Tag, Columns, Book, Target, Code, Bookmark, Sun, Moon, Clock, Library, Bell, Network, Trophy, Settings, FileDown, User, Brain } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLocation } from 'wouter';
@@ -43,6 +43,15 @@ export default function Header() {
           </div>
         </div>
         <nav className="flex items-center gap-1 sm:gap-2" aria-label="Main navigation">
+          <button
+            onClick={() => navigate('/ai')}
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-500/30 text-purple-300 hover:from-purple-500/30 hover:to-blue-500/30 transition-colors shrink-0"
+            title={BRAND.aiHubTitle}
+            aria-label={BRAND.aiHubTitle}
+          >
+            <Brain className="w-4 h-4" aria-hidden="true" />
+            <span className="text-xs sm:text-sm font-medium hidden xs:inline sm:inline">Intelligence</span>
+          </button>
           <button
             onClick={() => navigate('/toc')}
             className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card/80 border border-border/50 transition-colors active:bg-card/60"
@@ -170,10 +179,6 @@ export default function Header() {
               {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
           )}
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/5 border border-accent/20 ml-1" aria-hidden="true">
-            <div className="w-2 h-2 rounded-full bg-accent/60 animate-pulse" />
-            <span className="text-xs font-medium text-muted-foreground">Manus & Claude Compatible</span>
-          </div>
         </nav>
       </div>
     </header>

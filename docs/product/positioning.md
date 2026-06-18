@@ -33,9 +33,9 @@ NexusAI (parent brand)
 | Document Editor | Playbook Manager |
 
 **Domain strategy:**
-- `nexusai.io/playbooks` — product landing page
-- `app.nexusai.io` — SaaS application
-- `templates.nexusai.io` — marketplace
+- `nexusai.ma` — parent brand + marketing (primary; acquisition in progress)
+- `app.nexusai.ma` — SaaS application
+- `templates.nexusai.ma` — marketplace
 - Keep `argbuilder.io` as redirect during transition (6 months)
 
 ## Positioning by Audience
@@ -98,10 +98,10 @@ NexusAI (parent brand)
 3. *"Document once. Operate everywhere."*
 4. *"Where operational knowledge lives"*
 
-## Website Structure (nexusai.io)
+## Website Structure (nexusai.ma)
 
 ```
-nexusai.io/
+nexusai.ma/
 ├── /                    → NexusAI parent (suite overview)
 ├── /playbooks           → SaaS product page (pricing, demo, signup)
 ├── /templates           → Marketplace (bundles, previews, buy)

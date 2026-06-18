@@ -21,6 +21,8 @@ import ReadingStreak from '@/components/ReadingStreak';
 import SmartSuggestions from '@/components/SmartSuggestions';
 import PinnedDocuments from '@/components/PinnedDocuments';
 import StickyHeader from '@/components/StickyHeader';
+import AIHubPromo from '@/components/AIHubPromo';
+import { BRAND } from '@/lib/brand';
 import { generatePersonaContent, exportToPDF } from '@/lib/exportPdf';
 
 export default function Home() {
@@ -28,7 +30,7 @@ export default function Home() {
   const [showSearch, setShowSearch] = useState(false);
 
   useEffect(() => {
-    document.title = 'ARG Builder — AI-Powered Operational Intelligence Platform';
+    document.title = BRAND.seoTitle;
     
     // Meta description
     let metaDesc = document.querySelector('meta[name="description"]') as HTMLMetaElement;
@@ -37,7 +39,7 @@ export default function Home() {
       metaDesc.name = 'description';
       document.head.appendChild(metaDesc);
     }
-    metaDesc.content = 'ARG Builder helps mid-market companies automate operational processes with AI-powered reference guides, knowledge management, and workflow intelligence across all verticals.';
+    metaDesc.content = BRAND.seoDescription;
 
     // Meta keywords
     let metaKeywords = document.querySelector('meta[name="keywords"]') as HTMLMetaElement;
@@ -46,16 +48,16 @@ export default function Home() {
       metaKeywords.name = 'keywords';
       document.head.appendChild(metaKeywords);
     }
-    metaKeywords.content = 'AI operational intelligence, knowledge management platform, mid-market SaaS, operational reference guide, workflow automation, AI-powered operations, business process management, ARG Builder';
+    metaKeywords.content = `NexusAI, operational intelligence, knowledge management, multi-brand playbooks, AI writing assistant, semantic search, ${BRAND.productName}`;
 
     // Open Graph meta tags
     const ogImageUrl = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663609289051/2ZSCuHTjdaVo7h4vqS7dZB/og-image-argbuilder-ZutmaYZHU87mr4cVDB2dma.png';
     const ogTags: Record<string, string> = {
       'og:type': 'website',
       'og:url': window.location.origin,
-      'og:title': 'ARG Builder — AI-Powered Operational Intelligence Platform',
-      'og:description': 'ARG Builder helps mid-market companies automate operational processes with AI-powered reference guides, knowledge management, and workflow intelligence across all verticals.',
-      'og:site_name': 'ARG Builder',
+      'og:title': BRAND.seoTitle,
+      'og:description': BRAND.seoDescription,
+      'og:site_name': BRAND.parentName,
       'og:image': ogImageUrl,
       'og:image:width': '2560',
       'og:image:height': '1440',
@@ -73,8 +75,8 @@ export default function Home() {
     // Twitter Card meta tags
     const twitterTags: Record<string, string> = {
       'twitter:card': 'summary_large_image',
-      'twitter:title': 'ARG Builder — AI-Powered Operational Intelligence Platform',
-      'twitter:description': 'AI-powered operational intelligence for mid-market companies. Automate knowledge management, workflows, and team processes across all verticals.',
+      'twitter:title': BRAND.seoTitle,
+      'twitter:description': BRAND.seoDescription,
       'twitter:image': ogImageUrl,
     };
     Object.entries(twitterTags).forEach(([name, content]) => {
@@ -97,20 +99,20 @@ export default function Home() {
     canonical.href = window.location.origin;
 
     // JSON-LD Structured Data (SoftwareApplication schema)
-    let jsonLd = document.querySelector('script[data-schema="arg-builder"]') as HTMLScriptElement;
+    let jsonLd = document.querySelector('script[data-schema="nexusai-playbooks"]') as HTMLScriptElement;
     if (!jsonLd) {
       jsonLd = document.createElement('script');
       jsonLd.type = 'application/ld+json';
-      jsonLd.setAttribute('data-schema', 'arg-builder');
+      jsonLd.setAttribute('data-schema', 'nexusai-playbooks');
       document.head.appendChild(jsonLd);
     }
     jsonLd.textContent = JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
-      'name': 'ARG Builder',
+      'name': BRAND.productName,
       'applicationCategory': 'BusinessApplication',
       'operatingSystem': 'Web',
-      'description': 'AI-powered operational intelligence platform for mid-market companies. Automate knowledge management, workflows, and team processes across all verticals.',
+      'description': BRAND.seoDescription,
       'url': window.location.origin,
       'offers': [
         {
@@ -132,8 +134,8 @@ export default function Home() {
       ],
       'publisher': {
         '@type': 'Organization',
-        'name': 'ARG Builder',
-        'url': 'https://www.argbuilder.io'
+        'name': BRAND.parentName,
+        'url': BRAND.marketingUrl
       },
       'featureList': [
         'AI-Powered Knowledge Management',
@@ -147,7 +149,7 @@ export default function Home() {
 
     // Cleanup on unmount
     return () => {
-      const schemaScript = document.querySelector('script[data-schema="arg-builder"]');
+      const schemaScript = document.querySelector('script[data-schema="nexusai-playbooks"]');
       if (schemaScript) schemaScript.remove();
     };
   }, []);
@@ -257,8 +259,8 @@ export default function Home() {
         {/* Top toolbar */}
         <div className="flex items-center justify-between mb-12 gap-4 flex-wrap">
           <div>
-            <h2 className="font-display text-3xl mb-1 text-foreground">AI-Powered Operational Reference Guide</h2>
-            <p className="text-muted-foreground text-sm">Operational processes & best practices</p>
+            <h2 className="font-display text-3xl mb-1 text-foreground">{BRAND.productName}</h2>
+            <p className="text-muted-foreground text-sm">{BRAND.tagline}</p>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -284,16 +286,18 @@ export default function Home() {
           </Card>
         )}
 
+        <AIHubPromo />
+
         {/* Hero Section */}
         <div className="mb-10 sm:mb-16 text-center py-8 sm:py-12">
           <div className="inline-block mb-4 sm:mb-6 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-accent/10 border border-accent/20">
-            <p className="text-xs sm:text-sm font-semibold text-accent">Dual Persona System</p>
+            <p className="text-xs sm:text-sm font-semibold text-accent">Multi-Brand Workspaces</p>
           </div>
           <h1 className="font-display text-3xl sm:text-5xl md:text-7xl mb-4 sm:mb-6 text-foreground leading-tight">
-            ARG Builder
+            {BRAND.parentName}
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed px-2">
-            A comprehensive interactive guide for managing operational processes across Riad & Routes and your creative design studio. Seamlessly switch between personas and explore detailed process frameworks.
+            {BRAND.description}
           </p>
           <div className="max-w-lg mx-auto" data-tour="search">
             <SearchAutocomplete placeholder="Quick search 525+ documents..." className="text-left" />

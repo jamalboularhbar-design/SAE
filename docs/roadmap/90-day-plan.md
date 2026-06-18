@@ -33,7 +33,7 @@
   - Demo Workspace A: "Acme Creative Agency"
   - Demo Workspace B: "Beta Client Co."
 - [ ] Sanitize 280 docs into `packages/templates/` (remove business-specific names)
-- [ ] Set up `nexusai.io` landing page stub (or Vercel preview)
+- [ ] Set up `nexusai.ma` landing page (domain acquisition in progress)
 
 **Exit criteria:** App runs locally as "NexusAI Playbooks" with generic demo content.
 
@@ -53,7 +53,7 @@
 ### Week 4: Launch Templates
 
 - [ ] Publish Starter Pack ($49) and Agency Pack ($99)
-- [ ] Create `templates.nexusai.io` landing page
+- [ ] Create `templates.nexusai.ma` landing page
 - [ ] Write launch blog post: "How we documented 280 operational processes"
 - [ ] Set up email capture → Playbooks waitlist
 - [ ] Post in 3 agency communities (Agency Hackers, Indie Hackers, r/agency)
@@ -123,7 +123,7 @@
 - [ ] Loading states and skeleton screens
 - [ ] Mobile responsive audit
 - [ ] Public beta launch on Product Hunt / Hacker News
-- [ ] `app.nexusai.io` production deployment
+- [ ] `app.nexusai.ma` production deployment
 
 **Exit criteria:** Public beta live, 20+ signups in first week, AI Hub prominently surfaced in nav and onboarding.
 
@@ -145,7 +145,7 @@
 - [ ] Publish `nexusai-ops-core` on GitHub (public)
 - [ ] Product Hunt launch (coordinate with SaaS beta buzz)
 - [ ] Post on Hacker News, r/selfhosted, DevOps communities
-- [ ] Hosted tier ($49/mo) live on nexusai.io/ops-core
+- [ ] Hosted tier ($49/mo) live on nexusai.ma/ops-core
 - [ ] CONTRIBUTING.md + Code of Conduct
 - [ ] GitHub issue templates
 
@@ -192,7 +192,7 @@
 ## What I Need From You
 
 1. **GitHub repo URL** for ARG Builder (grant read/write access to `jamalboularhbar-design` org or invite collaborator)
-2. **NexusAI domain** — do you own `nexusai.io`? If not, which domain?
+2. **NexusAI domain** — `nexusai.ma` (acquiring; `nexusai.io` too expensive)
 3. **Stripe account** — existing or create new for NexusAI?
 4. **AI API keys** — OpenAI, Anthropic, or both?
 5. **Brand assets** — logo, colors, or should I design interim branding?

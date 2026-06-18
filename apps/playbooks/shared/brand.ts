@@ -15,11 +15,21 @@ export const BRAND = {
   description:
     "Manage operational playbooks for every brand you operate — with AI-powered search, multi-brand workspaces, and battle-tested SOP templates.",
   /** Domains */
-  domain: "nexusai.io",
-  appUrl: "https://app.nexusai.io",
+  domain: "nexusai.ma",
+  appUrl: "https://app.nexusai.ma",
+  marketingUrl: "https://nexusai.ma",
+  templatesUrl: "https://templates.nexusai.ma",
+  /** Legacy domain (redirect during transition) */
+  legacyDomain: "argbuilder.io",
+  legacyAppUrl: "https://argbuilder.io",
   /** Support / admin defaults */
-  adminEmail: "admin@nexusai.io",
-  supportEmail: "support@nexusai.io",
+  adminEmail: "admin@nexusai.ma",
+  supportEmail: "support@nexusai.ma",
+  /** AI Hub branding */
+  aiHubName: "NexusAI Intelligence",
+  aiHubTitle: "NexusAI Intelligence Hub",
+  aiHubTagline: "10 AI tools for writing, search, automation, and operational intelligence",
+  aiHubPath: "/ai",
   /** SEO defaults */
   seoTitle: "NexusAI Playbooks | AI-Powered Operational Intelligence",
   seoDescription:
@@ -38,4 +48,9 @@ export const TERMINOLOGY = {
 
 export function brandTitle(pageTitle?: string): string {
   return pageTitle ? `${pageTitle} | ${BRAND.productName}` : BRAND.seoTitle;
+}
+
+/** Replace legacy product name in copy */
+export function brandCopy(text: string): string {
+  return text.replace(/ARG Builder/g, BRAND.productName);
 }

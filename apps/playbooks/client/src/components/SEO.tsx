@@ -80,53 +80,58 @@ export default function SEO({
 }
 
 // Pre-configured SEO for common pages
+const pn = BRAND.productName;
 export const PAGE_SEO: Record<string, SEOProps> = {
   product: {
     title: 'Product',
-    description: 'Discover ARG Builder — the AI-powered operational reference platform with dual personas, knowledge graphs, process timelines, and enterprise-grade collaboration.',
+    description: `Discover ${pn} — multi-brand operational playbooks with ${BRAND.aiHubName}, knowledge graphs, process timelines, and enterprise collaboration.`,
   },
   pricing: {
     title: 'Pricing',
-    description: 'Simple, transparent pricing for teams of all sizes. Start with a 14-day free trial. Plans from $29/month for startups to custom enterprise solutions.',
+    description: 'Simple, transparent pricing for teams of all sizes. Start with a 14-day free trial. Plans from $299/month for agencies to custom enterprise solutions.',
   },
   resources: {
     title: 'Resources & Learning Center',
-    description: 'Guides, whitepapers, video tutorials, and case studies to help your team build better operational systems with ARG Builder.',
+    description: `Guides, whitepapers, and case studies to help your team build better operational systems with ${pn}.`,
   },
   caseStudies: {
     title: 'Case Studies',
-    description: 'See how travel agencies, creative studios, and enterprise SaaS companies transformed their operations with ARG Builder.',
+    description: `See how agencies and multi-brand operators transformed their operations with ${pn} and ${BRAND.aiHubName}.`,
   },
   changelog: {
     title: 'Changelog',
-    description: 'Latest product updates, new features, and improvements to ARG Builder. See what we shipped this month.',
+    description: `Latest product updates, new features, and improvements to ${pn}. See what we shipped this month.`,
   },
   roi: {
     title: 'ROI Calculator',
-    description: 'Calculate how much time and money your team can save with ARG Builder. Input your team size and see annual savings instantly.',
+    description: `Calculate how much time and money your team can save with ${pn}. Input your team size and see annual savings instantly.`,
   },
   successMetrics: {
     title: 'Customer Success Metrics',
-    description: 'Real results from ARG Builder customers: 60% faster onboarding, 73% less time searching, 45% fewer compliance incidents.',
+    description: `Real results from ${pn} customers: 60% faster onboarding, 73% less time searching, 45% fewer compliance incidents.`,
   },
   faq: {
     title: 'FAQ',
-    description: 'Frequently asked questions about ARG Builder — pricing, features, integrations, security, and getting started.',
+    description: `Frequently asked questions about ${pn} — pricing, AI tools, integrations, security, and getting started.`,
   },
   requestDemo: {
     title: 'Request a Demo',
-    description: 'Schedule a personalized demo of ARG Builder. Tell us about your team and we\'ll show you how to transform your operations.',
+    description: `Schedule a personalized demo of ${pn}. Tell us about your team and we'll show you how to transform your operations.`,
   },
   startTrial: {
     title: 'Start Free Trial',
-    description: 'Start your 14-day free trial of ARG Builder. No credit card required. Full access to all features.',
+    description: `Start your 14-day free trial of ${pn}. No credit card required. Full access to playbooks and ${BRAND.aiHubName}.`,
   },
   referral: {
     title: 'Referral Program',
-    description: 'Refer ARG Builder to your network and earn 1 free month for every successful signup. Share your unique referral link.',
+    description: `Refer ${pn} to your network and earn 1 free month for every successful signup. Share your unique referral link.`,
   },
   apiDocs: {
     title: 'API Documentation',
-    description: 'Integrate ARG Builder with your existing tools. REST API documentation with authentication, endpoints, and code examples.',
+    description: `Integrate ${pn} with your existing tools. REST API documentation with authentication, endpoints, and code examples.`,
+  },
+  aiHub: {
+    title: BRAND.aiHubName,
+    description: `${BRAND.aiHubTagline}. Writing assistant, semantic search, AI chat, summarizer, workflows, and more.`,
   },
 };

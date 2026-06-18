@@ -9,6 +9,7 @@ import {
   Command, Search, Users, FileText, Brain, Shield, Settings, BarChart3,
   Zap, Globe, Bell, Key, Workflow, Database, Activity, ArrowRight, Sparkles
 } from 'lucide-react';
+import { BRAND } from '@/lib/brand';
 
 interface QuickAction {
   id: string;
@@ -21,7 +22,7 @@ interface QuickAction {
 }
 
 const quickActions: QuickAction[] = [
-  { id: 'ai-hub', label: 'AI Services Hub', description: 'Access all AI-powered tools', icon: Brain, path: '/ai', category: 'ai' },
+  { id: 'ai-hub', label: BRAND.aiHubTitle, description: 'Access all AI-powered tools', icon: Brain, path: '/ai', category: 'ai' },
   { id: 'ai-chat', label: 'AI Chat Assistant', description: 'Ask the AI anything', icon: Sparkles, path: '/ai/chat', category: 'ai', shortcut: '⌘K' },
   { id: 'ai-summarize', label: 'Summarize Document', description: 'Quick AI summary', icon: FileText, path: '/ai/summarize', category: 'ai' },
   { id: 'ai-writer', label: 'AI Writer', description: 'Generate or rewrite content', icon: Zap, path: '/ai/writer', category: 'ai' },
