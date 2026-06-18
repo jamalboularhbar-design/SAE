@@ -24,7 +24,7 @@ export const BRAND = {
   legacyAppUrl: "https://argbuilder.io",
   /** Support / admin defaults */
   adminEmail: "admin@nexusai.ma",
-  supportEmail: "support@nexusai.ma",
+  supportEmail: "hello@nexusai.ma",
   /** AI Hub branding */
   aiHubName: "NexusAI Intelligence",
   aiHubTitle: "NexusAI Intelligence Hub",
