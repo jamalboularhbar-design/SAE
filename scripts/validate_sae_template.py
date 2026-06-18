@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW_PATH = ROOT / "workflows" / "sae-first-intake-webhook.json"
 BLUEPRINT_PATH = ROOT / "blueprints" / "sae-first-intake-webhook.json"
 SAMPLE_PAYLOAD_PATH = ROOT / "examples" / "sae-first-intake-payload.json"
+SOURCE_PATH = ROOT / "src" / "sae_first_intake_code.js"
+SCENARIOS_PATH = ROOT / "examples" / "scenarios"
 
 
 def load_json(path: Path) -> dict:
@@ -33,53 +35,7 @@ def first_text(*values: object, default: str = "") -> str:
     return default
 
 
-def score_sample_payload(payload: dict) -> dict:
-    company_name = first_text(
-        payload.get("companyName"),
-        payload.get("company"),
-        payload.get("businessName"),
-        default="Unknown company",
-    )
-    market = first_text(payload.get("market"), payload.get("country"), payload.get("region"), default="Morocco")
-    problem = first_text(payload.get("problem"), payload.get("challenge"), payload.get("request"), payload.get("message"))
-    channel = first_text(payload.get("channel"), payload.get("source"), default="website").lower()
-    urgency = first_text(payload.get("urgency"), payload.get("timeline"), default="standard").lower()
-    budget = first_text(payload.get("budget"), payload.get("budgetRange")).lower()
-    language = first_text(payload.get("language"), payload.get("preferredLanguage"), default="fr")
-
-    has_problem = len(problem) >= 20
-    has_budget = bool(budget)
-    is_high_urgency = any(term in urgency for term in ["urgent", "this week", "asap", "now"])
-    is_warm_channel = any(term in channel for term in ["intch", "referral", "partner", "whatsapp"])
-    is_moroccan_market = any(
-        term in market.lower()
-        for term in ["morocco", "maroc", "ma", "casablanca", "rabat", "marrakech", "tanger", "agadir"]
-    )
-
-    score = sum([has_problem, has_budget, is_high_urgency, is_warm_channel, is_moroccan_market])
-    qualification = "hot" if score >= 4 else "warm" if score >= 2 else "early"
-
-    if qualification == "hot":
-        recommended_offer = "Business Automation Sprint"
-    elif any(term in problem.lower() for term in ["app", "mvp", "platform", "dashboard", "portal"]):
-        recommended_offer = "MVP/App Launch Sprint"
-    elif any(term in problem.lower() for term in ["whatsapp", "support", "customer", "lead", "sales"]):
-        recommended_offer = "AI WhatsApp Assistant"
-    else:
-        recommended_offer = "Free AI Opportunity Audit"
-
-    return {
-        "companyName": company_name,
-        "market": market,
-        "language": language,
-        "sourceChannel": channel,
-        "qualification": qualification,
-        "score": score,
-        "recommendedOffer": recommended_offer,
-    }
-
-
-def validate_workflow(workflow: dict) -> None:
+def validate_workflow(workflow: dict, source_code: str) -> None:
     require(workflow.get("id") == "sae-first-intake-webhook", "workflow has the wrong top-level n8n ID")
     require(workflow.get("name") == "SAE - First AI Opportunity Intake", "workflow has the wrong template name")
     require(isinstance(workflow.get("nodes"), list) and len(workflow["nodes"]) == 3, "workflow must contain exactly 3 nodes")
@@ -104,15 +60,21 @@ def validate_workflow(workflow: dict) -> None:
     code_node = nodes_by_name["Normalize + Score Lead"]
     require(code_node.get("type") == "n8n-nodes-base.code", "lead scoring must use an n8n code node")
     js_code = code_node.get("parameters", {}).get("jsCode", "")
+    require(js_code.strip() == source_code.strip(), "workflow Code node is out of sync with src/sae_first_intake_code.js")
     for expected in [
         "qualification",
         "recommendedOffer",
         "Business Automation Sprint",
         "AI WhatsApp Assistant",
+        "AI Outsourcing Partner",
         "persistenceRecord",
         "notification",
         "proposalDraft",
         "connectorTargets",
+        "scoreBreakdown",
+        "dataSensitivity",
+        "auditChecklist",
+        "recommendedStack",
     ]:
         require(expected in js_code, f"lead scoring code is missing {expected}")
 
@@ -142,26 +104,49 @@ def validate_blueprint(blueprint: dict) -> None:
     require(len(blueprint.get("shippingChecklist", [])) >= 8, "blueprint needs a practical shipping checklist")
 
 
-def validate_sample_result(sample_payload: dict) -> None:
-    result = score_sample_payload(sample_payload)
-    require(result["qualification"] == "hot", "sample payload should produce a hot lead")
-    require(result["score"] == 5, "sample payload should score 5")
-    require(result["recommendedOffer"] == "Business Automation Sprint", "sample should recommend the automation sprint")
+def validate_sample_payload(sample_payload: dict) -> None:
+    for expected in ["companyName", "contactName", "phone", "market", "industry", "problem", "channel"]:
+        require(first_text(sample_payload.get(expected)), f"sample payload must include {expected}")
+    require(len(first_text(sample_payload.get("problem"))) >= 20, "sample payload needs a realistic problem")
+
+
+def validate_scenarios() -> None:
+    scenario_files = sorted(SCENARIOS_PATH.glob("*.json"))
+    require(len(scenario_files) >= 4, "expected at least four realistic scenario files")
+
+    required_expected_keys = {
+        "qualification",
+        "recommendedOffer",
+        "primaryUseCase",
+        "detectedIndustry",
+        "dataSensitivity",
+        "shouldNotify",
+    }
+
+    for path in scenario_files:
+        scenario = load_json(path)
+        require(isinstance(scenario.get("payload"), dict), f"{path.relative_to(ROOT)} needs a payload object")
+        expected = scenario.get("expected")
+        require(isinstance(expected, dict), f"{path.relative_to(ROOT)} needs an expected object")
+        missing = required_expected_keys - set(expected)
+        require(not missing, f"{path.relative_to(ROOT)} expected object missing: {sorted(missing)}")
 
 
 def main() -> int:
     workflow = load_json(WORKFLOW_PATH)
     blueprint = load_json(BLUEPRINT_PATH)
     sample_payload = load_json(SAMPLE_PAYLOAD_PATH)
+    source_code = SOURCE_PATH.read_text(encoding="utf-8")
 
-    validate_workflow(workflow)
+    validate_workflow(workflow, source_code)
     validate_blueprint(blueprint)
-    validate_sample_result(sample_payload)
+    validate_sample_payload(sample_payload)
+    validate_scenarios()
 
     print("SAE first n8n template validation passed.")
     print(f"- workflow: {WORKFLOW_PATH.relative_to(ROOT)}")
     print(f"- blueprint: {BLUEPRINT_PATH.relative_to(ROOT)}")
-    print(f"- sample lead: {sample_payload['companyName']} -> hot / Business Automation Sprint")
+    print(f"- sample lead: {sample_payload['companyName']} is realistic and scenario-backed")
     return 0
 
 

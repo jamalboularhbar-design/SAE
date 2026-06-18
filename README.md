@@ -9,11 +9,14 @@ SAE is the operating layer for shipping practical AI automation templates for Ne
 
 Key files:
 
+- `src/sae_first_intake_code.js`
 - `workflows/sae-first-intake-webhook.json`
 - `blueprints/sae-first-intake-webhook.json`
 - `examples/sae-first-intake-payload.json`
+- `examples/scenarios/`
 - `docs/first-template.md`
 - `docs/connectors.md`
+- `docs/reality-case-testing.md`
 
 ## Validate
 
@@ -28,3 +31,13 @@ Then run:
 `node scripts/smoke_sae_workflow.js`
 
 The smoke test executes the workflow's n8n Code node logic against the sample payload.
+
+Then run:
+
+`node scripts/run_sae_scenarios.js`
+
+The scenario test executes the workflow against realistic Moroccan and international lead cases.
+
+If you edit `src/sae_first_intake_code.js`, sync it into the n8n export with:
+
+`python3 scripts/sync_workflow_code.py`

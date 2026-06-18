@@ -1,6 +1,12 @@
 {
   "companyName": "Atlas Dental Clinic",
+  "contactName": "Dr. Amine",
+  "email": "contact@atlasdental.example",
+  "phone": "+212600000000",
+  "website": "https://atlasdental.example",
   "market": "Casablanca, Morocco",
+  "industry": "healthcare",
+  "companySize": "8 staff",
   "problem": "We receive many WhatsApp questions every day and need faster qualification before booking appointments.",
   "channel": "intch",
   "urgency": "this week",

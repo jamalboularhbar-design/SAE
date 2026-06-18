@@ -31,8 +31,8 @@ if (!Array.isArray(result) || result.length !== 1 || !result[0].json) {
 const output = result[0].json;
 const expected = {
   qualification: 'hot',
-  score: 5,
-  recommendedOffer: 'Business Automation Sprint',
+  score: 6,
+  recommendedOffer: 'AI WhatsApp Assistant',
 };
 
 for (const [key, value] of Object.entries(expected)) {
@@ -49,7 +49,19 @@ if (!output.notification || output.notification.shouldNotify !== true) {
   throw new Error('Expected hot lead notification to be enabled.');
 }
 
-if (!output.proposalDraft || output.proposalDraft.title !== 'Business Automation Sprint for Atlas Dental Clinic') {
+if (output.primaryUseCase !== 'ai_whatsapp_assistant') {
+  throw new Error('Expected primaryUseCase to be ai_whatsapp_assistant.');
+}
+
+if (output.detectedIndustry !== 'healthcare' || output.dataSensitivity !== 'high') {
+  throw new Error('Expected healthcare lead with high data sensitivity.');
+}
+
+if (!output.scoreBreakdown || output.scoreBreakdown.contactability !== 1) {
+  throw new Error('Expected scoreBreakdown.contactability to be 1.');
+}
+
+if (!output.proposalDraft || output.proposalDraft.title !== 'AI WhatsApp Assistant for Atlas Dental Clinic') {
   throw new Error('Expected proposalDraft title for Atlas Dental Clinic.');
 }
 
@@ -61,6 +73,10 @@ if (!output.connectorTargets || !output.connectorTargets.notion || !output.conne
   throw new Error('Expected connector targets for persistence and CRM.');
 }
 
+if (!output.proposalDraft.recommendedStack.includes('WhatsApp Business API provider')) {
+  throw new Error('Expected WhatsApp stack recommendation.');
+}
+
 console.log('SAE workflow smoke test passed.');
 console.log(`- ${output.companyName}: ${output.qualification} lead`);
 console.log(`- recommended offer: ${output.recommendedOffer}`);
@@ -68,3 +84,5 @@ console.log(`- next action: ${output.nextAction}`);
 console.log(`- persistence status: ${output.persistenceRecord.status}`);
 console.log(`- hot notification: ${output.notification.shouldNotify}`);
 console.log(`- proposal draft: ${output.proposalDraft.title}`);
+console.log(`- use case: ${output.primaryUseCase}`);
+console.log(`- data sensitivity: ${output.dataSensitivity}`);

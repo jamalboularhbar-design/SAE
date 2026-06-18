@@ -13,11 +13,15 @@ Recommended minimum fields:
 - `market`
 - `language`
 - `sourceChannel`
+- `detectedIndustry`
+- `primaryUseCase`
+- `dataSensitivity`
 - `problem`
 - `urgency`
 - `budget`
 - `qualification`
 - `score`
+- `scoreBreakdown`
 - `recommendedOffer`
 - `nextAction`
 - `status`

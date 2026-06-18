@@ -1,0 +1,23 @@
+{
+  "payload": {
+    "companyName": "Marrakech Homes",
+    "contactName": "Salma",
+    "phone": "+212611111111",
+    "market": "Marrakech, Morocco",
+    "industry": "real estate",
+    "companySize": "12 agents",
+    "problem": "Our agents receive property leads from Facebook and WhatsApp but follow-up is slow and we lose serious buyers.",
+    "channel": "website",
+    "urgency": "asap",
+    "budget": "growth",
+    "language": "fr"
+  },
+  "expected": {
+    "qualification": "hot",
+    "recommendedOffer": "AI WhatsApp Assistant",
+    "primaryUseCase": "ai_whatsapp_assistant",
+    "detectedIndustry": "real_estate",
+    "dataSensitivity": "standard",
+    "shouldNotify": true
+  }
+}

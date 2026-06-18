@@ -18,6 +18,7 @@ It also prepares:
 - `persistenceRecord` for Notion, Airtable, Google Sheets, or CRM.
 - `notification` for WhatsApp, email, Slack, or Telegram alerts.
 - `proposalDraft` for Claude, OpenAI, Gemini, Cursor, or manual proposal writing.
+- enrichment fields such as `detectedIndustry`, `primaryUseCase`, `dataSensitivity`, `scoreBreakdown`, and `recommendedStack`.
 
 Recommended offers:
 
@@ -32,6 +33,7 @@ Recommended offers:
 - SAE blueprint: `blueprints/sae-first-intake-webhook.json`
 - sample payload: `examples/sae-first-intake-payload.json`
 - connector mapping: `docs/connectors.md`
+- reality-case testing: `docs/reality-case-testing.md`
 - validator: `scripts/validate_sae_template.py`
 - smoke runner: `scripts/smoke_sae_workflow.js`
 
@@ -57,17 +59,21 @@ Use `examples/sae-first-intake-payload.json`.
 Expected response highlights:
 
 - `qualification`: `hot`
-- `score`: `5`
-- `recommendedOffer`: `Business Automation Sprint`
+- `score`: `6`
+- `recommendedOffer`: `AI WhatsApp Assistant`
+- `primaryUseCase`: `ai_whatsapp_assistant`
+- `detectedIndustry`: `healthcare`
+- `dataSensitivity`: `high`
 - `persistenceRecord.status`: `Discovery call needed`
 - `notification.shouldNotify`: `true`
-- `proposalDraft.title`: `Business Automation Sprint for Atlas Dental Clinic`
+- `proposalDraft.title`: `AI WhatsApp Assistant for Atlas Dental Clinic`
 - `nextAction`: `Book a discovery call and prepare a paid pilot proposal.`
 
 ## Ship checklist
 
 - Run `python3 scripts/validate_sae_template.py`.
 - Run `node scripts/smoke_sae_workflow.js`.
+- Run `node scripts/run_sae_scenarios.js`.
 - Import the workflow into n8n.
 - Confirm the webhook path is `sae-ai-opportunity-intake`.
 - Send the sample payload.

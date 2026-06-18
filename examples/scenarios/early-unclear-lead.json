@@ -1,0 +1,18 @@
+{
+  "payload": {
+    "companyName": "Local Shop",
+    "market": "Morocco",
+    "problem": "Need AI",
+    "channel": "website",
+    "urgency": "later",
+    "language": "fr"
+  },
+  "expected": {
+    "qualification": "early",
+    "recommendedOffer": "Free AI Opportunity Audit",
+    "primaryUseCase": "ai_opportunity_audit",
+    "detectedIndustry": "ecommerce",
+    "dataSensitivity": "standard",
+    "shouldNotify": false
+  }
+}

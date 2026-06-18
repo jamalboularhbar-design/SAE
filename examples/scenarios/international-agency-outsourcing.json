@@ -1,0 +1,23 @@
+{
+  "payload": {
+    "companyName": "Northstar Growth Studio",
+    "contactName": "Maya",
+    "email": "maya@northstar.example",
+    "market": "France and UK",
+    "industry": "agency",
+    "companySize": "15 consultants",
+    "problem": "We need a reliable white label outsourcing partner to ship client AI automations, dashboards, and MVP app prototypes.",
+    "channel": "partner referral",
+    "urgency": "this month",
+    "budget": "partner",
+    "language": "en"
+  },
+  "expected": {
+    "qualification": "hot",
+    "recommendedOffer": "AI Outsourcing Partner",
+    "primaryUseCase": "agency_delivery_partner",
+    "detectedIndustry": "agency",
+    "dataSensitivity": "standard",
+    "shouldNotify": true
+  }
+}
