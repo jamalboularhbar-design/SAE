@@ -24,7 +24,7 @@ export default function CommandPalette({ onExport, onSwitchPersona }: CommandPal
     {
       id: 'travel-persona',
       title: 'Switch to Horizon Concierge',
-      description: 'View Horizon Concierge Concierge persona',
+      description: 'View Horizon Concierge workspace',
       icon: <Plane className="w-4 h-4" />,
       action: () => {
         onSwitchPersona?.('travel');

@@ -4,6 +4,7 @@ import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Shield, Key, Clock, AlertTriangle } from "lucide-react";
 import TwoFactorSettings from "@/components/TwoFactorSettings";
+import { BRAND } from "@/lib/brand";
 
 export default function AdminSettingsPage() {
   const { user, loading: authLoading } = useAuth();
@@ -148,7 +149,7 @@ export default function AdminSettingsPage() {
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-sm text-muted-foreground">Email</span>
-              <span className="text-sm text-foreground font-medium">{user.email || "admin@argbuilder.io"}</span>
+              <span className="text-sm text-foreground font-medium">{user.email || BRAND.adminEmail}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-sm text-muted-foreground">Role</span>

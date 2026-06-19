@@ -25,12 +25,12 @@ const CHANNEL_ICONS: Record<string, any> = {
 };
 
 const SAMPLE_LOGS: CommLog[] = [
-  { id: '1', provider: 'Royal Mansour', channel: 'whatsapp', subject: 'VIP Guest Arrival - Mitchell', summary: 'Confirmed rose petal setup, champagne in room, late checkout approved.', date: '2026-05-20', status: 'sent', urgent: false },
-  { id: '2', provider: 'Riad Yasmine', channel: 'email', subject: 'Room 3 Availability June 18-22', summary: 'Confirmed availability for Pierre Dupont. Requesting dietary menu in advance.', date: '2026-05-19', status: 'received', urgent: false },
-  { id: '3', provider: 'La Mamounia', channel: 'phone', subject: 'Pool Maintenance Notice', summary: 'Pool closed June 1-3 for maintenance. Need to inform affected guests.', date: '2026-05-18', status: 'received', urgent: true },
-  { id: '4', provider: 'Kasbah Tamadot', channel: 'whatsapp', subject: 'Transfer Coordination', summary: 'Driver confirmed for Hans Weber pickup. Flight AR302 arriving 14:30.', date: '2026-05-18', status: 'sent', urgent: false },
-  { id: '5', provider: 'Dar Anika', channel: 'email', subject: 'Rate Update for Peak Season', summary: 'New rates effective March 2027. 8% increase across all room categories.', date: '2026-05-17', status: 'received', urgent: false },
-  { id: '6', provider: 'Selman Marrakech', channel: 'whatsapp', subject: 'Guest Complaint Follow-up', summary: 'AC issue in suite 12 resolved. Complimentary spa session offered to guest.', date: '2026-05-16', status: 'received', urgent: true },
+  { id: '1', provider: 'Grand Palace Hotel', channel: 'whatsapp', subject: 'VIP Guest Arrival - Mitchell', summary: 'Confirmed rose petal setup, champagne in room, late checkout approved.', date: '2026-05-20', status: 'sent', urgent: false },
+  { id: '2', provider: 'Cedar Boutique Hotel', channel: 'email', subject: 'Room 3 Availability June 18-22', summary: 'Confirmed availability for Pierre Dupont. Requesting dietary menu in advance.', date: '2026-05-19', status: 'received', urgent: false },
+  { id: '3', provider: 'Riverside Luxury Hotel', channel: 'phone', subject: 'Pool Maintenance Notice', summary: 'Pool closed June 1-3 for maintenance. Need to inform affected guests.', date: '2026-05-18', status: 'received', urgent: true },
+  { id: '4', provider: 'Highland Retreat', channel: 'whatsapp', subject: 'Transfer Coordination', summary: 'Driver confirmed for Hans Weber pickup. Flight AR302 arriving 14:30.', date: '2026-05-18', status: 'sent', urgent: false },
+  { id: '5', provider: 'Garden Court Hotel', channel: 'email', subject: 'Rate Update for Peak Season', summary: 'New rates effective March 2027. 8% increase across all room categories.', date: '2026-05-17', status: 'received', urgent: false },
+  { id: '6', provider: 'Vista Resort', channel: 'whatsapp', subject: 'Guest Complaint Follow-up', summary: 'AC issue in suite 12 resolved. Complimentary spa session offered to guest.', date: '2026-05-16', status: 'received', urgent: true },
 ];
 
 const QUICK_MESSAGES = [

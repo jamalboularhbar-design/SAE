@@ -83,10 +83,10 @@ const RELEASES: ReleaseEntry[] = [
   {
     version: '2.0.0',
     date: '2026-05-10',
-    title: 'Platform Relaunch with Dual Personas',
+    title: 'Platform Relaunch with Multi-Brand Workspaces',
     type: 'major',
     highlights: [
-      'Complete redesign with Travel Concierge and Creative Director personas',
+      'Complete redesign with Horizon Concierge and Meridian Creative workspaces',
       'Advanced search with NLP and command palette',
       'Document knowledge graph visualization',
       'Process timelines and interactive workflows',

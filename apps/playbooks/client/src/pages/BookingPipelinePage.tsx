@@ -30,14 +30,14 @@ const STAGES: { key: Stage; label: string; color: string }[] = [
 ];
 
 const SAMPLE_BOOKINGS: Booking[] = [
-  { id: '1', guestName: 'James & Sarah Mitchell', provider: 'Royal Mansour', checkIn: '2026-06-15', checkOut: '2026-06-20', nights: 5, value: 8500, stage: 'confirmed', notes: 'Anniversary trip, need rose petals' },
-  { id: '2', guestName: 'Pierre Dupont', provider: 'Riad Yasmine', checkIn: '2026-06-18', checkOut: '2026-06-22', nights: 4, value: 3200, stage: 'pre_arrival', notes: 'Returning guest, prefers room 3' },
-  { id: '3', guestName: 'Akiko Tanaka', provider: 'La Mamounia', checkIn: '2026-07-01', checkOut: '2026-07-05', nights: 4, value: 6800, stage: 'inquiry', notes: 'First time in Morocco' },
-  { id: '4', guestName: 'Hans Weber', provider: 'Kasbah Tamadot', checkIn: '2026-06-10', checkOut: '2026-06-14', nights: 4, value: 5200, stage: 'quoted' },
-  { id: '5', guestName: 'Maria Santos', provider: 'Dar Anika', checkIn: '2026-06-08', checkOut: '2026-06-12', nights: 4, value: 2800, stage: 'checked_in' },
-  { id: '6', guestName: 'Robert Chen', provider: 'Selman Marrakech', checkIn: '2026-05-28', checkOut: '2026-06-02', nights: 5, value: 7500, stage: 'checked_out' },
-  { id: '7', guestName: 'Elena Rossi', provider: 'Riad Kniza', checkIn: '2026-06-20', checkOut: '2026-06-24', nights: 4, value: 2400, stage: 'inquiry' },
-  { id: '8', guestName: 'David Thompson', provider: 'Riad 72', checkIn: '2026-06-25', checkOut: '2026-06-28', nights: 3, value: 1800, stage: 'quoted', notes: 'Needs airport transfer' },
+  { id: '1', guestName: 'James & Sarah Mitchell', provider: 'Grand Palace Hotel', checkIn: '2026-06-15', checkOut: '2026-06-20', nights: 5, value: 8500, stage: 'confirmed', notes: 'Anniversary trip, need rose petals' },
+  { id: '2', guestName: 'Pierre Dupont', provider: 'Cedar Boutique Hotel', checkIn: '2026-06-18', checkOut: '2026-06-22', nights: 4, value: 3200, stage: 'pre_arrival', notes: 'Returning guest, prefers room 3' },
+  { id: '3', guestName: 'Akiko Tanaka', provider: 'Riverside Luxury Hotel', checkIn: '2026-07-01', checkOut: '2026-07-05', nights: 4, value: 6800, stage: 'inquiry', notes: 'First time in Morocco' },
+  { id: '4', guestName: 'Hans Weber', provider: 'Highland Retreat', checkIn: '2026-06-10', checkOut: '2026-06-14', nights: 4, value: 5200, stage: 'quoted' },
+  { id: '5', guestName: 'Maria Santos', provider: 'Garden Court Hotel', checkIn: '2026-06-08', checkOut: '2026-06-12', nights: 4, value: 2800, stage: 'checked_in' },
+  { id: '6', guestName: 'Robert Chen', provider: 'Vista Resort', checkIn: '2026-05-28', checkOut: '2026-06-02', nights: 5, value: 7500, stage: 'checked_out' },
+  { id: '7', guestName: 'Elena Rossi', provider: 'Harbor View Lodge', checkIn: '2026-06-20', checkOut: '2026-06-24', nights: 4, value: 2400, stage: 'inquiry' },
+  { id: '8', guestName: 'David Thompson', provider: 'Summit Inn', checkIn: '2026-06-25', checkOut: '2026-06-28', nights: 3, value: 1800, stage: 'quoted', notes: 'Needs airport transfer' },
 ];
 
 export default function BookingPipelinePage() {

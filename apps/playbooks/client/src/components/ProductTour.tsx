@@ -16,8 +16,8 @@ const TOUR_STEPS: TourStep[] = [
     icon: '👋',
   },
   {
-    title: 'Dual-Persona System',
-    description: 'Switch between Travel Concierge and Creative Director personas — each with specialized knowledge bases and workflows.',
+    title: 'Multi-Brand Workspaces',
+    description: 'Switch between Horizon Concierge and Meridian Creative workspaces — each with specialized playbooks and workflows.',
     icon: '🎭',
   },
   {

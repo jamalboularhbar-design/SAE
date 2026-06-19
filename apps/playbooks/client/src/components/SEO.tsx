@@ -13,7 +13,7 @@ interface SEOProps {
 
 const DEFAULT_TITLE = BRAND.seoTitle;
 const DEFAULT_DESCRIPTION = BRAND.seoDescription;
-const DEFAULT_OG_IMAGE = '/og-image.png';
+const DEFAULT_OG_IMAGE = BRAND.ogImageUrl;
 
 export default function SEO({
   title,

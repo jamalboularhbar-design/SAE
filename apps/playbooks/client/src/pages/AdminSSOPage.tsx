@@ -11,6 +11,7 @@ import {
   Copy, ExternalLink, Lock, Users, Settings
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { BRAND } from '@/lib/brand';
 
 interface SSOConfig {
   provider: string;
@@ -49,9 +50,9 @@ export default function AdminSSOPage() {
   if (user?.role !== 'admin') { navigate('/'); return null; }
 
   const spMetadata = {
-    entityId: `https://argbuilder.io/saml/metadata`,
-    acsUrl: `https://argbuilder.io/api/auth/saml/callback`,
-    sloUrl: `https://argbuilder.io/api/auth/saml/logout`,
+    entityId: `${BRAND.activeAppUrl}/saml/metadata`,
+    acsUrl: `${BRAND.activeAppUrl}/api/auth/saml/callback`,
+    sloUrl: `${BRAND.activeAppUrl}/api/auth/saml/logout`,
   };
 
   const handleTestConnection = () => {

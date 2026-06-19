@@ -37,7 +37,7 @@ const mockActivity: ActivityItem[] = [
   { id: '1', type: 'document', title: 'Travel Concierge SOP updated', timestamp: '2 hours ago', description: 'New section added for VIP guest protocols' },
   { id: '2', type: 'milestone', title: 'Phase 2 completed', timestamp: '5 hours ago', description: 'Horizon Concierge brand guidelines approved' },
   { id: '3', type: 'message', title: 'Feedback received', timestamp: '1 day ago', description: 'Client approved the revised pricing structure' },
-  { id: '4', type: 'document', title: 'Studio workflow documented', timestamp: '2 days ago', description: 'ArtKech creative process now fully documented' },
+  { id: '4', type: 'document', title: 'Studio workflow documented', timestamp: '2 days ago', description: 'Meridian Creative process now fully documented' },
   { id: '5', type: 'milestone', title: 'Onboarding complete', timestamp: '3 days ago', description: 'All team members have completed initial setup' },
 ];
 

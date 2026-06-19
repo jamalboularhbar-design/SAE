@@ -45,7 +45,7 @@ const artkechProcessStages = [
 ];
 
 const generalCapabilities = [
-  { title: 'Context Switching', description: 'Seamlessly transition between personas based on task context' },
+  { title: 'Context Switching', description: 'Seamlessly transition between workspaces based on task context' },
   { title: 'Client Communication', description: 'Professional interactions with exceptional service focus' },
   { title: 'Project Management', description: 'Track progress, manage timelines, allocate resources' },
   { title: 'Information Synthesis', description: 'Access and process information from multiple sources' },

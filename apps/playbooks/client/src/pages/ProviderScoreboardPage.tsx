@@ -20,7 +20,7 @@ interface ProviderMetric {
 const PROVIDER_METRICS: ProviderMetric[] = [
   {
     providerId: '1',
-    name: 'Royal Mansour',
+    name: 'Grand Palace Hotel',
     tier: 'Platinum',
     responseTime: 12,
     guestSatisfaction: 96,
@@ -31,7 +31,7 @@ const PROVIDER_METRICS: ProviderMetric[] = [
   },
   {
     providerId: '2',
-    name: 'La Mamounia',
+    name: 'Riverside Luxury Hotel',
     tier: 'Gold',
     responseTime: 28,
     guestSatisfaction: 89,
@@ -42,7 +42,7 @@ const PROVIDER_METRICS: ProviderMetric[] = [
   },
   {
     providerId: '3',
-    name: 'Selman Marrakech',
+    name: 'Vista Resort',
     tier: 'Platinum',
     responseTime: 15,
     guestSatisfaction: 92,
@@ -53,7 +53,7 @@ const PROVIDER_METRICS: ProviderMetric[] = [
   },
   {
     providerId: '4',
-    name: 'Kasbah Tamadot',
+    name: 'Highland Retreat',
     tier: 'Gold',
     responseTime: 35,
     guestSatisfaction: 85,
@@ -64,7 +64,7 @@ const PROVIDER_METRICS: ProviderMetric[] = [
   },
   {
     providerId: '5',
-    name: 'Riad Yasmine',
+    name: 'Cedar Boutique Hotel',
     tier: 'Silver',
     responseTime: 42,
     guestSatisfaction: 78,

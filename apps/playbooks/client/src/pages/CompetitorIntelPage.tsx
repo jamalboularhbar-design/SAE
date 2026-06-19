@@ -20,7 +20,7 @@ interface Competitor {
 
 const COMPETITORS: Competitor[] = [
   {
-    name: 'Royal Mansour',
+    name: 'Grand Palace Hotel',
     tier: 'Platinum',
     avgPrice: 350,
     guestRating: 4.8,
@@ -32,7 +32,7 @@ const COMPETITORS: Competitor[] = [
     marketShare: 18,
   },
   {
-    name: 'La Mamounia',
+    name: 'Riverside Luxury Hotel',
     tier: 'Gold',
     avgPrice: 280,
     guestRating: 4.6,
@@ -44,7 +44,7 @@ const COMPETITORS: Competitor[] = [
     marketShare: 14,
   },
   {
-    name: 'Selman Marrakech',
+    name: 'Vista Resort',
     tier: 'Platinum',
     avgPrice: 320,
     guestRating: 4.7,
@@ -56,7 +56,7 @@ const COMPETITORS: Competitor[] = [
     marketShare: 12,
   },
   {
-    name: 'Kasbah Tamadot',
+    name: 'Highland Retreat',
     tier: 'Gold',
     avgPrice: 250,
     guestRating: 4.5,
