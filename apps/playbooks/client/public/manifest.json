@@ -1,11 +1,11 @@
 {
-  "name": "Agent Reference Guide",
-  "short_name": "Agent Guide",
-  "description": "Comprehensive operational reference guide",
+  "name": "NexusAI Playbooks",
+  "short_name": "NexusAI",
+  "description": "Multi-brand operational playbooks with AI-powered intelligence",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1a1a1a",
-  "theme_color": "#c2703e",
+  "background_color": "#0f172a",
+  "theme_color": "#14b8a6",
   "icons": [
     {
       "src": "/favicon.ico",

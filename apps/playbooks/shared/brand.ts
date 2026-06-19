@@ -34,6 +34,14 @@ export const BRAND = {
   seoTitle: "NexusAI Playbooks | AI-Powered Operational Intelligence",
   seoDescription:
     "Multi-brand operational documentation platform with AI search, playbooks, process timelines, and team collaboration.",
+  /** Email / notification signatures */
+  teamSignature: "The NexusAI Playbooks Team",
+  emailFrom: "NexusAI Playbooks <hello@nexusai.ma>",
+  /** Active app URL (legacy until nexusai.ma DNS is live) */
+  activeAppUrl: "https://argbuilder.io",
+  /** Default OG image (hosted asset — replace when nexusai.ma creative is ready) */
+  ogImageUrl:
+    "https://d2xsxph8kpxj0f.cloudfront.net/310519663609289051/2ZSCuHTjdaVo7h4vqS7dZB/og-image-argbuilder-ZutmaYZHU87mr4cVDB2dma.png",
 } as const;
 
 /** Workspace terminology (replaces "Persona") */

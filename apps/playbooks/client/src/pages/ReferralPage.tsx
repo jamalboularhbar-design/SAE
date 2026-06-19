@@ -55,7 +55,7 @@ export default function ReferralPage() {
             <Gift className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-primary">Referral Program</span>
           </div>
-          <h1 className="text-3xl font-bold mb-2">Share ARG Builder, Earn Free Months</h1>
+          <h1 className="text-3xl font-bold mb-2">Share NexusAI Playbooks, Earn Free Months</h1>
           <p className="text-muted-foreground max-w-lg mx-auto">
             For every friend who starts a trial using your link, you both get 1 free month added to your subscription.
           </p>

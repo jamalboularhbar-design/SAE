@@ -68,7 +68,7 @@ export default function IntegrationsPage() {
               Integration Marketplace
             </h1>
             <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
-              Connect ARG Builder with your favorite tools. Automate workflows, sync data, and extend your knowledge platform.
+              Connect NexusAI Playbooks with your favorite tools. Automate workflows, sync data, and extend your knowledge platform.
             </p>
           </div>
 

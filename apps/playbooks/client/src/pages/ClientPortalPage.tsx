@@ -27,17 +27,17 @@ interface ActivityItem {
 }
 
 const mockProjects: ProjectItem[] = [
-  { id: '1', name: 'Riad & Routes Launch', status: 'active', lastUpdate: '2 hours ago', progress: 72, documentsCount: 14 },
-  { id: '2', name: 'ArtKech Studio Branding', status: 'active', lastUpdate: '1 day ago', progress: 45, documentsCount: 8 },
+  { id: '1', name: 'Horizon Concierge Launch', status: 'active', lastUpdate: '2 hours ago', progress: 72, documentsCount: 14 },
+  { id: '2', name: 'Meridian Creative Studio Branding', status: 'active', lastUpdate: '1 day ago', progress: 45, documentsCount: 8 },
   { id: '3', name: 'Q2 Marketing Campaign', status: 'pending', lastUpdate: '3 days ago', progress: 20, documentsCount: 5 },
   { id: '4', name: 'Operations Manual v2', status: 'completed', lastUpdate: '1 week ago', progress: 100, documentsCount: 22 },
 ];
 
 const mockActivity: ActivityItem[] = [
   { id: '1', type: 'document', title: 'Travel Concierge SOP updated', timestamp: '2 hours ago', description: 'New section added for VIP guest protocols' },
-  { id: '2', type: 'milestone', title: 'Phase 2 completed', timestamp: '5 hours ago', description: 'Riad & Routes brand guidelines approved' },
+  { id: '2', type: 'milestone', title: 'Phase 2 completed', timestamp: '5 hours ago', description: 'Horizon Concierge brand guidelines approved' },
   { id: '3', type: 'message', title: 'Feedback received', timestamp: '1 day ago', description: 'Client approved the revised pricing structure' },
-  { id: '4', type: 'document', title: 'Studio workflow documented', timestamp: '2 days ago', description: 'ArtKech creative process now fully documented' },
+  { id: '4', type: 'document', title: 'Studio workflow documented', timestamp: '2 days ago', description: 'Meridian Creative process now fully documented' },
   { id: '5', type: 'milestone', title: 'Onboarding complete', timestamp: '3 days ago', description: 'All team members have completed initial setup' },
 ];
 

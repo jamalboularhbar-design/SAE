@@ -117,7 +117,7 @@ export default function SuccessMetricsPage() {
       <header className="border-b border-border bg-background/95 backdrop-blur sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/">
-            <span className="text-lg font-bold text-primary cursor-pointer">ARG Builder</span>
+            <span className="text-lg font-bold text-primary cursor-pointer">NexusAI Playbooks</span>
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/case-studies">
@@ -135,7 +135,7 @@ export default function SuccessMetricsPage() {
         <Badge variant="outline" className="mb-4">Customer Success Metrics</Badge>
         <h1 className="text-4xl font-bold mb-4">Measurable Results, Not Promises</h1>
         <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-          Real performance data from ARG Builder customers across industries. These are average improvements measured over the first 90 days of deployment.
+          Real performance data from NexusAI Playbooks customers across industries. These are average improvements measured over the first 90 days of deployment.
         </p>
       </section>
 

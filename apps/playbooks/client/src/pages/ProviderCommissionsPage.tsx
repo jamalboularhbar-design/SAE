@@ -32,12 +32,12 @@ const COMMISSION_TIERS: CommissionTier[] = [
 ];
 
 const SAMPLE_COMMISSIONS: ProviderCommission[] = [
-  { id: 'c1', providerName: 'Riad Dar Anika', tier: 'platinum', type: 'riad', monthlyBookings: 12, commissionRate: '20%', estimatedMonthly: '€4,800', paymentStatus: 'paid', lastPayment: '2026-05-01' },
-  { id: 'c2', providerName: 'La Mamounia Suite', tier: 'platinum', type: 'hotel', monthlyBookings: 8, commissionRate: '22%', estimatedMonthly: '€7,200', paymentStatus: 'paid', lastPayment: '2026-05-01' },
-  { id: 'c3', providerName: 'Riad Yasmine', tier: 'gold', type: 'riad', monthlyBookings: 15, commissionRate: '17%', estimatedMonthly: '€3,400', paymentStatus: 'pending', lastPayment: '2026-04-15' },
+  { id: 'c1', providerName: 'Garden Court Hotel', tier: 'platinum', type: 'riad', monthlyBookings: 12, commissionRate: '20%', estimatedMonthly: '€4,800', paymentStatus: 'paid', lastPayment: '2026-05-01' },
+  { id: 'c2', providerName: 'Riverside Luxury Hotel Suite', tier: 'platinum', type: 'hotel', monthlyBookings: 8, commissionRate: '22%', estimatedMonthly: '€7,200', paymentStatus: 'paid', lastPayment: '2026-05-01' },
+  { id: 'c3', providerName: 'Cedar Boutique Hotel', tier: 'gold', type: 'riad', monthlyBookings: 15, commissionRate: '17%', estimatedMonthly: '€3,400', paymentStatus: 'pending', lastPayment: '2026-04-15' },
   { id: 'c4', providerName: 'Villa Oasis Palmeraie', tier: 'gold', type: 'villa', monthlyBookings: 4, commissionRate: '16%', estimatedMonthly: '€2,100', paymentStatus: 'paid', lastPayment: '2026-05-05' },
   { id: 'c5', providerName: 'Dar El Sadaka', tier: 'silver', type: 'riad', monthlyBookings: 6, commissionRate: '12%', estimatedMonthly: '€1,200', paymentStatus: 'overdue', lastPayment: '2026-03-20' },
-  { id: 'c6', providerName: 'Kasbah Tamadot', tier: 'platinum', type: 'hotel', monthlyBookings: 5, commissionRate: '20%', estimatedMonthly: '€5,500', paymentStatus: 'paid', lastPayment: '2026-05-01' },
+  { id: 'c6', providerName: 'Highland Retreat', tier: 'platinum', type: 'hotel', monthlyBookings: 5, commissionRate: '20%', estimatedMonthly: '€5,500', paymentStatus: 'paid', lastPayment: '2026-05-01' },
 ];
 
 const PAYMENT_STATUS_COLORS = {

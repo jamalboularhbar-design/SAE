@@ -131,7 +131,7 @@ export default function RequestDemoPage() {
       <header className="border-b border-border bg-background/95 backdrop-blur sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/">
-            <span className="text-lg font-bold text-primary cursor-pointer">ARG Builder</span>
+            <span className="text-lg font-bold text-primary cursor-pointer">NexusAI Playbooks</span>
           </Link>
           <Link href="/start-trial">
             <span className="text-sm font-medium text-primary cursor-pointer">Start Free Trial &rarr;</span>
@@ -144,9 +144,9 @@ export default function RequestDemoPage() {
           {/* Left - Benefits */}
           <div className="md:col-span-2">
             <Badge variant="outline" className="mb-4">Personalized Demo</Badge>
-            <h1 className="text-3xl font-bold mb-4">See ARG Builder in Action</h1>
+            <h1 className="text-3xl font-bold mb-4">See NexusAI Playbooks in Action</h1>
             <p className="text-muted-foreground mb-8">
-              Get a personalized walkthrough tailored to your industry and team size. We'll show you exactly how ARG Builder solves your specific challenges.
+              Get a personalized walkthrough tailored to your industry and team size. We'll show you exactly how NexusAI Playbooks solves your specific challenges.
             </p>
 
             <div className="space-y-6">
@@ -315,7 +315,7 @@ export default function RequestDemoPage() {
                   </Button>
 
                   <p className="text-xs text-center text-muted-foreground">
-                    By submitting, you agree to receive communications from ARG Builder. No spam, ever.
+                    By submitting, you agree to receive communications from NexusAI Playbooks. No spam, ever.
                   </p>
                 </form>
               </CardContent>

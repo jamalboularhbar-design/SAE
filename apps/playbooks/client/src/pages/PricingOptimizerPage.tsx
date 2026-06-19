@@ -18,7 +18,7 @@ interface PricingRecommendation {
 
 const PRICING_RECOMMENDATIONS: PricingRecommendation[] = [
   {
-    provider: 'Royal Mansour',
+    provider: 'Grand Palace Hotel',
     currentRate: 350,
     recommendedRate: 385,
     change: 10,
@@ -27,7 +27,7 @@ const PRICING_RECOMMENDATIONS: PricingRecommendation[] = [
     confidence: 92,
   },
   {
-    provider: 'La Mamounia',
+    provider: 'Riverside Luxury Hotel',
     currentRate: 280,
     recommendedRate: 310,
     change: 11,
@@ -36,7 +36,7 @@ const PRICING_RECOMMENDATIONS: PricingRecommendation[] = [
     confidence: 88,
   },
   {
-    provider: 'Selman Marrakech',
+    provider: 'Vista Resort',
     currentRate: 320,
     recommendedRate: 320,
     change: 0,
@@ -45,7 +45,7 @@ const PRICING_RECOMMENDATIONS: PricingRecommendation[] = [
     confidence: 85,
   },
   {
-    provider: 'Kasbah Tamadot',
+    provider: 'Highland Retreat',
     currentRate: 250,
     recommendedRate: 235,
     change: -6,

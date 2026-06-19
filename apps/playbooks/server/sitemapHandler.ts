@@ -2,8 +2,9 @@ import { Request, Response } from "express";
 import { eq } from "drizzle-orm";
 import { getDb } from "./db";
 import { documents } from "../drizzle/schema";
+import { BRAND } from "./brand";
 
-const BASE_URL = "https://www.argbuilder.io";
+const BASE_URL = BRAND.activeAppUrl;
 
 // Static routes with their change frequency and priority
 const STATIC_ROUTES = [

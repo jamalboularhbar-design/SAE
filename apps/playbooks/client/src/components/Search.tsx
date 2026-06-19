@@ -51,7 +51,7 @@ export default function Search() {
         <div className="relative">
           <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
           <Input
-            placeholder="Search personas, processes, capabilities..."
+            placeholder="Search workspaces, processes, capabilities..."
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
@@ -139,7 +139,7 @@ export default function Search() {
                         <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{result.description}</p>
                         <div className="flex items-center gap-2 flex-wrap">
                           <Badge variant="secondary" className={getCategoryColor(result.category)}>
-                            {result.category === 'travel' ? '✈️ Travel' : result.category === 'artkech' ? '🎨 ArtKech' : '⚙️ General'}
+                            {result.category === 'travel' ? '✈️ Travel' : result.category === 'artkech' ? '🎨 Creative' : '⚙️ General'}
                           </Badge>
                           <Badge variant="outline" className="text-xs">
                             {result.section}

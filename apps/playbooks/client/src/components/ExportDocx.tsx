@@ -39,7 +39,7 @@ export default function ExportDocx({ slug, title }: ExportDocxProps) {
 </head>
 <body>
 <h1>${data.title}</h1>
-<p style="color: #888; font-size: 9pt;">Category: ${data.category} | Exported from Riad & Routes ARG Builder</p>
+<p style="color: #888; font-size: 9pt;">Category: ${data.category} | Exported from Horizon Concierge NexusAI Playbooks</p>
 <hr/>
 ${markdownToHtml(data.content || '')}
 </body>

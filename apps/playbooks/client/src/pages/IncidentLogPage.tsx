@@ -24,9 +24,9 @@ interface Incident {
 }
 
 const SAMPLE_INCIDENTS: Incident[] = [
-  { id: 'inc-001', title: 'Hot water failure at Riad Yasmine', description: 'Guest reported no hot water in Suite 3. Provider contacted immediately.', severity: 'high', status: 'resolved', category: 'Provider Issue', reportedBy: 'Ahmed K.', reportedAt: '2026-05-19T08:30:00', resolvedAt: '2026-05-19T10:15:00', resolution: 'Provider plumber fixed boiler. Complimentary hammam offered to guest.', persona: 'riad-routes' },
+  { id: 'inc-001', title: 'Hot water failure at Cedar Boutique Hotel', description: 'Guest reported no hot water in Suite 3. Provider contacted immediately.', severity: 'high', status: 'resolved', category: 'Provider Issue', reportedBy: 'Ahmed K.', reportedAt: '2026-05-19T08:30:00', resolvedAt: '2026-05-19T10:15:00', resolution: 'Provider plumber fixed boiler. Complimentary hammam offered to guest.', persona: 'riad-routes' },
   { id: 'inc-002', title: 'Driver no-show for airport transfer', description: 'Mr. Johnson arriving on RAM flight AT502. Assigned driver unreachable.', severity: 'critical', status: 'resolved', category: 'Transfer', reportedBy: 'Youssef M.', reportedAt: '2026-05-18T14:00:00', resolvedAt: '2026-05-18T14:25:00', resolution: 'Backup driver dispatched within 15 min. Guest collected with apology gift.', persona: 'riad-routes' },
-  { id: 'inc-003', title: 'Dietary requirement not communicated', description: 'Vegan guest served non-vegan breakfast at La Mamounia. Guest upset.', severity: 'high', status: 'investigating', category: 'Guest Welfare', reportedBy: 'Fatima L.', reportedAt: '2026-05-20T07:45:00', persona: 'riad-routes' },
+  { id: 'inc-003', title: 'Dietary requirement not communicated', description: 'Vegan guest served non-vegan breakfast at Riverside Luxury Hotel. Guest upset.', severity: 'high', status: 'investigating', category: 'Guest Welfare', reportedBy: 'Fatima L.', reportedAt: '2026-05-20T07:45:00', persona: 'riad-routes' },
   { id: 'inc-004', title: 'Print deadline missed by freelancer', description: 'Freelance illustrator missed the brochure deadline by 2 days. Client presentation affected.', severity: 'medium', status: 'resolved', category: 'Deadline', reportedBy: 'Sara B.', reportedAt: '2026-05-17T16:00:00', resolvedAt: '2026-05-18T09:00:00', resolution: 'In-house designer completed illustrations overnight. Client notified of 1-day delay.', persona: 'artkech' },
   { id: 'inc-005', title: 'Client files corrupted during transfer', description: 'Brand guidelines PDF corrupted when sent to print vendor. Need re-export.', severity: 'medium', status: 'open', category: 'Technical', reportedBy: 'Karim T.', reportedAt: '2026-05-20T11:00:00', persona: 'artkech' },
 ];
@@ -111,10 +111,10 @@ export default function IncidentLogPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex gap-2">
             <button onClick={() => setActivePersona('riad-routes')} className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-sm transition-colors ${activePersona === 'riad-routes' ? 'bg-accent text-accent-foreground border-accent' : 'border-border hover:border-accent/50'}`}>
-              <Plane className="w-4 h-4" /> Riad & Routes
+              <Plane className="w-4 h-4" /> Horizon Concierge
             </button>
             <button onClick={() => setActivePersona('artkech')} className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-sm transition-colors ${activePersona === 'artkech' ? 'bg-accent text-accent-foreground border-accent' : 'border-border hover:border-accent/50'}`}>
-              <Palette className="w-4 h-4" /> ArtKech Studio
+              <Palette className="w-4 h-4" /> Meridian Creative Studio
             </button>
           </div>
           <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 text-white text-sm font-medium">

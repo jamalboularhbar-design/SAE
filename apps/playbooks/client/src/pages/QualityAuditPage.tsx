@@ -66,7 +66,7 @@ const AUDIT_CATEGORIES: AuditCategory[] = [
 
 export default function QualityAuditPage() {
   const [, navigate] = useLocation();
-  const [selectedProvider, setSelectedProvider] = useState('Royal Mansour');
+  const [selectedProvider, setSelectedProvider] = useState('Grand Palace Hotel');
   const [completedItems, setCompletedItems] = useState<Set<string>>(new Set());
   const [scores, setScores] = useState<Record<string, number>>({});
 
@@ -92,7 +92,7 @@ export default function QualityAuditPage() {
   }, 0);
   const scorePercentage = totalPossibleScore > 0 ? Math.round((currentScore / totalPossibleScore) * 100) : 0;
 
-  const PROVIDERS = ['Royal Mansour', 'La Mamounia', 'Selman Marrakech', 'Kasbah Tamadot', 'Riad Kniza', 'Riad Yasmine', 'Dar Anika', 'Riad 72'];
+  const PROVIDERS = ['Grand Palace Hotel', 'Riverside Luxury Hotel', 'Vista Resort', 'Highland Retreat', 'Harbor View Lodge', 'Cedar Boutique Hotel', 'Garden Court Hotel', 'Summit Inn'];
 
   return (
     <div className="min-h-screen bg-background text-foreground">

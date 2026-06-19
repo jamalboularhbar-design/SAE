@@ -23,14 +23,14 @@ const MONTHLY_DATA: MonthlyMetric[] = [
 ];
 
 const PROVIDER_REVENUE = [
-  { name: 'Royal Mansour', bookings: 18, revenue: 42000, commission: 6300, trend: 'up' },
-  { name: 'Riad Yasmine', bookings: 34, revenue: 18700, commission: 2805, trend: 'up' },
-  { name: 'La Mamounia', bookings: 12, revenue: 28800, commission: 4320, trend: 'stable' },
-  { name: 'Kasbah Tamadot', bookings: 8, revenue: 14400, commission: 2160, trend: 'up' },
-  { name: 'Dar Anika', bookings: 22, revenue: 11000, commission: 1650, trend: 'down' },
-  { name: 'Selman Marrakech', bookings: 15, revenue: 19500, commission: 2925, trend: 'up' },
-  { name: 'Riad Kniza', bookings: 28, revenue: 12600, commission: 1890, trend: 'stable' },
-  { name: 'Riad 72', bookings: 19, revenue: 7600, commission: 1140, trend: 'down' },
+  { name: 'Grand Palace Hotel', bookings: 18, revenue: 42000, commission: 6300, trend: 'up' },
+  { name: 'Cedar Boutique Hotel', bookings: 34, revenue: 18700, commission: 2805, trend: 'up' },
+  { name: 'Riverside Luxury Hotel', bookings: 12, revenue: 28800, commission: 4320, trend: 'stable' },
+  { name: 'Highland Retreat', bookings: 8, revenue: 14400, commission: 2160, trend: 'up' },
+  { name: 'Garden Court Hotel', bookings: 22, revenue: 11000, commission: 1650, trend: 'down' },
+  { name: 'Vista Resort', bookings: 15, revenue: 19500, commission: 2925, trend: 'up' },
+  { name: 'Harbor View Lodge', bookings: 28, revenue: 12600, commission: 1890, trend: 'stable' },
+  { name: 'Summit Inn', bookings: 19, revenue: 7600, commission: 1140, trend: 'down' },
 ];
 
 export default function RevenueAnalyticsPage() {

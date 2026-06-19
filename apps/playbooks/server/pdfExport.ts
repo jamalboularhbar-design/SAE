@@ -1,6 +1,7 @@
 import { Express, Request, Response } from "express";
 import { marked } from "marked";
 import { getDocumentBySlug } from "./db";
+import { BRAND } from "./brand";
 
 /**
  * Generates a styled HTML document from markdown content for PDF rendering.
@@ -114,7 +115,7 @@ function markdownToHtml(title: string, category: string, content: string): strin
     ${htmlContent}
   </div>
   <div class="footer">
-    ARG Builder &middot; Operational Document Library
+    NexusAI Playbooks &middot; Operational Document Library
   </div>
 </body>
 </html>`;

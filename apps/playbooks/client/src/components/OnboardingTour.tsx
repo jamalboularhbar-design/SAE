@@ -10,14 +10,14 @@ interface TourStep {
 
 const TOUR_STEPS: TourStep[] = [
   {
-    title: 'Welcome to the ARG Builder!',
-    description: 'This is your comprehensive operational guide for Riad & Routes. Let us show you around the key features.',
+    title: 'Welcome to the NexusAI Playbooks!',
+    description: 'This is your comprehensive operational guide for Horizon Concierge. Let us show you around the key features.',
     target: null,
   },
   {
-    title: 'Dual Persona System',
-    description: 'Switch between the Travel Concierge and Design Studio personas using these tabs. Each persona has its own set of operational processes.',
-    target: '[data-tour="personas"]',
+    title: 'Multi-Brand Workspaces',
+    description: 'Switch between the Horizon Concierge and Meridian Creative workspaces using these tabs. Each workspace has its own operational playbooks.',
+    target: '[data-tour="workspaces"]',
   },
   {
     title: 'Search & Command Palette',

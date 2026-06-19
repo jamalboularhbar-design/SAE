@@ -33,7 +33,7 @@ const RESOURCES: Resource[] = [
   {
     id: '2',
     title: 'How Luxury Travel Agencies Scale with AI-Powered Knowledge Bases',
-    description: 'Case study: How a boutique travel concierge reduced response time from 4 hours to 15 minutes using ARG Builder.',
+    description: 'Case study: How a boutique travel concierge reduced response time from 4 hours to 15 minutes using NexusAI Playbooks.',
     type: 'blog',
     category: 'Travel & Hospitality',
     readTime: '6 min read',
@@ -79,7 +79,7 @@ const RESOURCES: Resource[] = [
   {
     id: '7',
     title: 'Advanced Search & AI Features Tutorial',
-    description: 'Deep dive into semantic search, AI-powered summaries, and intelligent document recommendations within ARG Builder.',
+    description: 'Deep dive into semantic search, AI-powered summaries, and intelligent document recommendations within NexusAI Playbooks.',
     type: 'video',
     category: 'Product Features',
     readTime: '12 min watch',
@@ -114,7 +114,7 @@ const RESOURCES: Resource[] = [
   },
   {
     id: '11',
-    title: 'Integrating ARG Builder with Your Existing Stack',
+    title: 'Integrating NexusAI Playbooks with Your Existing Stack',
     description: 'Technical guide covering API integration, webhooks, SSO setup, and connecting with tools like Slack, Notion, and Jira.',
     type: 'guide',
     category: 'Integrations',
@@ -293,7 +293,7 @@ export default function ResourcesPage() {
       <section className="py-12 px-4 border-t border-border">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl font-bold mb-3">Ready to transform your operations?</h2>
-          <p className="text-muted-foreground mb-6">Start your 14-day free trial and see how ARG Builder can help your team.</p>
+          <p className="text-muted-foreground mb-6">Start your 14-day free trial and see how NexusAI Playbooks can help your team.</p>
           <div className="flex justify-center gap-3">
             <Link href="/start-trial"><Button>Start Free Trial</Button></Link>
             <Link href="/request-demo"><Button variant="outline">Request Demo</Button></Link>

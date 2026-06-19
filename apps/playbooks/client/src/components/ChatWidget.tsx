@@ -75,14 +75,14 @@ export default function ChatWidget() {
       {isOpen && (
         <div className="fixed bottom-24 right-6 z-50 w-80 bg-[#1a2332] border border-white/10 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
           <div className="bg-teal-500 px-4 py-3">
-            <h3 className="font-semibold text-black text-sm">Chat with ARG Builder</h3>
+            <h3 className="font-semibold text-black text-sm">Chat with NexusAI Playbooks</h3>
             <p className="text-xs text-black/70">We typically reply within a few hours</p>
           </div>
 
           {!sent ? (
             <div className="p-4 space-y-3">
               <div className="bg-white/5 rounded-lg p-3 text-sm text-gray-300">
-                Hi there! 👋 How can we help you today? Ask us anything about ARG Builder.
+                Hi there! 👋 How can we help you today? Ask us anything about NexusAI Playbooks.
               </div>
               <input
                 type="text"

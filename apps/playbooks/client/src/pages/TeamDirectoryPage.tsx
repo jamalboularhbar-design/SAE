@@ -20,23 +20,23 @@ interface TeamMember {
 }
 
 const TEAM_MEMBERS: TeamMember[] = [
-  // Riad & Routes team
-  { id: 'rr-tm1', name: 'Ahmed Khalil', role: 'Concierge Lead', department: 'Guest Services', phone: '+212 661 234 567', email: 'ahmed@riadroutes.com', whatsapp: '+212 661 234 567', availability: 'Mon-Sat 7:00-19:00', location: 'Marrakech Office', persona: 'riad-routes' },
-  { id: 'rr-tm2', name: 'Fatima Lahlou', role: 'Guest Relations Manager', department: 'Guest Services', phone: '+212 662 345 678', email: 'fatima@riadroutes.com', whatsapp: '+212 662 345 678', availability: 'Mon-Fri 8:00-18:00', location: 'Marrakech Office', persona: 'riad-routes' },
-  { id: 'rr-tm3', name: 'Youssef Mansouri', role: 'Operations Manager', department: 'Operations', phone: '+212 663 456 789', email: 'youssef@riadroutes.com', whatsapp: '+212 663 456 789', availability: 'Mon-Sat 6:00-22:00 (on-call)', location: 'Marrakech Office', persona: 'riad-routes' },
-  { id: 'rr-tm4', name: 'Nadia Bennis', role: 'Experience Coordinator', department: 'Experiences', phone: '+212 664 567 890', email: 'nadia@riadroutes.com', whatsapp: '+212 664 567 890', availability: 'Tue-Sun 9:00-18:00', location: 'Medina Hub', persona: 'riad-routes' },
-  { id: 'rr-tm5', name: 'Rachid El Ouafi', role: 'Tour Coordinator', department: 'Experiences', phone: '+212 665 678 901', email: 'rachid@riadroutes.com', whatsapp: '+212 665 678 901', availability: 'Mon-Sat 7:00-17:00', location: 'Medina Hub', persona: 'riad-routes' },
-  { id: 'rr-tm6', name: 'Samira Tazi', role: 'Finance & Billing', department: 'Finance', phone: '+212 666 789 012', email: 'samira@riadroutes.com', whatsapp: '+212 666 789 012', availability: 'Mon-Fri 9:00-17:00', location: 'Marrakech Office', persona: 'riad-routes' },
-  { id: 'rr-tm7', name: 'Omar Idrissi', role: 'Quality Manager', department: 'Quality', phone: '+212 667 890 123', email: 'omar@riadroutes.com', whatsapp: '+212 667 890 123', availability: 'Mon-Fri 8:00-18:00', location: 'Marrakech Office', persona: 'riad-routes' },
-  { id: 'rr-tm8', name: 'Karim Berrada', role: 'Marketing & Reviews', department: 'Marketing', phone: '+212 668 901 234', email: 'karim@riadroutes.com', whatsapp: '+212 668 901 234', availability: 'Mon-Fri 9:00-18:00', location: 'Remote', persona: 'riad-routes' },
+  // Horizon Concierge team
+  { id: 'rr-tm1', name: 'Ahmed Khalil', role: 'Concierge Lead', department: 'Guest Services', phone: '+212 661 234 567', email: 'ahmed@horizonconcierge.demo', whatsapp: '+212 661 234 567', availability: 'Mon-Sat 7:00-19:00', location: 'Marrakech Office', persona: 'riad-routes' },
+  { id: 'rr-tm2', name: 'Fatima Lahlou', role: 'Guest Relations Manager', department: 'Guest Services', phone: '+212 662 345 678', email: 'fatima@horizonconcierge.demo', whatsapp: '+212 662 345 678', availability: 'Mon-Fri 8:00-18:00', location: 'Marrakech Office', persona: 'riad-routes' },
+  { id: 'rr-tm3', name: 'Youssef Mansouri', role: 'Operations Manager', department: 'Operations', phone: '+212 663 456 789', email: 'youssef@horizonconcierge.demo', whatsapp: '+212 663 456 789', availability: 'Mon-Sat 6:00-22:00 (on-call)', location: 'Marrakech Office', persona: 'riad-routes' },
+  { id: 'rr-tm4', name: 'Nadia Bennis', role: 'Experience Coordinator', department: 'Experiences', phone: '+212 664 567 890', email: 'nadia@horizonconcierge.demo', whatsapp: '+212 664 567 890', availability: 'Tue-Sun 9:00-18:00', location: 'Medina Hub', persona: 'riad-routes' },
+  { id: 'rr-tm5', name: 'Rachid El Ouafi', role: 'Tour Coordinator', department: 'Experiences', phone: '+212 665 678 901', email: 'rachid@horizonconcierge.demo', whatsapp: '+212 665 678 901', availability: 'Mon-Sat 7:00-17:00', location: 'Medina Hub', persona: 'riad-routes' },
+  { id: 'rr-tm6', name: 'Samira Tazi', role: 'Finance & Billing', department: 'Finance', phone: '+212 666 789 012', email: 'samira@horizonconcierge.demo', whatsapp: '+212 666 789 012', availability: 'Mon-Fri 9:00-17:00', location: 'Marrakech Office', persona: 'riad-routes' },
+  { id: 'rr-tm7', name: 'Omar Idrissi', role: 'Quality Manager', department: 'Quality', phone: '+212 667 890 123', email: 'omar@horizonconcierge.demo', whatsapp: '+212 667 890 123', availability: 'Mon-Fri 8:00-18:00', location: 'Marrakech Office', persona: 'riad-routes' },
+  { id: 'rr-tm8', name: 'Karim Berrada', role: 'Marketing & Reviews', department: 'Marketing', phone: '+212 668 901 234', email: 'karim@horizonconcierge.demo', whatsapp: '+212 668 901 234', availability: 'Mon-Fri 9:00-18:00', location: 'Remote', persona: 'riad-routes' },
   // ArtKech team
-  { id: 'ak-tm1', name: 'Sara Benjelloun', role: 'Creative Director', department: 'Creative', phone: '+212 671 234 567', email: 'sara@artkech.com', whatsapp: '+212 671 234 567', availability: 'Mon-Fri 9:00-18:00', location: 'ArtKech Studio', persona: 'artkech' },
-  { id: 'ak-tm2', name: 'Mehdi Alaoui', role: 'Studio Manager', department: 'Operations', phone: '+212 672 345 678', email: 'mehdi@artkech.com', whatsapp: '+212 672 345 678', availability: 'Mon-Fri 8:30-18:30', location: 'ArtKech Studio', persona: 'artkech' },
-  { id: 'ak-tm3', name: 'Leila Fassi', role: 'Senior Designer', department: 'Creative', phone: '+212 673 456 789', email: 'leila@artkech.com', whatsapp: '+212 673 456 789', availability: 'Mon-Fri 9:00-18:00', location: 'ArtKech Studio', persona: 'artkech' },
-  { id: 'ak-tm4', name: 'Amine Chraibi', role: 'Account Manager', department: 'Client Services', phone: '+212 674 567 890', email: 'amine@artkech.com', whatsapp: '+212 674 567 890', availability: 'Mon-Fri 9:00-19:00', location: 'ArtKech Studio', persona: 'artkech' },
-  { id: 'ak-tm5', name: 'Zineb Ouazzani', role: 'Production Manager', department: 'Production', phone: '+212 675 678 901', email: 'zineb@artkech.com', whatsapp: '+212 675 678 901', availability: 'Mon-Sat 8:00-17:00', location: 'Print Workshop', persona: 'artkech' },
-  { id: 'ak-tm6', name: 'Hassan Moussaoui', role: 'Photographer', department: 'Creative', phone: '+212 676 789 012', email: 'hassan@artkech.com', whatsapp: '+212 676 789 012', availability: 'Flexible / On Assignment', location: 'Mobile', persona: 'artkech' },
-  { id: 'ak-tm7', name: 'Kenza Amrani', role: 'Content & Social Media', department: 'Marketing', phone: '+212 677 890 123', email: 'kenza@artkech.com', whatsapp: '+212 677 890 123', availability: 'Mon-Fri 9:00-18:00', location: 'Remote', persona: 'artkech' },
+  { id: 'ak-tm1', name: 'Sara Benjelloun', role: 'Creative Director', department: 'Creative', phone: '+212 671 234 567', email: 'sara@meridiancreative.demo', whatsapp: '+212 671 234 567', availability: 'Mon-Fri 9:00-18:00', location: 'Meridian Creative Studio', persona: 'artkech' },
+  { id: 'ak-tm2', name: 'Mehdi Alaoui', role: 'Studio Manager', department: 'Operations', phone: '+212 672 345 678', email: 'mehdi@meridiancreative.demo', whatsapp: '+212 672 345 678', availability: 'Mon-Fri 8:30-18:30', location: 'Meridian Creative Studio', persona: 'artkech' },
+  { id: 'ak-tm3', name: 'Leila Fassi', role: 'Senior Designer', department: 'Creative', phone: '+212 673 456 789', email: 'leila@meridiancreative.demo', whatsapp: '+212 673 456 789', availability: 'Mon-Fri 9:00-18:00', location: 'Meridian Creative Studio', persona: 'artkech' },
+  { id: 'ak-tm4', name: 'Amine Chraibi', role: 'Account Manager', department: 'Client Services', phone: '+212 674 567 890', email: 'amine@meridiancreative.demo', whatsapp: '+212 674 567 890', availability: 'Mon-Fri 9:00-19:00', location: 'Meridian Creative Studio', persona: 'artkech' },
+  { id: 'ak-tm5', name: 'Zineb Ouazzani', role: 'Production Manager', department: 'Production', phone: '+212 675 678 901', email: 'zineb@meridiancreative.demo', whatsapp: '+212 675 678 901', availability: 'Mon-Sat 8:00-17:00', location: 'Print Workshop', persona: 'artkech' },
+  { id: 'ak-tm6', name: 'Hassan Moussaoui', role: 'Photographer', department: 'Creative', phone: '+212 676 789 012', email: 'hassan@meridiancreative.demo', whatsapp: '+212 676 789 012', availability: 'Flexible / On Assignment', location: 'Mobile', persona: 'artkech' },
+  { id: 'ak-tm7', name: 'Kenza Amrani', role: 'Content & Social Media', department: 'Marketing', phone: '+212 677 890 123', email: 'kenza@meridiancreative.demo', whatsapp: '+212 677 890 123', availability: 'Mon-Fri 9:00-18:00', location: 'Remote', persona: 'artkech' },
 ];
 
 export default function TeamDirectoryPage() {
@@ -67,10 +67,10 @@ export default function TeamDirectoryPage() {
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="flex gap-2">
             <button onClick={() => setActivePersona('riad-routes')} className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-sm transition-colors ${activePersona === 'riad-routes' ? 'bg-accent text-accent-foreground border-accent' : 'border-border hover:border-accent/50'}`}>
-              <Plane className="w-4 h-4" /> Riad & Routes
+              <Plane className="w-4 h-4" /> Horizon Concierge
             </button>
             <button onClick={() => setActivePersona('artkech')} className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-sm transition-colors ${activePersona === 'artkech' ? 'bg-accent text-accent-foreground border-accent' : 'border-border hover:border-accent/50'}`}>
-              <Palette className="w-4 h-4" /> ArtKech Studio
+              <Palette className="w-4 h-4" /> Meridian Creative Studio
             </button>
           </div>
           <div className="relative flex-1">

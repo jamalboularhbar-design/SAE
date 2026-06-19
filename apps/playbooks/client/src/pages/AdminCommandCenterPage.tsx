@@ -79,7 +79,7 @@ export default function AdminCommandCenterPage() {
             </div>
             <div>
               <h1 className="text-2xl font-bold text-foreground">Command Center</h1>
-              <p className="text-sm text-muted-foreground">Quick access to every action and tool in ARG Builder</p>
+              <p className="text-sm text-muted-foreground">Quick access to every action and tool in NexusAI Playbooks</p>
             </div>
           </div>
         </div>

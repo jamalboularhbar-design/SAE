@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 
 export default function AIChatPage() {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Hello! I\'m your ARG Builder AI Assistant. I can help you with:\n\n- **Finding documents** — Ask me about any operational process\n- **Summarizing content** — Get quick overviews of complex documents\n- **Writing help** — Draft emails, reports, or documentation\n- **Workflow advice** — Get recommendations for process improvements\n\nHow can I help you today?' },
+    { role: 'assistant', content: 'Hello! I\'m your NexusAI Playbooks AI Assistant. I can help you with:\n\n- **Finding documents** — Ask me about any operational process\n- **Summarizing content** — Get quick overviews of complex documents\n- **Writing help** — Draft emails, reports, or documentation\n- **Workflow advice** — Get recommendations for process improvements\n\nHow can I help you today?' },
   ]);
   const [isLoading, setIsLoading] = useState(false);
 

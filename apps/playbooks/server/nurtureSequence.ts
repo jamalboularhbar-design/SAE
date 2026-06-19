@@ -14,6 +14,9 @@
 
 import { notifyOwner } from "./_core/notification";
 import { getLastNurtureStep, recordNurtureEmail, getAllTrials, updateTrialStatus } from "./db";
+import { BRAND } from "./brand";
+
+const { productName, teamSignature, activeAppUrl } = BRAND;
 
 export interface NurtureStep {
   id: string;
@@ -27,9 +30,9 @@ export const NURTURE_SEQUENCE: NurtureStep[] = [
   {
     id: "welcome",
     dayTrigger: 0,
-    subject: "Welcome to ARG Builder — Your 14-day trial starts now!",
+    subject: `Welcome to ${productName} — Your 14-day trial starts now!`,
     previewText: "Here's how to get the most out of your trial",
-    templateContent: `Welcome to ARG Builder!
+    templateContent: `Welcome to ${productName}!
 
 Your 14-day free trial of the {{planTier}} plan is now active.
 
@@ -39,17 +42,17 @@ Here's what you can do right now:
 • Set up your team workspace
 • Explore the Knowledge Graph
 
-Quick tip: Start by searching for a topic your team asks about frequently. You'll see how ARG Builder surfaces the right answer instantly.
+Quick tip: Start by searching for a topic your team asks about frequently. You'll see how ${productName} surfaces the right answer instantly.
 
 Need help? Reply to this email or book a 15-min onboarding call.
 
 Best,
-The ARG Builder Team`,
+${teamSignature}`,
   },
   {
     id: "day3_tips",
     dayTrigger: 3,
-    subject: "3 quick wins you can achieve today with ARG Builder",
+    subject: `3 quick wins you can achieve today with ${productName}`,
     previewText: "Most teams see results within the first week",
     templateContent: `Hi {{fullName}},
 
@@ -68,7 +71,7 @@ Teams that complete these 3 steps are 4x more likely to see measurable time savi
 Questions? Just reply to this email.
 
 Best,
-The ARG Builder Team`,
+${teamSignature}`,
   },
   {
     id: "day7_value",
@@ -87,14 +90,14 @@ You're halfway through your trial! Here are features that teams love but often d
 
 📋 **Reading Goals** — Track team progress and ensure everyone stays up to date.
 
-The average team saves 12+ hours per week after fully adopting ARG Builder.
+The average team saves 12+ hours per week after fully adopting ${productName}.
 
 → Explore these features: {{appUrl}}
 
 Want a personalized walkthrough? Book a 15-min call with our team.
 
 Best,
-The ARG Builder Team`,
+${teamSignature}`,
   },
   {
     id: "day12_warning",
@@ -103,7 +106,7 @@ The ARG Builder Team`,
     previewText: "Don't lose the work you've done",
     templateContent: `Hi {{fullName}},
 
-Your ARG Builder trial expires in 2 days.
+Your ${productName} trial expires in 2 days.
 
 Here's what you'll lose access to:
 • All imported documents and AI summaries
@@ -120,7 +123,7 @@ Not ready? No worries — your data is saved for 30 days. You can upgrade anytim
 Questions about pricing or features? Reply to this email and I'll personally help.
 
 Best,
-The ARG Builder Team`,
+${teamSignature}`,
   },
   {
     id: "day14_expired",
@@ -129,7 +132,7 @@ The ARG Builder Team`,
     previewText: "Reactivate anytime within 30 days",
     templateContent: `Hi {{fullName}},
 
-Your 14-day ARG Builder trial has ended.
+Your 14-day ${productName} trial has ended.
 
 Good news: Your data is safely stored for 30 days. You can reactivate anytime and pick up right where you left off.
 
@@ -137,12 +140,12 @@ Good news: Your data is safely stored for 30 days. You can reactivate anytime an
 
 → Reactivate now: {{appUrl}}/pricing
 
-If ARG Builder isn't the right fit, I'd love to hear why. Your feedback helps us improve.
+If ${productName} isn't the right fit, I'd love to hear why. Your feedback helps us improve.
 
-Thank you for trying ARG Builder. We hope to see you back!
+Thank you for trying ${productName}. We hope to see you back!
 
 Best,
-The ARG Builder Team`,
+${teamSignature}`,
   },
 ];
 

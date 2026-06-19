@@ -25,19 +25,19 @@ const CHANNEL_ICONS: Record<string, any> = {
 };
 
 const SAMPLE_LOGS: CommLog[] = [
-  { id: '1', provider: 'Royal Mansour', channel: 'whatsapp', subject: 'VIP Guest Arrival - Mitchell', summary: 'Confirmed rose petal setup, champagne in room, late checkout approved.', date: '2026-05-20', status: 'sent', urgent: false },
-  { id: '2', provider: 'Riad Yasmine', channel: 'email', subject: 'Room 3 Availability June 18-22', summary: 'Confirmed availability for Pierre Dupont. Requesting dietary menu in advance.', date: '2026-05-19', status: 'received', urgent: false },
-  { id: '3', provider: 'La Mamounia', channel: 'phone', subject: 'Pool Maintenance Notice', summary: 'Pool closed June 1-3 for maintenance. Need to inform affected guests.', date: '2026-05-18', status: 'received', urgent: true },
-  { id: '4', provider: 'Kasbah Tamadot', channel: 'whatsapp', subject: 'Transfer Coordination', summary: 'Driver confirmed for Hans Weber pickup. Flight AR302 arriving 14:30.', date: '2026-05-18', status: 'sent', urgent: false },
-  { id: '5', provider: 'Dar Anika', channel: 'email', subject: 'Rate Update for Peak Season', summary: 'New rates effective March 2027. 8% increase across all room categories.', date: '2026-05-17', status: 'received', urgent: false },
-  { id: '6', provider: 'Selman Marrakech', channel: 'whatsapp', subject: 'Guest Complaint Follow-up', summary: 'AC issue in suite 12 resolved. Complimentary spa session offered to guest.', date: '2026-05-16', status: 'received', urgent: true },
+  { id: '1', provider: 'Grand Palace Hotel', channel: 'whatsapp', subject: 'VIP Guest Arrival - Mitchell', summary: 'Confirmed rose petal setup, champagne in room, late checkout approved.', date: '2026-05-20', status: 'sent', urgent: false },
+  { id: '2', provider: 'Cedar Boutique Hotel', channel: 'email', subject: 'Room 3 Availability June 18-22', summary: 'Confirmed availability for Pierre Dupont. Requesting dietary menu in advance.', date: '2026-05-19', status: 'received', urgent: false },
+  { id: '3', provider: 'Riverside Luxury Hotel', channel: 'phone', subject: 'Pool Maintenance Notice', summary: 'Pool closed June 1-3 for maintenance. Need to inform affected guests.', date: '2026-05-18', status: 'received', urgent: true },
+  { id: '4', provider: 'Highland Retreat', channel: 'whatsapp', subject: 'Transfer Coordination', summary: 'Driver confirmed for Hans Weber pickup. Flight AR302 arriving 14:30.', date: '2026-05-18', status: 'sent', urgent: false },
+  { id: '5', provider: 'Garden Court Hotel', channel: 'email', subject: 'Rate Update for Peak Season', summary: 'New rates effective March 2027. 8% increase across all room categories.', date: '2026-05-17', status: 'received', urgent: false },
+  { id: '6', provider: 'Vista Resort', channel: 'whatsapp', subject: 'Guest Complaint Follow-up', summary: 'AC issue in suite 12 resolved. Complimentary spa session offered to guest.', date: '2026-05-16', status: 'received', urgent: true },
 ];
 
 const QUICK_MESSAGES = [
-  { label: 'Booking Confirmation', template: 'Dear [Provider], please confirm the following reservation:\n\nGuest: [Name]\nDates: [Check-in] to [Check-out]\nRoom: [Type]\nSpecial Requests: [Details]\n\nPlease confirm availability and rate.\n\nBest regards,\nRiad & Routes Team' },
-  { label: 'Pre-Arrival Brief', template: 'Dear [Provider],\n\nGuest [Name] arrives [Date]. Key details:\n\n• VIP Level: [Level]\n• Dietary: [Restrictions]\n• Room Preference: [Preference]\n• Special Occasion: [Details]\n• Transfer: [Arranged/Not needed]\n\nPlease ensure all preparations are in place.\n\nThank you,\nRiad & Routes' },
-  { label: 'Issue Escalation', template: 'URGENT - [Provider]\n\nIssue: [Description]\nGuest Affected: [Name]\nSeverity: [High/Critical]\n\nRequired Action:\n[Steps needed]\n\nPlease respond within [X] minutes.\n\nRiad & Routes Operations' },
-  { label: 'Feedback Follow-up', template: 'Dear [Provider],\n\nFollowing the recent stay of [Guest Name], we received the following feedback:\n\nRating: [X/5]\nComment: "[Feedback]"\n\nPlease review and let us know what improvements can be made.\n\nBest,\nRiad & Routes Quality Team' },
+  { label: 'Booking Confirmation', template: 'Dear [Provider], please confirm the following reservation:\n\nGuest: [Name]\nDates: [Check-in] to [Check-out]\nRoom: [Type]\nSpecial Requests: [Details]\n\nPlease confirm availability and rate.\n\nBest regards,\nHorizon Concierge Team' },
+  { label: 'Pre-Arrival Brief', template: 'Dear [Provider],\n\nGuest [Name] arrives [Date]. Key details:\n\n• VIP Level: [Level]\n• Dietary: [Restrictions]\n• Room Preference: [Preference]\n• Special Occasion: [Details]\n• Transfer: [Arranged/Not needed]\n\nPlease ensure all preparations are in place.\n\nThank you,\nHorizon Concierge' },
+  { label: 'Issue Escalation', template: 'URGENT - [Provider]\n\nIssue: [Description]\nGuest Affected: [Name]\nSeverity: [High/Critical]\n\nRequired Action:\n[Steps needed]\n\nPlease respond within [X] minutes.\n\nHorizon Concierge Operations' },
+  { label: 'Feedback Follow-up', template: 'Dear [Provider],\n\nFollowing the recent stay of [Guest Name], we received the following feedback:\n\nRating: [X/5]\nComment: "[Feedback]"\n\nPlease review and let us know what improvements can be made.\n\nBest,\nHorizon Concierge Quality Team' },
 ];
 
 export default function ProviderCommHubPage() {

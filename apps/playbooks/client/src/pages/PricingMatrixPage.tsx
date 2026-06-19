@@ -32,14 +32,14 @@ const SEASON_COLORS: Record<Season, string> = {
 };
 
 const PROVIDER_RATES: ProviderRate[] = [
-  { provider: 'Royal Mansour', tier: 'Ultra-Luxury', low: 1200, mid: 1600, high: 2200, peak: 3000, commission: 12 },
-  { provider: 'La Mamounia', tier: 'Ultra-Luxury', low: 800, mid: 1100, high: 1500, peak: 2200, commission: 10 },
-  { provider: 'Selman Marrakech', tier: 'Luxury', low: 600, mid: 850, high: 1200, peak: 1800, commission: 12 },
-  { provider: 'Kasbah Tamadot', tier: 'Luxury', low: 550, mid: 750, high: 1100, peak: 1600, commission: 15 },
-  { provider: 'Riad Kniza', tier: 'Boutique', low: 280, mid: 380, high: 520, peak: 700, commission: 15 },
-  { provider: 'Riad Yasmine', tier: 'Boutique', low: 250, mid: 350, high: 480, peak: 650, commission: 18 },
-  { provider: 'Dar Anika', tier: 'Boutique', low: 220, mid: 300, high: 420, peak: 580, commission: 18 },
-  { provider: 'Riad 72', tier: 'Boutique', low: 200, mid: 280, high: 380, peak: 520, commission: 20 },
+  { provider: 'Grand Palace Hotel', tier: 'Ultra-Luxury', low: 1200, mid: 1600, high: 2200, peak: 3000, commission: 12 },
+  { provider: 'Riverside Luxury Hotel', tier: 'Ultra-Luxury', low: 800, mid: 1100, high: 1500, peak: 2200, commission: 10 },
+  { provider: 'Vista Resort', tier: 'Luxury', low: 600, mid: 850, high: 1200, peak: 1800, commission: 12 },
+  { provider: 'Highland Retreat', tier: 'Luxury', low: 550, mid: 750, high: 1100, peak: 1600, commission: 15 },
+  { provider: 'Harbor View Lodge', tier: 'Boutique', low: 280, mid: 380, high: 520, peak: 700, commission: 15 },
+  { provider: 'Cedar Boutique Hotel', tier: 'Boutique', low: 250, mid: 350, high: 480, peak: 650, commission: 18 },
+  { provider: 'Garden Court Hotel', tier: 'Boutique', low: 220, mid: 300, high: 420, peak: 580, commission: 18 },
+  { provider: 'Summit Inn', tier: 'Boutique', low: 200, mid: 280, high: 380, peak: 520, commission: 20 },
 ];
 
 const MARKUP_TIERS = [

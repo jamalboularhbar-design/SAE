@@ -3,6 +3,7 @@ import { getDb } from "./db";
 import { notifyOwner } from "./_core/notification";
 import { users, documents, leads, activityLog, recentlyViewed, documentComments, documentFeedback } from "../drizzle/schema";
 import { count, sql, desc, eq } from "drizzle-orm";
+import { BRAND } from "./brand";
 
 /**
  * Weekly Metrics Review — Scheduled Endpoint
@@ -81,7 +82,7 @@ export async function weeklyReviewHandler(req: Request, res: Response) {
     weekStart.setDate(today.getDate() - 7);
     const dateRange = `${weekStart.toLocaleDateString("en-US", { month: "short", day: "numeric" })} – ${today.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`;
 
-    const title = `📊 ARG Builder Weekly Review — ${dateRange}`;
+    const title = `📊 ${BRAND.productName} Weekly Review — ${dateRange}`;
 
     const content = `## Weekly Metrics Summary
 
@@ -102,7 +103,7 @@ export async function weeklyReviewHandler(req: Request, res: Response) {
 
 ---
 
-*Review your full dashboard at argbuilder.io/admin/dashboard*
+*Review your full dashboard at ${BRAND.activeAppUrl.replace("https://", "")}/admin/dashboard*
 *Manage this schedule in Settings → Schedules*`;
 
     // Send notification to owner

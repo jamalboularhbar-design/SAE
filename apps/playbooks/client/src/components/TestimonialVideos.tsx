@@ -21,7 +21,7 @@ const TESTIMONIALS: Testimonial[] = [
     role: 'VP of Operations',
     company: 'Luxe Voyages',
     industry: 'Travel & Hospitality',
-    quote: 'ARG Builder transformed how our 45-person team handles destination knowledge. New agents now ramp up in 2 weeks instead of 3 months. The AI search alone saves us 15 hours per week.',
+    quote: 'NexusAI Playbooks transformed how our 45-person team handles destination knowledge. New agents now ramp up in 2 weeks instead of 3 months. The AI search alone saves us 15 hours per week.',
     rating: 5,
     metric: '87%',
     metricLabel: 'Faster Onboarding',
@@ -45,7 +45,7 @@ const TESTIMONIALS: Testimonial[] = [
     role: 'Director of Engineering',
     company: 'ScaleStack',
     industry: 'SaaS & Technology',
-    quote: 'We replaced Confluence + Notion + Google Docs with ARG Builder. The knowledge graph alone justified the switch — engineers can trace how decisions connect across 200+ architecture docs.',
+    quote: 'We replaced Confluence + Notion + Google Docs with NexusAI Playbooks. The knowledge graph alone justified the switch — engineers can trace how decisions connect across 200+ architecture docs.',
     rating: 5,
     metric: '3x',
     metricLabel: 'Faster Doc Discovery',
@@ -77,7 +77,7 @@ export default function TestimonialVideos() {
           <Badge variant="outline" className="mb-4">Customer Stories</Badge>
           <h2 className="text-3xl font-bold mb-3">Trusted by Operations Leaders</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            See how mid-market companies across industries use ARG Builder to transform their operational knowledge management.
+            See how mid-market companies across industries use NexusAI Playbooks to transform their operational knowledge management.
           </p>
         </div>
 
@@ -138,7 +138,7 @@ export default function TestimonialVideos() {
         {/* Bottom CTA */}
         <div className="text-center mt-10">
           <p className="text-sm text-muted-foreground mb-2">
-            Join 200+ operations teams already using ARG Builder
+            Join 200+ operations teams already using NexusAI Playbooks
           </p>
           <a href="/start-trial" className="text-primary font-medium text-sm hover:underline">
             Start your 14-day free trial &rarr;

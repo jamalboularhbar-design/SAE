@@ -110,7 +110,7 @@ export function TrialExpiryBanner({ daysRemaining, onDismiss }: { daysRemaining:
 }
 
 /**
- * Comparison Page - ARG Builder vs competitors
+ * Comparison Page - NexusAI Playbooks vs competitors
  */
 export function ComparisonSection() {
   const [, navigate] = useLocation();
@@ -119,7 +119,7 @@ export function ComparisonSection() {
     { name: "Notion", category: "General workspace" },
     { name: "Confluence", category: "Enterprise wiki" },
     { name: "Guru", category: "Knowledge management" },
-    { name: "ARG Builder", category: "Operational intelligence", highlight: true },
+    { name: "NexusAI Playbooks", category: "Operational intelligence", highlight: true },
   ];
 
   const features = [
@@ -143,7 +143,7 @@ export function ComparisonSection() {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-foreground mb-4">How We Compare</h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            ARG Builder is purpose-built for operational knowledge management — not a general workspace adapted for it.
+            NexusAI Playbooks is purpose-built for operational knowledge management — not a general workspace adapted for it.
           </p>
         </div>
 
@@ -182,7 +182,7 @@ export function ComparisonSection() {
             onClick={() => navigate("/start-trial?plan=professional")}
             className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 inline-flex items-center gap-2"
           >
-            Try ARG Builder Free <ArrowRight className="w-4 h-4" />
+            Try NexusAI Playbooks Free <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </div>

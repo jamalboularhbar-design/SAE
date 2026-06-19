@@ -38,7 +38,7 @@ const PHASE_COLORS: Record<string, string> = {
 };
 
 const RESPONSIBLE_LABELS: Record<string, string> = {
-  concierge: 'Riad & Routes',
+  concierge: 'Horizon Concierge',
   provider: 'Provider',
   both: 'Joint',
 };

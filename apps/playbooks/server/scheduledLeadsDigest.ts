@@ -3,6 +3,7 @@ import { getDb } from "./db";
 import { notifyOwner } from "./_core/notification";
 import { leads } from "../drizzle/schema";
 import { count, sql, desc, eq } from "drizzle-orm";
+import { BRAND } from "./brand";
 
 /**
  * Weekly Leads Digest — Scheduled Endpoint
@@ -120,7 +121,7 @@ export async function leadsDigestHandler(req: Request, res: Response) {
 
     let content = `## Lead Pipeline Summary
 
-**Website Leads (ARG Builder)**
+**Website Leads (${BRAND.productName})**
 • Total Leads: ${totalLocalLeads}
 • New This Week: ${newLeadsThisWeek}
 • Contacted: ${contactedLeads}
@@ -152,7 +153,7 @@ export async function leadsDigestHandler(req: Request, res: Response) {
 
     content += `
 ---
-*View full pipeline at argbuilder.io/admin/leads*
+*View full pipeline at ${BRAND.activeAppUrl.replace("https://", "")}/admin/leads*
 *Manage in Close CRM: app.close.com*`;
 
     // Send notification

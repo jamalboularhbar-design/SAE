@@ -9,7 +9,7 @@ const METRICS = [
 
 const TESTIMONIALS = [
   {
-    quote: "ARG Builder completely transformed how we onboard new team members. What used to take 2 weeks now takes 3 days.",
+    quote: "NexusAI Playbooks completely transformed how we onboard new team members. What used to take 2 weeks now takes 3 days.",
     author: "Sarah Chen",
     role: "Operations Director",
     company: "Meridian Travel Group",
@@ -23,7 +23,7 @@ const TESTIMONIALS = [
     rating: 5,
   },
   {
-    quote: "We evaluated Notion, Confluence, and Guru. ARG Builder won because it's purpose-built for operational guides with enterprise features.",
+    quote: "We evaluated Notion, Confluence, and Guru. NexusAI Playbooks won because it's purpose-built for operational guides with enterprise features.",
     author: "Priya Patel",
     role: "CTO",
     company: "Voyager Hospitality",
@@ -35,7 +35,7 @@ const CLIENT_LOGOS = [
   { name: "Meridian Travel", initials: "MT" },
   { name: "Atlas Creative", initials: "AC" },
   { name: "Voyager Hospitality", initials: "VH" },
-  { name: "Riad & Routes", initials: "R&R" },
+  { name: "Horizon Concierge", initials: "R&R" },
   { name: "Nomad Studios", initials: "NS" },
   { name: "Zenith Operations", initials: "ZO" },
 ];

@@ -4,7 +4,7 @@ import { ENV } from "./_core/env";
 
 describe("Admin Login", () => {
   it("should have ADMIN_EMAIL configured", () => {
-    expect(ENV.adminEmail).toBe("admin@argbuilder.io");
+    expect(ENV.adminEmail).toBe("admin@nexusai.ma");
   });
 
   it("should have ADMIN_PASSWORD configured (not default)", () => {

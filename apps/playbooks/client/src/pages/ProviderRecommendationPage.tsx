@@ -20,7 +20,7 @@ interface Recommendation {
 const SAMPLE_RECOMMENDATIONS: Recommendation[] = [
   {
     rank: 1,
-    provider: 'Royal Mansour',
+    provider: 'Grand Palace Hotel',
     score: 98,
     matchReason: 'Perfect match for luxury couples retreat with romantic ambiance',
     tier: 'Platinum',
@@ -31,7 +31,7 @@ const SAMPLE_RECOMMENDATIONS: Recommendation[] = [
   },
   {
     rank: 2,
-    provider: 'Selman Marrakech',
+    provider: 'Vista Resort',
     score: 94,
     matchReason: 'Excellent wellness focus matches guest preference for spa experiences',
     tier: 'Platinum',
@@ -42,7 +42,7 @@ const SAMPLE_RECOMMENDATIONS: Recommendation[] = [
   },
   {
     rank: 3,
-    provider: 'La Mamounia',
+    provider: 'Riverside Luxury Hotel',
     score: 91,
     matchReason: 'Historic luxury property with excellent guest satisfaction history',
     tier: 'Gold',
@@ -53,7 +53,7 @@ const SAMPLE_RECOMMENDATIONS: Recommendation[] = [
   },
   {
     rank: 4,
-    provider: 'Kasbah Tamadot',
+    provider: 'Highland Retreat',
     score: 87,
     matchReason: 'Adventure-focused but offers luxury accommodations for mixed preferences',
     tier: 'Gold',

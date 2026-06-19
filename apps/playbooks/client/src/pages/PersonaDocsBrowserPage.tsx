@@ -8,16 +8,16 @@ import { ArrowLeft, FileText, Clock, Search, BookOpen, Plane, Palette, ChevronRi
 
 const PERSONA_CONFIG: Record<string, { title: string; subtitle: string; category: string; icon: typeof Plane; color: string }> = {
   'riad-routes': {
-    title: 'Riad & Routes',
+    title: 'Horizon Concierge',
     subtitle: 'Hospitality & Travel Operations',
-    category: 'Riad & Routes',
+    category: 'Horizon Concierge',
     icon: Plane,
     color: 'text-amber-500'
   },
   'artkech': {
-    title: 'ArtKech Design Studio',
+    title: 'Meridian Creative Studio',
     subtitle: 'Creative Studio Operations',
-    category: 'ArtKech Design Studio',
+    category: 'Meridian Creative Studio',
     icon: Palette,
     color: 'text-purple-500'
   }

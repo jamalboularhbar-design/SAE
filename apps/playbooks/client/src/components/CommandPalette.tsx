@@ -23,8 +23,8 @@ export default function CommandPalette({ onExport, onSwitchPersona }: CommandPal
   const commands: Command[] = [
     {
       id: 'travel-persona',
-      title: 'Switch to Riad & Routes',
-      description: 'View Riad & Routes Concierge persona',
+      title: 'Switch to Horizon Concierge',
+      description: 'View Horizon Concierge workspace',
       icon: <Plane className="w-4 h-4" />,
       action: () => {
         onSwitchPersona?.('travel');
@@ -34,8 +34,8 @@ export default function CommandPalette({ onExport, onSwitchPersona }: CommandPal
     },
     {
       id: 'artkech-persona',
-      title: 'Switch to ArtKech Studio',
-      description: 'View ArtKech Lead Designer persona',
+      title: 'Switch to Meridian Creative Studio',
+      description: 'View Meridian Creative Lead workspace',
       icon: <Palette className="w-4 h-4" />,
       action: () => {
         onSwitchPersona?.('artkech');

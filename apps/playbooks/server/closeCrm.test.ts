@@ -17,9 +17,9 @@ describe("Close CRM Integration", () => {
 
   it("should create a test lead in Close CRM", async () => {
     const leadId = await createCloseLead({
-      fullName: "Test Lead (ARG Builder)",
+      fullName: "Test Lead (NexusAI Playbooks)",
       email: "test-integration@argbuilder.io",
-      company: "ARG Builder Test",
+      company: "NexusAI Playbooks Test",
       jobTitle: "Integration Test",
       teamSize: "saas",
       message: "This is an automated integration test lead. Safe to delete.",

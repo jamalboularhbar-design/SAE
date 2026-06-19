@@ -51,7 +51,7 @@ export default function Home() {
     metaKeywords.content = `NexusAI, operational intelligence, knowledge management, multi-brand playbooks, AI writing assistant, semantic search, ${BRAND.productName}`;
 
     // Open Graph meta tags
-    const ogImageUrl = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663609289051/2ZSCuHTjdaVo7h4vqS7dZB/og-image-argbuilder-ZutmaYZHU87mr4cVDB2dma.png';
+    const ogImageUrl = BRAND.ogImageUrl;
     const ogTags: Record<string, string> = {
       'og:type': 'website',
       'og:url': window.location.origin,
@@ -278,7 +278,7 @@ export default function Home() {
           <Card className="card-premium mb-12">
             <CardHeader>
               <CardTitle>Advanced Search</CardTitle>
-              <CardDescription>Search across all personas, processes, and guidelines</CardDescription>
+              <CardDescription>Search across all workspaces, processes, and guidelines</CardDescription>
             </CardHeader>
             <CardContent>
               <Search />
@@ -304,23 +304,23 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Persona Selection Tabs */}
+        {/* Workspace Selection Tabs */}
         <div className="mb-10 sm:mb-16">
           <Tabs value={activePersona} onValueChange={(value) => setActivePersona(value as 'travel' | 'artkech')} className="w-full">
-            <TabsList data-tour="personas" className="grid w-full max-w-sm sm:max-w-md mx-auto grid-cols-2 mb-8 sm:mb-12 bg-card/50 border border-border/50 p-1 rounded-lg">
+            <TabsList data-tour="workspaces" className="grid w-full max-w-sm sm:max-w-md mx-auto grid-cols-2 mb-8 sm:mb-12 bg-card/50 border border-border/50 p-1 rounded-lg">
               <TabsTrigger value="travel" className="flex items-center gap-2">
                 <Plane className="w-4 h-4" />
-                <span>Riad & Routes</span>
+                <span>Horizon Concierge</span>
               </TabsTrigger>
               <TabsTrigger value="artkech" className="flex items-center gap-2">
                 <Palette className="w-4 h-4" />
-                <span>ArtKech Studio</span>
+                <span>Meridian Creative Studio</span>
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="travel" className="mt-8 space-y-8">
               <TravelConcierge />
-              {/* Persona Operations Quick Access */}
+              {/* Workspace Operations Quick Access */}
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 <Link href="/persona/riad-routes">
                   <Card className="cursor-pointer hover:border-accent/50 transition-colors h-full">
@@ -415,14 +415,14 @@ export default function Home() {
                   <CardDescription>7-stage operational workflow</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ProcessTimeline stages={travelStages} title="Riad & Routes Concierge Process" />
+                  <ProcessTimeline stages={travelStages} title="Horizon Concierge Process" />
                 </CardContent>
               </Card>
             </TabsContent>
 
             <TabsContent value="artkech" className="mt-8 space-y-8">
               <CreativeStudio />
-              {/* Persona Operations Quick Access */}
+              {/* Workspace Operations Quick Access */}
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 <Link href="/persona/artkech">
                   <Card className="cursor-pointer hover:border-accent/50 transition-colors h-full">
@@ -479,7 +479,7 @@ export default function Home() {
                   <CardDescription>7-stage operational workflow</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ProcessTimeline stages={artkechStages} title="ArtKech Design Process" />
+                  <ProcessTimeline stages={artkechStages} title="Meridian Creative Process" />
                 </CardContent>
               </Card>
             </TabsContent>
@@ -489,13 +489,13 @@ export default function Home() {
         {/* General Capabilities Section */}
         <section className="mt-16 sm:mt-24 mb-12 sm:mb-20 pt-8 sm:pt-12 border-t border-border/50">
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-2 sm:mb-3 text-foreground">General Capabilities</h2>
-          <p className="text-muted-foreground text-sm sm:text-base mb-6 sm:mb-8">Core competencies across both business operations</p>
+          <p className="text-muted-foreground text-sm sm:text-base mb-6 sm:mb-8">Core competencies across all workspaces</p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
                 title: 'Context Switching',
-                description: 'Seamlessly transition between personas based on task context'
+                description: 'Seamlessly transition between workspaces based on task context'
               },
               {
                 title: 'Client Communication',
