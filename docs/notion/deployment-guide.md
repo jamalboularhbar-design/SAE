@@ -21,6 +21,9 @@ pnpm notion:verify
 # Repeatable upsert (structure + curated docs-seed)
 pnpm notion:sync
 
+# Full content refresh (~30+ min — rewrites all Vault page bodies)
+NOTION_SYNC_LIGHT=0 pnpm notion:sync
+
 # Structure only (skip docs)
 NOTION_SYNC_DOCS=0 pnpm notion:sync
 ```
@@ -47,8 +50,10 @@ pnpm notion:verify
 
 - Uses `scripts/notion/.notion-sync-manifest.json` (local) + title matching in Notion
 - Updates existing rows; creates new ones; never deletes the hub
-- Curated docs: ~80–100 files (all RR/AK vertical ops + GTM/sales/strategy tier)
-- Full markdown body synced into Vault pages (truncated at ~80 blocks)
+- **CI default: light mode** — metadata only (~2–3 min). Skips slow block-by-block body refresh.
+- **Full sync:** `NOTION_SYNC_LIGHT=0 pnpm notion:sync` or GitHub Actions manual run with **full_sync** checked
+- Curated docs: ~82 files (all RR/AK vertical ops + GTM/sales/strategy tier)
+- Full markdown body synced into Vault pages when not in light mode (truncated at ~80 blocks)
 
 ## Curated tiers
 

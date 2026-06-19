@@ -230,12 +230,13 @@ export async function upsertDatabaseRow(notion, {
   manifest,
   manifestKey,
   content,
+  syncContent = true,
 }) {
   let pageId = manifest?.pages?.[manifestKey];
   if (pageId) {
     try {
       await notion.updatePage(pageId, { properties });
-      if (content) await replacePageContent(notion, pageId, content);
+      if (content && syncContent) await replacePageContent(notion, pageId, content);
       return { pageId, action: "updated" };
     } catch {
       delete manifest.pages[manifestKey];
@@ -246,7 +247,7 @@ export async function upsertDatabaseRow(notion, {
   if (existing) {
     pageId = existing;
     await notion.updatePage(pageId, { properties });
-    if (content) await replacePageContent(notion, pageId, content);
+    if (content && syncContent) await replacePageContent(notion, pageId, content);
     if (manifest) manifest.pages[manifestKey] = pageId;
     return { pageId, action: "updated" };
   }

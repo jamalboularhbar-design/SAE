@@ -13,10 +13,17 @@ on:
     # Weekly Monday 10:00 UTC
     - cron: "0 10 * * 1"
   workflow_dispatch:
+    inputs:
+      full_sync:
+        description: "Refresh full markdown body in Vault pages (slow, ~30+ min)"
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     defaults:
       run:
         working-directory: apps/playbooks
@@ -36,6 +43,21 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Restore sync manifest from last run
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          RUN_ID=$(gh run list --repo "${{ github.repository }}" --workflow=notion-sync.yml \
+            --branch=main --status=success --limit 1 --json databaseId -q '.[0].databaseId')
+          if [ -n "$RUN_ID" ] && [ "$RUN_ID" != "null" ]; then
+            gh run download "$RUN_ID" --repo "${{ github.repository }}" \
+              -n notion-sync-manifest -D scripts/notion/
+            echo "Restored manifest from run $RUN_ID"
+          else
+            echo "No prior manifest — using manifest.default.json page cache"
+          fi
+
       - name: Verify NOTION_API_KEY secret
         env:
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
@@ -48,6 +70,7 @@ jobs:
       - name: Notion upsert sync
         env:
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_SYNC_LIGHT: ${{ github.event_name == 'workflow_dispatch' && inputs.full_sync && '0' || '1' }}
         run: node scripts/notion/sync-notion.mjs
 
       - name: Upload sync manifest

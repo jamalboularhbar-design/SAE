@@ -37,6 +37,15 @@ import {
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 config({ path: path.resolve(__dirname, "../../.env") });
 
+/** Light mode: update DB rows only, skip slow markdown body refresh (CI default) */
+const SYNC_CONTENT =
+  process.env.NOTION_SYNC_LIGHT !== "1" && process.env.NOTION_SYNC_CONTENT !== "0";
+
+function log(msg) {
+  const ts = new Date().toISOString().slice(11, 19);
+  console.log(`[${ts}] ${msg}`);
+}
+
 function mapPillar(p) {
   if (p === "Finance & Fundraising") return "Finance";
   return p;
@@ -110,7 +119,7 @@ async function ensureCaseStudiesDb(notion, manifest) {
 }
 
 async function syncStructure(notion, manifest) {
-  console.log("\n📐 Syncing PPV structure (upsert)…");
+  log("Syncing PPV structure (upsert)…");
   const d = manifest.databases;
 
   for (const p of PILLARS) {
@@ -252,7 +261,7 @@ async function syncStructure(notion, manifest) {
     },
   });
 
-  console.log("  ✓ Structure sync complete");
+  log("Structure sync complete");
 }
 
 async function syncDocs(notion, manifest) {
@@ -261,9 +270,9 @@ async function syncDocs(notion, manifest) {
     return;
   }
 
-  console.log("\n📚 Syncing curated docs-seed (upsert)…");
+  log(`Syncing curated docs-seed (${SYNC_CONTENT ? "full content" : "metadata only"})…`);
   const docs = getCuratedDocs();
-  console.log(`  ${docs.length} documents in curated set`);
+  log(`${docs.length} documents in curated set`);
 
   let created = 0;
   let updated = 0;
@@ -281,6 +290,7 @@ async function syncDocs(notion, manifest) {
       manifestKey: `doc:${slugify(doc.id)}`,
       manifest,
       content: body,
+      syncContent: SYNC_CONTENT,
       properties: {
         Name: titleProp(title),
         Category: selectProp(mapVaultCategory(doc.category)),
@@ -293,13 +303,13 @@ async function syncDocs(notion, manifest) {
     else updated++;
 
     if ((created + updated) % 10 === 0) {
-      console.log(`  … ${created + updated}/${docs.length}`);
+      log(`${created + updated}/${docs.length} docs processed`);
       saveManifest(manifest);
     }
     await sleep(250);
   }
 
-  console.log(`  ✓ Docs sync: ${created} created, ${updated} updated`);
+  log(`Docs sync: ${created} created, ${updated} updated`);
 }
 
 async function main() {
@@ -320,12 +330,13 @@ async function main() {
 
   console.log("NexusAI → Notion upsert sync");
   console.log(`Hub: ${manifest.hubPageUrl ?? pageUrl(manifest.hubPageId)}`);
+  console.log(`Mode: ${SYNC_CONTENT ? "full (content + metadata)" : "light (metadata only)"}`);
 
   await syncStructure(notion, manifest);
   await syncDocs(notion, manifest);
 
   saveManifest(manifest);
-  console.log(`\n✅ Sync complete · manifest: ${MANIFEST_PATH}`);
+  log(`Sync complete · manifest: ${MANIFEST_PATH}`);
 }
 
 main().catch((err) => {
