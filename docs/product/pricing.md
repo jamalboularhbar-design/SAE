@@ -53,8 +53,8 @@ Free/OSS → Templates ($49-199) → Playbooks ($299-999/mo) → Enterprise (cus
 |--------|-----------|---------|-------|------------------|
 | **Starter Pack** | 50 core SOPs | Notion, MD, GDocs | $49 | $49 off first month |
 | **Agency Pack** | 100+ agency ops | Notion, MD, GDocs | $99 | $99 off first month |
-| **Hospitality Pack** | Riad & Routes library | Notion, MD, GDocs | $149 | $149 off first month |
-| **Design Studio Pack** | ArtKech library | Notion, MD, GDocs | $149 | $149 off first month |
+| **Hospitality Pack** | Travel ops library | Notion, MD, GDocs | $149 | $149 off first month |
+| **Design Studio Pack** | Creative studio library | Notion, MD, GDocs | $149 | $149 off first month |
 | **Complete Library** | 280+ all docs | All formats + hosted | $199 | 1 month Pro free |
 
 ### Subscription Option

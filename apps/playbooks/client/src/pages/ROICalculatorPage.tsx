@@ -5,8 +5,16 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { trpc } from '@/lib/trpc';
 import { toast } from 'sonner';
+import { BRAND } from '@/lib/brand';
+import SEO from '@/components/SEO';
 
-const LOGO_IMG = 'https://argbuilder.io/logo-icon_7cc98e89.png';
+function LogoMark() {
+  return (
+    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-purple-600 text-white font-bold flex items-center justify-center text-[11px] tracking-tight shrink-0">
+      NX
+    </div>
+  );
+}
 
 export default function ROICalculatorPage() {
   const submitLead = trpc.leads.submit.useMutation();
@@ -93,14 +101,15 @@ export default function ROICalculatorPage() {
 
   return (
     <div className="min-h-screen bg-[#0B1120] text-white">
+      <SEO {...{ title: 'ROI Calculator', description: `Calculate time and cost savings with ${BRAND.productName}.` }} />
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0B1120]/80 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/product">
               <div className="flex items-center gap-3 cursor-pointer">
-                <img src={LOGO_IMG} alt="NexusAI Playbooks" className="w-8 h-8 rounded-lg" />
-                <span className="text-xl font-bold tracking-tight">NexusAI Playbooks</span>
+                <LogoMark />
+                <span className="text-xl font-bold tracking-tight">{BRAND.productName}</span>
               </div>
             </Link>
           </div>
@@ -110,11 +119,11 @@ export default function ROICalculatorPage() {
                 <ArrowLeft className="w-4 h-4 mr-1" /> Back to Product
               </Button>
             </Link>
-            <a href="/product#contact">
+            <Link href="/start-trial?plan=professional&utm_source=roi&utm_medium=nav">
               <Button size="sm" className="bg-teal-500 hover:bg-teal-400 text-black font-semibold">
-                Request Demo
+                Start Free Trial
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
       </nav>
@@ -299,18 +308,23 @@ export default function ROICalculatorPage() {
               </div>
 
               {/* CTA */}
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <Button
                   onClick={() => setShowCapture(true)}
                   className="flex-1 bg-teal-500 hover:bg-teal-400 text-black font-semibold py-6"
                 >
                   <Download className="w-4 h-4 mr-2" /> Get Custom Report
                 </Button>
-                <a href="/product#contact" className="flex-1">
-                  <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/5 py-6">
-                    Request Demo <ArrowRight className="w-4 h-4 ml-2" />
+                <Link href="/start-trial?plan=professional&utm_source=roi&utm_medium=results" className="flex-1">
+                  <Button className="w-full bg-white/10 hover:bg-white/15 text-white font-semibold py-6 border border-white/10">
+                    Start 14-Day Trial <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
-                </a>
+                </Link>
+                <Link href="/case-studies" className="flex-1">
+                  <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/5 py-6">
+                    See case studies
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

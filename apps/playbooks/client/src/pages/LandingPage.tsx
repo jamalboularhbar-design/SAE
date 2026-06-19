@@ -133,6 +133,7 @@ export default function LandingPage() {
             <a href="#intelligence" className="hover:text-purple-300 transition-colors text-purple-400/90">Intelligence</a>
             <a href="#platform" className="hover:text-white transition-colors">Platform</a>
             <a href="#compare" className="hover:text-white transition-colors">Compare</a>
+            <Link href="/product/templates" className="hover:text-teal-300 transition-colors text-teal-400/90">Templates</Link>
             <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
             <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
           </div>
@@ -149,11 +150,18 @@ export default function LandingPage() {
                 </Button>
               </Link>
             ) : (
-              <a href="#pricing">
-                <Button size="sm" className="bg-teal-500 hover:bg-teal-400 text-black font-semibold">
-                  Become a Founding Member
-                </Button>
-              </a>
+              <>
+                <Link href="/start-trial?plan=professional&utm_source=product&utm_medium=nav">
+                  <Button size="sm" variant="outline" className="hidden sm:flex border-white/20 text-white hover:bg-white/5">
+                    Free trial
+                  </Button>
+                </Link>
+                <a href="#pricing">
+                  <Button size="sm" className="bg-teal-500 hover:bg-teal-400 text-black font-semibold">
+                    Become a Founding Member
+                  </Button>
+                </a>
+              </>
             )}
           </div>
         </div>
@@ -381,6 +389,48 @@ export default function LandingPage() {
                 <p className="text-sm text-gray-400">{s.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Templates flywheel */}
+      <section id="templates" className="py-24 px-4 border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-teal-400 text-sm font-semibold uppercase tracking-wider mb-3">Templates → Playbooks flywheel</p>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4">Start with templates. Scale on the platform.</h2>
+              <p className="text-gray-400 mb-6 leading-relaxed">
+                Not ready for SaaS? Buy curated SOP bundles from ${49} — Notion, Markdown, and Google Docs.
+                Every bundle includes credit toward {BRAND.productName} when you're ready to run live with AI.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link href="/product/templates">
+                  <Button className="bg-teal-500 hover:bg-teal-400 text-black font-semibold w-full sm:w-auto">
+                    View template bundles <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+                <Link href="/start-trial?plan=professional&utm_source=product&utm_medium=templates_section">
+                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/5 w-full sm:w-auto">
+                    Skip to free trial
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { name: 'Starter Pack', price: '$49', docs: '50 SOPs' },
+                { name: 'Agency Pack', price: '$99', docs: '100+ ops' },
+                { name: 'Complete Library', price: '$199', docs: '280+ docs' },
+                { name: 'Template Club', price: '$29/mo', docs: 'All + monthly' },
+              ].map((b) => (
+                <div key={b.name} className="p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                  <p className="font-semibold text-sm">{b.name}</p>
+                  <p className="text-teal-400 text-lg font-bold">{b.price}</p>
+                  <p className="text-xs text-gray-500">{b.docs}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

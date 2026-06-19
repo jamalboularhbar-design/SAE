@@ -119,6 +119,7 @@ import AdminKnowledgeGraphPage from "./pages/AdminKnowledgeGraphPage";
 import AdminPerformanceBenchmarksPage from "./pages/AdminPerformanceBenchmarksPage";
 import UserCollectionsPage from "./pages/UserCollectionsPage";
 import LandingPage from "./pages/LandingPage";
+import TemplatesBundlesPage from "./pages/TemplatesBundlesPage";
 import AdminLeadsPage from "./pages/AdminLeadsPage";
 import ROICalculatorPage from "./pages/ROICalculatorPage";
 import BillingPage from "./pages/BillingPage";
@@ -339,6 +340,7 @@ function Router() {
       <Route path={"/admin/benchmarks"} component={AdminPerformanceBenchmarksPage} />
       <Route path={"/my-collections"} component={UserCollectionsPage} />
       <Route path="/product" component={LandingPage} />
+      <Route path="/product/templates" component={TemplatesBundlesPage} />
       <Route path="/pricing" component={PricingPage} />
       <Route path="/start-trial" component={StartTrialPage} />
       <Route path="/admin/leads" component={AdminLeadsPage} />

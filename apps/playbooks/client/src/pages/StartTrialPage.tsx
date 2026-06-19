@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useLocation, useSearch } from "wouter";
 import { trpc } from "@/lib/trpc";
-import { Check, ArrowRight, Sparkles } from "lucide-react";
+import { Check, ArrowRight, Sparkles, Brain, Package } from "lucide-react";
 import SEO, { PAGE_SEO } from '@/components/SEO';
+import { BRAND } from '@/lib/brand';
+import { Link } from 'wouter';
 
 export default function StartTrialPage() {
   const [, navigate] = useLocation();
@@ -215,11 +217,11 @@ export default function StartTrialPage() {
           <div className="space-y-4 mb-8">
             {[
               "Full access to 500+ operational documents",
-              "AI-powered search, summaries & recommendations",
+              `${BRAND.aiHubTitle} — writing, search, chat & more`,
+              "Multi-brand workspaces for agencies",
               "Team collaboration with role-based access",
               "Document versioning & change tracking",
               "Advanced analytics & reading insights",
-              "Custom branding & white-labeling",
               "Knowledge graph visualization",
               "API access for integrations",
             ].map((benefit, i) => (
@@ -230,19 +232,30 @@ export default function StartTrialPage() {
             ))}
           </div>
 
-          <div className="border-t border-border pt-6">
-            <div className="flex items-center gap-3 mb-4">
+          <div className="border-t border-border pt-6 space-y-4">
+            <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                <span className="text-lg font-bold text-primary">R</span>
+                <span className="text-lg font-bold text-primary">MT</span>
               </div>
               <div>
-                <p className="text-sm font-medium text-foreground">Horizon Concierge</p>
-                <p className="text-xs text-muted-foreground">Travel & Creative Studio</p>
+                <p className="text-sm font-medium text-foreground">Meridian Travel Group</p>
+                <p className="text-xs text-muted-foreground">Multi-brand agency · 12 locations</p>
               </div>
             </div>
             <p className="text-sm text-muted-foreground italic">
-              "NexusAI Playbooks transformed how we manage our operational knowledge. Our team onboarding time dropped by 60% and everyone can find what they need instantly."
+              "New hires find answers in seconds instead of asking three different people. Onboarding dropped 60% across our workspaces."
             </p>
+            <div className="flex flex-col gap-2 pt-2">
+              <Link href="/ai" className="text-sm text-primary hover:underline inline-flex items-center gap-1">
+                <Brain className="w-3.5 h-3.5" /> Explore Intelligence Hub
+              </Link>
+              <Link href="/product/templates" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1">
+                <Package className="w-3.5 h-3.5" /> Prefer templates first? View bundles
+              </Link>
+              <Link href="/case-studies" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1">
+                Read customer stories →
+              </Link>
+            </div>
           </div>
         </div>
       </div>

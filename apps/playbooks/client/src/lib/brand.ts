@@ -4,3 +4,4 @@ export {
   DEMO_CATEGORY_ALIASES,
   demoWorkspaceName,
 } from "@shared/demoWorkspaces";
+export { TEMPLATE_BUNDLES, TEMPLATE_CLUB } from "@shared/templateBundles";

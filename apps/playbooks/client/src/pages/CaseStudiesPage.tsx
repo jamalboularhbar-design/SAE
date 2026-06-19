@@ -133,19 +133,25 @@ export default function CaseStudiesPage() {
           {/* CTA */}
           <div className="text-center bg-primary/5 border border-primary/20 rounded-xl p-8">
             <h3 className="text-xl font-bold text-foreground mb-2">Ready to see similar results?</h3>
-            <p className="text-muted-foreground mb-6">Start your 14-day free trial and see how NexusAI Playbooks can transform your operations.</p>
-            <div className="flex gap-3 justify-center">
+            <p className="text-muted-foreground mb-6">Start your 14-day free trial or calculate your team's ROI first.</p>
+            <div className="flex flex-wrap gap-3 justify-center">
               <button
-                onClick={() => navigate("/start-trial?plan=professional")}
+                onClick={() => navigate("/start-trial?plan=professional&utm_source=case_study&utm_medium=detail")}
                 className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 inline-flex items-center gap-2"
               >
                 Start Free Trial <ArrowRight className="w-4 h-4" />
               </button>
               <button
-                onClick={() => navigate("/pricing")}
-                className="bg-muted text-foreground px-6 py-3 rounded-lg font-medium hover:bg-muted/80"
+                onClick={() => navigate("/roi")}
+                className="bg-muted text-foreground px-6 py-3 rounded-lg font-medium hover:bg-muted/80 inline-flex items-center gap-2"
               >
-                View Pricing
+                ROI Calculator
+              </button>
+              <button
+                onClick={() => navigate("/product/templates")}
+                className="border border-border text-foreground px-6 py-3 rounded-lg font-medium hover:bg-muted/50 inline-flex items-center gap-2"
+              >
+                Browse templates
               </button>
             </div>
           </div>
@@ -211,13 +217,27 @@ export default function CaseStudiesPage() {
         {/* Bottom CTA */}
         <div className="text-center">
           <h2 className="text-2xl font-bold text-foreground mb-4">Join these teams</h2>
-          <p className="text-muted-foreground mb-6">Start your free trial and see results within the first week.</p>
-          <button
-            onClick={() => navigate("/start-trial?plan=professional")}
-            className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-medium hover:bg-primary/90 inline-flex items-center gap-2"
-          >
-            Start 14-Day Free Trial <ArrowRight className="w-4 h-4" />
-          </button>
+          <p className="text-muted-foreground mb-6">Start your free trial, calculate ROI, or explore template bundles first.</p>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <button
+              onClick={() => navigate("/start-trial?plan=professional&utm_source=case_studies&utm_medium=footer")}
+              className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-medium hover:bg-primary/90 inline-flex items-center gap-2"
+            >
+              Start 14-Day Free Trial <ArrowRight className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => navigate("/roi")}
+              className="bg-muted text-foreground px-6 py-3 rounded-lg font-medium hover:bg-muted/80"
+            >
+              ROI Calculator
+            </button>
+            <button
+              onClick={() => navigate("/product/templates")}
+              className="border border-border text-foreground px-6 py-3 rounded-lg font-medium hover:bg-muted/50"
+            >
+              Template bundles
+            </button>
+          </div>
         </div>
       </div>
     </div>
