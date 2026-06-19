@@ -141,7 +141,7 @@ export default function PlatformChangelogPage() {
             Platform Changelog
           </h1>
           <p className="text-muted-foreground mt-2">
-            Track every release, feature addition, and security patch across the ARG Builder platform.
+            Track every release, feature addition, and security patch across the NexusAI Playbooks platform.
           </p>
         </div>
 

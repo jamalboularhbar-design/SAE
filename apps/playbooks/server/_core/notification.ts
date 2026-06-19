@@ -38,7 +38,7 @@ export async function notifyOwner(payload: NotificationPayload): Promise<{ sent:
   //   const { Resend } = await import("resend");
   //   const resend = new Resend(resendKey);
   //   await resend.emails.send({
-  //     from: "ARG Builder <noreply@argbuilder.io>",
+  //     from: "NexusAI Playbooks <noreply@argbuilder.io>",
   //     to: notifyEmail,
   //     subject: title,
   //     text: content,

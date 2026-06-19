@@ -30,12 +30,12 @@ export default function ROICalculatorPage() {
     const annualWastedHours = weeklyWastedHours * 52;
     const annualWastedCost = annualWastedHours * hourlyRate;
 
-    // ARG Builder reduces search time by 60% (conservative estimate based on Guru/Trainual claims of 50-70%)
+    // NexusAI Playbooks reduces search time by 60% (conservative estimate based on Guru/Trainual claims of 50-70%)
     const reductionRate = 0.60;
     const hoursSaved = annualWastedHours * reductionRate;
     const costSaved = annualWastedCost * reductionRate;
 
-    // ARG Builder hybrid pricing: $299/mo flat for ≤25 users, $15/user/month for 25+
+    // NexusAI Playbooks hybrid pricing: $299/mo flat for ≤25 users, $15/user/month for 25+
     const opsCanvasCost = teamSize <= 25
       ? 299 * 12 // Starter: $299/month flat
       : teamSize * 15 * 12; // Professional: $15/user/month
@@ -99,8 +99,8 @@ export default function ROICalculatorPage() {
           <div className="flex items-center gap-3">
             <Link href="/product">
               <div className="flex items-center gap-3 cursor-pointer">
-                <img src={LOGO_IMG} alt="ARG Builder" className="w-8 h-8 rounded-lg" />
-                <span className="text-xl font-bold tracking-tight">ARG Builder</span>
+                <img src={LOGO_IMG} alt="NexusAI Playbooks" className="w-8 h-8 rounded-lg" />
+                <span className="text-xl font-bold tracking-tight">NexusAI Playbooks</span>
               </div>
             </Link>
           </div>
@@ -130,7 +130,7 @@ export default function ROICalculatorPage() {
             How much is <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">knowledge chaos</span> costing you?
           </h1>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            Adjust the sliders to match your organization. See exactly how much time and money ARG Builder can save your team.
+            Adjust the sliders to match your organization. See exactly how much time and money NexusAI Playbooks can save your team.
           </p>
         </div>
       </section>
@@ -243,7 +243,7 @@ export default function ROICalculatorPage() {
                   {formatCurrency(results.netSavings)}
                 </p>
                 <p className="text-sm text-gray-400">
-                  net savings with ARG Builder vs. current setup
+                  net savings with NexusAI Playbooks vs. current setup
                 </p>
                 <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-sm font-medium">
                   <TrendingDown className="w-4 h-4" />
@@ -288,7 +288,7 @@ export default function ROICalculatorPage() {
                     <span className="text-sm font-medium text-red-400">{formatCurrency(results.annualWastedCost)}/yr</span>
                   </div>
                   <div className="border-t border-white/10 pt-3 flex justify-between items-center">
-                    <span className="text-sm text-gray-400">ARG Builder Professional</span>
+                    <span className="text-sm text-gray-400">NexusAI Playbooks Professional</span>
                     <span className="text-sm font-medium text-teal-400">{formatCurrency(results.opsCanvasCost)}/yr</span>
                   </div>
                   <div className="flex justify-between items-center text-xs text-gray-500">
@@ -319,7 +319,7 @@ export default function ROICalculatorPage() {
           <div className="mt-12 text-center">
             <p className="text-xs text-gray-500 max-w-2xl mx-auto">
               Calculations based on industry research: IDC estimates employees spend 9.3 hours/week searching for information.
-              ARG Builder assumes a conservative 60% reduction in search time based on structured knowledge management adoption studies.
+              NexusAI Playbooks assumes a conservative 60% reduction in search time based on structured knowledge management adoption studies.
               Actual results may vary based on organization size, industry, and implementation scope.
             </p>
           </div>

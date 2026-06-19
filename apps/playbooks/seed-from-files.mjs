@@ -27,20 +27,20 @@ const categories = {
   'Security & Compliance': ['security','compliance','soc-2','iso-27001','hipaa','gdpr','privacy','data-governance','audit','pci','sox','rate-limiting','hardening'],
   'Partnerships & GTM': ['partner','channel','marketplace','gtm','referral','reseller','co-sell','white-label','devrel','developer-relations','ecosystem'],
   'Data & Analytics': ['data','warehouse','analytics','cohort','product-analytics','cdp','enrichment','segmentation','predictive','embedded-analytics','lake','unified'],
-  'Riad & Routes': ['RR-','riad','routes','luxury-travel','concierge','hospitality','guest','booking','tour','morocco','travel'],
-  'ArtKech Design Studio': ['AK-','artkech','brand-identity','creative-brief','design-review','portfolio','photography','freelancer','contractor'],
+  'Horizon Concierge': ['RR-','riad','routes','luxury-travel','concierge','hospitality','guest','booking','tour','morocco','travel'],
+  'Meridian Creative Studio': ['AK-','artkech','brand-identity','creative-brief','design-review','portfolio','photography','freelancer','contractor'],
 };
 
 function categorize(filename) {
-  if (filename.includes('ARG-Builder-RR-') || filename.includes('RR-')) return 'Riad & Routes';
-  if (filename.includes('ARG-Builder-AK-') || filename.includes('AK-')) return 'ArtKech Design Studio';
+  if (filename.includes('ARG-Builder-RR-') || filename.includes('RR-')) return 'Horizon Concierge';
+  if (filename.includes('ARG-Builder-AK-') || filename.includes('AK-')) return 'Meridian Creative Studio';
   
   const nameLower = filename.toLowerCase();
   let best = 'Strategy & Operations';
   let bestScore = 0;
   
   for (const [cat, keywords] of Object.entries(categories)) {
-    if (cat === 'Riad & Routes' || cat === 'ArtKech Design Studio') continue;
+    if (cat === 'Horizon Concierge' || cat === 'Meridian Creative Studio') continue;
     const score = keywords.filter(kw => nameLower.includes(kw.toLowerCase())).length;
     if (score > bestScore) { bestScore = score; best = cat; }
   }

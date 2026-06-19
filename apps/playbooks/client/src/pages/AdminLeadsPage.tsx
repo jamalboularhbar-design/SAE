@@ -40,7 +40,7 @@ export default function AdminLeadsPage() {
               <Users className="w-6 h-6 text-teal-400" />
               Lead Management
             </h1>
-            <p className="text-muted-foreground mt-1">Manage incoming demo requests and leads from the ARG Builder landing page</p>
+            <p className="text-muted-foreground mt-1">Manage incoming demo requests and leads from the NexusAI Playbooks landing page</p>
           </div>
           <div className="flex items-center gap-3">
             <Button

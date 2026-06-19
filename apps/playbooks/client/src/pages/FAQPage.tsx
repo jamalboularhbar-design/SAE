@@ -26,14 +26,14 @@ const CATEGORIES = [
 
 const FAQS: FAQ[] = [
   // Getting Started
-  { category: 'getting-started', question: 'What is ARG Builder?', answer: 'ARG Builder (Agent Reference Guide Builder) is an enterprise knowledge management platform that helps teams create, organize, and share operational documents. It features AI-powered search, reading progress tracking, knowledge graphs, and team collaboration tools designed for operational excellence.' },
+  { category: 'getting-started', question: 'What is NexusAI Playbooks?', answer: 'NexusAI Playbooks (Agent Reference Guide Builder) is an enterprise knowledge management platform that helps teams create, organize, and share operational documents. It features AI-powered search, reading progress tracking, knowledge graphs, and team collaboration tools designed for operational excellence.' },
   { category: 'getting-started', question: 'How do I start a free trial?', answer: 'Click "Start Free Trial" on our homepage or visit /start-trial. You\'ll get 14 days of full access to all features with no credit card required. During the trial, you can import documents, invite team members, and explore all capabilities.' },
   { category: 'getting-started', question: 'How long does setup take?', answer: 'Most teams are up and running within 30 minutes. You can bulk import existing documents via CSV, paste URLs to auto-fetch content, or use our templates to create new documents. Our onboarding checklist guides you through the key steps.' },
-  { category: 'getting-started', question: 'Can I import existing documentation?', answer: 'Yes! ARG Builder supports multiple import methods: CSV bulk upload, URL-based content fetching, manual creation with our rich editor, and document templates. We support Markdown format for maximum compatibility with existing tools.' },
+  { category: 'getting-started', question: 'Can I import existing documentation?', answer: 'Yes! NexusAI Playbooks supports multiple import methods: CSV bulk upload, URL-based content fetching, manual creation with our rich editor, and document templates. We support Markdown format for maximum compatibility with existing tools.' },
   // Features
   { category: 'features', question: 'How does AI-powered search work?', answer: 'Our semantic search uses natural language processing to understand the intent behind your queries, not just keyword matching. It searches across document titles, tags, and full content body, returning results ranked by relevance with highlighted snippets.' },
   { category: 'features', question: 'What is the Knowledge Graph?', answer: 'The Knowledge Graph visualizes relationships between your documents — prerequisites, related topics, and category connections. It helps teams understand how knowledge is interconnected and discover documents they might have missed.' },
-  { category: 'features', question: 'Can I track who reads what?', answer: 'Yes. ARG Builder tracks reading progress, view counts, and engagement metrics per document. Admins can see team-wide analytics including most-read documents, reading streaks, and individual progress on assigned reading paths.' },
+  { category: 'features', question: 'Can I track who reads what?', answer: 'Yes. NexusAI Playbooks tracks reading progress, view counts, and engagement metrics per document. Admins can see team-wide analytics including most-read documents, reading streaks, and individual progress on assigned reading paths.' },
   { category: 'features', question: 'Does it support document versioning?', answer: 'Every document maintains a full version history with timestamps and change tracking. You can view previous versions, compare differences side-by-side, and restore earlier versions if needed.' },
   { category: 'features', question: 'What about quizzes and assessments?', answer: 'Documents can have associated quizzes to verify comprehension. Admins can create multiple-choice questions, track completion rates, and identify knowledge gaps across the team.' },
   // Pricing
@@ -80,15 +80,15 @@ export default function FAQPage() {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="FAQ - ARG Builder"
-        description="Find answers to frequently asked questions about ARG Builder's features, pricing, security, and team collaboration."
+        title="FAQ - NexusAI Playbooks"
+        description="Find answers to frequently asked questions about NexusAI Playbooks's features, pricing, security, and team collaboration."
       />
 
       {/* Header */}
       <header className="border-b border-border bg-background/95 backdrop-blur sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/">
-            <span className="text-lg font-bold text-primary cursor-pointer">ARG Builder</span>
+            <span className="text-lg font-bold text-primary cursor-pointer">NexusAI Playbooks</span>
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/pricing">
@@ -106,7 +106,7 @@ export default function FAQPage() {
         <Badge variant="outline" className="mb-4">Help Center</Badge>
         <h1 className="text-4xl font-bold mb-4">Frequently Asked Questions</h1>
         <p className="text-muted-foreground max-w-xl mx-auto text-lg mb-8">
-          Everything you need to know about ARG Builder. Can't find an answer? Contact our team.
+          Everything you need to know about NexusAI Playbooks. Can't find an answer? Contact our team.
         </p>
 
         {/* Search */}

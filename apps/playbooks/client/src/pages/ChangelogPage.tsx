@@ -19,7 +19,7 @@ const CHANGELOG: ChangelogEntry[] = [
     date: '2026-05-18',
     version: '2.8.0',
     title: 'Referral Program & Email Nurture Automation',
-    description: 'Share ARG Builder with colleagues and earn free months. Plus, automated email nurture sequences keep trial users engaged.',
+    description: 'Share NexusAI Playbooks with colleagues and earn free months. Plus, automated email nurture sequences keep trial users engaged.',
     type: 'feature',
     icon: <Users className="w-5 h-5" />,
     highlights: [
@@ -151,7 +151,7 @@ export default function ChangelogPage() {
       <header className="border-b border-border bg-background/95 backdrop-blur sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/">
-            <span className="text-lg font-bold text-primary cursor-pointer">ARG Builder</span>
+            <span className="text-lg font-bold text-primary cursor-pointer">NexusAI Playbooks</span>
           </Link>
           <nav className="flex items-center gap-4">
             <Link href="/product">
@@ -171,7 +171,7 @@ export default function ChangelogPage() {
       <section className="py-16 text-center">
         <div className="max-w-4xl mx-auto px-4">
           <Badge variant="outline" className="mb-4">Product Updates</Badge>
-          <h1 className="text-4xl font-bold mb-4">What's New in ARG Builder</h1>
+          <h1 className="text-4xl font-bold mb-4">What's New in NexusAI Playbooks</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             We ship improvements every week. Here's what's been added recently to make your operational intelligence platform even more powerful.
           </p>
@@ -235,7 +235,7 @@ export default function ChangelogPage() {
       <section className="py-16 border-t border-border text-center">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="text-2xl font-bold mb-3">Ready to experience these features?</h2>
-          <p className="text-muted-foreground mb-6">Start your 14-day free trial and see how ARG Builder transforms your team's operations.</p>
+          <p className="text-muted-foreground mb-6">Start your 14-day free trial and see how NexusAI Playbooks transforms your team's operations.</p>
           <Link href="/start-trial">
             <button className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition">
               Start Free Trial

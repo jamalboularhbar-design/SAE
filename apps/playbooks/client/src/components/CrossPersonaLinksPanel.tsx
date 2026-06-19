@@ -49,8 +49,8 @@ interface CrossPersonaLinksPanelProps {
 }
 
 export default function CrossPersonaLinksPanel({ currentDocTitle, currentCategory }: CrossPersonaLinksPanelProps) {
-  const isRR = currentCategory === 'Riad & Routes';
-  const otherCategory = isRR ? 'ArtKech Design Studio' : 'Riad & Routes';
+  const isRR = currentCategory === 'Horizon Concierge';
+  const otherCategory = isRR ? 'Meridian Creative Studio' : 'Horizon Concierge';
 
   const { data } = trpc.documents.list.useQuery({ category: otherCategory, limit: 600 });
 
@@ -82,7 +82,7 @@ export default function CrossPersonaLinksPanel({ currentDocTitle, currentCategor
       <CardHeader className="pb-2">
         <CardTitle className="text-sm flex items-center gap-2">
           <Link2 className="w-4 h-4 text-accent" />
-          Related from {isRR ? 'ArtKech Design Studio' : 'Riad & Routes'}
+          Related from {isRR ? 'Meridian Creative Studio' : 'Horizon Concierge'}
           {isRR ? <Palette className="w-3.5 h-3.5 text-purple-400" /> : <Plane className="w-3.5 h-3.5 text-sky-400" />}
         </CardTitle>
       </CardHeader>

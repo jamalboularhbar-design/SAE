@@ -25,7 +25,7 @@ describe("TOTP/2FA Module", () => {
     expect(secret).toBeTruthy();
     expect(secret.length).toBeGreaterThan(10);
     expect(otpauthUrl).toContain("otpauth://totp/");
-    expect(otpauthUrl).toContain("ARG%20Builder");
+    expect(otpauthUrl).toContain("NexusAI%20Playbooks");
   });
 
   it("should enable and disable TOTP", async () => {

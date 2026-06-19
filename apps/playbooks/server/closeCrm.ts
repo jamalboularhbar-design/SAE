@@ -55,7 +55,7 @@ export async function createCloseLead(input: CloseLeadInput): Promise<string | n
       input.message ? `Challenge: ${input.message}` : null,
       industry ? `Industry: ${industry}` : null,
       input.source ? `Source: ${input.source}` : null,
-      `Submitted via ARG Builder website`,
+      `Submitted via NexusAI Playbooks website`,
     ]
       .filter(Boolean)
       .join("\n"),
@@ -97,7 +97,7 @@ export async function createCloseLead(input: CloseLeadInput): Promise<string | n
 }
 
 // Close CRM Sequence Configuration
-const SEQUENCE_ID = "seq_35QZqN40zFJfzmG5AunVU8"; // ARG Builder - Demo Request Nurture
+const SEQUENCE_ID = "seq_35QZqN40zFJfzmG5AunVU8"; // NexusAI Playbooks - Demo Request Nurture
 const SENDER_ACCOUNT_ID = "emailacct_KTAg0kk15AycmtzHFGRPyzNsLKG2XcpqCNAiZBDUUr2";
 const SENDER_EMAIL = "jamal.boularhbar@gmail.com";
 const SENDER_NAME = "Jamal";

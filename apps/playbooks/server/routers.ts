@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { COOKIE_NAME } from "@shared/const";
+import { BRAND, DEMO_WORKSPACES } from "./brand";
 import { stripeRouter } from "./stripeRouter";
 import { createCloseLead, subscribeToNurtureSequence } from "./closeCrm";
 import { leadSubmitLimiter, loginLimiter } from "./rateLimiter";
@@ -1174,7 +1175,7 @@ export const appRouter = router({
         const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
         const userId = (ctx.user as any)?.id || 1;
         await createInviteToken({ token, email: input.email, role: input.role, invitedBy: userId, expiresAt });
-        const inviteUrl = `${ctx.req.headers.origin || 'https://argbuilder.io'}/invite/${token}`;
+        const inviteUrl = `${ctx.req.headers.origin || BRAND.activeAppUrl}/invite/${token}`;
         await notifyOwner({ title: 'New Team Invite Sent', content: `Invited ${input.email} as ${input.role}. Link: ${inviteUrl}` });
         return { success: true, token, inviteUrl };
       }),
@@ -1967,14 +1968,14 @@ export const appRouter = router({
       const cached = await getCachedCitation(input.documentId, input.style);
       if (cached) return cached;
       const year = input.date ? new Date(input.date).getFullYear() : new Date().getFullYear();
-      const author = input.author || 'ARG Builder';
+      const author = input.author || 'NexusAI Playbooks';
       let citation = '';
       if (input.style === 'apa') {
-        citation = `${author}. (${year}). ${input.title}. ARG Builder.${input.url ? ` Retrieved from ${input.url}` : ''}`;
+        citation = `${author}. (${year}). ${input.title}. NexusAI Playbooks.${input.url ? ` Retrieved from ${input.url}` : ''}`;
       } else if (input.style === 'mla') {
-        citation = `${author}. "${input.title}." ARG Builder, ${year}.${input.url ? ` ${input.url}.` : ''}`;
+        citation = `${author}. "${input.title}." NexusAI Playbooks, ${year}.${input.url ? ` ${input.url}.` : ''}`;
       } else if (input.style === 'chicago') {
-        citation = `${author}. "${input.title}." ARG Builder. ${year}.${input.url ? ` ${input.url}.` : ''}`;
+        citation = `${author}. "${input.title}." NexusAI Playbooks. ${year}.${input.url ? ` ${input.url}.` : ''}`;
       }
       await saveCitation(input.documentId, input.style, citation);
       return { id: 0, documentId: input.documentId, style: input.style, citation, createdAt: new Date() };
@@ -2669,7 +2670,7 @@ export const appRouter = router({
 
     validateCode: publicProcedure.input(z.object({ code: z.string() })).query(async ({ input }) => {
       const ref = await getReferralByCode(input.code);
-      return { valid: !!ref, referrerName: ref ? 'ARG Builder User' : null };
+      return { valid: !!ref, referrerName: ref ? 'NexusAI Playbooks User' : null };
     }),
 
     trackSignup: publicProcedure.input(z.object({ code: z.string(), email: z.string() })).mutation(async ({ input }) => {
@@ -2725,7 +2726,7 @@ export const appRouter = router({
       for (const email of input.emails) {
         const token = crypto.randomBytes(32).toString('hex');
         await createInviteToken({ token, email, role: input.role, invitedBy: userId, expiresAt });
-        const inviteUrl = `${ctx.req.headers.origin || 'https://argbuilder.io'}/invite/${token}`;
+        const inviteUrl = `${ctx.req.headers.origin || BRAND.activeAppUrl}/invite/${token}`;
         results.push({ email, token, inviteUrl });
       }
       if (results.length > 0) {
@@ -2918,7 +2919,7 @@ export const appRouter = router({
     chat: protectedProcedure
       .input(z.object({ messages: z.array(z.object({ role: z.enum(['system', 'user', 'assistant']), content: z.string() })) }))
       .mutation(async ({ input }) => {
-        const systemMessage = { role: 'system' as const, content: 'You are the ARG Builder AI Assistant. You have deep knowledge of operational reference guides, business processes, luxury travel concierge services (Riad & Routes), and creative studio operations (ArtKech Studio). Help users find information, summarize documents, draft content, and improve workflows. Be concise, professional, and actionable.' };
+        const systemMessage = { role: 'system' as const, content: `You are the ${BRAND.productName} AI Assistant. You have deep knowledge of operational reference guides, business processes, luxury travel concierge services (${DEMO_WORKSPACES.travel.name}), and creative studio operations (${DEMO_WORKSPACES.creative.name}). Help users find information, summarize documents, draft content, and improve workflows. Be concise, professional, and actionable.` };
         const response = await invokeLLM({ messages: [systemMessage, ...input.messages] });
         const content = (response.choices?.[0]?.message?.content as string) || 'I apologize, I could not generate a response.';
         return { content };

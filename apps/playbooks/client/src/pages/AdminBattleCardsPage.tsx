@@ -44,19 +44,19 @@ const BATTLE_CARDS: BattleCard[] = [
     commonObjections: [
       {
         objection: "We already use Notion and it works fine",
-        response: "Notion is great for general notes, but operations teams need more: semantic search across 500+ docs, reading progress tracking, comprehension verification, and knowledge graphs. Ask them: 'How long does it take a new hire to find the right SOP?' If it's more than 30 seconds, ARG Builder pays for itself.",
+        response: "Notion is great for general notes, but operations teams need more: semantic search across 500+ docs, reading progress tracking, comprehension verification, and knowledge graphs. Ask them: 'How long does it take a new hire to find the right SOP?' If it's more than 30 seconds, NexusAI Playbooks pays for itself.",
       },
       {
         objection: "Notion is cheaper",
-        response: "Notion Business is $15/user/month. For a 50-person team, that's $750/mo without any of the operational intelligence features. ARG Builder Professional at $599/mo includes AI search, analytics, knowledge graphs, and comprehension tracking — features you'd need 3-4 additional tools to replicate.",
+        response: "Notion Business is $15/user/month. For a 50-person team, that's $750/mo without any of the operational intelligence features. NexusAI Playbooks Professional at $599/mo includes AI search, analytics, knowledge graphs, and comprehension tracking — features you'd need 3-4 additional tools to replicate.",
       },
       {
         objection: "Our team already knows Notion",
-        response: "ARG Builder's interface is intuitive — most teams are productive within 1 day. Plus, we offer a migration tool that imports Notion exports directly. The learning curve is minimal, but the operational gains are massive.",
+        response: "NexusAI Playbooks's interface is intuitive — most teams are productive within 1 day. Plus, we offer a migration tool that imports Notion exports directly. The learning curve is minimal, but the operational gains are massive.",
       },
     ],
     idealSwitch: 'Teams with 20+ members who have outgrown Notion for operational documentation and need analytics on team engagement.',
-    pricingComparison: 'Notion Business: $15/user/mo ($750 for 50 users) vs ARG Builder Pro: $599/mo flat (unlimited users in tier)',
+    pricingComparison: 'Notion Business: $15/user/mo ($750 for 50 users) vs NexusAI Playbooks Pro: $599/mo flat (unlimited users in tier)',
   },
   {
     competitor: 'Confluence',
@@ -87,11 +87,11 @@ const BATTLE_CARDS: BattleCard[] = [
     commonObjections: [
       {
         objection: "We need Jira integration",
-        response: "We integrate with any workflow tool via webhooks and our API. The question is: does your ops team actually use Jira for knowledge management, or just for tickets? ARG Builder handles the knowledge layer while Jira handles task tracking — they complement each other.",
+        response: "We integrate with any workflow tool via webhooks and our API. The question is: does your ops team actually use Jira for knowledge management, or just for tickets? NexusAI Playbooks handles the knowledge layer while Jira handles task tracking — they complement each other.",
       },
       {
         objection: "We need enterprise compliance (SOC2, etc.)",
-        response: "ARG Builder is built on enterprise-grade infrastructure with encryption at rest and in transit. We're pursuing SOC2 Type II certification. For immediate needs, we offer BAAs and custom security reviews for Enterprise tier customers.",
+        response: "NexusAI Playbooks is built on enterprise-grade infrastructure with encryption at rest and in transit. We're pursuing SOC2 Type II certification. For immediate needs, we offer BAAs and custom security reviews for Enterprise tier customers.",
       },
       {
         objection: "Migration from Confluence seems risky",
@@ -99,7 +99,7 @@ const BATTLE_CARDS: BattleCard[] = [
       },
     ],
     idealSwitch: 'Teams frustrated with Confluence speed, paying for expensive add-ons, or whose ops team doesn\'t use Jira heavily.',
-    pricingComparison: 'Confluence Standard: $5.75/user/mo ($287.50 for 50 users) + add-ons ($100-500/mo) vs ARG Builder Pro: $599/mo all-inclusive',
+    pricingComparison: 'Confluence Standard: $5.75/user/mo ($287.50 for 50 users) + add-ons ($100-500/mo) vs NexusAI Playbooks Pro: $599/mo all-inclusive',
   },
   {
     competitor: 'Guru',
@@ -130,19 +130,19 @@ const BATTLE_CARDS: BattleCard[] = [
     commonObjections: [
       {
         objection: "Guru's Slack integration is essential for us",
-        response: "We understand Slack is where your team lives. ARG Builder's AI search is accessible via API, and we're building native Slack integration. But consider: Guru answers questions reactively. ARG Builder proactively ensures your team has read and understood critical docs before issues arise.",
+        response: "We understand Slack is where your team lives. NexusAI Playbooks's AI search is accessible via API, and we're building native Slack integration. But consider: Guru answers questions reactively. NexusAI Playbooks proactively ensures your team has read and understood critical docs before issues arise.",
       },
       {
         objection: "We like Guru's verification workflow",
-        response: "ARG Builder goes further: not only can you verify docs are current (like Guru), but you can verify your team actually read and understood them through built-in quizzes and reading progress. It's verification at both the content AND comprehension level.",
+        response: "NexusAI Playbooks goes further: not only can you verify docs are current (like Guru), but you can verify your team actually read and understood them through built-in quizzes and reading progress. It's verification at both the content AND comprehension level.",
       },
       {
         objection: "Guru is simpler to set up",
-        response: "ARG Builder deploys in under 30 minutes. Import your existing docs, invite your team, and the AI indexes everything automatically. The simplicity is comparable, but the depth of features you get from day one is significantly greater.",
+        response: "NexusAI Playbooks deploys in under 30 minutes. Import your existing docs, invite your team, and the AI indexes everything automatically. The simplicity is comparable, but the depth of features you get from day one is significantly greater.",
       },
     ],
     idealSwitch: 'Teams that need more than card-based knowledge, want engagement analytics, or are hitting per-user cost limits with growing teams.',
-    pricingComparison: 'Guru All-in-One: $15/user/mo ($750 for 50 users) vs ARG Builder Pro: $599/mo flat',
+    pricingComparison: 'Guru All-in-One: $15/user/mo ($750 for 50 users) vs NexusAI Playbooks Pro: $599/mo flat',
   },
 ];
 

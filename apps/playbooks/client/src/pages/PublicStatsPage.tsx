@@ -78,7 +78,7 @@ export default function PublicStatsPage() {
         ) : data ? (
           <>
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-foreground mb-2">ARG Builder</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-2">NexusAI Playbooks</h2>
               <p className="text-muted-foreground text-sm">A growing knowledge base for operational excellence</p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-8">

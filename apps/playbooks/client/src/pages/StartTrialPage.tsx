@@ -186,7 +186,7 @@ export default function StartTrialPage() {
                 onChange={(e) => setFormData({ ...formData, useCase: e.target.value })}
                 className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
                 rows={3}
-                placeholder="How do you plan to use ARG Builder? (e.g., team onboarding, SOPs, knowledge base...)"
+                placeholder="How do you plan to use NexusAI Playbooks? (e.g., team onboarding, SOPs, knowledge base...)"
               />
             </div>
 
@@ -236,12 +236,12 @@ export default function StartTrialPage() {
                 <span className="text-lg font-bold text-primary">R</span>
               </div>
               <div>
-                <p className="text-sm font-medium text-foreground">Riad & Routes</p>
+                <p className="text-sm font-medium text-foreground">Horizon Concierge</p>
                 <p className="text-xs text-muted-foreground">Travel & Creative Studio</p>
               </div>
             </div>
             <p className="text-sm text-muted-foreground italic">
-              "ARG Builder transformed how we manage our operational knowledge. Our team onboarding time dropped by 60% and everyone can find what they need instantly."
+              "NexusAI Playbooks transformed how we manage our operational knowledge. Our team onboarding time dropped by 60% and everyone can find what they need instantly."
             </p>
           </div>
         </div>

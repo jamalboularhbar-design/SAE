@@ -64,7 +64,7 @@ export default function BillingPage() {
             Billing & Subscription
           </h1>
           <p className="text-muted-foreground mt-2">
-            Manage your ARG Builder subscription and payment history.
+            Manage your NexusAI Playbooks subscription and payment history.
           </p>
         </div>
 

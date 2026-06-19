@@ -139,7 +139,7 @@ export default function Search() {
                         <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{result.description}</p>
                         <div className="flex items-center gap-2 flex-wrap">
                           <Badge variant="secondary" className={getCategoryColor(result.category)}>
-                            {result.category === 'travel' ? '✈️ Travel' : result.category === 'artkech' ? '🎨 ArtKech' : '⚙️ General'}
+                            {result.category === 'travel' ? '✈️ Travel' : result.category === 'artkech' ? '🎨 Creative' : '⚙️ General'}
                           </Badge>
                           <Badge variant="outline" className="text-xs">
                             {result.section}

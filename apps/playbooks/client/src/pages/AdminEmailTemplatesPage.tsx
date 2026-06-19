@@ -20,10 +20,10 @@ const DEFAULT_TEMPLATES: EmailTemplate[] = [
   {
     id: 'welcome',
     name: 'Welcome Email',
-    subject: 'Welcome to ARG Builder — Your 14-Day Trial Starts Now',
+    subject: 'Welcome to NexusAI Playbooks — Your 14-Day Trial Starts Now',
     body: `Hi {{name}},
 
-Welcome to ARG Builder! Your 14-day free trial is now active.
+Welcome to NexusAI Playbooks! Your 14-day free trial is now active.
 
 Here's what you can do right away:
 • Import your first operational document
@@ -34,17 +34,17 @@ Here's what you can do right away:
 Need help getting started? Reply to this email or book a quick onboarding call.
 
 Best,
-The ARG Builder Team`,
+The NexusAI Playbooks Team`,
     triggerDay: 0,
     description: 'Sent immediately when a trial starts',
   },
   {
     id: 'day3_tips',
     name: 'Day 3 — Power Tips',
-    subject: '3 features you haven\'t tried yet in ARG Builder',
+    subject: '3 features you haven\'t tried yet in NexusAI Playbooks',
     body: `Hi {{name}},
 
-You've been using ARG Builder for 3 days — here are some features that power users love:
+You've been using NexusAI Playbooks for 3 days — here are some features that power users love:
 
 1. **Knowledge Graph** — See how your documents connect visually
 2. **AI Summaries** — Get instant summaries of any document
@@ -55,14 +55,14 @@ Pro tip: Try searching with natural language like "How do we handle VIP guest co
 Still exploring? Book a quick demo and we'll show you the fastest path to value.
 
 Cheers,
-The ARG Builder Team`,
+The NexusAI Playbooks Team`,
     triggerDay: 3,
     description: 'Sent 3 days into trial to boost engagement',
   },
   {
     id: 'day7_value',
     name: 'Day 7 — Value Highlight',
-    subject: 'Your team could save 12 hours/week with ARG Builder',
+    subject: 'Your team could save 12 hours/week with NexusAI Playbooks',
     body: `Hi {{name}},
 
 You're halfway through your trial! Here's what teams like yours typically achieve:
@@ -73,17 +73,17 @@ You're halfway through your trial! Here's what teams like yours typically achiev
 
 Ready to see your own ROI? Try our calculator: {{roi_link}}
 
-Want to discuss how ARG Builder fits your specific workflow? Let's chat.
+Want to discuss how NexusAI Playbooks fits your specific workflow? Let's chat.
 
 Best,
-The ARG Builder Team`,
+The NexusAI Playbooks Team`,
     triggerDay: 7,
     description: 'Sent at trial midpoint to demonstrate value',
   },
   {
     id: 'day12_warning',
     name: 'Day 12 — Expiry Warning',
-    subject: 'Your ARG Builder trial expires in 2 days',
+    subject: 'Your NexusAI Playbooks trial expires in 2 days',
     body: `Hi {{name}},
 
 Your free trial expires in just 2 days. Don't lose access to:
@@ -98,26 +98,26 @@ Your free trial expires in just 2 days. Don't lose access to:
 Questions about pricing? Reply to this email — we're happy to find the right plan for your team.
 
 Best,
-The ARG Builder Team`,
+The NexusAI Playbooks Team`,
     triggerDay: 12,
     description: 'Urgency email 2 days before trial ends',
   },
   {
     id: 'day14_expired',
     name: 'Day 14 — Trial Expired',
-    subject: 'Your ARG Builder trial has ended — but your data is safe',
+    subject: 'Your NexusAI Playbooks trial has ended — but your data is safe',
     body: `Hi {{name}},
 
 Your 14-day trial has ended, but don't worry — all your data is safely stored.
 
 Reactivate anytime to pick up right where you left off: {{upgrade_link}}
 
-As a thank you for trying ARG Builder, here's **20% off** your first 3 months with code: WELCOME20
+As a thank you for trying NexusAI Playbooks, here's **20% off** your first 3 months with code: WELCOME20
 
 We'd also love your feedback — what could we improve? Just reply to this email.
 
 Best,
-The ARG Builder Team`,
+The NexusAI Playbooks Team`,
     triggerDay: 14,
     description: 'Sent when trial expires with win-back offer',
   },

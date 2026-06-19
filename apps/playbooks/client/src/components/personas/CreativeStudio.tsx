@@ -86,8 +86,8 @@ export default function CreativeStudio() {
     <div className="space-y-8">
       {/* Persona Header */}
       <div className="card-premium">
-        <h2 className="font-display text-2xl sm:text-3xl mb-2">ArtKech Lead Designer</h2>
-        <p className="text-muted-foreground mb-4">Full-Service Creative Studio - Premium Design & Independent Publishing</p>
+        <h2 className="font-display text-2xl sm:text-3xl mb-2">Meridian Creative Lead</h2>
+        <p className="text-muted-foreground mb-4">Full-Service Creative Studio — Premium Design & Independent Publishing</p>
         <div className="flex flex-wrap gap-2">
           <Badge variant="secondary">Visionary</Badge>
           <Badge variant="secondary">Strategic</Badge>
@@ -194,7 +194,7 @@ export default function CreativeStudio() {
           <Card className="card-premium">
             <CardHeader>
               <CardTitle>Product Categories</CardTitle>
-              <CardDescription>Services and deliverables offered by ArtKech</CardDescription>
+              <CardDescription>Services and deliverables offered by Meridian Creative</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

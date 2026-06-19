@@ -12,7 +12,7 @@ const CASE_STUDIES = [
     title: "How Meridian Travel Reduced Onboarding Time by 60%",
     subtitle: "From scattered Google Docs to a living operational knowledge base",
     challenge: "Meridian Travel Group operates 12 boutique travel agencies across 3 countries. Each location had its own way of documenting procedures — some in Google Docs, others in email chains, and many only in senior staff's heads. New hires took 3-4 weeks to become productive, and consistency across locations was a constant struggle.",
-    solution: "ARG Builder centralized all 340+ operational documents into a single, searchable platform. AI-powered categorization organized everything by department, process type, and location. The Knowledge Graph revealed connections between procedures that staff didn't know existed.",
+    solution: "NexusAI Playbooks centralized all 340+ operational documents into a single, searchable platform. AI-powered categorization organized everything by department, process type, and location. The Knowledge Graph revealed connections between procedures that staff didn't know existed.",
     results: [
       { metric: "60%", label: "Faster onboarding" },
       { metric: "340+", label: "Documents centralized" },
@@ -31,14 +31,14 @@ const CASE_STUDIES = [
     title: "Atlas Creative Eliminated 90% of Repeated Questions",
     subtitle: "Transforming tribal knowledge into accessible, living documentation",
     challenge: "Atlas Creative Studio, a 45-person design and branding agency, struggled with knowledge silos. Designers, copywriters, and project managers each had their own tools and processes. Senior staff spent 8+ hours per week answering the same questions from junior team members.",
-    solution: "ARG Builder became the single source of truth for all workflows, brand guidelines, client processes, and creative standards. AI summaries made long documents scannable, and the quiz feature ensured new hires actually absorbed critical information.",
+    solution: "NexusAI Playbooks became the single source of truth for all workflows, brand guidelines, client processes, and creative standards. AI summaries made long documents scannable, and the quiz feature ensured new hires actually absorbed critical information.",
     results: [
       { metric: "90%", label: "Fewer repeated questions" },
       { metric: "8hrs", label: "Saved per senior staff weekly" },
       { metric: "$180K", label: "Annual productivity gain" },
       { metric: "45", label: "Team members onboarded" },
     ],
-    quote: "I used to spend half my Mondays answering the same questions. Now I just point people to ARG Builder and they find everything themselves.",
+    quote: "I used to spend half my Mondays answering the same questions. Now I just point people to NexusAI Playbooks and they find everything themselves.",
     quoteAuthor: "Marcus Williams, Head of Knowledge Management",
     features: ["AI Summaries", "Document Quizzes", "Version Control", "Custom Branding"],
   },
@@ -48,16 +48,16 @@ const CASE_STUDIES = [
     company: "Voyager Hospitality Tech",
     logo: "VH",
     title: "Voyager Achieved SOC 2 Compliance 3 Months Faster",
-    subtitle: "Using ARG Builder as the backbone for compliance documentation",
+    subtitle: "Using NexusAI Playbooks as the backbone for compliance documentation",
     challenge: "Voyager Hospitality Tech, a 200-person SaaS company, needed to achieve SOC 2 Type II compliance. Their documentation was spread across Confluence, Notion, and SharePoint — making audit preparation a nightmare. The compliance team estimated 6 months of documentation work.",
-    solution: "ARG Builder's workflow system, approval chains, and audit trails provided the documentation infrastructure SOC 2 requires. Automated quality audits flagged gaps, and the compliance reporting feature generated audit-ready exports on demand.",
+    solution: "NexusAI Playbooks's workflow system, approval chains, and audit trails provided the documentation infrastructure SOC 2 requires. Automated quality audits flagged gaps, and the compliance reporting feature generated audit-ready exports on demand.",
     results: [
       { metric: "3mo", label: "Faster compliance" },
       { metric: "100%", label: "Audit trail coverage" },
       { metric: "$400K", label: "Saved vs. manual process" },
       { metric: "200+", label: "Policies documented" },
     ],
-    quote: "We evaluated Notion, Confluence, and Guru. ARG Builder won because it's purpose-built for operational documentation with enterprise compliance features baked in.",
+    quote: "We evaluated Notion, Confluence, and Guru. NexusAI Playbooks won because it's purpose-built for operational documentation with enterprise compliance features baked in.",
     quoteAuthor: "Priya Patel, CTO",
     features: ["Audit Trails", "Workflow Approvals", "Compliance Reports", "API Access"],
   },
@@ -133,7 +133,7 @@ export default function CaseStudiesPage() {
           {/* CTA */}
           <div className="text-center bg-primary/5 border border-primary/20 rounded-xl p-8">
             <h3 className="text-xl font-bold text-foreground mb-2">Ready to see similar results?</h3>
-            <p className="text-muted-foreground mb-6">Start your 14-day free trial and see how ARG Builder can transform your operations.</p>
+            <p className="text-muted-foreground mb-6">Start your 14-day free trial and see how NexusAI Playbooks can transform your operations.</p>
             <div className="flex gap-3 justify-center">
               <button
                 onClick={() => navigate("/start-trial?plan=professional")}
@@ -168,7 +168,7 @@ export default function CaseStudiesPage() {
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Customer Success Stories</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            See how teams across industries use ARG Builder to transform their operational knowledge management.
+            See how teams across industries use NexusAI Playbooks to transform their operational knowledge management.
           </p>
         </div>
 

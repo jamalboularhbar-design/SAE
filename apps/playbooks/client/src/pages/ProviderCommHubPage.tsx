@@ -34,10 +34,10 @@ const SAMPLE_LOGS: CommLog[] = [
 ];
 
 const QUICK_MESSAGES = [
-  { label: 'Booking Confirmation', template: 'Dear [Provider], please confirm the following reservation:\n\nGuest: [Name]\nDates: [Check-in] to [Check-out]\nRoom: [Type]\nSpecial Requests: [Details]\n\nPlease confirm availability and rate.\n\nBest regards,\nRiad & Routes Team' },
-  { label: 'Pre-Arrival Brief', template: 'Dear [Provider],\n\nGuest [Name] arrives [Date]. Key details:\n\n• VIP Level: [Level]\n• Dietary: [Restrictions]\n• Room Preference: [Preference]\n• Special Occasion: [Details]\n• Transfer: [Arranged/Not needed]\n\nPlease ensure all preparations are in place.\n\nThank you,\nRiad & Routes' },
-  { label: 'Issue Escalation', template: 'URGENT - [Provider]\n\nIssue: [Description]\nGuest Affected: [Name]\nSeverity: [High/Critical]\n\nRequired Action:\n[Steps needed]\n\nPlease respond within [X] minutes.\n\nRiad & Routes Operations' },
-  { label: 'Feedback Follow-up', template: 'Dear [Provider],\n\nFollowing the recent stay of [Guest Name], we received the following feedback:\n\nRating: [X/5]\nComment: "[Feedback]"\n\nPlease review and let us know what improvements can be made.\n\nBest,\nRiad & Routes Quality Team' },
+  { label: 'Booking Confirmation', template: 'Dear [Provider], please confirm the following reservation:\n\nGuest: [Name]\nDates: [Check-in] to [Check-out]\nRoom: [Type]\nSpecial Requests: [Details]\n\nPlease confirm availability and rate.\n\nBest regards,\nHorizon Concierge Team' },
+  { label: 'Pre-Arrival Brief', template: 'Dear [Provider],\n\nGuest [Name] arrives [Date]. Key details:\n\n• VIP Level: [Level]\n• Dietary: [Restrictions]\n• Room Preference: [Preference]\n• Special Occasion: [Details]\n• Transfer: [Arranged/Not needed]\n\nPlease ensure all preparations are in place.\n\nThank you,\nHorizon Concierge' },
+  { label: 'Issue Escalation', template: 'URGENT - [Provider]\n\nIssue: [Description]\nGuest Affected: [Name]\nSeverity: [High/Critical]\n\nRequired Action:\n[Steps needed]\n\nPlease respond within [X] minutes.\n\nHorizon Concierge Operations' },
+  { label: 'Feedback Follow-up', template: 'Dear [Provider],\n\nFollowing the recent stay of [Guest Name], we received the following feedback:\n\nRating: [X/5]\nComment: "[Feedback]"\n\nPlease review and let us know what improvements can be made.\n\nBest,\nHorizon Concierge Quality Team' },
 ];
 
 export default function ProviderCommHubPage() {

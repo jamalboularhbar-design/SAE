@@ -8,7 +8,7 @@ import { Paintbrush, Save, Loader2, Eye, Palette, Type, Image, Globe, CheckCircl
 import { toast } from 'sonner';
 
 const BRANDING_KEYS = [
-  { key: 'site_title', label: 'Site Title', placeholder: 'ARG Builder', type: 'text', tab: 'identity' },
+  { key: 'site_title', label: 'Site Title', placeholder: 'NexusAI Playbooks', type: 'text', tab: 'identity' },
   { key: 'tagline', label: 'Tagline', placeholder: 'Operational processes & best practices', type: 'text', tab: 'identity' },
   { key: 'accent_color', label: 'Accent Color', placeholder: '#e8783a', type: 'color', tab: 'colors' },
   { key: 'secondary_color', label: 'Secondary Color', placeholder: '#1a1a2e', type: 'color', tab: 'colors' },
@@ -16,7 +16,7 @@ const BRANDING_KEYS = [
   { key: 'text_color', label: 'Text Color', placeholder: '#e5e5e5', type: 'color', tab: 'colors' },
   { key: 'logo_url', label: 'Logo URL', placeholder: '/logo.svg', type: 'text', tab: 'assets' },
   { key: 'favicon_url', label: 'Favicon URL', placeholder: '/favicon.ico', type: 'text', tab: 'assets' },
-  { key: 'footer_text', label: 'Footer Text', placeholder: 'Riad & Routes — riadandroutes.com', type: 'text', tab: 'identity' },
+  { key: 'footer_text', label: 'Footer Text', placeholder: 'Horizon Concierge — horizonconcierge.demo', type: 'text', tab: 'identity' },
   { key: 'font_family', label: 'Font Family', placeholder: 'Inter', type: 'text', tab: 'typography' },
   { key: 'custom_css', label: 'Custom CSS Override', placeholder: '/* Custom styles */', type: 'textarea', tab: 'advanced' },
   { key: 'words_per_minute', label: 'Reading Speed (words/min)', placeholder: '200', type: 'number', tab: 'identity' },
@@ -160,12 +160,12 @@ export default function AdminBrandingPage() {
                   </div>
                 )}
                 <div>
-                  <h2 className="text-xl font-bold">{values['site_title'] || 'ARG Builder'}</h2>
+                  <h2 className="text-xl font-bold">{values['site_title'] || 'NexusAI Playbooks'}</h2>
                   <p className="text-sm opacity-70">{values['tagline'] || 'Operational Reference System'}</p>
                 </div>
               </div>
               <h3 className="text-2xl font-bold mb-3" style={{ color: values['accent_color'] || '#e8783a' }}>
-                Welcome to {values['site_title'] || 'ARG Builder'}
+                Welcome to {values['site_title'] || 'NexusAI Playbooks'}
               </h3>
               <p className="opacity-80 max-w-lg mb-4">Preview of your branded platform. Colors, fonts, and logos apply consistently across all pages.</p>
               <button className="px-4 py-2 rounded-lg font-medium text-white" style={{ backgroundColor: values['accent_color'] || '#e8783a' }}>
@@ -240,7 +240,7 @@ export default function AdminBrandingPage() {
               <div>
                 <h3 className="font-semibold mb-1">Enterprise White-Label</h3>
                 <p className="text-sm text-muted-foreground">
-                  Enterprise plan includes: custom login page, branded email templates, custom domain with SSL, branded PDF exports, and full removal of ARG Builder references.
+                  Enterprise plan includes: custom login page, branded email templates, custom domain with SSL, branded PDF exports, and full removal of NexusAI Playbooks references.
                 </p>
               </div>
             </div>

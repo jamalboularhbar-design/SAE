@@ -11,7 +11,7 @@ interface TourStep {
 
 const TOUR_STEPS: TourStep[] = [
   {
-    title: 'Welcome to ARG Builder',
+    title: 'Welcome to NexusAI Playbooks',
     description: 'Your enterprise knowledge management platform. Let us show you around in 60 seconds.',
     icon: '👋',
   },

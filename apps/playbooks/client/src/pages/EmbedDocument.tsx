@@ -63,7 +63,7 @@ export default function EmbedDocument() {
         <ReactMarkdown>{doc.content || ''}</ReactMarkdown>
       </div>
       <div className="footer">
-        Powered by ARG Builder
+        Powered by NexusAI Playbooks
       </div>
     </div>
   );
