@@ -22,6 +22,7 @@ import SmartSuggestions from '@/components/SmartSuggestions';
 import PinnedDocuments from '@/components/PinnedDocuments';
 import StickyHeader from '@/components/StickyHeader';
 import AIHubPromo from '@/components/AIHubPromo';
+import VerticalShowcase from '@/components/VerticalShowcase';
 import { BRAND } from '@/lib/brand';
 import { generatePersonaContent, exportToPDF } from '@/lib/exportPdf';
 
@@ -304,8 +305,15 @@ export default function Home() {
           </div>
         </div>
 
+        <VerticalShowcase
+          onOpenWorkspace={(tab) => {
+            setActivePersona(tab);
+            document.getElementById("workspace-tabs")?.scrollIntoView({ behavior: "smooth" });
+          }}
+        />
+
         {/* Workspace Selection Tabs */}
-        <div className="mb-10 sm:mb-16">
+        <div id="workspace-tabs" className="mb-10 sm:mb-16">
           <Tabs value={activePersona} onValueChange={(value) => setActivePersona(value as 'travel' | 'artkech')} className="w-full">
             <TabsList data-tour="workspaces" className="grid w-full max-w-sm sm:max-w-md mx-auto grid-cols-2 mb-8 sm:mb-12 bg-card/50 border border-border/50 p-1 rounded-lg">
               <TabsTrigger value="travel" className="flex items-center gap-2">

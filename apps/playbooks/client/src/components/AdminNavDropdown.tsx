@@ -9,8 +9,12 @@ import {
   Workflow, FileSpreadsheet, Lightbulb, LayoutDashboard, Search, Bell,
   Building2, Code2, ArrowRightLeft, SmilePlus, Accessibility, FileBarChart,
   History, Link2, Trophy, Megaphone,
-  Share2, TrendingUp, Scan
+  Share2, TrendingUp, Scan, ExternalLink
 } from 'lucide-react';
+
+/** NexusAI PPV Ops Hub — product/GTM Notion workspace */
+export const NOTION_PPV_HUB_URL =
+  'https://app.notion.com/p/3848c474cdec8159b5e0c721055944cf';
 
 const adminLinks = [
   { label: 'Document Editor', href: '/admin/editor', icon: FileText },
@@ -115,6 +119,16 @@ export default function AdminNavDropdown() {
 
       {open && (
         <div className="absolute right-0 top-full mt-2 w-56 max-h-[70vh] overflow-y-auto bg-popover text-popover-foreground border border-border rounded-lg shadow-lg py-1 z-50 animate-in fade-in-0 zoom-in-95">
+          <a
+            href={NOTION_PPV_HUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setOpen(false)}
+            className="w-full flex items-center gap-2.5 px-3 py-2 text-sm hover:bg-muted transition-colors text-left border-b border-border/50 mb-1"
+          >
+            <ExternalLink className="w-4 h-4 text-primary" />
+            PPV Ops Hub (Notion)
+          </a>
           {adminLinks.map((link) => (
             <Link key={link.href} href={link.href}>
               <button

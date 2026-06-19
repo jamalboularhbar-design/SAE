@@ -26,16 +26,16 @@
 
 ### Week 2: Rebrand to NexusAI Playbooks
 
-- [ ] Replace "ARG Builder" → "NexusAI Playbooks" across UI
-- [ ] Replace "Persona" → "Workspace" in UI copy
+- [x] Replace "ARG Builder" → "NexusAI Playbooks" across UI
+- [x] Replace "Persona" → "Workspace" in UI copy (in progress where applicable)
 - [ ] Update meta tags, favicon, OG images
-- [ ] Create generic demo workspaces (remove Riad & Routes / ArtKech hardcoding)
-  - Demo Workspace A: "Acme Creative Agency"
-  - Demo Workspace B: "Beta Client Co."
-- [ ] Sanitize 280 docs into `packages/templates/` (remove business-specific names)
+- [x] **Keep live case studies:** Riad & Routes + ArtKech Design Studio (argbuilder.io demos)
+- [x] **Add reference verticals:** Atlas Collective Agency + Maison Voyager Hospitality
+- [x] Notion PPV Ops Hub + automated upsert sync (82 curated docs-seed)
+- [ ] Sanitize template exports into `packages/templates/` (full docs-seed stays read-only)
 - [ ] Set up `nexusai.ma` landing page (domain acquisition in progress)
 
-**Exit criteria:** App runs locally as "NexusAI Playbooks" with generic demo content.
+**Exit criteria:** App runs as "NexusAI Playbooks" with 4 vertical demos, live R&R + ArtKech case studies, and Notion ops sync.
 
 ---
 
