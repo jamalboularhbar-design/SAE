@@ -303,9 +303,15 @@ async function syncDocs(notion, manifest) {
 }
 
 async function main() {
-  const apiKey = process.env.NOTION_API_KEY;
+  const apiKey = (process.env.NOTION_API_KEY ?? "").trim();
   if (!apiKey) {
     console.error("NOTION_API_KEY required. See docs/notion/deployment-guide.md");
+    process.exit(1);
+  }
+  if (apiKey.includes("...") || apiKey.length < 40) {
+    console.error(
+      "NOTION_API_KEY looks like a placeholder. Paste your full token into apps/playbooks/.env, then run: pnpm notion:verify"
+    );
     process.exit(1);
   }
 

@@ -12,7 +12,8 @@
     "test": "vitest run",
     "db:push": "drizzle-kit generate && drizzle-kit migrate",
     "notion:deploy-ppv": "node scripts/notion/deploy-ppv-workspace.mjs",
-    "notion:sync": "node scripts/notion/sync-notion.mjs"
+    "notion:sync": "node scripts/notion/sync-notion.mjs",
+    "notion:verify": "node scripts/notion/verify-notion.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.693.0",

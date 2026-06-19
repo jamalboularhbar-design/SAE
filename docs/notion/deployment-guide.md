@@ -26,13 +26,19 @@ NOTION_SYNC_DOCS=0 pnpm notion:sync
 
 1. Create integration at https://www.notion.so/my-integrations
 2. Share **PPV Ops Hub** page with the integration
-3. Add to `apps/playbooks/.env`:
+3. Add to `apps/playbooks/.env` (paste the **full** token — `secret_` or `ntn_` prefix, no quotes):
 
 ```bash
-NOTION_API_KEY=secret_...
+NOTION_API_KEY=ntn_paste_your_full_token_here
 ```
 
-4. For GitHub Actions: add repo secret `NOTION_API_KEY`
+4. Verify before syncing:
+
+```bash
+pnpm notion:verify
+```
+
+5. For GitHub Actions: add repo secret `NOTION_API_KEY`
 
 ## Upsert behavior
 
