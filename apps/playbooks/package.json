@@ -14,7 +14,8 @@
     "notion:deploy-ppv": "node scripts/notion/deploy-ppv-workspace.mjs",
     "notion:sync": "node scripts/notion/sync-notion.mjs",
     "notion:verify": "node scripts/notion/verify-notion.mjs",
-    "templates:export": "tsx scripts/export-template-bundles.mjs"
+    "templates:export": "tsx scripts/export-template-bundles.mjs",
+    "templates:gumroad-copy": "tsx scripts/gumroad-listing-copy.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.693.0",

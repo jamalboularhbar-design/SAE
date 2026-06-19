@@ -17,11 +17,25 @@ Output: `dist/template-bundles/*.zip` — one zip per bundle with Markdown + REA
 | Creative Studio Pack | All `ARG-Builder-AK-*` curated docs |
 | Complete Library | Full 82-doc curated set |
 
-## 2. Create Gumroad products
+## 2. Create Gumroad products (manual — ~45 min)
 
-1. [gumroad.com](https://gumroad.com) → New product per bundle
-2. Upload matching zip from `dist/template-bundles/`
-3. Copy each product checkout URL
+Gumroad has no API in this repo. You create each listing in the Gumroad UI once.
+
+**Fast path:**
+
+```bash
+pnpm templates:export          # zips
+pnpm templates:gumroad-copy    # paste-ready titles, descriptions, env var names
+```
+
+See **[gumroad-listings.md](./gumroad-listings.md)** for the full checklist and honest doc counts.
+
+Per product on Gumroad:
+
+1. [gumroad.com](https://gumroad.com) → **New product**
+2. Upload `{id}.zip` from `dist/template-bundles/`
+3. Paste name + description from `pnpm templates:gumroad-copy`
+4. Set price → **Publish** → copy checkout URL
 
 ## 3. Wire checkout URLs
 
