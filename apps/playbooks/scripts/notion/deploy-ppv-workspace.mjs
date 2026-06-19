@@ -169,7 +169,7 @@ async function seedWeeklyMetrics(notion, dbId) {
 
 async function seedSampleSalesLead(notion, dbId) {
   await createDatabasePage(notion, dbId, {
-    Company: titleProp("Example — Horizon Concierge (demo)"),
+    Company: titleProp("Example — Riad & Routes (demo)"),
     Contact: richTextProp("ops@example.com"),
     Stage: selectProp("New"),
     "MRR Value": numberProp(599),

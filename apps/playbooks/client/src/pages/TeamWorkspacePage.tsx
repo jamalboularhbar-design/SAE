@@ -51,7 +51,7 @@ const mockTasks: SharedTask[] = [
 ];
 
 const mockDiscussions: Discussion[] = [
-  { id: '1', title: 'New pricing tiers for Horizon Concierge', author: 'Youssef M.', replies: 8, lastReply: '30m ago', unread: true },
+  { id: '1', title: 'New pricing tiers for Riad & Routes', author: 'Youssef M.', replies: 8, lastReply: '30m ago', unread: true },
   { id: '2', title: 'AI features rollout timeline', author: 'Ahmed R.', replies: 5, lastReply: '2h ago', unread: true },
   { id: '3', title: 'Guest experience feedback analysis', author: 'Omar B.', replies: 3, lastReply: '1 day ago', unread: false },
   { id: '4', title: 'Studio workshop schedule for June', author: 'Fatima Z.', replies: 2, lastReply: '2 days ago', unread: false },

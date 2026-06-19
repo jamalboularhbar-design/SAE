@@ -133,7 +133,7 @@ export const VAULTS = [
 ];
 
 export const LAUNCH_TASKS = [
-  { task: "Connect Notion MCP or run deploy-ppv script", phase: "Phase 0", status: "In Progress", priority: "Critical", pillar: "Operations" },
+  { task: "Run Notion upsert sync (pnpm notion:sync)", phase: "Phase 0", status: "Done", priority: "Critical", pillar: "Operations" },
   { task: "Publish Starter Pack + Agency Pack on Gumroad", phase: "Phase 1", status: "To Do", priority: "High", pillar: "GTM & Sales" },
   { task: "Create Notion import format for template bundles", phase: "Phase 1", status: "To Do", priority: "High", pillar: "Product" },
   { task: "Wire Gumroad checkout URLs in TemplatesBundlesPage", phase: "Phase 1", status: "To Do", priority: "Medium", pillar: "Product" },
@@ -145,6 +145,43 @@ export const LAUNCH_TASKS = [
   { task: "Set up Cal.com demo booking link", phase: "Phase 1", status: "To Do", priority: "Medium", pillar: "GTM & Sales" },
   { task: "Product Hunt launch day execution", phase: "Phase 3", status: "To Do", priority: "High", pillar: "Brand & Content" },
   { task: "nexusai.ma DNS when domain ready", phase: "Phase 0", status: "To Do", priority: "Low", pillar: "Operations" },
+];
+
+export const CASE_STUDIES = [
+  {
+    workspace: "Riad & Routes",
+    status: "Needs Improvement",
+    vertical: "Travel & Concierge",
+    priority: "Critical",
+    improvements:
+      "Provider sync UX, guest anticipation flows, live provider names in demo. Workspace: riad-routes on argbuilder.io",
+    liveUrl: "https://argbuilder.io",
+  },
+  {
+    workspace: "ArtKech Design Studio",
+    status: "Needs Improvement",
+    vertical: "Creative Studio",
+    priority: "Critical",
+    improvements:
+      "Creative review workflow, freelancer handoffs, client portal polish. Workspace: artkech on argbuilder.io",
+    liveUrl: "https://argbuilder.io",
+  },
+  {
+    workspace: "Atlas Collective Agency",
+    status: "Demo",
+    vertical: "Agency",
+    priority: "Medium",
+    improvements: "Multi-brand agency ICP reference — SOPs for client delivery.",
+    liveUrl: "",
+  },
+  {
+    workspace: "Maison Voyager Hospitality",
+    status: "Demo",
+    vertical: "Hospitality",
+    priority: "Medium",
+    improvements: "Compliance + multi-property ops demo vertical.",
+    liveUrl: "",
+  },
 ];
 
 export const CONTENT_CALENDAR = [

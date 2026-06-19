@@ -1,93 +1,76 @@
-# Deploy NexusAI PPV Workspace to Notion
+# Notion Deploy & Sync
 
-Two ways to deploy: **Cursor Notion MCP** (interactive) or **API script** (automated).
+## Hub
 
----
+**NexusAI Playbooks — PPV Ops Hub**  
+https://app.notion.com/p/3848c474cdec8159b5e0c721055944cf
 
-## Option A — Cursor Notion MCP (recommended for first run)
+Scoped to product/GTM ops only (not full life PPV). Your personal Pillar ⇒ Pipeline Pyramid stays separate.
 
-1. Open **Cursor Settings → MCP → Notion**
-2. Click **Connect** and authorize your workspace
-3. Re-run the cloud agent request: *"Deploy PPV workspace to Notion"*
-4. The agent will create pages and databases via MCP tools
-
----
-
-## Option B — Notion API script
-
-### 1. Create a Notion integration
-
-1. Go to [notion.so/my-integrations](https://www.notion.so/my-integrations)
-2. Create integration: **NexusAI Playbooks Deploy**
-3. Copy the **Internal Integration Secret** → `NOTION_API_KEY`
-
-### 2. Share pages with the integration
-
-In Notion, open your **Command Center / Master Hub** page and:
-
-- Click **⋯ → Connections → Add connection**
-- Select **NexusAI Playbooks Deploy**
-
-Default parent page ID (Master Hub):
-
-```
-3548c474-cdec-81ad-8401-fe7a629344d0
-```
-
-### 3. Configure environment
-
-Add to `apps/playbooks/.env`:
-
-```bash
-NOTION_API_KEY=secret_xxxxxxxx
-NOTION_PARENT_PAGE_ID=3548c474-cdec-81ad-8401-fe7a629344d0
-# Optional — skip structure creation, only seed data:
-# NOTION_PPV_PAGE_ID=your-existing-ppv-page-id
-```
-
-### 4. Run deployment
+## Commands
 
 ```bash
 cd apps/playbooks
+
+# First-time: create hub + databases (once)
 pnpm notion:deploy-ppv
+
+# Repeatable upsert (structure + curated docs-seed)
+pnpm notion:sync
+
+# Structure only (skip docs)
+NOTION_SYNC_DOCS=0 pnpm notion:sync
 ```
 
-### 5. Verify
+## Auth
 
-The script prints created page and database URLs. You should see:
+1. Create integration at https://www.notion.so/my-integrations
+2. Share **PPV Ops Hub** page with the integration
+3. Add to `apps/playbooks/.env`:
 
-- **NexusAI PPV Command Center** (top-level under Master Hub)
-- Databases: Pillars, Pipelines, Vaults, Sales Pipeline, Content Calendar, Meeting Tracker, Launch Tasks, Weekly Metrics
-- Seeded pillars, pipelines, vault references, LinkedIn posts, 90-day tasks, metric rows
+```bash
+NOTION_API_KEY=secret_...
+```
 
----
+4. For GitHub Actions: add repo secret `NOTION_API_KEY`
 
-## Re-running safely
+## Upsert behavior
 
-- First run creates a new Command Center page
-- Set `NOTION_PPV_PAGE_ID` to update/seed an existing workspace
-- Databases are created fresh each run under the parent page — delete duplicates in Notion if you re-run without `NOTION_PPV_PAGE_ID`
+- Uses `scripts/notion/.notion-sync-manifest.json` (local) + title matching in Notion
+- Updates existing rows; creates new ones; never deletes the hub
+- Curated docs: ~80–100 files (all RR/AK vertical ops + GTM/sales/strategy tier)
+- Full markdown body synced into Vault pages (truncated at ~80 blocks)
 
----
+## Curated tiers
 
-## Troubleshooting
+| Tier | Contents |
+|------|----------|
+| 1 | All `ARG-Builder-RR-*` and `ARG-Builder-AK-*` + agent specs |
+| 2 | GTM, launch, metrics, sales playbooks + monorepo `docs/` |
+| 3 | Strategy, product, finance reference patterns |
 
-| Error | Fix |
-|-------|-----|
-| `401 Unauthorized` | Check `NOTION_API_KEY` |
-| `404 object_not_found` | Share parent page with integration |
-| `validation_error` on database | Notion API property limits — open issue in SAE repo |
-| MCP `needsAuth` | Connect Notion in Cursor IDE settings |
+## Case studies
 
----
+**Case Study Tracker** database (auto-created on sync):
 
-## What gets deployed vs. what stays in the app
+- Riad & Routes — Live, Needs Improvement
+- ArtKech Design Studio — Live, Needs Improvement
+- Atlas Collective Agency — Demo vertical
+- Maison Voyager Hospitality — Demo vertical
 
-| Deployed to Notion | Stays in NexusAI Playbooks app |
-|--------------------|--------------------------------|
-| PPV structure + seed rows | Live leads, trials, analytics |
-| Strategy doc references | 525 docs-seed blueprint (unchanged) |
-| GTM calendars & checklists | Admin dashboards, crons, Close CRM |
-| Weekly metric templates | Real-time KPI queries |
+## Automation
 
-Future: bidirectional sync per `Follow-Up 6: External Tool Integrations.md`.
+| Trigger | Workflow |
+|---------|----------|
+| `pnpm notion:sync` | Manual |
+| Push to `main` (notion/docs paths) | `.github/workflows/notion-sync.yml` |
+| Weekly Monday 10:00 UTC | Same workflow (cron) |
+
+## Live brands in app
+
+Demo workspaces restored:
+
+- **Riad & Routes** (`riad-routes`) — travel & concierge case study
+- **ArtKech Design Studio** (`artkech`) — creative studio case study
+- **Atlas Collective Agency** — multi-brand agency demo
+- **Maison Voyager Hospitality** — hospitality/compliance demo

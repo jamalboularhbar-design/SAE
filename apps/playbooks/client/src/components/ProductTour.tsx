@@ -17,7 +17,7 @@ const TOUR_STEPS: TourStep[] = [
   },
   {
     title: 'Multi-Brand Workspaces',
-    description: 'Switch between Horizon Concierge and Meridian Creative workspaces — each with specialized playbooks and workflows.',
+    description: 'Switch between Riad & Routes and ArtKech Design Studio workspaces — each with specialized playbooks and workflows.',
     icon: '🎭',
   },
   {

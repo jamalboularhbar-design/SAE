@@ -25,7 +25,7 @@ export async function exportToPDF(persona: 'travel' | 'artkech', content: string
 }
 
 function generateHTML(persona: string, content: string): string {
-  const title = persona === 'travel' ? 'Horizon Concierge - Luxury Travel Guide' : 'Meridian Creative Lead - Creative Studio Guide';
+  const title = persona === 'travel' ? 'Riad & Routes - Luxury Travel Guide' : 'ArtKech Lead Designer - Creative Studio Guide';
   const timestamp = new Date().toLocaleDateString();
 
   return `
@@ -185,8 +185,8 @@ function generateHTML(persona: string, content: string): string {
 export function generatePersonaContent(persona: 'travel' | 'artkech'): string {
   if (persona === 'travel') {
     return `
-      <h2>Horizon Concierge</h2>
-      <p><strong>Horizon Concierge (horizonconcierge.demo) — Bespoke luxury travel for discerning clients</strong></p>
+      <h2>Riad & Routes</h2>
+      <p><strong>Riad & Routes (riadandroutes.com) — Bespoke luxury travel for discerning clients</strong></p>
       
       <div class="section">
         <h3>Core Characteristics</h3>
@@ -224,8 +224,8 @@ export function generatePersonaContent(persona: 'travel' | 'artkech'): string {
     `;
   } else {
     return `
-      <h2>Meridian Creative Lead</h2>
-      <p><strong>Meridian Creative Studio — Premium Design & Independent Publishing</strong></p>
+      <h2>ArtKech Lead Designer</h2>
+      <p><strong>ArtKech Design Studio — Premium Design & Independent Publishing</strong></p>
       
       <div class="section">
         <h3>Core Characteristics</h3>
