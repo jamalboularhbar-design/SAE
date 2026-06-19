@@ -1,6 +1,7 @@
 import { trpc } from '@/lib/trpc';
 import { useAuth } from '@/_core/hooks/useAuth';
 import { Link } from 'wouter';
+import { useState } from 'react';
 import {
   Search, Layers, History, FolderOpen, Download, Bookmark,
   CheckCircle2, ArrowRight, Brain, Pen, MessageSquare, Sparkles, X, Minus,
@@ -10,6 +11,7 @@ import { toast } from 'sonner';
 import { totalDocuments, categoryCounts } from '@/lib/documentCatalog';
 import { BRAND } from '@/lib/brand';
 import SEO from '@/components/SEO';
+import VerticalShowcase from '@/components/VerticalShowcase';
 
 const FUNCTION_COUNT = Object.keys(categoryCounts).length;
 const AI_TOOL_COUNT = 11;
@@ -88,7 +90,15 @@ function CompareCell({ value, highlight }: { value: string; highlight?: boolean 
 
 export default function LandingPage() {
   const { user } = useAuth({ redirectOnUnauthenticated: false });
+  const [waitlistEmail, setWaitlistEmail] = useState('');
   const { data: stripeConfig } = trpc.stripe.isConfigured.useQuery();
+  const submitWaitlist = trpc.leads.submit.useMutation({
+    onSuccess: () => {
+      toast.success("You're on the Playbooks waitlist.");
+      setWaitlistEmail('');
+    },
+    onError: () => toast.error('Could not save — try again or email hello@nexusai.ma'),
+  });
   const createCheckout = trpc.stripe.createCheckoutSession.useMutation({
     onSuccess: (data) => {
       if (data.checkoutUrl) {
@@ -225,6 +235,44 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Waitlist + vertical demos */}
+      <section className="py-12 px-4 border-b border-white/5">
+        <div className="max-w-xl mx-auto mb-12">
+          <p className="text-sm text-gray-400 text-center mb-3">Launch updates & template drops:</p>
+          <div className="flex gap-2">
+            <input
+              type="email"
+              value={waitlistEmail}
+              onChange={(e) => setWaitlistEmail(e.target.value)}
+              placeholder="you@company.com"
+              className="flex-1 px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+            />
+            <Button
+              className="bg-teal-500 hover:bg-teal-400 text-black font-semibold shrink-0"
+              disabled={submitWaitlist.isPending}
+              onClick={() => {
+                if (!waitlistEmail.trim()) {
+                  toast.error('Enter your email');
+                  return;
+                }
+                submitWaitlist.mutate({
+                  fullName: 'Product waitlist',
+                  email: waitlistEmail.trim(),
+                  source: 'product_waitlist',
+                  utmSource: 'product',
+                  utmMedium: 'hero',
+                });
+              }}
+            >
+              Join waitlist
+            </Button>
+          </div>
+        </div>
+        <div className="max-w-6xl mx-auto">
+          <VerticalShowcase variant="dark" compact />
         </div>
       </section>
 

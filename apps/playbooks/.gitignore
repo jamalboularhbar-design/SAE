@@ -6,6 +6,7 @@
 dist/
 build/
 *.dist
+**/dist/template-bundles/
 
 # Environment variables
 .env

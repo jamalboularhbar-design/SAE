@@ -3,6 +3,11 @@ import { TRPCError } from "@trpc/server";
 import { COOKIE_NAME } from "@shared/const";
 import { BRAND, DEMO_WORKSPACES } from "./brand";
 import { stripeRouter } from "./stripeRouter";
+import {
+  getTemplateCheckoutUrls,
+  getTemplateClubCheckoutUrl,
+  isTemplateStoreLive,
+} from "./templateStore";
 import { createCloseLead, subscribeToNurtureSequence } from "./closeCrm";
 import { leadSubmitLimiter, loginLimiter } from "./rateLimiter";
 import { getSessionCookieOptions } from "./_core/cookies";
@@ -2304,6 +2309,15 @@ export const appRouter = router({
     rate: protectedProcedure.input(z.object({ templateId: z.number(), rating: z.number().min(1).max(5), review: z.string().optional() })).mutation(async ({ ctx, input }) => rateTemplate({ ...input, userId: ctx.user.openId })),
     ratings: publicProcedure.input(z.object({ templateId: z.number() })).query(async ({ input }) => getTemplateRatings(input.templateId)),
     use: protectedProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => incrementMarketplaceTemplateUsage(input.id)),
+  }),
+
+  /** Phase 1 — Gumroad checkout URLs (env-configured) */
+  templateStore: router({
+    checkout: publicProcedure.query(() => ({
+      live: isTemplateStoreLive(),
+      bundles: getTemplateCheckoutUrls(),
+      templateClub: getTemplateClubCheckoutUrl(),
+    })),
   }),
 
   // ===== Batch 23: Audit Compliance Reports =====

@@ -22,7 +22,9 @@
 - [ ] Set up local dev environment with `.env.example`
 - [ ] Fix category dropdown bug (document creation modal)
 - [ ] Run full test suite / add basic smoke tests
-- [ ] Set up CI (GitHub Actions: lint, type-check, build)
+- [x] Set up CI (GitHub Actions: lint, type-check, build)
+- [x] NexusAI-branded OG image + favicon (`/og-image.png`, `/favicon.svg`)
+- [x] Product landing waitlist capture (`/product`)
 
 ### Week 2: Rebrand to NexusAI Playbooks
 
@@ -43,21 +45,22 @@
 
 ### Week 3: Package Templates
 
-- [ ] Organize 280 docs into 5 bundles (see pricing.md)
+- [x] Organize docs into 5 bundles (`shared/templateBundles.ts` + export script)
+- [x] Create Markdown zip exports (`pnpm templates:export`)
 - [ ] Create Notion import format for each bundle
-- [ ] Create Markdown zip exports
 - [ ] Design bundle cover images (one per bundle)
 - [ ] Write bundle descriptions and preview screenshots
 - [ ] Set up Gumroad / Lemon Squeezy store
 
 ### Week 4: Launch Templates
 
-- [ ] Publish Starter Pack ($49) and Agency Pack ($99)
-- [ ] Create `templates.nexusai.ma` landing page
+- [x] Templates landing page (`/product/templates`) with waitlist + Gumroad-ready checkout
+- [ ] Publish Starter Pack ($49) and Agency Pack ($99) on Gumroad
+- [ ] Create `templates.nexusai.ma` landing page (or redirect to `/product/templates`)
 - [ ] Write launch blog post: "How we documented 280 operational processes"
-- [ ] Set up email capture → Playbooks waitlist
+- [x] Set up email capture → Playbooks waitlist (`product_waitlist` + `template_waitlist`)
 - [ ] Post in 3 agency communities (Agency Hackers, Indie Hackers, r/agency)
-- [ ] Include "Import to NexusAI Playbooks" CTA in every template download
+- [x] Include "Import to NexusAI Playbooks" CTA in every template download README
 
 **Exit criteria:** 2+ template bundles live, 10+ sales, 50+ waitlist emails.
 
