@@ -12,14 +12,14 @@ const TESTIMONIALS = [
     quote: "NexusAI Playbooks completely transformed how we onboard new team members. What used to take 2 weeks now takes 3 days.",
     author: "Sarah Chen",
     role: "Operations Director",
-    company: "Meridian Travel Group",
+    company: "Riad & Routes",
     rating: 5,
   },
   {
     quote: "The AI-powered search alone saves our team hours every week. Finding the right SOP is instant now.",
     author: "Marcus Williams",
     role: "Head of Knowledge Management",
-    company: "Atlas Creative Studio",
+    company: "ArtKech Design Studio",
     rating: 5,
   },
   {
@@ -32,10 +32,10 @@ const TESTIMONIALS = [
 ];
 
 const CLIENT_LOGOS = [
-  { name: "Meridian Travel", initials: "MT" },
-  { name: "Atlas Creative", initials: "AC" },
-  { name: "Voyager Hospitality", initials: "VH" },
-  { name: "Horizon Concierge", initials: "R&R" },
+  { name: "Riad & Routes", initials: "R&R" },
+  { name: "ArtKech Design Studio", initials: "AK" },
+  { name: "Atlas Collective", initials: "AC" },
+  { name: "Maison Voyager", initials: "MV" },
   { name: "Nomad Studios", initials: "NS" },
   { name: "Zenith Operations", initials: "ZO" },
 ];

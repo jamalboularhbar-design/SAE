@@ -111,10 +111,10 @@ export default function IncidentLogPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex gap-2">
             <button onClick={() => setActivePersona('riad-routes')} className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-sm transition-colors ${activePersona === 'riad-routes' ? 'bg-accent text-accent-foreground border-accent' : 'border-border hover:border-accent/50'}`}>
-              <Plane className="w-4 h-4" /> Horizon Concierge
+              <Plane className="w-4 h-4" /> Riad & Routes
             </button>
             <button onClick={() => setActivePersona('artkech')} className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-sm transition-colors ${activePersona === 'artkech' ? 'bg-accent text-accent-foreground border-accent' : 'border-border hover:border-accent/50'}`}>
-              <Palette className="w-4 h-4" /> Meridian Creative Studio
+              <Palette className="w-4 h-4" /> ArtKech Design Studio
             </button>
           </div>
           <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 text-white text-sm font-medium">

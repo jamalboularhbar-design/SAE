@@ -67,8 +67,8 @@ function getReadingTime(wordCount: number, wpm = 200): string {
 // Template variable interpolation: replaces {{variable_name}} with values
 function interpolateTemplateVars(content: string): string {
   const vars: Record<string, string> = {
-    company_name: 'Horizon Concierge',
-    website: 'horizonconcierge.demo',
+    company_name: 'Riad & Routes',
+    website: 'riadandroutes.com',
     current_date: new Date().toLocaleDateString(),
     current_year: new Date().getFullYear().toString(),
   };
@@ -362,7 +362,7 @@ export default function DocumentDetail() {
       {/* Print-only branded header */}
       <div className="print-header hidden">
         <h1>{document.title}</h1>
-        <div className="subtitle">Horizon Concierge — Operational Reference Guide | {document.category} | Last updated: {new Date(document.updatedAt || document.createdAt).toLocaleDateString()}</div>
+        <div className="subtitle">Riad & Routes — Operational Reference Guide | {document.category} | Last updated: {new Date(document.updatedAt || document.createdAt).toLocaleDateString()}</div>
       </div>
 
       {/* Reading Progress Bar */}
@@ -612,12 +612,12 @@ export default function DocumentDetail() {
             </article>
 
             {/* Process Timeline (for persona process docs) */}
-            {(document.category === 'Horizon Concierge' || document.category === 'Meridian Creative Studio') && (
+            {(document.category === 'Riad & Routes' || document.category === 'ArtKech Design Studio') && (
               <ProcessTimelineVisualization content={document.content || ''} />
             )}
 
             {/* Cross-Persona Related Documents */}
-            {(document.category === 'Horizon Concierge' || document.category === 'Meridian Creative Studio') && (
+            {(document.category === 'Riad & Routes' || document.category === 'ArtKech Design Studio') && (
               <CrossPersonaLinksPanel currentDocTitle={document.title} currentCategory={document.category} />
             )}
 
@@ -831,7 +831,7 @@ function MobileTOC({ headings, activeHeading }: { headings: { id: string; text: 
 
       {/* Print-only branded footer */}
       <div className="print-footer hidden">
-        Horizon Concierge — horizonconcierge.demo | Confidential — For internal use only | Printed: {new Date().toLocaleDateString()}
+        Riad & Routes — riadandroutes.com | Confidential — For internal use only | Printed: {new Date().toLocaleDateString()}
       </div>
     </div>
   );

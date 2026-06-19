@@ -310,11 +310,11 @@ export default function Home() {
             <TabsList data-tour="workspaces" className="grid w-full max-w-sm sm:max-w-md mx-auto grid-cols-2 mb-8 sm:mb-12 bg-card/50 border border-border/50 p-1 rounded-lg">
               <TabsTrigger value="travel" className="flex items-center gap-2">
                 <Plane className="w-4 h-4" />
-                <span>Horizon Concierge</span>
+                <span>Riad & Routes</span>
               </TabsTrigger>
               <TabsTrigger value="artkech" className="flex items-center gap-2">
                 <Palette className="w-4 h-4" />
-                <span>Meridian Creative Studio</span>
+                <span>ArtKech Design Studio</span>
               </TabsTrigger>
             </TabsList>
 
@@ -415,7 +415,7 @@ export default function Home() {
                   <CardDescription>7-stage operational workflow</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ProcessTimeline stages={travelStages} title="Horizon Concierge Process" />
+                  <ProcessTimeline stages={travelStages} title="Riad & Routes Process" />
                 </CardContent>
               </Card>
             </TabsContent>
@@ -479,7 +479,7 @@ export default function Home() {
                   <CardDescription>7-stage operational workflow</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ProcessTimeline stages={artkechStages} title="Meridian Creative Process" />
+                  <ProcessTimeline stages={artkechStages} title="ArtKech Creative Process" />
                 </CardContent>
               </Card>
             </TabsContent>

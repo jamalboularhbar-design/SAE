@@ -16,7 +16,7 @@ const BRANDING_KEYS = [
   { key: 'text_color', label: 'Text Color', placeholder: '#e5e5e5', type: 'color', tab: 'colors' },
   { key: 'logo_url', label: 'Logo URL', placeholder: '/logo.svg', type: 'text', tab: 'assets' },
   { key: 'favicon_url', label: 'Favicon URL', placeholder: '/favicon.ico', type: 'text', tab: 'assets' },
-  { key: 'footer_text', label: 'Footer Text', placeholder: 'Horizon Concierge — horizonconcierge.demo', type: 'text', tab: 'identity' },
+  { key: 'footer_text', label: 'Footer Text', placeholder: 'Riad & Routes — riadandroutes.com', type: 'text', tab: 'identity' },
   { key: 'font_family', label: 'Font Family', placeholder: 'Inter', type: 'text', tab: 'typography' },
   { key: 'custom_css', label: 'Custom CSS Override', placeholder: '/* Custom styles */', type: 'textarea', tab: 'advanced' },
   { key: 'words_per_minute', label: 'Reading Speed (words/min)', placeholder: '200', type: 'number', tab: 'identity' },

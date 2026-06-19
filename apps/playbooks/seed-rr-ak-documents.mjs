@@ -6,8 +6,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 function categorize(filename) {
-  if (filename.startsWith('ARG-Builder-RR-')) return 'Horizon Concierge';
-  if (filename.startsWith('ARG-Builder-AK-')) return 'Meridian Creative Studio';
+  if (filename.startsWith('ARG-Builder-RR-')) return 'Riad & Routes';
+  if (filename.startsWith('ARG-Builder-AK-')) return 'ArtKech Design Studio';
   return 'Strategy & Operations';
 }
 
@@ -27,10 +27,10 @@ async function main() {
     .filter(f => (f.startsWith('ARG-Builder-RR-') || f.startsWith('ARG-Builder-AK-')) && f.endsWith('.md'))
     .sort();
 
-  console.log(`Found ${files.length} Horizon Concierge / Meridian Creative documents to seed`);
+  console.log(`Found ${files.length} Riad & Routes / ArtKech documents to seed`);
 
   // Delete existing RR and AK documents to avoid duplicates
-  await connection.execute("DELETE FROM documents WHERE category = 'Horizon Concierge' OR category = 'Meridian Creative Studio'");
+  await connection.execute("DELETE FROM documents WHERE category IN ('Riad & Routes', 'ArtKech Design Studio', 'Horizon Concierge', 'Meridian Creative Studio')");
   console.log('Cleared existing RR/AK documents');
 
   let inserted = 0;
@@ -60,21 +60,21 @@ async function main() {
   }
 
   // Ensure the categories exist in category_ordering
-  const existingCats = await connection.execute("SELECT categoryName FROM category_ordering WHERE categoryName IN ('Horizon Concierge', 'Meridian Creative Studio')");
+  const existingCats = await connection.execute("SELECT categoryName FROM category_ordering WHERE categoryName IN ('Riad & Routes', 'ArtKech Design Studio')");
   const existingNames = existingCats[0].map(r => r.categoryName);
   
-  if (!existingNames.includes('Horizon Concierge')) {
+  if (!existingNames.includes('Riad & Routes')) {
     const [maxOrder] = await connection.execute("SELECT MAX(sortOrder) as maxOrd FROM category_ordering");
     const nextOrder = (maxOrder[0].maxOrd || 0) + 1;
-    await connection.execute("INSERT INTO category_ordering (categoryName, sortOrder) VALUES ('Horizon Concierge', ?)", [nextOrder]);
-    console.log('Added "Horizon Concierge" category');
+    await connection.execute("INSERT INTO category_ordering (categoryName, sortOrder) VALUES ('Riad & Routes', ?)", [nextOrder]);
+    console.log('Added "Riad & Routes" category');
   }
   
-  if (!existingNames.includes('Meridian Creative Studio')) {
+  if (!existingNames.includes('ArtKech Design Studio')) {
     const [maxOrder] = await connection.execute("SELECT MAX(sortOrder) as maxOrd FROM category_ordering");
     const nextOrder = (maxOrder[0].maxOrd || 0) + 1;
-    await connection.execute("INSERT INTO category_ordering (categoryName, sortOrder) VALUES ('Meridian Creative Studio', ?)", [nextOrder]);
-    console.log('Added "Meridian Creative Studio" category');
+    await connection.execute("INSERT INTO category_ordering (categoryName, sortOrder) VALUES ('ArtKech Design Studio', ?)", [nextOrder]);
+    console.log('Added "ArtKech Design Studio" category');
   }
 
   console.log(`\nSeeding complete! ${inserted} documents persisted to database.`);

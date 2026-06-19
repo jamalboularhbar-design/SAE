@@ -76,8 +76,8 @@ export default function TravelConcierge() {
     <div className="space-y-8">
       {/* Persona Header */}
       <div className="card-premium">
-        <h2 className="font-display text-2xl sm:text-3xl mb-2">Horizon Concierge</h2>
-        <p className="text-muted-foreground mb-4">Horizon Concierge — horizonconcierge.demo — Bespoke luxury travel for discerning clients</p>
+        <h2 className="font-display text-2xl sm:text-3xl mb-2">Riad & Routes</h2>
+        <p className="text-muted-foreground mb-4">Riad & Routes — riadandroutes.com — Bespoke luxury travel for discerning clients</p>
         <div className="flex flex-wrap gap-2">
           <Badge variant="secondary">Sophisticated</Badge>
           <Badge variant="secondary">Discreet</Badge>

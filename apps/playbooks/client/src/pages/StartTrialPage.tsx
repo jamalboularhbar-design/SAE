@@ -235,11 +235,11 @@ export default function StartTrialPage() {
           <div className="border-t border-border pt-6 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                <span className="text-lg font-bold text-primary">MT</span>
+                <span className="text-lg font-bold text-primary">R&R</span>
               </div>
               <div>
-                <p className="text-sm font-medium text-foreground">Meridian Travel Group</p>
-                <p className="text-xs text-muted-foreground">Multi-brand agency · 12 locations</p>
+                <p className="text-sm font-medium text-foreground">Riad & Routes</p>
+                <p className="text-xs text-muted-foreground">Luxury travel concierge · Marrakech</p>
               </div>
             </div>
             <p className="text-sm text-muted-foreground italic">

@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "hubPageId": "3848c474-cdec-8159-b5e0-c721055944cf",
+  "hubPageUrl": "https://app.notion.com/p/3848c474cdec8159b5e0c721055944cf",
+  "databases": {
+    "pillars": "26304e88-9422-4918-a59c-9d5ec8d9c161",
+    "pipelines": "afc7aac7-e2d6-4196-9c46-5bb532b32f41",
+    "vaults": "f3b68aa3-9800-4a1e-a35f-b9ff1e10873e",
+    "launchTasks": "ede5e466-dc6f-40cd-a6ce-ffad8aa46a19",
+    "weeklyMetrics": "821c3677-cc9f-4118-9b2e-f178cf851ec3",
+    "salesPipeline": "b96a86ff-7f6a-4bc8-b664-79032e77effe",
+    "contentCalendar": "47957ec0-a671-472f-8bef-cec3830a3c50",
+    "meetingTracker": "a12266ee-7b5c-42ec-8ccd-5a09225e91b1",
+    "caseStudies": "3848c474-cdec-81c7-aa0e-cb783eac8fa4",
+    "docsLibrary": null
+  },
+  "pages": {},
+  "lastSync": null
+}
