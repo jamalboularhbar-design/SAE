@@ -15,6 +15,9 @@ cd apps/playbooks
 # First-time: create hub + databases (once)
 pnpm notion:deploy-ppv
 
+# Verify token + hub access
+pnpm notion:verify
+
 # Repeatable upsert (structure + curated docs-seed)
 pnpm notion:sync
 
