@@ -6,7 +6,7 @@
   "license": "MIT",
   "description": "Nexus OS — an autonomous AI operating system. Ask once; a team of specialist agents executes across your tools.",
   "scripts": {
-    "dev": "concurrently -k -n server,web -c green,cyan \"npm:dev:server\" \"npm:dev:web\"",
+    "dev": "node scripts/dev.mjs",
     "dev:server": "tsx watch server/index.ts",
     "dev:web": "vite",
     "build": "tsc -p tsconfig.server.json && vite build",
