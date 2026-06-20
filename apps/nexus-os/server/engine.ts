@@ -83,7 +83,7 @@ async function orchestrate(runId: string, workspaceId?: string) {
   if (!run) return;
   const live = isLiveMode();
   const ws = WORKSPACES.find((w) => w.id === workspaceId);
-  const wsCtx = ws ? `\n\nActive workspace: ${ws.name} (${ws.domain}). ${ws.context}` : "";
+  let wsCtx = ws ? `\n\nActive workspace: ${ws.name} (${ws.domain}). ${ws.context}` : "";
 
   const append = (s: RunStep) => {
     const r = store.getRun(runId);
@@ -95,6 +95,20 @@ async function orchestrate(runId: string, workspaceId?: string) {
   append(step("chief-of-staff", "plan", "Broke the request into parallel tracks", `Assigned ${run.plan.length} specialist${run.plan.length === 1 ? "" : "s"}: ${teamNames}.${ws ? ` Context: ${ws.name}.` : ""}`));
   store.addAudit({ id: store.newId(8), ts: store.nowIso(), actor: "chief-of-staff", action: "Planned run", target: runId, status: "ok" });
   await sleep(450);
+
+  // Knowledge gathering: query connected knowledge tools (e.g. Notion) up front.
+  let knowledge = "";
+  if (/notion|doc|playbook|sop|page|pricing|positioning|knowledge|research|brand/i.test(run.prompt)) {
+    const note = await runIntegrationAction("notion", run.prompt);
+    if (note && note.live) {
+      append(step("research-ai", "tool", "Searched Notion (live)", note.summary, "notion"));
+      store.addAudit({ id: store.newId(8), ts: store.nowIso(), actor: "research-ai", action: "Searched Notion (live)", target: runId, status: "ok" });
+      knowledge = `\n\nLive Notion findings: ${note.summary}`;
+      wsCtx += knowledge;
+      await sleep(350);
+    }
+  }
+  void knowledge;
 
   for (const task of run.plan) {
     const sp = byId(task.specialistId);
