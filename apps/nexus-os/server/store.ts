@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 import { nanoid } from "nanoid";
 import type {
   AuditEntry,
+  DraftAction,
   HeartbeatItem,
   Integration,
   MemoryItem,
@@ -35,6 +36,7 @@ interface State {
   heartbeat: HeartbeatItem[];
   integrations: Integration[];
   schedule: HeartbeatSchedule;
+  actions: DraftAction[];
 }
 
 function nowIso() {
@@ -66,6 +68,7 @@ function seedState(): State {
     heartbeat: seedHeartbeat,
     integrations: INTEGRATIONS.map((i) => ({ ...i })),
     schedule: { enabled: false, time: "08:00", frequency: "daily" },
+    actions: [],
   };
 }
 
@@ -81,6 +84,7 @@ function load(): State {
         ...base,
         ...parsed,
         schedule: parsed.schedule ?? base.schedule,
+        actions: parsed.actions ?? base.actions,
       } as State;
     }
   } catch {
@@ -138,6 +142,26 @@ export const store = {
     state.heartbeat.unshift(item);
     if (state.heartbeat.length > 40) state.heartbeat.length = 40;
     persist();
+  },
+  addAction(a: DraftAction) {
+    state.actions.unshift(a);
+    if (state.actions.length > 200) state.actions.length = 200;
+    persist();
+  },
+  listActions() {
+    return state.actions;
+  },
+  getAction(id: string) {
+    return state.actions.find((a) => a.id === id);
+  },
+  updateAction(id: string, patch: Partial<DraftAction>) {
+    const a = state.actions.find((x) => x.id === id);
+    if (a) Object.assign(a, patch);
+    persist();
+    return a;
+  },
+  pendingApprovals() {
+    return state.actions.filter((a) => a.status === "pending").length;
   },
   getSchedule() {
     return state.schedule;

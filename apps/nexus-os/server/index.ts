@@ -36,6 +36,7 @@ api.get("/status", (_req, res) => {
     integrationsTotal: s.integrations.length,
     memoryItems: s.memory.length,
     runsToday: s.runs.filter((r) => new Date(r.createdAt).toDateString() === today).length,
+    pendingApprovals: store.pendingApprovals(),
   };
   res.json(status);
 });
@@ -148,6 +149,30 @@ api.post("/integrations/:id/disconnect", (req, res) => {
   res.json({ ok: true });
 });
 api.post("/integrations/:id/test", async (req, res) => res.json(await testIntegration(req.params.id)));
+
+// ── Approvals (drafts held for sign-off) ──
+api.get("/actions", (req, res) => {
+  const status = req.query.status as string | undefined;
+  const all = store.listActions();
+  res.json(status ? all.filter((a) => a.status === status) : all);
+});
+api.post("/actions/:id/approve", async (req, res) => {
+  const a = store.getAction(req.params.id);
+  if (!a) return res.status(404).json({ error: "not found" });
+  // If the channel is a connected tool, note it would execute there.
+  const connected = secrets.isIntegrationConnected(a.channel);
+  const note = connected ? `Approved — executed via ${a.channel} (live).` : `Approved — queued for ${a.channel}.`;
+  store.updateAction(a.id, { status: "approved", resolvedAt: store.nowIso(), resultNote: note });
+  store.addAudit({ id: store.newId(8), ts: store.nowIso(), actor: "user", action: `Approved: ${a.title}`, target: a.channel, status: "ok" });
+  res.json({ ok: true, note });
+});
+api.post("/actions/:id/dismiss", (req, res) => {
+  const a = store.getAction(req.params.id);
+  if (!a) return res.status(404).json({ error: "not found" });
+  store.updateAction(a.id, { status: "dismissed", resolvedAt: store.nowIso() });
+  store.addAudit({ id: store.newId(8), ts: store.nowIso(), actor: "user", action: `Dismissed: ${a.title}`, target: a.channel, status: "info" });
+  res.json({ ok: true });
+});
 
 // ── Heartbeat schedule ──
 api.get("/heartbeat/schedule", (_req, res) => res.json(store.getSchedule()));

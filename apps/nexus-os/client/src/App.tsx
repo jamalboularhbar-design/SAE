@@ -3,6 +3,7 @@ import { ChevronDown } from "lucide-react";
 import { Sidebar, type ViewId } from "@/components/Sidebar";
 import { Console } from "@/views/Console";
 import { Dashboard } from "@/views/Dashboard";
+import { Approvals } from "@/views/Approvals";
 import { Integrations } from "@/views/Integrations";
 import { Skills } from "@/views/Skills";
 import { Team } from "@/views/Team";
@@ -16,6 +17,7 @@ import type { Specialist, SystemStatus, Workspace } from "@shared/types";
 const TITLES: Record<ViewId, string> = {
   console: "Console",
   dashboard: "Heartbeat",
+  approvals: "Approvals",
   integrations: "Gateway",
   skills: "Skills",
   team: "Specialists",
@@ -89,8 +91,9 @@ export default function App() {
         )}
 
         <div className={isHub ? "flex-1 overflow-hidden" : "flex-1 overflow-y-auto nx-scroll p-6"}>
-          {view === "console" && <Console specialists={specialists} workspaceId={activeWs} />}
+          {view === "console" && <Console specialists={specialists} workspaceId={activeWs} onApprovals={() => setView("approvals")} />}
           {view === "dashboard" && <Dashboard status={status} specialists={specialists} onAsk={() => setView("console")} />}
+          {view === "approvals" && <Approvals specialists={specialists} onChange={refreshStatus} />}
           {view === "integrations" && <Integrations onChange={refreshStatus} />}
           {view === "skills" && <Skills specialists={specialists} />}
           {view === "team" && <Team specialists={specialists} />}

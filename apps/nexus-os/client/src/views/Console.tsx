@@ -39,7 +39,7 @@ function StepRow({ step, specialists }: { step: RunStep; specialists: Specialist
   );
 }
 
-export function Console({ specialists, workspaceId }: { specialists: Specialist[]; workspaceId?: string }) {
+export function Console({ specialists, workspaceId, onApprovals }: { specialists: Specialist[]; workspaceId?: string; onApprovals?: () => void }) {
   const [prompt, setPrompt] = useState("");
   const [run, setRun] = useState<Run | null>(null);
   const [busy, setBusy] = useState(false);
@@ -151,6 +151,11 @@ export function Console({ specialists, workspaceId }: { specialists: Specialist[
                 <span className="text-sm font-semibold">Chief of Staff — final answer</span>
               </div>
               <p className="text-sm whitespace-pre-wrap leading-relaxed">{run.result}</p>
+              {onApprovals && (
+                <button onClick={onApprovals} className="mt-3 text-xs font-medium text-emerald-300 hover:text-emerald-200 inline-flex items-center gap-1">
+                  Review drafts in Approvals <ArrowUp className="w-3 h-3 rotate-45" />
+                </button>
+              )}
             </div>
           )}
         </div>

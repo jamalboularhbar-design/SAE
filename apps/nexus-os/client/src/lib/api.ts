@@ -1,5 +1,6 @@
 import type {
   AuditEntry,
+  DraftAction,
   HeartbeatItem,
   Integration,
   MemoryItem,
@@ -63,4 +64,9 @@ export const api = {
   saveSchedule: (body: { enabled?: boolean; time?: string; frequency?: "daily" | "demo" }) =>
     post<{ enabled: boolean; time: string; frequency: "daily" | "demo" }>("/heartbeat/schedule", body),
   runHeartbeat: () => post<{ ok: boolean; added: number }>("/heartbeat/run", {}),
+
+  // Approvals
+  actions: (status?: "pending" | "approved" | "dismissed") => get<DraftAction[]>(`/actions${status ? `?status=${status}` : ""}`),
+  approveAction: (id: string) => post<{ ok: boolean; note: string }>(`/actions/${id}/approve`, {}),
+  dismissAction: (id: string) => post<{ ok: boolean }>(`/actions/${id}/dismiss`, {}),
 };

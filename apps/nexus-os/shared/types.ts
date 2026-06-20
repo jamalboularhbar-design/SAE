@@ -142,6 +142,21 @@ export interface ModelOption {
   contextNote: string;
 }
 
+export type ActionStatus = "pending" | "approved" | "dismissed";
+
+export interface DraftAction {
+  id: string;
+  runId: string;
+  specialistId: SpecialistId;
+  title: string;
+  detail: string;
+  channel: string;
+  status: ActionStatus;
+  createdAt: string;
+  resolvedAt?: string;
+  resultNote?: string;
+}
+
 export interface SystemStatus {
   mode: "live" | "demo";
   model: string;
@@ -150,4 +165,5 @@ export interface SystemStatus {
   integrationsTotal: number;
   memoryItems: number;
   runsToday: number;
+  pendingApprovals: number;
 }

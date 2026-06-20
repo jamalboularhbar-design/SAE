@@ -23,6 +23,7 @@ export function Dashboard({
   const [items, setItems] = useState<HeartbeatItem[]>([]);
   const [schedule, setSchedule] = useState<{ enabled: boolean; time: string; frequency: "daily" | "demo" }>({ enabled: false, time: "08:00", frequency: "daily" });
   const [running, setRunning] = useState(false);
+  const [ranNote, setRanNote] = useState<string | null>(null);
 
   const loadItems = () => api.heartbeat().then(setItems).catch(() => {});
   useEffect(() => {
@@ -37,9 +38,12 @@ export function Dashboard({
 
   async function runNow() {
     setRunning(true);
-    await api.runHeartbeat();
+    setRanNote(null);
+    const r = await api.runHeartbeat();
     await loadItems();
     setRunning(false);
+    setRanNote(`Briefing generated — ${r.added} new items added.`);
+    setTimeout(() => setRanNote(null), 4000);
   }
 
   return (
@@ -85,6 +89,7 @@ export function Dashboard({
             {running ? <Loader2 className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />} Run now
           </button>
         </div>
+        {ranNote && <p className="text-xs text-emerald-300 mt-3 nx-rise">✓ {ranNote}</p>}
       </Card>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">

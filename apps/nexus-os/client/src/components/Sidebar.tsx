@@ -9,6 +9,7 @@ import {
   ScrollText,
   Settings,
   Hexagon,
+  CheckCheck,
   type LucideIcon,
 } from "lucide-react";
 import type { SystemStatus } from "@shared/types";
@@ -16,6 +17,7 @@ import type { SystemStatus } from "@shared/types";
 export type ViewId =
   | "console"
   | "dashboard"
+  | "approvals"
   | "integrations"
   | "skills"
   | "team"
@@ -27,6 +29,7 @@ export type ViewId =
 const NAV: { id: ViewId; label: string; icon: LucideIcon }[] = [
   { id: "console", label: "Console", icon: Command },
   { id: "dashboard", label: "Heartbeat", icon: LayoutDashboard },
+  { id: "approvals", label: "Approvals", icon: CheckCheck },
   { id: "integrations", label: "Gateway", icon: Plug },
   { id: "skills", label: "Skills", icon: Sparkles },
   { id: "team", label: "Specialists", icon: Users },
@@ -71,6 +74,11 @@ export function Sidebar({
           >
             <Icon className="w-4 h-4 shrink-0" />
             {label}
+            {id === "approvals" && status && status.pendingApprovals > 0 && (
+              <span className="ml-auto text-[10px] font-bold rounded-full px-1.5 py-0.5 bg-emerald-500/25 text-emerald-200 border border-emerald-500/30">
+                {status.pendingApprovals}
+              </span>
+            )}
           </button>
         ))}
       </nav>

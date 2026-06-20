@@ -14,6 +14,22 @@ import { runIntegrationAction } from "./adapters.ts";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+/** A concrete next-step a specialist drafts, awaiting the user's approval. */
+function draftActionFor(category: string): { title: string; channel: string } {
+  switch (category) {
+    case "Marketing & Campaign": return { title: "Approve campaign asset", channel: "notion" };
+    case "Social Media": return { title: "Publish drafted post", channel: "slack" };
+    case "Sales & Revenue": return { title: "Send drafted outreach", channel: "hubspot" };
+    case "Writing": return { title: "Approve draft", channel: "notion" };
+    case "Operations & Systems": return { title: "Apply proposed automation", channel: "webhooks" };
+    case "Strategy & Growth": return { title: "Adopt recommendation", channel: "hub" };
+    case "Customer Success": return { title: "Send drafted message", channel: "email" };
+    case "E-commerce": return { title: "Apply store change", channel: "hubspot" };
+    case "Daily AI Assistant": return { title: "Confirm the plan", channel: "calendar" };
+    default: return { title: "Approve next step", channel: "hub" };
+  }
+}
+
 const ROSTER = SPECIALISTS.filter((s) => s.id !== "chief-of-staff");
 const byId = (id: string) => SPECIALISTS.find((s) => s.id === id);
 
@@ -166,6 +182,19 @@ async function orchestrate(runId: string, workspaceId?: string) {
       }
     }
     append(step(sp.id, "result", `${sp.name} finished`, outcome));
+
+    // Draft a concrete action for the user to approve (the Apex safety model).
+    const da = draftActionFor(sp.category);
+    store.addAction({
+      id: store.newId(8),
+      runId,
+      specialistId: sp.id,
+      title: `${da.title} — ${sp.name}`,
+      detail: outcome,
+      channel: da.channel,
+      status: "pending",
+      createdAt: store.nowIso(),
+    });
     await sleep(260);
   }
 
