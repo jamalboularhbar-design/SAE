@@ -53,7 +53,11 @@ export function Console({ specialists, workspaceId }: { specialists: Specialist[
   }, []);
 
   useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+    const el = scrollRef.current;
+    if (!el) return;
+    // Only stick to bottom if the user is already near the bottom (no yanking).
+    const nearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 160;
+    if (nearBottom) el.scrollTop = el.scrollHeight;
   }, [run?.steps.length, run?.result]);
 
   async function submit(text: string) {
@@ -65,7 +69,14 @@ export function Console({ specialists, workspaceId }: { specialists: Specialist[
     if (pollRef.current) clearInterval(pollRef.current);
     pollRef.current = setInterval(async () => {
       const fresh = await api.run(created.id);
-      setRun(fresh);
+      // Merge: keep prior step objects, only append genuinely new steps by id.
+      // Prevents the timeline from re-rendering/reordering on every poll.
+      setRun((prev) => {
+        if (!prev || prev.id !== fresh.id) return fresh;
+        const seen = new Set(prev.steps.map((s) => s.id));
+        const merged = [...prev.steps, ...fresh.steps.filter((s) => !seen.has(s.id))];
+        return { ...fresh, steps: merged };
+      });
       if (fresh.status === "completed" || fresh.status === "failed") {
         if (pollRef.current) clearInterval(pollRef.current);
         setBusy(false);
