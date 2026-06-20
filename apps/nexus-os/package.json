@@ -7,6 +7,7 @@
   "description": "Nexus OS — an autonomous AI operating system. Ask once; a team of specialist agents executes across your tools.",
   "scripts": {
     "dev": "node scripts/dev.mjs",
+    "dev:share": "node scripts/share.mjs",
     "dev:server": "tsx watch server/index.ts",
     "dev:web": "vite",
     "build": "tsc -p tsconfig.server.json && vite build",
