@@ -91,13 +91,13 @@ export default function App() {
         <div className={isHub ? "flex-1 overflow-hidden" : "flex-1 overflow-y-auto nx-scroll p-6"}>
           {view === "console" && <Console specialists={specialists} workspaceId={activeWs} />}
           {view === "dashboard" && <Dashboard status={status} specialists={specialists} onAsk={() => setView("console")} />}
-          {view === "integrations" && <Integrations />}
+          {view === "integrations" && <Integrations onChange={refreshStatus} />}
           {view === "skills" && <Skills specialists={specialists} />}
           {view === "team" && <Team specialists={specialists} />}
           {view === "hub" && <HubView />}
           {view === "memory" && <Memory />}
           {view === "activity" && <Activity />}
-          {view === "settings" && <Settings status={status} />}
+          {view === "settings" && <Settings status={status} onChange={refreshStatus} />}
         </div>
       </main>
     </div>

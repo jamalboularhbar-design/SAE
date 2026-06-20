@@ -10,6 +10,7 @@ import { SPECIALISTS, WORKSPACES } from "./catalog.ts";
 import { store } from "./store.ts";
 import { chat, isLiveMode } from "./llm.ts";
 import { demoObjective, demoResult, demoSynthesis, demoThink, categoryTool } from "./demoEngine.ts";
+import { runIntegrationAction } from "./adapters.ts";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -120,8 +121,20 @@ async function orchestrate(runId: string, workspaceId?: string) {
     await sleep(420);
 
     const tool = categoryTool(sp.category);
-    append(step(sp.id, "tool", `${sp.name} used ${tool.via}`, tool.detail, tool.via));
-    store.addAudit({ id: store.newId(8), ts: store.nowIso(), actor: sp.id, action: `Used ${tool.via}`, target: runId, status: "ok" });
+    // If the mapped tool is actually connected, perform a real call.
+    let toolDetail = tool.detail;
+    let toolLive = false;
+    try {
+      const real = await runIntegrationAction(tool.via, run.prompt);
+      if (real) {
+        toolDetail = real.summary;
+        toolLive = real.live;
+      }
+    } catch {
+      /* keep simulated detail */
+    }
+    append(step(sp.id, "tool", `${sp.name} used ${tool.via}${toolLive ? " (live)" : ""}`, toolDetail, tool.via));
+    store.addAudit({ id: store.newId(8), ts: store.nowIso(), actor: sp.id, action: `Used ${tool.via}${toolLive ? " (live)" : ""}`, target: runId, status: "ok" });
     await sleep(360);
 
     let outcome = demoResult(sp);

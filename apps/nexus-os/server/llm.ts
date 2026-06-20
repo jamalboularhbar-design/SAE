@@ -23,16 +23,31 @@ export interface ChatMessage {
   content: string;
 }
 
+import { secrets } from "./secrets.ts";
+
 export function getEnv() {
+  // UI-set secrets take priority over environment variables (no terminal needed).
+  const s = secrets.getModel();
   return {
-    apiUrl: process.env.LLM_API_URL ?? "https://generativelanguage.googleapis.com/v1beta/openai",
-    apiKey: process.env.LLM_API_KEY ?? "",
-    model: process.env.LLM_MODEL ?? "gemini-2.5-flash",
+    apiUrl: s.apiUrl || process.env.LLM_API_URL || "https://generativelanguage.googleapis.com/v1beta/openai",
+    apiKey: s.apiKey || process.env.LLM_API_KEY || "",
+    model: s.model || process.env.LLM_MODEL || "gemini-2.5-flash",
   };
 }
 
 export function isLiveMode(): boolean {
   return Boolean(getEnv().apiKey);
+}
+
+/** Verify a model key works by making a tiny real call. */
+export async function testModel(): Promise<{ ok: boolean; message: string }> {
+  if (!isLiveMode()) return { ok: false, message: "No API key set — running in Demo mode." };
+  try {
+    const reply = await chat([{ role: "user", content: "Reply with the single word: ready" }], { maxTokens: 16 });
+    return { ok: true, message: `Live — model responded: "${reply.trim().slice(0, 40)}"` };
+  } catch (err) {
+    return { ok: false, message: `Key set but call failed: ${String(err).slice(0, 160)}` };
+  }
 }
 
 export async function chat(

@@ -47,4 +47,20 @@ export const api = {
   addMemory: (kind: MemoryItem["kind"], content: string, tags: string[] = []) =>
     post<MemoryItem>("/memory", { kind, content, tags }),
   askHub: (query: string) => post<{ answer: string; source: string }>("/hub/ask", { query }),
+
+  // Model settings
+  getModelSettings: () => get<{ apiUrl: string; model: string; hasKey: boolean; keyMask: string | null }>("/settings/model"),
+  saveModelSettings: (body: { apiKey?: string; apiUrl?: string; model?: string }) => post<{ ok: boolean; hasKey: boolean; model: string }>("/settings/model", body),
+  testModel: () => post<{ ok: boolean; message: string }>("/settings/model/test", {}),
+
+  // Integration credentials
+  connectIntegration: (id: string, token: string, meta?: Record<string, string>) => post<{ ok: boolean }>(`/integrations/${id}/connect`, { token, meta }),
+  disconnectIntegration: (id: string) => post<{ ok: boolean }>(`/integrations/${id}/disconnect`, {}),
+  testIntegration: (id: string) => post<{ ok: boolean; live: boolean; summary: string }>(`/integrations/${id}/test`, {}),
+
+  // Heartbeat schedule
+  getSchedule: () => get<{ enabled: boolean; time: string; frequency: "daily" | "demo" }>("/heartbeat/schedule"),
+  saveSchedule: (body: { enabled?: boolean; time?: string; frequency?: "daily" | "demo" }) =>
+    post<{ enabled: boolean; time: string; frequency: "daily" | "demo" }>("/heartbeat/schedule", body),
+  runHeartbeat: () => post<{ ok: boolean; added: number }>("/heartbeat/run", {}),
 };

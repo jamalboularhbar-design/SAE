@@ -19,12 +19,22 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.resolve(__dirname, "../.data");
 const DATA_FILE = path.join(DATA_DIR, "state.json");
 
+export interface HeartbeatSchedule {
+  enabled: boolean;
+  /** 24h local time, e.g. "08:00" */
+  time: string;
+  /** "daily" for production; "demo" runs every few minutes for testing */
+  frequency: "daily" | "demo";
+  lastRunKey?: string;
+}
+
 interface State {
   runs: Run[];
   memory: MemoryItem[];
   audit: AuditEntry[];
   heartbeat: HeartbeatItem[];
   integrations: Integration[];
+  schedule: HeartbeatSchedule;
 }
 
 function nowIso() {
@@ -55,6 +65,7 @@ function seedState(): State {
     ],
     heartbeat: seedHeartbeat,
     integrations: INTEGRATIONS.map((i) => ({ ...i })),
+    schedule: { enabled: false, time: "08:00", frequency: "daily" },
   };
 }
 
@@ -63,7 +74,14 @@ let state: State;
 function load(): State {
   try {
     if (fs.existsSync(DATA_FILE)) {
-      return JSON.parse(fs.readFileSync(DATA_FILE, "utf8")) as State;
+      const parsed = JSON.parse(fs.readFileSync(DATA_FILE, "utf8")) as Partial<State>;
+      // Backfill any fields added after this file was first written (safe migration).
+      const base = seedState();
+      return {
+        ...base,
+        ...parsed,
+        schedule: parsed.schedule ?? base.schedule,
+      } as State;
     }
   } catch {
     /* corrupted — reseed */
@@ -115,6 +133,19 @@ export const store = {
     if (i) i.status = status;
     persist();
     return i;
+  },
+  prependHeartbeat(item: HeartbeatItem) {
+    state.heartbeat.unshift(item);
+    if (state.heartbeat.length > 40) state.heartbeat.length = 40;
+    persist();
+  },
+  getSchedule() {
+    return state.schedule;
+  },
+  setSchedule(patch: Partial<HeartbeatSchedule>) {
+    state.schedule = { ...state.schedule, ...patch };
+    persist();
+    return state.schedule;
   },
   newId: (size = 10) => nanoid(size),
   nowIso,
