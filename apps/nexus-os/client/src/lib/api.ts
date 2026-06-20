@@ -67,6 +67,6 @@ export const api = {
 
   // Approvals
   actions: (status?: "pending" | "approved" | "dismissed") => get<DraftAction[]>(`/actions${status ? `?status=${status}` : ""}`),
-  approveAction: (id: string) => post<{ ok: boolean; note: string }>(`/actions/${id}/approve`, {}),
+  approveAction: (id: string) => post<{ ok: boolean; note: string; executionStatus?: string; followUpPrompt?: string }>(`/actions/${id}/approve`, {}),
   dismissAction: (id: string) => post<{ ok: boolean }>(`/actions/${id}/dismiss`, {}),
 };

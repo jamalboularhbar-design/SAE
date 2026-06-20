@@ -128,3 +128,131 @@ export async function runIntegrationAction(via: string, query: string): Promise<
   if (via === "slack" && secrets.isIntegrationConnected("slack")) return slackChannels();
   return null;
 }
+
+export interface ExecutionResult {
+  status: "executed" | "queued" | "simulated" | "failed";
+  summary: string;
+  followUpPrompt: string;
+}
+
+function followUpFor(title: string, channel: string, detail: string): string {
+  const snippet = detail.slice(0, 180).replace(/\s+/g, " ");
+  return `Follow up on "${title}" (${channel}): ${snippet}… What happened? What should we do next?`;
+}
+
+/** Resolve channel id to integration key (email → gmail). */
+function channelKey(channel: string): string {
+  if (channel === "email") return "gmail";
+  return channel;
+}
+
+async function notionCreatePage(title: string, body: string): Promise<AdapterResult> {
+  const cred = secrets.getIntegration("notion");
+  if (!cred?.token) return { ok: true, live: false, summary: "(simulated) Saved draft to Notion." };
+
+  const searchRes = await fetch("https://api.notion.com/v1/search", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${cred.token}`, "Notion-Version": "2022-06-28", "content-type": "application/json" },
+    body: JSON.stringify({ page_size: 8 }),
+  });
+  const searchData = await safeJson(searchRes);
+  const candidates: string[] = (searchData?.results ?? []).map((r: { id?: string }) => r.id).filter(Boolean);
+  if (!candidates.length) return { ok: false, live: true, summary: "Notion: no pages found — share a page with the integration first." };
+
+  let lastErr = "create failed";
+  for (const parentId of candidates) {
+    const res = await fetch("https://api.notion.com/v1/pages", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${cred.token}`, "Notion-Version": "2022-06-28", "content-type": "application/json" },
+      body: JSON.stringify({
+        parent: { page_id: parentId },
+        properties: {
+          title: { title: [{ text: { content: title.slice(0, 100) } }] },
+        },
+        children: [
+          {
+            object: "block",
+            type: "paragraph",
+            paragraph: { rich_text: [{ type: "text", text: { content: body.slice(0, 2000) } }] },
+          },
+        ],
+      }),
+    });
+    const data = await safeJson(res);
+    if (res.ok) return { ok: true, live: true, summary: `Created Notion page: ${title.slice(0, 60)}.` };
+    lastErr = data?.message ?? `error ${res.status}`;
+  }
+  return { ok: false, live: true, summary: `Notion: ${lastErr}. Share a parent page with the Nexus OS integration.` };
+}
+
+async function slackPostMessage(text: string): Promise<AdapterResult> {
+  const cred = secrets.getIntegration("slack");
+  if (!cred?.token) return { ok: true, live: false, summary: "(simulated) Posted to Slack." };
+
+  const listRes = await fetch("https://slack.com/api/conversations.list?limit=5&types=public_channel", {
+    headers: { Authorization: `Bearer ${cred.token}` },
+  });
+  const listData = await safeJson(listRes);
+  const channel = listData?.channels?.[0]?.id;
+  if (!channel) return { ok: false, live: true, summary: "Slack: no channels available." };
+
+  const res = await fetch("https://slack.com/api/chat.postMessage", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${cred.token}`, "content-type": "application/json" },
+    body: JSON.stringify({ channel, text: text.slice(0, 3000), mrkdwn: true }),
+  });
+  const data = await safeJson(res);
+  if (!data?.ok) return { ok: false, live: true, summary: `Slack error: ${data?.error ?? "post failed"}` };
+  const chName = listData.channels[0]?.name ?? channel;
+  return { ok: true, live: true, summary: `Posted to Slack #${chName}.` };
+}
+
+/** Execute an approved draft action via the connected tool (or simulate safely). */
+export async function executeApprovedAction(action: {
+  title: string;
+  detail: string;
+  channel: string;
+}): Promise<ExecutionResult> {
+  const followUpPrompt = followUpFor(action.title, action.channel, action.detail);
+  const key = channelKey(action.channel);
+  const connected = secrets.isIntegrationConnected(key);
+
+  let result: AdapterResult;
+
+  switch (key) {
+    case "notion":
+      result = await notionCreatePage(action.title, action.detail);
+      break;
+    case "slack":
+      result = await slackPostMessage(`*${action.title}*\n\n${action.detail}`);
+      break;
+    case "gmail":
+    case "drive":
+      if (!connected) {
+        return { status: "simulated", summary: `Approved — ${action.channel} not connected. Draft saved locally.`, followUpPrompt };
+      }
+      return {
+        status: "queued",
+        summary: `Approved — queued for ${action.channel}. Sending requires OAuth send scope (coming soon). Draft is saved.`,
+        followUpPrompt,
+      };
+    default:
+      if (connected) {
+        result = await testIntegration(key);
+      } else {
+        return {
+          status: "simulated",
+          summary: `Approved — recorded locally (${action.channel} not connected yet).`,
+          followUpPrompt,
+        };
+      }
+  }
+
+  if (result.live && result.ok) {
+    return { status: "executed", summary: result.summary, followUpPrompt };
+  }
+  if (result.live && !result.ok) {
+    return { status: "failed", summary: result.summary, followUpPrompt };
+  }
+  return { status: "simulated", summary: result.summary, followUpPrompt };
+}

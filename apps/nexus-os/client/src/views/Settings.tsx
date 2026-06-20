@@ -75,7 +75,7 @@ export function Settings({ status, onChange }: { status: SystemStatus | null; on
         <div className="grid sm:grid-cols-2 gap-3">
           <label className="text-sm">
             <span className="text-[var(--color-muted)] text-xs">Provider</span>
-            <select value={provider} onChange={(e) => pickProvider(Number(e.target.value))} className="mt-1 w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 outline-none">
+            <select value={provider} onChange={(e) => pickProvider(Number(e.target.value))} className="mt-1 w-full nx-select px-3 py-2">
               {PROVIDERS.map((p, i) => <option key={p.label} value={i}>{p.label}</option>)}
             </select>
           </label>

@@ -14,7 +14,7 @@ import { store } from "./store.ts";
 import { createRun } from "./engine.ts";
 import { askHub, hubConfigured } from "./hub.ts";
 import { secrets, maskKey } from "./secrets.ts";
-import { testIntegration } from "./adapters.ts";
+import { testIntegration, executeApprovedAction } from "./adapters.ts";
 import { startScheduler, generateBriefing } from "./scheduler.ts";
 import type { MemoryItem, SystemStatus } from "../shared/types.ts";
 
@@ -159,12 +159,33 @@ api.get("/actions", (req, res) => {
 api.post("/actions/:id/approve", async (req, res) => {
   const a = store.getAction(req.params.id);
   if (!a) return res.status(404).json({ error: "not found" });
-  // If the channel is a connected tool, note it would execute there.
-  const connected = secrets.isIntegrationConnected(a.channel);
-  const note = connected ? `Approved — executed via ${a.channel} (live).` : `Approved — queued for ${a.channel}.`;
-  store.updateAction(a.id, { status: "approved", resolvedAt: store.nowIso(), resultNote: note });
-  store.addAudit({ id: store.newId(8), ts: store.nowIso(), actor: "user", action: `Approved: ${a.title}`, target: a.channel, status: "ok" });
-  res.json({ ok: true, note });
+  if (a.status !== "pending") return res.status(400).json({ error: "already resolved" });
+
+  const exec = await executeApprovedAction(a);
+  store.updateAction(a.id, {
+    status: "approved",
+    resolvedAt: store.nowIso(),
+    resultNote: exec.summary,
+    executionStatus: exec.status,
+    executionSummary: exec.summary,
+    followUpPrompt: exec.followUpPrompt,
+  });
+  store.addMemory({
+    id: store.newId(8),
+    kind: "decision",
+    content: `Approved: ${a.title} → ${exec.summary}`,
+    tags: [a.channel, a.specialistId],
+    createdAt: store.nowIso(),
+  });
+  store.addAudit({
+    id: store.newId(8),
+    ts: store.nowIso(),
+    actor: "user",
+    action: `Approved & ${exec.status}: ${a.title}`,
+    target: a.channel,
+    status: exec.status === "failed" ? "blocked" : "ok",
+  });
+  res.json({ ok: true, note: exec.summary, executionStatus: exec.status, followUpPrompt: exec.followUpPrompt });
 });
 api.post("/actions/:id/dismiss", (req, res) => {
   const a = store.getAction(req.params.id);

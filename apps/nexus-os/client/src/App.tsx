@@ -34,6 +34,7 @@ export default function App() {
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
   const [activeWs, setActiveWs] = useState<string>("");
   const [wsOpen, setWsOpen] = useState(false);
+  const [seedPrompt, setSeedPrompt] = useState("");
 
   const refreshStatus = () => api.status().then(setStatus).catch(() => {});
 
@@ -91,9 +92,24 @@ export default function App() {
         )}
 
         <div className={isHub ? "flex-1 overflow-hidden" : "flex-1 overflow-y-auto nx-scroll p-6"}>
-          {view === "console" && <Console specialists={specialists} workspaceId={activeWs} onApprovals={() => setView("approvals")} />}
+          {view === "console" && (
+            <Console
+              specialists={specialists}
+              workspaceId={activeWs}
+              seedPrompt={seedPrompt}
+              onSeedConsumed={() => setSeedPrompt("")}
+              onApprovals={() => setView("approvals")}
+            />
+          )}
           {view === "dashboard" && <Dashboard status={status} specialists={specialists} onAsk={() => setView("console")} />}
-          {view === "approvals" && <Approvals specialists={specialists} onChange={refreshStatus} />}
+          {view === "approvals" && (
+            <Approvals
+              specialists={specialists}
+              onChange={refreshStatus}
+              onFollowUp={(prompt) => { setSeedPrompt(prompt); setView("console"); }}
+              onViewActivity={() => setView("activity")}
+            />
+          )}
           {view === "integrations" && <Integrations onChange={refreshStatus} />}
           {view === "skills" && <Skills specialists={specialists} />}
           {view === "team" && <Team specialists={specialists} />}

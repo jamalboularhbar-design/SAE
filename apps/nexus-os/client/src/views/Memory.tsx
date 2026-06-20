@@ -30,7 +30,7 @@ export function Memory() {
           <select
             value={kind}
             onChange={(e) => setKind(e.target.value as MemoryItem["kind"])}
-            className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm outline-none"
+            className="nx-select px-3 py-2 text-sm"
           >
             {KINDS.map((k) => <option key={k} value={k}>{k}</option>)}
           </select>

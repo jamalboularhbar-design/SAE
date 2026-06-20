@@ -39,7 +39,19 @@ function StepRow({ step, specialists }: { step: RunStep; specialists: Specialist
   );
 }
 
-export function Console({ specialists, workspaceId, onApprovals }: { specialists: Specialist[]; workspaceId?: string; onApprovals?: () => void }) {
+export function Console({
+  specialists,
+  workspaceId,
+  seedPrompt,
+  onSeedConsumed,
+  onApprovals,
+}: {
+  specialists: Specialist[];
+  workspaceId?: string;
+  seedPrompt?: string;
+  onSeedConsumed?: () => void;
+  onApprovals?: () => void;
+}) {
   const [prompt, setPrompt] = useState("");
   const [run, setRun] = useState<Run | null>(null);
   const [busy, setBusy] = useState(false);
@@ -51,6 +63,14 @@ export function Console({ specialists, workspaceId, onApprovals }: { specialists
       if (pollRef.current) clearInterval(pollRef.current);
     };
   }, []);
+
+  useEffect(() => {
+    if (seedPrompt) {
+      setPrompt(seedPrompt);
+      setRun(null);
+      onSeedConsumed?.();
+    }
+  }, [seedPrompt, onSeedConsumed]);
 
   useEffect(() => {
     const el = scrollRef.current;

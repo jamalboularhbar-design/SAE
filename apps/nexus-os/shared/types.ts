@@ -143,6 +143,7 @@ export interface ModelOption {
 }
 
 export type ActionStatus = "pending" | "approved" | "dismissed";
+export type ExecutionStatus = "executed" | "queued" | "simulated" | "failed";
 
 export interface DraftAction {
   id: string;
@@ -155,6 +156,9 @@ export interface DraftAction {
   createdAt: string;
   resolvedAt?: string;
   resultNote?: string;
+  executionStatus?: ExecutionStatus;
+  executionSummary?: string;
+  followUpPrompt?: string;
 }
 
 export interface SystemStatus {

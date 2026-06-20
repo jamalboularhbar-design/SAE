@@ -72,14 +72,14 @@ export function Dashboard({
               type="time"
               value={schedule.time}
               onChange={(e) => patchSchedule({ time: e.target.value })}
-              className="bg-white/5 border border-white/10 rounded-lg px-2 py-1 text-sm outline-none text-[var(--color-text)]"
+              className="bg-[var(--color-surface-2)] border border-white/10 rounded-lg px-2 py-1 text-sm outline-none text-[var(--color-text)]"
             />
           </label>
 
           <select
             value={schedule.frequency}
             onChange={(e) => patchSchedule({ frequency: e.target.value as "daily" | "demo" })}
-            className="bg-white/5 border border-white/10 rounded-lg px-2 py-1 text-sm outline-none"
+            className="nx-select px-2 py-1 text-sm"
           >
             <option value="daily">Daily</option>
             <option value="demo">Demo (every ~3 min)</option>

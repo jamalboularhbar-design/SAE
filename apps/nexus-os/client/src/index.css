@@ -71,3 +71,30 @@ body {
 .nx-rise {
   animation: nx-rise 0.28s ease-out both;
 }
+
+/* Dark theme for native form controls (select menus were rendering white) */
+select,
+input[type="time"],
+input[type="date"] {
+  color-scheme: dark;
+  background-color: var(--color-surface-2);
+  color: var(--color-text);
+}
+
+select option,
+select optgroup {
+  background-color: var(--color-surface-2);
+  color: var(--color-text);
+}
+
+.nx-select {
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  border-radius: 0.5rem;
+  outline: none;
+}
+
+.nx-select:focus {
+  border-color: rgba(255, 255, 255, 0.2);
+}
