@@ -1,0 +1,26 @@
+name: Publish Nexus OS Repo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout standalone branch
+        uses: actions/checkout@v4
+        with:
+          ref: publish/nexus-os-standalone
+          fetch-depth: 0
+
+      - name: Push to nexus-os repository
+        env:
+          PAT: ${{ secrets.NEXUS_OS_PUBLISH_PAT }}
+        run: |
+          if [ -z "$PAT" ]; then
+            echo "Add NEXUS_OS_PUBLISH_PAT secret (repo scope) and create empty github.com/jamalboularhbar-design/nexus-os first"
+            exit 1
+          fi
+          git remote add nexus-os "https://x-access-token:${PAT}@github.com/jamalboularhbar-design/nexus-os.git"
+          git push nexus-os HEAD:main --force
+          echo "✅ Published to https://github.com/jamalboularhbar-design/nexus-os"
