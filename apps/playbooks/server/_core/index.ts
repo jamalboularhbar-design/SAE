@@ -13,6 +13,7 @@ import { registerStripeWebhook } from "../stripeWebhook";
 import { weeklyReviewHandler } from "../scheduledWeeklyReview";
 import { leadsDigestHandler } from "../scheduledLeadsDigest";
 import { nurtureHandler } from "../scheduledNurture";
+import { registerNexusOsIntegration } from "../nexusOsMount";
 import { sitemapHandler } from "../sitemapHandler";
 
 function isPortAvailable(port: number): Promise<boolean> {
@@ -60,6 +61,9 @@ async function startServer() {
 
   // SEO: Dynamic sitemap.xml
   app.get("/sitemap.xml", sitemapHandler);
+
+  // Nexus OS — autonomous operator at /os (Playbooks → execution layer)
+  await registerNexusOsIntegration(app);
 
   // development mode uses Vite, production mode uses static files
   if (process.env.NODE_ENV === "development") {

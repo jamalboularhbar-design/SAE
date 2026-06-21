@@ -10,7 +10,7 @@
     "dev:share": "node scripts/share.mjs",
     "dev:server": "tsx watch server/index.ts",
     "dev:web": "vite",
-    "build": "tsc -p tsconfig.server.json && vite build",
+    "build": "vite build && esbuild server/mount.ts server/index.ts --platform=node --target=node18 --packages=external --format=esm --outdir=dist/server --bundle",
     "start": "NODE_ENV=production node dist/server/index.js",
     "check": "tsc --noEmit",
     "test": "vitest run"
@@ -31,6 +31,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "clsx": "^2.1.1",
     "concurrently": "^9.1.2",
+    "esbuild": "^0.25.12",
     "lucide-react": "^0.469.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

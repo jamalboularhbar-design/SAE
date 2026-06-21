@@ -9,6 +9,7 @@ import { BRAND } from '@/lib/brand';
 import SEO from '@/components/SEO';
 
 const aiServices = [
+  { name: BRAND.nexusOsName, description: BRAND.nexusOsTagline, icon: Brain, path: BRAND.nexusOsPath, color: 'text-teal-400', category: 'Automation', featured: true },
   { name: 'AI Chat Assistant', description: 'Ask questions about your operations — doc-aware, conversational, actionable', icon: MessageSquare, path: '/ai/chat', color: 'text-violet-400', category: 'Discovery' },
   { name: 'Writing Assistant', description: 'Draft, rewrite, expand, translate, or simplify content with AI', icon: Pen, path: '/ai/writer', color: 'text-emerald-400', category: 'Content' },
   { name: 'Document Summarizer', description: 'Generate executive summaries, key points, and action items from any document', icon: FileText, path: '/ai/summarize', color: 'text-blue-400', category: 'Content' },

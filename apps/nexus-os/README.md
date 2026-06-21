@@ -19,16 +19,28 @@ Nexus OS is an AI OS in the spirit of Apex: a single intelligent layer that unde
 
 `client/src/hub/jamal-hub-v2.jsx` is embedded in the **Hub** tab, and its **businesses + specialist roster power the Brain** (`shared/hubData.ts`). When you ask Nexus something, it routes the request to the most relevant of your specialists, grounds them in the active business context, and each runs its real system prompt.
 
-## Run it
+## Run it (standalone)
 
 ```bash
-cd apps/nexus-os
 pnpm install
 pnpm dev          # web → http://localhost:5273 , api → http://localhost:8787
 ```
 
 - **Demo mode** (no key): a deterministic brain simulates the full multi-agent loop so the OS is always demoable.
-- **Live mode**: set `LLM_API_KEY` (any OpenAI-compatible provider) in `.env`. Specialists then run on real models.
+- **Live mode**: paste an API key in Settings (any OpenAI-compatible provider).
+
+## Integrated on argbuilder.io
+
+Nexus OS ships inside **NexusAI Playbooks** at **`https://argbuilder.io/os`**.
+
+Playbooks = the library (what to do). Nexus OS = the operator (does it).
+
+See **[INTEGRATION.md](./INTEGRATION.md)** for deploy steps with the SAE monorepo.
+
+```bash
+# From SAE monorepo — production build includes /os mount
+cd apps/playbooks && pnpm build && pnpm start
+```
 
 ## Connect the live Hub (3 ways)
 

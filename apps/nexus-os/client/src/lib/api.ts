@@ -12,16 +12,17 @@ import type {
   Workspace,
 } from "@shared/types";
 
-const base = "/api";
+const base = import.meta.env.BASE_URL ?? "/";
+const normalized = base.endsWith("/") ? base.slice(0, -1) : base;
 
 async function get<T>(path: string): Promise<T> {
-  const res = await fetch(`${base}${path}`);
+  const res = await fetch(`${normalized}/api${path}`);
   if (!res.ok) throw new Error(`GET ${path} failed`);
   return res.json() as Promise<T>;
 }
 
 async function post<T>(path: string, body: unknown): Promise<T> {
-  const res = await fetch(`${base}${path}`, {
+  const res = await fetch(`${normalized}/api${path}`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(body),
