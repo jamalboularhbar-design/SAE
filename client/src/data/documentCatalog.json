@@ -1,0 +1,2172 @@
+[
+  {
+    "title": "ABM",
+    "category": "Marketing",
+    "filename": "ARG-Builder-ABM.md"
+  },
+  {
+    "title": "ACV Optimization",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-ACV-Optimization.md"
+  },
+  {
+    "title": "AI ML Governance",
+    "category": "AI & Developer",
+    "filename": "ARG-Builder-AI-ML-Governance.md"
+  },
+  {
+    "title": "AI ML Strategy",
+    "category": "AI & Developer",
+    "filename": "ARG-Builder-AI-ML-Strategy.md"
+  },
+  {
+    "title": "API Design Developer Portal",
+    "category": "Engineering",
+    "filename": "ARG-Builder-API-Design-Developer-Portal.md"
+  },
+  {
+    "title": "API Developer Platform",
+    "category": "Engineering",
+    "filename": "ARG-Builder-API-Developer-Platform.md"
+  },
+  {
+    "title": "API Documentation Developer Portal",
+    "category": "Engineering",
+    "filename": "ARG-Builder-API-Documentation-Developer-Portal.md"
+  },
+  {
+    "title": "API Gateway Service Mesh",
+    "category": "Engineering",
+    "filename": "ARG-Builder-API-Gateway-Service-Mesh.md"
+  },
+  {
+    "title": "API Monetization",
+    "category": "Engineering",
+    "filename": "ARG-Builder-API-Monetization.md"
+  },
+  {
+    "title": "API Rate Limiting Throttling",
+    "category": "Engineering",
+    "filename": "ARG-Builder-API-Rate-Limiting-Throttling.md"
+  },
+  {
+    "title": "API Versioning Deprecation",
+    "category": "Engineering",
+    "filename": "ARG-Builder-API-Versioning-Deprecation.md"
+  },
+  {
+    "title": "Accessibility Testing Wcag",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Accessibility-Testing-WCAG.md"
+  },
+  {
+    "title": "Account Based Marketing",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Account-Based-Marketing.md"
+  },
+  {
+    "title": "Account Mapping Org Intelligence",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Account-Mapping-Org-Intelligence.md"
+  },
+  {
+    "title": "Accounting Financial Close",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Accounting-Financial-Close.md"
+  },
+  {
+    "title": "Admin Panel Back Office",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Admin-Panel-Back-Office.md"
+  },
+  {
+    "title": "Advisor Network Board",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Advisor-Network-Board.md"
+  },
+  {
+    "title": "Advisory Board",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Advisory-Board.md"
+  },
+  {
+    "title": "Affiliate Marketing Program",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Affiliate-Marketing-Program.md"
+  },
+  {
+    "title": "Analytics Event Taxonomy",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Analytics-Event-Taxonomy.md"
+  },
+  {
+    "title": "Annual Planning",
+    "category": "Operations",
+    "filename": "ARG-Builder-Annual-Planning.md"
+  },
+  {
+    "title": "Architecture Decision Records",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Architecture-Decision-Records.md"
+  },
+  {
+    "title": "Async Communication Culture",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Async-Communication-Culture.md"
+  },
+  {
+    "title": "Audit Logging Compliance",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Audit-Logging-Compliance.md"
+  },
+  {
+    "title": "Automated Deployment Rollback",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Automated-Deployment-Rollback.md"
+  },
+  {
+    "title": "Automated Testing Pyramid",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Automated-Testing-Pyramid.md"
+  },
+  {
+    "title": "Background Job Queue Architecture",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Background-Job-Queue-Architecture.md"
+  },
+  {
+    "title": "Banking Financial Infrastructure",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Banking-Financial-Infrastructure.md"
+  },
+  {
+    "title": "Billing Infrastructure Subscription",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Billing-Infrastructure-Subscription.md"
+  },
+  {
+    "title": "Board Deck Reporting",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Board-Deck-Reporting.md"
+  },
+  {
+    "title": "Board Deck Template",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Board-Deck-Template.md"
+  },
+  {
+    "title": "Board Governance",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Board-Governance.md"
+  },
+  {
+    "title": "Board Meeting Prep",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Board-Meeting-Prep.md"
+  },
+  {
+    "title": "Board Observer Information Rights",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Board-Observer-Information-Rights.md"
+  },
+  {
+    "title": "Brand Identity",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Brand-Identity.md"
+  },
+  {
+    "title": "Brand Voice Messaging",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Brand-Voice-Messaging.md"
+  },
+  {
+    "title": "Business Continuity Dr",
+    "category": "Operations",
+    "filename": "ARG-Builder-Business-Continuity-DR.md"
+  },
+  {
+    "title": "Business Plan",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Business-Plan.md"
+  },
+  {
+    "title": "Cab Framework",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-CAB-Framework.md"
+  },
+  {
+    "title": "CDN Strategy",
+    "category": "Engineering",
+    "filename": "ARG-Builder-CDN-Strategy.md"
+  },
+  {
+    "title": "Cdp Architecture",
+    "category": "Engineering",
+    "filename": "ARG-Builder-CDP-Architecture.md"
+  },
+  {
+    "title": "Cicd Pipeline Design",
+    "category": "Sales",
+    "filename": "ARG-Builder-CICD-Pipeline-Design.md"
+  },
+  {
+    "title": "Cs Automation Tech Touch",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-CS-Automation-Tech-Touch.md"
+  },
+  {
+    "title": "Cs Metrics Dashboard",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-CS-Metrics-Dashboard.md"
+  },
+  {
+    "title": "Cs Metrics OKRs",
+    "category": "Operations",
+    "filename": "ARG-Builder-CS-Metrics-OKRs.md"
+  },
+  {
+    "title": "Cs QBR Framework",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-CS-QBR-Framework.md"
+  },
+  {
+    "title": "Caching Strategy Architecture",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Caching-Strategy-Architecture.md"
+  },
+  {
+    "title": "Cap Table Dilution Modeling",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Cap-Table-Dilution-Modeling.md"
+  },
+  {
+    "title": "Case Study Production Pipeline",
+    "category": "Sales",
+    "filename": "ARG-Builder-Case-Study-Production-Pipeline.md"
+  },
+  {
+    "title": "Cash Management Treasury",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Cash-Management-Treasury.md"
+  },
+  {
+    "title": "Champion Development Internal Selling",
+    "category": "Sales",
+    "filename": "ARG-Builder-Champion-Development-Internal-Selling.md"
+  },
+  {
+    "title": "Changelog Release Communication",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Changelog-Release-Communication.md"
+  },
+  {
+    "title": "Channel Enablement",
+    "category": "Partnerships & GTM",
+    "filename": "ARG-Builder-Channel-Enablement.md"
+  },
+  {
+    "title": "Channel Partner Enablement",
+    "category": "Partnerships & GTM",
+    "filename": "ARG-Builder-Channel-Partner-Enablement.md"
+  },
+  {
+    "title": "Churn Analysis Exit Interview",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Churn-Analysis-Exit-Interview.md"
+  },
+  {
+    "title": "Churn Prevention",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Churn-Prevention.md"
+  },
+  {
+    "title": "Cloud Finops",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Cloud-FinOps.md"
+  },
+  {
+    "title": "Code Quality Static Analysis",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Code-Quality-Static-Analysis.md"
+  },
+  {
+    "title": "Code Review Culture",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Code-Review-Culture.md"
+  },
+  {
+    "title": "Cohort Analysis Playbook",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Cohort-Analysis-Playbook.md"
+  },
+  {
+    "title": "Community Led Growth",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Community-Led-Growth.md"
+  },
+  {
+    "title": "Community Platform",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Community-Platform.md"
+  },
+  {
+    "title": "Company Wiki",
+    "category": "Operations",
+    "filename": "ARG-Builder-Company-Wiki.md"
+  },
+  {
+    "title": "Competitive Battle Cards",
+    "category": "Sales",
+    "filename": "ARG-Builder-Competitive-Battle-Cards.md"
+  },
+  {
+    "title": "Competitive Displacement",
+    "category": "Sales",
+    "filename": "ARG-Builder-Competitive-Displacement.md"
+  },
+  {
+    "title": "Competitive Intelligence",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Competitive-Intelligence.md"
+  },
+  {
+    "title": "Competitive Moat",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Competitive-Moat.md"
+  },
+  {
+    "title": "Competitive Positioning",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Competitive-Positioning.md"
+  },
+  {
+    "title": "Competitive Response",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Competitive-Response.md"
+  },
+  {
+    "title": "Compliance Audit",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Compliance-Audit.md"
+  },
+  {
+    "title": "Compliance Automation Grc",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Compliance-Automation-GRC.md"
+  },
+  {
+    "title": "Compliance Automation",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Compliance-Automation.md"
+  },
+  {
+    "title": "Compliance Privacy",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Compliance-Privacy.md"
+  },
+  {
+    "title": "Containerization Kubernetes",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Containerization-Kubernetes.md"
+  },
+  {
+    "title": "Content Calendar",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Content-Calendar.md"
+  },
+  {
+    "title": "Content Distribution Syndication",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Content-Distribution-Syndication.md"
+  },
+  {
+    "title": "Content Marketing Playbook",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Content-Marketing-Playbook.md"
+  },
+  {
+    "title": "Content Repurposing",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Content-Repurposing.md"
+  },
+  {
+    "title": "Continuous Deployment Progressive Delivery",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Continuous-Deployment-Progressive-Delivery.md"
+  },
+  {
+    "title": "Contract Lifecycle Management",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Contract-Lifecycle-Management.md"
+  },
+  {
+    "title": "Contract Negotiation",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Contract-Negotiation.md"
+  },
+  {
+    "title": "Crisis Communication",
+    "category": "Operations",
+    "filename": "ARG-Builder-Crisis-Communication.md"
+  },
+  {
+    "title": "Crisis Communications",
+    "category": "Operations",
+    "filename": "ARG-Builder-Crisis-Communications.md"
+  },
+  {
+    "title": "CROss Functional Operating Cadence",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Cross-Functional-Operating-Cadence.md"
+  },
+  {
+    "title": "Culture Scaling Playbook",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Culture-Scaling-Playbook.md"
+  },
+  {
+    "title": "Culture Values",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Culture-Values.md"
+  },
+  {
+    "title": "Customer Advisory Board",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Advisory-Board.md"
+  },
+  {
+    "title": "Customer Advocacy Champion",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Advocacy-Champion.md"
+  },
+  {
+    "title": "Customer Advocacy",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Advocacy.md"
+  },
+  {
+    "title": "Customer Community",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Community.md"
+  },
+  {
+    "title": "Customer Data Platform",
+    "category": "Data & Analytics",
+    "filename": "ARG-Builder-Customer-Data-Platform.md"
+  },
+  {
+    "title": "Customer Discovery Guide",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Customer-Discovery-Guide.md"
+  },
+  {
+    "title": "Customer Education",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Education.md"
+  },
+  {
+    "title": "Customer Escalation Management",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Escalation-Management.md"
+  },
+  {
+    "title": "Customer Expansion Playbook",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Expansion-Playbook.md"
+  },
+  {
+    "title": "Customer Feedback Loop",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Feedback-Loop.md"
+  },
+  {
+    "title": "Customer Health Score Engineering",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Customer-Health-Score-Engineering.md"
+  },
+  {
+    "title": "Customer Health Score",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Health-Score.md"
+  },
+  {
+    "title": "Customer Health Scoring",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Health-Scoring.md"
+  },
+  {
+    "title": "Customer Journey Orchestration",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Journey-Orchestration.md"
+  },
+  {
+    "title": "Customer Journey",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Journey.md"
+  },
+  {
+    "title": "Customer Migration Data Import",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Customer-Migration-Data-Import.md"
+  },
+  {
+    "title": "Customer Migration",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Customer-Migration.md"
+  },
+  {
+    "title": "Customer Onboarding",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Onboarding.md"
+  },
+  {
+    "title": "Customer Reference Program",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Customer-Reference-Program.md"
+  },
+  {
+    "title": "Customer Renewal Playbook",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Renewal-Playbook.md"
+  },
+  {
+    "title": "Customer Segmentation",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Segmentation.md"
+  },
+  {
+    "title": "Customer Success",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Customer-Success.md"
+  },
+  {
+    "title": "Customer Win Back",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Customer-Win-Back.md"
+  },
+  {
+    "title": "DEI Program",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-DEI-Program.md"
+  },
+  {
+    "title": "Dark Mode Theming Architecture",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Dark-Mode-Theming-Architecture.md"
+  },
+  {
+    "title": "Data Analytics",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Data-Analytics.md"
+  },
+  {
+    "title": "Data Driven Decisions",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Data-Driven-Decisions.md"
+  },
+  {
+    "title": "Data Enrichment Segmentation",
+    "category": "Data & Analytics",
+    "filename": "ARG-Builder-Data-Enrichment-Segmentation.md"
+  },
+  {
+    "title": "Data Export Portability",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Data-Export-Portability.md"
+  },
+  {
+    "title": "Data Export Reporting API",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Data-Export-Reporting-API.md"
+  },
+  {
+    "title": "Data Governance",
+    "category": "Security & Compliance",
+    "filename": "ARG-Builder-Data-Governance.md"
+  },
+  {
+    "title": "Data Import CSV Upload",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Data-Import-CSV-Upload.md"
+  },
+  {
+    "title": "Data Infrastructure",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Data-Infrastructure.md"
+  },
+  {
+    "title": "Data Residency Sovereignty",
+    "category": "Security & Compliance",
+    "filename": "ARG-Builder-Data-Residency-Sovereignty.md"
+  },
+  {
+    "title": "Database Backup Recovery",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Database-Backup-Recovery.md"
+  },
+  {
+    "title": "Database Migration Schema Evolution",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Database-Migration-Schema-Evolution.md"
+  },
+  {
+    "title": "Database Strategy Optimization",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Database-Strategy-Optimization.md"
+  },
+  {
+    "title": "Demand Gen",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Demand-Gen.md"
+  },
+  {
+    "title": "Demand Generation Engine",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Demand-Generation-Engine.md"
+  },
+  {
+    "title": "Demo Environment Management",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Demo-Environment-Management.md"
+  },
+  {
+    "title": "Dependency Injection IOC",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Dependency-Injection-IoC.md"
+  },
+  {
+    "title": "Dependency Supply Chain Security",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Dependency-Supply-Chain-Security.md"
+  },
+  {
+    "title": "Design System Component Library",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Design-System-Component-Library.md"
+  },
+  {
+    "title": "Devrel Strategy",
+    "category": "Partnerships & GTM",
+    "filename": "ARG-Builder-DevRel-Strategy.md"
+  },
+  {
+    "title": "Developer Experience",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Developer-Experience.md"
+  },
+  {
+    "title": "Digital Adoption Platform",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Digital-Adoption-Platform.md"
+  },
+  {
+    "title": "Distributed Systems Patterns",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Distributed-Systems-Patterns.md"
+  },
+  {
+    "title": "Downsell Churn Prevention",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-Downsell-Churn-Prevention.md"
+  },
+  {
+    "title": "Drag Drop Visual Builder",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Drag-Drop-Visual-Builder.md"
+  },
+  {
+    "title": "Due Diligence Prep",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Due-Diligence-Prep.md"
+  },
+  {
+    "title": "ESOP Administration",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-ESOP-Administration.md"
+  },
+  {
+    "title": "ESOP",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-ESOP.md"
+  },
+  {
+    "title": "Edge Function Serverless Middleware",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Edge-Function-Serverless-Middleware.md"
+  },
+  {
+    "title": "Email Deliverability Architecture",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Email-Deliverability-Architecture.md"
+  },
+  {
+    "title": "Email Marketing Drip Campaigns",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Email-Marketing-Drip-Campaigns.md"
+  },
+  {
+    "title": "Email Template Design System",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Email-Template-Design-System.md"
+  },
+  {
+    "title": "Employee Handbook Policies",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Employee-Handbook-Policies.md"
+  },
+  {
+    "title": "Employee Handbook",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Employee-Handbook.md"
+  },
+  {
+    "title": "Employee Onboarding",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Employee-Onboarding.md"
+  },
+  {
+    "title": "Engineering Assessments",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Engineering-Assessments.md"
+  },
+  {
+    "title": "Engineering Capacity Planning",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Engineering-Capacity-Planning.md"
+  },
+  {
+    "title": "Engineering Culture",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Engineering-Culture.md"
+  },
+  {
+    "title": "Engineering Debt Prioritization",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Engineering-Debt-Prioritization.md"
+  },
+  {
+    "title": "Engineering Interview System",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Engineering-Interview-System.md"
+  },
+  {
+    "title": "Engineering Oncall Reliability",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Engineering-OnCall-Reliability.md"
+  },
+  {
+    "title": "Engineering Runbook Library",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Engineering-Runbook-Library.md"
+  },
+  {
+    "title": "Enterprise Sales Playbook",
+    "category": "Sales",
+    "filename": "ARG-Builder-Enterprise-Sales-Playbook.md"
+  },
+  {
+    "title": "Environment Management Configuration",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Environment-Management-Configuration.md"
+  },
+  {
+    "title": "Equity Cap Table Management",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Equity-Cap-Table-Management.md"
+  },
+  {
+    "title": "Equity Compensation",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Equity-Compensation.md"
+  },
+  {
+    "title": "Error Handling Resilience",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Error-Handling-Resilience.md"
+  },
+  {
+    "title": "Event Marketing Field Events",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Event-Marketing-Field-Events.md"
+  },
+  {
+    "title": "Exit Strategy",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Exit-Strategy.md"
+  },
+  {
+    "title": "Expansion Revenue Playbook",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Expansion-Revenue-Playbook.md"
+  },
+  {
+    "title": "Expansion Revenue",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Expansion-Revenue.md"
+  },
+  {
+    "title": "Fpa Financial Modeling",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-FPA-Financial-Modeling.md"
+  },
+  {
+    "title": "Feature Adoption Activation Metrics",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Feature-Adoption-Activation-Metrics.md"
+  },
+  {
+    "title": "Feature Flagging Experimentation",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Feature-Flagging-Experimentation.md"
+  },
+  {
+    "title": "Feature Prioritization",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Feature-Prioritization.md"
+  },
+  {
+    "title": "Feature Toggle Management",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Feature-Toggle-Management.md"
+  },
+  {
+    "title": "Feedback Loop",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Feedback-Loop.md"
+  },
+  {
+    "title": "Feedback Voting Feature Requests",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Feedback-Voting-Feature-Requests.md"
+  },
+  {
+    "title": "File Upload Media Processing",
+    "category": "Engineering",
+    "filename": "ARG-Builder-File-Upload-Media-Processing.md"
+  },
+  {
+    "title": "Financial Controls",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Financial-Controls.md"
+  },
+  {
+    "title": "Financial Model",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Financial-Model.md"
+  },
+  {
+    "title": "Form Builder Dynamic Forms",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Form-Builder-Dynamic-Forms.md"
+  },
+  {
+    "title": "Founder Mental Health",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Founder-Mental-Health.md"
+  },
+  {
+    "title": "Founder Vesting Cofounder Agreements",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Founder-Vesting-CoFounder-Agreements.md"
+  },
+  {
+    "title": "Founders Operating Manual",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Founders-Operating-Manual.md"
+  },
+  {
+    "title": "Founding Customer Playbook",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Founding-Customer-Playbook.md"
+  },
+  {
+    "title": "Frontend Performance Monitoring",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Frontend-Performance-Monitoring.md"
+  },
+  {
+    "title": "Frontend State Management",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Frontend-State-Management.md"
+  },
+  {
+    "title": "Fundraising Data Room",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Fundraising-Data-Room.md"
+  },
+  {
+    "title": "Fundraising Toolkit",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Fundraising-Toolkit.md"
+  },
+  {
+    "title": "G2 Review Site Strategy",
+    "category": "Marketing",
+    "filename": "ARG-Builder-G2-Review-Site-Strategy.md"
+  },
+  {
+    "title": "Gtm Partnerships Channel",
+    "category": "Partnerships & GTM",
+    "filename": "ARG-Builder-GTM-Partnerships-Channel.md"
+  },
+  {
+    "title": "Gtm Readiness",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-GTM-Readiness.md"
+  },
+  {
+    "title": "Gtm Sales Strategy",
+    "category": "Sales",
+    "filename": "ARG-Builder-GTM-Sales-Strategy.md"
+  },
+  {
+    "title": "Git Workflow Branching",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Git-Workflow-Branching.md"
+  },
+  {
+    "title": "Graphql API Strategy",
+    "category": "Engineering",
+    "filename": "ARG-Builder-GraphQL-API-Strategy.md"
+  },
+  {
+    "title": "Graphql Schema Design Federation",
+    "category": "Engineering",
+    "filename": "ARG-Builder-GraphQL-Schema-Design-Federation.md"
+  },
+  {
+    "title": "Hiring Playbook",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Hiring-Playbook.md"
+  },
+  {
+    "title": "Ip Strategy",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-IP-Strategy.md"
+  },
+  {
+    "title": "Image Asset Pipeline",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Image-Asset-Pipeline.md"
+  },
+  {
+    "title": "Implementation Methodology",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Implementation-Methodology.md"
+  },
+  {
+    "title": "Inapp Messaging Announcements",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-InApp-Messaging-Announcements.md"
+  },
+  {
+    "title": "Incident Command System",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Incident-Command-System.md"
+  },
+  {
+    "title": "Incident Management",
+    "category": "Operations",
+    "filename": "ARG-Builder-Incident-Management.md"
+  },
+  {
+    "title": "Incident Post Mortem Process",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Incident-Post-Mortem-Process.md"
+  },
+  {
+    "title": "Influencer Analyst Relations",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Influencer-Analyst-Relations.md"
+  },
+  {
+    "title": "Infrastructure As Code",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Infrastructure-as-Code.md"
+  },
+  {
+    "title": "Insurance Risk Management",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Insurance-Risk-Management.md"
+  },
+  {
+    "title": "Intellectual Property Strategy",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Intellectual-Property-Strategy.md"
+  },
+  {
+    "title": "Internal Comms Town Hall",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Internal-Comms-Town-Hall.md"
+  },
+  {
+    "title": "International Expansion",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-International-Expansion.md"
+  },
+  {
+    "title": "Internationalization Technical",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Internationalization-Technical.md"
+  },
+  {
+    "title": "Investor Outreach",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Investor-Outreach.md"
+  },
+  {
+    "title": "Investor Pitch Deck",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Investor-Pitch-Deck.md"
+  },
+  {
+    "title": "Investor Relations Dashboard",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Investor-Relations-Dashboard.md"
+  },
+  {
+    "title": "Investor Relations Fundraising",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Investor-Relations-Fundraising.md"
+  },
+  {
+    "title": "Investor Relations",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Investor-Relations.md"
+  },
+  {
+    "title": "Investor Update",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Investor-Update.md"
+  },
+  {
+    "title": "Invoice Payment Operations",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Invoice-Payment-Operations.md"
+  },
+  {
+    "title": "Keyboard First Power User Ux",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Keyboard-First-Power-User-UX.md"
+  },
+  {
+    "title": "Keyboard Shortcuts Power User",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Keyboard-Shortcuts-Power-User.md"
+  },
+  {
+    "title": "Knowledge Management Wiki",
+    "category": "Operations",
+    "filename": "ARG-Builder-Knowledge-Management-Wiki.md"
+  },
+  {
+    "title": "Knowledge Management",
+    "category": "Operations",
+    "filename": "ARG-Builder-Knowledge-Management.md"
+  },
+  {
+    "title": "LTV Modeling Optimization",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-LTV-Modeling-Optimization.md"
+  },
+  {
+    "title": "Landing Page Optimization CRO",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Landing-Page-Optimization-CRO.md"
+  },
+  {
+    "title": "Launch Event Strategy",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Launch-Event-Strategy.md"
+  },
+  {
+    "title": "Legal Entity Structure",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Legal-Entity-Structure.md"
+  },
+  {
+    "title": "Legal Ip Protection",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Legal-IP-Protection.md"
+  },
+  {
+    "title": "Legal Package",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Legal-Package.md"
+  },
+  {
+    "title": "Lifecycle Emails",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Lifecycle-Emails.md"
+  },
+  {
+    "title": "Lifecycle Marketing Automation",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Lifecycle-Marketing-Automation.md"
+  },
+  {
+    "title": "Linkedin Marketing Social Selling",
+    "category": "Marketing",
+    "filename": "ARG-Builder-LinkedIn-Marketing-Social-Selling.md"
+  },
+  {
+    "title": "Load Testing Performance Benchmarking",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Load-Testing-Performance-Benchmarking.md"
+  },
+  {
+    "title": "Localization I18N",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Localization-i18n.md"
+  },
+  {
+    "title": "Logging Strategy Structured Logging",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Logging-Strategy-Structured-Logging.md"
+  },
+  {
+    "title": "Ma Readiness Exit Planning",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-MA-Readiness-Exit-Planning.md"
+  },
+  {
+    "title": "Ma Strategy",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-MA-Strategy.md"
+  },
+  {
+    "title": "Master Index",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-MASTER-INDEX.md"
+  },
+  {
+    "title": "Mvp Roadmap",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-MVP-Roadmap.md"
+  },
+  {
+    "title": "Market Expansion Verticals",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Market-Expansion-Verticals.md"
+  },
+  {
+    "title": "Marketing Attribution",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Marketing-Attribution.md"
+  },
+  {
+    "title": "Marketing Ops",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Marketing-Ops.md"
+  },
+  {
+    "title": "Marketplace App Store",
+    "category": "Partnerships & GTM",
+    "filename": "ARG-Builder-Marketplace-App-Store.md"
+  },
+  {
+    "title": "Marketplace Listing Optimization",
+    "category": "Partnerships & GTM",
+    "filename": "ARG-Builder-Marketplace-Listing-Optimization.md"
+  },
+  {
+    "title": "Memory Management Performance Profiling",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Memory-Management-Performance-Profiling.md"
+  },
+  {
+    "title": "Metrics Dashboard",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Metrics-Dashboard.md"
+  },
+  {
+    "title": "Microservices Migration",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Microservices-Migration.md"
+  },
+  {
+    "title": "Mobile Responsiveness PWA",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Mobile-Responsiveness-PWA.md"
+  },
+  {
+    "title": "Monolith Modularization",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Monolith-Modularization.md"
+  },
+  {
+    "title": "Monorepo Build Optimization",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Monorepo-Build-Optimization.md"
+  },
+  {
+    "title": "Monorepo Polyrepo Strategy",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Monorepo-Polyrepo-Strategy.md"
+  },
+  {
+    "title": "Multi Language Support Ops",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Multi-Language-Support-Ops.md"
+  },
+  {
+    "title": "Multi Product CROss Sell",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Multi-Product-Cross-Sell.md"
+  },
+  {
+    "title": "Multi Product Strategy",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Multi-Product-Strategy.md"
+  },
+  {
+    "title": "Multi Stakeholder Deal Navigation",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Multi-Stakeholder-Deal-Navigation.md"
+  },
+  {
+    "title": "Multi Tenancy Database Patterns",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Multi-Tenancy-Database-Patterns.md"
+  },
+  {
+    "title": "Multi Tenant Architecture",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Multi-Tenant-Architecture.md"
+  },
+  {
+    "title": "NPS CSAT Program",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-NPS-CSAT-Program.md"
+  },
+  {
+    "title": "Notification Infrastructure Preferences",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Notification-Infrastructure-Preferences.md"
+  },
+  {
+    "title": "Notification Preferences Quiet Hours",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Notification-Preferences-Quiet-Hours.md"
+  },
+  {
+    "title": "Notification System Design",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Notification-System-Design.md"
+  },
+  {
+    "title": "OKR Framework",
+    "category": "Operations",
+    "filename": "ARG-Builder-OKR-Framework.md"
+  },
+  {
+    "title": "Objection Library",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Objection-Library.md"
+  },
+  {
+    "title": "Observability Monitoring",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Observability-Monitoring.md"
+  },
+  {
+    "title": "Office Workspace Strategy",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Office-Workspace-Strategy.md"
+  },
+  {
+    "title": "Onboarding Automation",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Onboarding-Automation.md"
+  },
+  {
+    "title": "Onboarding Certification Program",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Onboarding-Certification-Program.md"
+  },
+  {
+    "title": "Onboarding Content Library",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Onboarding-Content-Library.md"
+  },
+  {
+    "title": "Onboarding Email Sequence",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Onboarding-Email-Sequence.md"
+  },
+  {
+    "title": "Onboarding Emails",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Onboarding-Emails.md"
+  },
+  {
+    "title": "Onboarding Gamification",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Onboarding-Gamification.md"
+  },
+  {
+    "title": "Onboarding Kickoff Meeting",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Onboarding-Kickoff-Meeting.md"
+  },
+  {
+    "title": "Operational Efficiency",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Operational-Efficiency.md"
+  },
+  {
+    "title": "Operations Implementation",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Operations-Implementation.md"
+  },
+  {
+    "title": "Outbound Sales Cadence",
+    "category": "Sales",
+    "filename": "ARG-Builder-Outbound-Sales-Cadence.md"
+  },
+  {
+    "title": "Plg Strategy",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-PLG-Strategy.md"
+  },
+  {
+    "title": "Pov Pilot Program Design",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-POV-Pilot-Program-Design.md"
+  },
+  {
+    "title": "Pagination Infinite Scroll",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Pagination-Infinite-Scroll.md"
+  },
+  {
+    "title": "Paid Advertising Performance Marketing",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Paid-Advertising-Performance-Marketing.md"
+  },
+  {
+    "title": "Partner Ecosystem",
+    "category": "Partnerships & GTM",
+    "filename": "ARG-Builder-Partner-Ecosystem.md"
+  },
+  {
+    "title": "Partner Program",
+    "category": "Partnerships & GTM",
+    "filename": "ARG-Builder-Partner-Program.md"
+  },
+  {
+    "title": "Partnership Package",
+    "category": "Partnerships & GTM",
+    "filename": "ARG-Builder-Partnership-Package.md"
+  },
+  {
+    "title": "Partnerships Ecosystem",
+    "category": "Partnerships & GTM",
+    "filename": "ARG-Builder-Partnerships-Ecosystem.md"
+  },
+  {
+    "title": "Payroll Benefits Administration",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Payroll-Benefits-Administration.md"
+  },
+  {
+    "title": "Performance Budgets Web Vitals",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Performance-Budgets-Web-Vitals.md"
+  },
+  {
+    "title": "Performance Review System",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Performance-Review-System.md"
+  },
+  {
+    "title": "Performance Review",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Performance-Review.md"
+  },
+  {
+    "title": "Permissions RBAC Design",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Permissions-RBAC-Design.md"
+  },
+  {
+    "title": "Persona Buyer Journey",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Persona-Buyer-Journey.md"
+  },
+  {
+    "title": "Pipeline Velocity Deal Acceleration",
+    "category": "Sales",
+    "filename": "ARG-Builder-Pipeline-Velocity-Deal-Acceleration.md"
+  },
+  {
+    "title": "Pitch Deck Slides Content",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Pitch-Deck-Slides-Content.md"
+  },
+  {
+    "title": "Podcast Advertising Sponsorship",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Podcast-Advertising-Sponsorship.md"
+  },
+  {
+    "title": "Podcast Audio Strategy",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Podcast-Audio-Strategy.md"
+  },
+  {
+    "title": "Post Mortem Learning Culture",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Post-Mortem-Learning-Culture.md"
+  },
+  {
+    "title": "Pre Seed Angel Round",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Pre-Seed-Angel-Round.md"
+  },
+  {
+    "title": "Press Kit",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Press-Kit.md"
+  },
+  {
+    "title": "Pricing Experimentation",
+    "category": "Revenue & Pricing",
+    "filename": "ARG-Builder-Pricing-Experimentation.md"
+  },
+  {
+    "title": "Pricing Financial Models",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Pricing-Financial-Models.md"
+  },
+  {
+    "title": "Pricing Negotiation Tactics",
+    "category": "Revenue & Pricing",
+    "filename": "ARG-Builder-Pricing-Negotiation-Tactics.md"
+  },
+  {
+    "title": "Pricing Page Optimization",
+    "category": "Product",
+    "filename": "ARG-Builder-Pricing-Page-Optimization.md"
+  },
+  {
+    "title": "Pricing Page Psychology Conversion",
+    "category": "Product",
+    "filename": "ARG-Builder-Pricing-Page-Psychology-Conversion.md"
+  },
+  {
+    "title": "Pricing Page",
+    "category": "Product",
+    "filename": "ARG-Builder-Pricing-Page.md"
+  },
+  {
+    "title": "Pricing Psychology Monetization",
+    "category": "Product",
+    "filename": "ARG-Builder-Pricing-Psychology-Monetization.md"
+  },
+  {
+    "title": "Pricing Validation",
+    "category": "Revenue & Pricing",
+    "filename": "ARG-Builder-Pricing-Validation.md"
+  },
+  {
+    "title": "Procurement Vendor Negotiation",
+    "category": "Operations",
+    "filename": "ARG-Builder-Procurement-Vendor-Negotiation.md"
+  },
+  {
+    "title": "Product Accessibility",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Product-Accessibility.md"
+  },
+  {
+    "title": "Product Analytics",
+    "category": "Product",
+    "filename": "ARG-Builder-Product-Analytics.md"
+  },
+  {
+    "title": "Product Deprecation",
+    "category": "Product",
+    "filename": "ARG-Builder-Product-Deprecation.md"
+  },
+  {
+    "title": "Product Differentiation",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Product-Differentiation.md"
+  },
+  {
+    "title": "Product Launch",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Product-Launch.md"
+  },
+  {
+    "title": "Product Led Sales",
+    "category": "Sales",
+    "filename": "ARG-Builder-Product-Led-Sales.md"
+  },
+  {
+    "title": "Product Market Fit",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Product-Market-Fit.md"
+  },
+  {
+    "title": "Product Metrics",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Product-Metrics.md"
+  },
+  {
+    "title": "Product Prototype",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Product-Prototype.md"
+  },
+  {
+    "title": "Product Roadmap Governance",
+    "category": "Product",
+    "filename": "ARG-Builder-Product-Roadmap-Governance.md"
+  },
+  {
+    "title": "Product Security Hardening",
+    "category": "Security & Compliance",
+    "filename": "ARG-Builder-Product-Security-Hardening.md"
+  },
+  {
+    "title": "Product Usage Analytics",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Product-Usage-Analytics.md"
+  },
+  {
+    "title": "QBR Deck Templates",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-QBR-Deck-Templates.md"
+  },
+  {
+    "title": "QBR Execution Excellence",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-QBR-Execution-Excellence.md"
+  },
+  {
+    "title": "QBR Template",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-QBR-Template.md"
+  },
+  {
+    "title": "ROI Calculator",
+    "category": "Revenue & Pricing",
+    "filename": "ARG-Builder-ROI-Calculator.md"
+  },
+  {
+    "title": "Real Time Data Streaming",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Real-Time-Data-Streaming.md"
+  },
+  {
+    "title": "Realtime Collaboration Multiplayer",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Realtime-Collaboration-Multiplayer.md"
+  },
+  {
+    "title": "Referral Program Mechanics",
+    "category": "Partnerships & GTM",
+    "filename": "ARG-Builder-Referral-Program-Mechanics.md"
+  },
+  {
+    "title": "Referral Program",
+    "category": "Partnerships & GTM",
+    "filename": "ARG-Builder-Referral-Program.md"
+  },
+  {
+    "title": "Release Management Versioning",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Release-Management-Versioning.md"
+  },
+  {
+    "title": "Remote Team Operations",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Remote-Team-Operations.md"
+  },
+  {
+    "title": "Renewal Forecasting Revenue Prediction",
+    "category": "Sales",
+    "filename": "ARG-Builder-Renewal-Forecasting-Revenue-Prediction.md"
+  },
+  {
+    "title": "Retention Loyalty",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Retention-Loyalty.md"
+  },
+  {
+    "title": "Retention Metrics Deep Dive",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Retention-Metrics-Deep-Dive.md"
+  },
+  {
+    "title": "Revops Automation",
+    "category": "Revenue & Pricing",
+    "filename": "ARG-Builder-RevOps-Automation.md"
+  },
+  {
+    "title": "Revops Framework",
+    "category": "Revenue & Pricing",
+    "filename": "ARG-Builder-RevOps-Framework.md"
+  },
+  {
+    "title": "Revenue Forecasting",
+    "category": "Sales",
+    "filename": "ARG-Builder-Revenue-Forecasting.md"
+  },
+  {
+    "title": "Revenue Recognition Asc606",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Revenue-Recognition-ASC606.md"
+  },
+  {
+    "title": "Revenue Recognition",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Revenue-Recognition.md"
+  },
+  {
+    "title": "Risk Analysis",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Risk-Analysis.md"
+  },
+  {
+    "title": "Roadmap Communication",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Roadmap-Communication.md"
+  },
+  {
+    "title": "Round43 Doc1",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Round43-Doc1.md"
+  },
+  {
+    "title": "Round43 Doc2",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Round43-Doc2.md"
+  },
+  {
+    "title": "Round43 Doc3",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Round43-Doc3.md"
+  },
+  {
+    "title": "Round43 Doc7",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Round43-Doc7.md"
+  },
+  {
+    "title": "Round43 Doc9",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Round43-Doc9.md"
+  },
+  {
+    "title": "SDR Playbook",
+    "category": "Sales",
+    "filename": "ARG-Builder-SDR-Playbook.md"
+  },
+  {
+    "title": "SEO Content Operations",
+    "category": "Marketing",
+    "filename": "ARG-Builder-SEO-Content-Operations.md"
+  },
+  {
+    "title": "Soc2 Roadmap",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-SOC2-Roadmap.md"
+  },
+  {
+    "title": "SSO SAML OIDC Implementation",
+    "category": "Security & Compliance",
+    "filename": "ARG-Builder-SSO-SAML-OIDC-Implementation.md"
+  },
+  {
+    "title": "SAAS Benchmarks",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-SaaS-Benchmarks.md"
+  },
+  {
+    "title": "SAAS Metrics Glossary",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-SaaS-Metrics-Glossary.md"
+  },
+  {
+    "title": "SAAS Tax Strategy",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-SaaS-Tax-Strategy.md"
+  },
+  {
+    "title": "SAAS Unit Economics",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-SaaS-Unit-Economics.md"
+  },
+  {
+    "title": "Sales Collateral",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Collateral.md"
+  },
+  {
+    "title": "Sales Commission Automation",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Commission-Automation.md"
+  },
+  {
+    "title": "Sales Compensation",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Compensation.md"
+  },
+  {
+    "title": "Sales Deal Desk",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Deal-Desk.md"
+  },
+  {
+    "title": "Sales Demo Methodology",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Demo-Methodology.md"
+  },
+  {
+    "title": "Sales Demo",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Demo.md"
+  },
+  {
+    "title": "Sales Discovery Framework",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Discovery-Framework.md"
+  },
+  {
+    "title": "Sales Email Copywriting",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Email-Copywriting.md"
+  },
+  {
+    "title": "Sales Enablement Content",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Enablement-Content.md"
+  },
+  {
+    "title": "Sales Enablement",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Enablement.md"
+  },
+  {
+    "title": "Sales Engineering Playbook",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Sales-Engineering-Playbook.md"
+  },
+  {
+    "title": "Sales Forecasting Methodology",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Forecasting-Methodology.md"
+  },
+  {
+    "title": "Sales Forecasting Pipeline",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Forecasting-Pipeline.md"
+  },
+  {
+    "title": "Sales Forecasting",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Forecasting.md"
+  },
+  {
+    "title": "Sales Handoff Ae Onboarding",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Handoff-AE-Onboarding.md"
+  },
+  {
+    "title": "Sales Mutual Action Plans",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Mutual-Action-Plans.md"
+  },
+  {
+    "title": "Sales Objection Handling",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Objection-Handling.md"
+  },
+  {
+    "title": "Sales Proposal Sow Automation",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Proposal-SOW-Automation.md"
+  },
+  {
+    "title": "Sales Territory Planning",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Territory-Planning.md"
+  },
+  {
+    "title": "Sales Territory",
+    "category": "Sales",
+    "filename": "ARG-Builder-Sales-Territory.md"
+  },
+  {
+    "title": "Sandbox Trial Environment",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Sandbox-Trial-Environment.md"
+  },
+  {
+    "title": "Satisfaction Survey Design Analysis",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Satisfaction-Survey-Design-Analysis.md"
+  },
+  {
+    "title": "Satisfaction Survey Design",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Satisfaction-Survey-Design.md"
+  },
+  {
+    "title": "Scalability Infrastructure",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Scalability-Infrastructure.md"
+  },
+  {
+    "title": "Search Architecture Full Text",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Search-Architecture-Full-Text.md"
+  },
+  {
+    "title": "Search Discovery Ux",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Search-Discovery-UX.md"
+  },
+  {
+    "title": "Secrets Configuration Management",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Secrets-Configuration-Management.md"
+  },
+  {
+    "title": "Secrets Rotation Zero Trust",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Secrets-Rotation-Zero-Trust.md"
+  },
+  {
+    "title": "Security Compliance Soc2 Iso",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Security-Compliance-SOC2-ISO.md"
+  },
+  {
+    "title": "Security Incident Response",
+    "category": "Security & Compliance",
+    "filename": "ARG-Builder-Security-Incident-Response.md"
+  },
+  {
+    "title": "Seed Round Fundraising",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Seed-Round-Fundraising.md"
+  },
+  {
+    "title": "Segmentation Product Led Growth",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Segmentation-Product-Led-Growth.md"
+  },
+  {
+    "title": "Self Service Portal",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Self-Service-Portal.md"
+  },
+  {
+    "title": "Series A Readiness",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Series-A-Readiness.md"
+  },
+  {
+    "title": "Series B Preparation Growth",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Series-B-Preparation-Growth.md"
+  },
+  {
+    "title": "Serverless Edge Computing",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Serverless-Edge-Computing.md"
+  },
+  {
+    "title": "Session Management Auth Architecture",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Session-Management-Auth-Architecture.md"
+  },
+  {
+    "title": "Social Proof Playbook",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Social-Proof-Playbook.md"
+  },
+  {
+    "title": "Status Page Uptime Communication",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Status-Page-Uptime-Communication.md"
+  },
+  {
+    "title": "Strategic Account Management",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Strategic-Account-Management.md"
+  },
+  {
+    "title": "Strategic Planning OKRs",
+    "category": "Operations",
+    "filename": "ARG-Builder-Strategic-Planning-OKRs.md"
+  },
+  {
+    "title": "Support Operations",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Support-Operations.md"
+  },
+  {
+    "title": "Sustainability Csr",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Sustainability-CSR.md"
+  },
+  {
+    "title": "Talent Acquisition",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Talent-Acquisition.md"
+  },
+  {
+    "title": "Talent Retention",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Talent-Retention.md"
+  },
+  {
+    "title": "Team Communication",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Team-Communication.md"
+  },
+  {
+    "title": "Team Offsite Retreat Planning",
+    "category": "People & Culture",
+    "filename": "ARG-Builder-Team-Offsite-Retreat-Planning.md"
+  },
+  {
+    "title": "Tech Stack Guide",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Tech-Stack-Guide.md"
+  },
+  {
+    "title": "Technical Architecture",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Technical-Architecture.md"
+  },
+  {
+    "title": "Technical Debt",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Technical-Debt.md"
+  },
+  {
+    "title": "Tenant Onboarding Provisioning",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Tenant-Onboarding-Provisioning.md"
+  },
+  {
+    "title": "Territory Design Quota Setting",
+    "category": "Sales",
+    "filename": "ARG-Builder-Territory-Design-Quota-Setting.md"
+  },
+  {
+    "title": "Testimonial System",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Testimonial-System.md"
+  },
+  {
+    "title": "Testing Strategy Qa",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Testing-Strategy-QA.md"
+  },
+  {
+    "title": "Thought Leadership",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Thought-Leadership.md"
+  },
+  {
+    "title": "Typescript Best Practices",
+    "category": "Engineering",
+    "filename": "ARG-Builder-TypeScript-Best-Practices.md"
+  },
+  {
+    "title": "Undo Redo Version History",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Undo-Redo-Version-History.md"
+  },
+  {
+    "title": "Unit Economics Deep Dive",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Unit-Economics-Deep-Dive.md"
+  },
+  {
+    "title": "Upsell Trigger Engine",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Upsell-Trigger-Engine.md"
+  },
+  {
+    "title": "Usage Based Billing",
+    "category": "Revenue & Pricing",
+    "filename": "ARG-Builder-Usage-Based-Billing.md"
+  },
+  {
+    "title": "Vendor Management",
+    "category": "Operations",
+    "filename": "ARG-Builder-Vendor-Management.md"
+  },
+  {
+    "title": "Vendor Procurement",
+    "category": "Operations",
+    "filename": "ARG-Builder-Vendor-Procurement.md"
+  },
+  {
+    "title": "Venture Debt Alternative Financing",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-Venture-Debt-Alternative-Financing.md"
+  },
+  {
+    "title": "Vertical Gtm",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Vertical-GTM.md"
+  },
+  {
+    "title": "Video Marketing Youtube",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Video-Marketing-YouTube.md"
+  },
+  {
+    "title": "Websocket Real Time Communication",
+    "category": "Engineering",
+    "filename": "ARG-Builder-WebSocket-Real-Time-Communication.md"
+  },
+  {
+    "title": "Webhook Design Delivery",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Webhook-Design-Delivery.md"
+  },
+  {
+    "title": "Webhook Event Architecture",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Webhook-Event-Architecture.md"
+  },
+  {
+    "title": "Webinar Strategy Execution",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Webinar-Strategy-Execution.md"
+  },
+  {
+    "title": "Webinar Virtual Event Strategy",
+    "category": "Marketing",
+    "filename": "ARG-Builder-Webinar-Virtual-Event-Strategy.md"
+  },
+  {
+    "title": "White Labeling Oem",
+    "category": "Revenue & Pricing",
+    "filename": "ARG-Builder-White-Labeling-OEM.md"
+  },
+  {
+    "title": "Win Loss Analysis",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-Win-Loss-Analysis.md"
+  },
+  {
+    "title": "Workspace Multi Workspace",
+    "category": "Engineering",
+    "filename": "ARG-Builder-Workspace-Multi-Workspace.md"
+  },
+  {
+    "title": "API Versioning Deprecation Strategy",
+    "category": "Engineering",
+    "filename": "ARG-Builder-api-versioning-deprecation-strategy.md"
+  },
+  {
+    "title": "Content Operations",
+    "category": "Marketing",
+    "filename": "ARG-Builder-content-operations.md"
+  },
+  {
+    "title": "Customer Digital Onboarding Flows Activation Metrics",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-customer-digital-onboarding-flows-activation-metrics.md"
+  },
+  {
+    "title": "Customer DX Optimization",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-customer-dx-optimization.md"
+  },
+  {
+    "title": "Customer Outcome Based Success Management",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-customer-outcome-based-success-management.md"
+  },
+  {
+    "title": "Customer Proactive Support",
+    "category": "Customer Success",
+    "filename": "ARG-Builder-customer-proactive-support.md"
+  },
+  {
+    "title": "ESOP Administration",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-esop-administration.md"
+  },
+  {
+    "title": "Event Driven Architecture",
+    "category": "Engineering",
+    "filename": "ARG-Builder-event-driven-architecture.md"
+  },
+  {
+    "title": "I18N Implementation Guide",
+    "category": "Strategy & Operations",
+    "filename": "ARG-Builder-i18n-Implementation-Guide.md"
+  },
+  {
+    "title": "Monolith To Microservices Migration",
+    "category": "Engineering",
+    "filename": "ARG-Builder-monolith-to-microservices-migration.md"
+  },
+  {
+    "title": "Product Experimentation Culture",
+    "category": "Product",
+    "filename": "ARG-Builder-product-experimentation-culture.md"
+  },
+  {
+    "title": "Product Growth Loops Viral Mechanics",
+    "category": "Product",
+    "filename": "ARG-Builder-product-growth-loops-viral-mechanics.md"
+  },
+  {
+    "title": "Real Time Data Streaming Architecture",
+    "category": "Engineering",
+    "filename": "ARG-Builder-real-time-data-streaming-architecture.md"
+  },
+  {
+    "title": "SAAS Embedded Analytics Reporting",
+    "category": "Engineering",
+    "filename": "ARG-Builder-saas-embedded-analytics-reporting.md"
+  },
+  {
+    "title": "SAAS Freemium Strategy",
+    "category": "Product",
+    "filename": "ARG-Builder-saas-freemium-strategy.md"
+  },
+  {
+    "title": "SAAS Marketplace Integration Ecosystem Strategy",
+    "category": "Partnerships & GTM",
+    "filename": "ARG-Builder-saas-marketplace-integration-ecosystem-strategy.md"
+  },
+  {
+    "title": "Sales Multi Channel Attribution ROI Measurement",
+    "category": "Sales",
+    "filename": "ARG-Builder-sales-multi-channel-attribution-roi-measurement.md"
+  },
+  {
+    "title": "Sales Poc Management",
+    "category": "Sales",
+    "filename": "ARG-Builder-sales-poc-management.md"
+  },
+  {
+    "title": "Startup Board Observer Information Rights",
+    "category": "Finance & Legal",
+    "filename": "ARG-Builder-startup-board-observer-information-rights.md"
+  },
+  {
+    "title": "Trunk Based Development Feature Flags",
+    "category": "Engineering",
+    "filename": "ARG-Builder-trunk-based-development-feature-flags.md"
+  },
+  {
+    "title": "Zero Downtime Deployment",
+    "category": "Engineering",
+    "filename": "ARG-Builder-zero-downtime-deployment.md"
+  }
+]

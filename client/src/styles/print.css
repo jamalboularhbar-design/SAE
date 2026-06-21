@@ -1,0 +1,115 @@
+@media print {
+  /* Hide non-essential elements */
+  header,
+  nav,
+  footer,
+  .no-print,
+  [data-tour],
+  button,
+  .fixed,
+  .sticky {
+    display: none !important;
+  }
+
+  /* Reset background and colors for print */
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+    line-height: 1.6;
+  }
+
+  /* Document content styling */
+  .prose {
+    max-width: 100% !important;
+    color: black !important;
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    color: black !important;
+    page-break-after: avoid;
+  }
+
+  .prose p,
+  .prose li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .prose pre,
+  .prose code {
+    background: #f5f5f5 !important;
+    color: black !important;
+    border: 1px solid #ddd;
+    page-break-inside: avoid;
+  }
+
+  .prose table {
+    page-break-inside: avoid;
+  }
+
+  .prose img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* Page margins and header/footer */
+  @page {
+    margin: 2cm;
+    size: A4;
+  }
+
+  @page :first {
+    margin-top: 3cm;
+  }
+
+  /* Branded header for print */
+  .print-header {
+    display: block !important;
+    text-align: center;
+    border-bottom: 2px solid #c9a96e;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .print-header h1 {
+    font-size: 18pt;
+    color: black;
+    margin: 0;
+  }
+
+  .print-header .subtitle {
+    font-size: 10pt;
+    color: #666;
+    margin-top: 0.25rem;
+  }
+
+  /* Footer for print */
+  .print-footer {
+    display: block !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 8pt;
+    color: #999;
+    border-top: 1px solid #ddd;
+    padding-top: 0.5rem;
+  }
+
+  /* Links */
+  a {
+    color: black !important;
+    text-decoration: underline;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    color: #666;
+  }
+}

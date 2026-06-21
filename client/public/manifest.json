@@ -1,0 +1,22 @@
+{
+  "name": "NexusAI Playbooks",
+  "short_name": "NexusAI",
+  "description": "Multi-brand operational playbooks with AI-powered intelligence",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B1120",
+  "theme_color": "#14b8a6",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

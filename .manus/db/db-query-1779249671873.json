@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS `onboarding_wizard_state` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`userId` int NOT NULL,\n\t`currentStep` int NOT NULL DEFAULT 0,\n\t`completedSteps` json NOT NULL,\n\t`formData` json NOT NULL,\n\t`isComplete` int NOT NULL DEFAULT 0,\n\t`createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n\t`updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n\tPRIMARY KEY(`id`)\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3AU4feyxZpdZ8pZ.root --database 2ZSCuHTjdaVo7h4vqS7dZB --execute CREATE TABLE IF NOT EXISTS `onboarding_wizard_state` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`userId` int NOT NULL,\n\t`currentStep` int NOT NULL DEFAULT 0,\n\t`completedSteps` json NOT NULL,\n\t`formData` json NOT NULL,\n\t`isComplete` int NOT NULL DEFAULT 0,\n\t`createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n\t`updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n\tPRIMARY KEY(`id`)\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 401
+}
