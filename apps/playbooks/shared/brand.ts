@@ -1,34 +1,39 @@
 /**
- * NexusAI Playbooks — centralized brand configuration.
- * Replaces scattered "ARG Builder" references across the app.
+ * ARG-Builder — centralized brand configuration.
+ * Replaces scattered ad-hoc brand strings across the app.
+ *
+ * Brand decision (2026-06-21):
+ *   - Public-facing parent / product = "ARG-Builder" (rolling back the NexusAI parent
+ *     to avoid collision with the $1.28B Morocco Nexus AI Factory project).
+ *   - Nexus OS is kept as the product wedge ("ask once, team executes" at /os).
  */
 export const BRAND = {
-  /** Primary product name under NexusAI suite */
-  productName: "NexusAI Playbooks",
+  /** Primary product name */
+  productName: "ARG-Builder",
   /** Parent company / suite name */
-  parentName: "NexusAI",
+  parentName: "ARG-Builder",
   /** Short tagline shown in header/footer */
-  tagline: "Operational Intelligence for Multi-Brand Teams",
+  tagline: "Playbooks and the runtime that runs them",
   /** Legacy name — used during transition period only */
-  legacyName: "ARG Builder",
+  legacyName: "NexusAI Playbooks",
   /** Marketing description */
   description:
-    "Manage operational playbooks for every brand you operate — with AI-powered search, multi-brand workspaces, and battle-tested SOP templates.",
+    "ARG-Builder is two things in one workspace — Playbooks (the library) and Nexus OS (the runtime that fires them across Slack, Notion, Gmail).",
   /** Domains */
-  domain: "nexusai.ma",
-  appUrl: "https://app.nexusai.ma",
-  marketingUrl: "https://nexusai.ma",
-  templatesUrl: "https://templates.nexusai.ma",
-  /** Legacy domain (redirect during transition) */
-  legacyDomain: "argbuilder.io",
-  legacyAppUrl: "https://argbuilder.io",
+  domain: "argbuilder.io",
+  appUrl: "https://argbuilder.io",
+  marketingUrl: "https://argbuilder.io",
+  templatesUrl: "https://argbuilder.io/product/templates",
+  /** Legacy domain (kept for redirect during transition) */
+  legacyDomain: "nexusai.ma",
+  legacyAppUrl: "https://nexusai.ma",
   /** Support / admin defaults */
-  adminEmail: "admin@nexusai.ma",
-  supportEmail: "hello@nexusai.ma",
+  adminEmail: "admin@argbuilder.io",
+  supportEmail: "hello@argbuilder.io",
   /** AI Hub branding */
-  aiHubName: "NexusAI Intelligence",
-  aiHubTitle: "NexusAI Intelligence Hub",
-  aiHubTagline: "10 AI tools for writing, search, automation, and operational intelligence",
+  aiHubName: "Intelligence Hub",
+  aiHubTitle: "Intelligence Hub",
+  aiHubTagline: "11 AI tools for writing, search, automation, and operational intelligence",
   aiHubPath: "/ai",
   /** Nexus OS — ask once, team executes (mounted at /os on argbuilder.io) */
   nexusOsName: "Nexus OS",
@@ -36,13 +41,13 @@ export const BRAND = {
   nexusOsTagline: "Ask once. Your specialist team executes across Slack, Notion, Gmail and more.",
   nexusOsPath: "/os",
   /** SEO defaults */
-  seoTitle: "NexusAI Playbooks | AI-Powered Operational Intelligence",
+  seoTitle: "ARG-Builder | Playbooks and the runtime that runs them",
   seoDescription:
-    "Multi-brand operational documentation platform with AI search, playbooks, process timelines, and team collaboration.",
+    "ARG-Builder is two things in one workspace — Playbooks (the library, 515 structured operating documents) and Nexus OS (the runtime that fires them across Slack, Notion and Gmail).",
   /** Email / notification signatures */
-  teamSignature: "The NexusAI Playbooks Team",
-  emailFrom: "NexusAI Playbooks <hello@nexusai.ma>",
-  /** Active app URL (legacy until nexusai.ma DNS is live) */
+  teamSignature: "The ARG-Builder Team",
+  emailFrom: "ARG-Builder <hello@argbuilder.io>",
+  /** Active app URL */
   activeAppUrl: "https://argbuilder.io",
   /** Default OG image — absolute URL for social crawlers */
   ogImageUrl: "https://argbuilder.io/og-image.png",
@@ -64,5 +69,5 @@ export function brandTitle(pageTitle?: string): string {
 
 /** Replace legacy product name in copy */
 export function brandCopy(text: string): string {
-  return text.replace(/ARG Builder/g, BRAND.productName);
+  return text.replace(/NexusAI Playbooks/g, BRAND.productName).replace(/ARG Builder/g, BRAND.productName);
 }

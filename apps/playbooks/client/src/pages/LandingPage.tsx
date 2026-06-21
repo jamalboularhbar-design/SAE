@@ -17,11 +17,22 @@ const FUNCTION_COUNT = Object.keys(categoryCounts).length;
 const AI_TOOL_COUNT = 11;
 
 function LogoMark({ size = 'md' }: { size?: 'sm' | 'md' }) {
-  const cls = size === 'sm' ? 'w-7 h-7 text-[10px]' : 'w-8 h-8 text-[11px]';
+  const cls = size === 'sm' ? 'w-7 h-7' : 'w-8 h-8';
+  // Book + circuit gradient mark. Replace /logo-mark.png with the new asset.
   return (
-    <div className={`${cls} rounded-lg bg-gradient-to-br from-teal-500 to-purple-600 text-white font-bold flex items-center justify-center tracking-tight shrink-0`}>
-      NX
-    </div>
+    <img
+      src="/logo-mark.png"
+      alt={BRAND.productName}
+      className={`${cls} rounded-lg shrink-0`}
+      onError={(e) => {
+        // Fallback: keep the page renderable until the new asset is dropped in.
+        const t = e.currentTarget;
+        t.replaceWith(Object.assign(document.createElement('div'), {
+          className: `${cls} rounded-lg bg-gradient-to-br from-[#2c3a7b] via-[#3e7ddf] to-[#7d3fef] flex items-center justify-center text-white font-bold text-[11px]`,
+          textContent: 'AB',
+        }));
+      }}
+    />
   );
 }
 
@@ -65,11 +76,11 @@ const COMPARISON = [
 const STEPS = [
   { title: 'Join', desc: 'One plan, full library access. No onboarding calls, no configuration.' },
   { title: 'Search or browse', desc: 'Start from your most urgent function: pricing, hiring, launch, compliance.' },
-  { title: 'Apply with AI', desc: 'Use NexusAI Intelligence to summarize, rewrite, and query your playbooks as you work.' },
+  { title: 'Apply with AI', desc: 'Use the Intelligence Hub to summarize, rewrite, and query your playbooks as you work.' },
 ];
 
 const FAQS = [
-  { q: 'Is this just a template pack?', a: 'No. Templates are dead files. NexusAI Playbooks is a maintained platform: versioned documents, consistent architecture, search, collections, 11 AI tools, and updates as the library grows.' },
+  { q: 'Is this just a template pack?', a: 'No. Templates are dead files. ARG-Builder is a maintained platform: versioned documents, consistent architecture, search, collections, 11 AI tools, and updates as the library grows.' },
   { q: 'What AI features are included?', a: `All members get access to ${BRAND.aiHubTitle}: writing assistant, semantic search, AI chat, document summarizer, auto-tagging, workflow builder, and more — at ${BRAND.aiHubPath}.` },
   { q: 'Who writes the documents?', a: 'The library is built and maintained with AI-assisted research and drafting, structured under a single editorial architecture. Every document carries its preparation credit and review status.' },
   { q: 'Can I use these for client work?', a: 'Yes — consultants and agencies use Playbooks to structure client deliverables across multiple brand workspaces. White-label arrangements: ask.' },
@@ -97,7 +108,7 @@ export default function LandingPage() {
       toast.success("You're on the Playbooks waitlist.");
       setWaitlistEmail('');
     },
-    onError: () => toast.error('Could not save — try again or email hello@nexusai.ma'),
+    onError: () => toast.error('Could not save — try again or email hello@argbuilder.io'),
   });
   const createCheckout = trpc.stripe.createCheckoutSession.useMutation({
     onSuccess: (data) => {
@@ -151,6 +162,11 @@ export default function LandingPage() {
             <Link href="/ai">
               <Button size="sm" variant="outline" className="hidden sm:flex border-purple-500/30 text-purple-300 hover:bg-purple-500/10 gap-1.5">
                 <Brain className="w-4 h-4" /> Intelligence
+              </Button>
+            </Link>
+            <Link href="/os">
+              <Button size="sm" variant="outline" className="hidden sm:flex border-teal-500/30 text-teal-300 hover:bg-teal-500/10 gap-1.5">
+                <Sparkles className="w-4 h-4" /> Nexus OS
               </Button>
             </Link>
             {user ? (
@@ -530,7 +546,7 @@ export default function LandingPage() {
               </Button>
             </div>
           </div>
-          <p className="text-sm text-gray-600 mt-7">Founding pricing ends when the first 100 seats are taken.</p>
+          <p className="text-sm text-gray-600 mt-7">Founding pricing ends when the first 10 seats are taken — cohort then closes.</p>
         </div>
       </section>
 
