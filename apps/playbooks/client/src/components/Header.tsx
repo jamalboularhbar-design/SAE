@@ -1,4 +1,4 @@
-import { Sparkles, List, BookOpen, FileText, Tag, Columns, Book, Target, Code, Bookmark, Sun, Moon, Clock, Library, Bell, Network, Trophy, Settings, FileDown, User, Brain } from 'lucide-react';
+import { Sparkles, List, BookOpen, FileText, Tag, Columns, Book, Target, Code, Bookmark, Sun, Moon, Clock, Library, Bell, Network, Trophy, Settings, FileDown, User, Brain, Hexagon } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLocation } from 'wouter';
@@ -43,6 +43,15 @@ export default function Header() {
           </div>
         </div>
         <nav className="flex items-center gap-1 sm:gap-2" aria-label="Main navigation">
+          <button
+            onClick={() => navigate(BRAND.nexusOsPath)}
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg bg-gradient-to-r from-teal-500/20 to-indigo-500/20 border border-teal-500/30 text-teal-300 hover:from-teal-500/30 hover:to-indigo-500/30 transition-colors shrink-0"
+            title={BRAND.nexusOsTitle}
+            aria-label={BRAND.nexusOsTitle}
+          >
+            <Hexagon className="w-4 h-4" aria-hidden="true" />
+            <span className="text-xs sm:text-sm font-medium hidden xs:inline sm:inline">Nexus OS</span>
+          </button>
           <button
             onClick={() => navigate('/ai')}
             data-tour="intelligence"

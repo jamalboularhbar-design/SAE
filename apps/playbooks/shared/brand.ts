@@ -30,6 +30,11 @@ export const BRAND = {
   aiHubTitle: "NexusAI Intelligence Hub",
   aiHubTagline: "10 AI tools for writing, search, automation, and operational intelligence",
   aiHubPath: "/ai",
+  /** Nexus OS — ask once, team executes (mounted at /os on argbuilder.io) */
+  nexusOsName: "Nexus OS",
+  nexusOsTitle: "Nexus OS",
+  nexusOsTagline: "Ask once. Your specialist team executes across Slack, Notion, Gmail and more.",
+  nexusOsPath: "/os",
   /** SEO defaults */
   seoTitle: "NexusAI Playbooks | AI-Powered Operational Intelligence",
   seoDescription:

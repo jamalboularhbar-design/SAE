@@ -1,0 +1,44 @@
+{
+  "name": "@nexusai/nexus-os",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Nexus OS — an autonomous AI operating system. Ask once; a team of specialist agents executes across your tools.",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:share": "node scripts/share.mjs",
+    "dev:server": "tsx watch server/index.ts",
+    "dev:web": "vite",
+    "build": "vite build && esbuild server/mount.ts server/index.ts --platform=node --target=node18 --packages=external --format=esm --outdir=dist/server --bundle",
+    "start": "NODE_ENV=production node dist/server/index.js",
+    "check": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "nanoid": "^5.0.9",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.14",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "clsx": "^2.1.1",
+    "concurrently": "^9.1.2",
+    "esbuild": "^0.25.12",
+    "lucide-react": "^0.469.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.1.14",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  }
+}
