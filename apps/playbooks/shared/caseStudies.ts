@@ -92,7 +92,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     company: DEMO_WORKSPACES.agency.name,
     logo: "AC",
     title: "Atlas Collective Runs Five Client Brands From One Ops Backbone",
-    subtitle: "Demo vertical — agency delivery, handoffs, and SOPs at scale",
+    subtitle: "Reference architecture — agency delivery, handoffs, and SOPs at scale",
     challenge:
       "Atlas Collective manages creative, media, and ops retainers for multiple client brands. Each account had its own Notion, Slack, and folder sprawl — making cross-client learning and quality control impossible.",
     solution:
@@ -117,7 +117,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     company: DEMO_WORKSPACES.hospitality.name,
     logo: "MV",
     title: "Maison Voyager Standardized Guest Ops Across Properties",
-    subtitle: "Demo vertical — compliance, housekeeping, and multi-property SOPs",
+    subtitle: "Reference architecture — compliance, housekeeping, and multi-property SOPs",
     challenge:
       "Maison Voyager operates boutique hotels across US and EMEA. Property managers maintained guest ops, compliance, and vendor SOPs in silos — audits and brand standards drifted between locations.",
     solution:
@@ -144,5 +144,5 @@ export const DEMO_VERTICALS_SHOWCASE = CASE_STUDIES;
 export function caseStudyStatusLabel(study: CaseStudy): string {
   if (study.status === "live" && study.improvementsNeeded) return "Live · improving";
   if (study.status === "live") return "Live";
-  return "Demo vertical";
+  return "Reference architecture";
 }

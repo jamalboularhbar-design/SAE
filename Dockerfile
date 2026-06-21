@@ -1,9 +1,15 @@
 # SAE monorepo — builds NexusAI Playbooks from apps/playbooks
+# Workdir kept at /app/apps/playbooks so build:nexus-os can `cd ../nexus-os`.
 FROM node:20-bookworm-slim
 
 RUN corepack enable
 
 WORKDIR /app
+
+# Sibling repo required by apps/playbooks `build:nexus-os` script.
+COPY apps/nexus-os ./apps/nexus-os
+
+WORKDIR /app/apps/playbooks
 
 COPY apps/playbooks/package.json apps/playbooks/pnpm-lock.yaml ./
 COPY apps/playbooks/patches ./patches
