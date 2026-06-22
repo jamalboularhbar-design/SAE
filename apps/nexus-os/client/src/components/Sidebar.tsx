@@ -52,9 +52,9 @@ export function Sidebar({
     <aside className="w-60 shrink-0 border-r border-[var(--color-border)] flex flex-col bg-[var(--color-surface)]/60">
       <div className="px-5 py-5 flex items-center gap-2.5">
         <img
-          src={`${import.meta.env.BASE_URL}logo-mark.svg`}
+          src={`${import.meta.env.BASE_URL}logo-mark.png`}
           alt="Nexus OS"
-          className="w-9 h-9 shrink-0"
+          className="w-9 h-9 shrink-0 object-contain"
         />
         <div>
           <p className="font-extrabold leading-tight tracking-tight">Nexus OS</p>

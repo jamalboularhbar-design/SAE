@@ -15,15 +15,13 @@ type LogoMarkProps = {
   alt?: string;
 };
 
+/** Brand mark — uses the canonical PNG at /logo-mark.png */
 export default function LogoMark({ size = 'md', className, alt }: LogoMarkProps) {
   return (
     <img
-      src="/logo-mark.svg"
+      src="/logo-mark.png"
       alt={alt ?? BRAND.parentName}
       className={cn(sizes[size], 'shrink-0 object-contain', className)}
-      onError={(e) => {
-        e.currentTarget.src = '/logo-mark.png';
-      }}
     />
   );
 }
