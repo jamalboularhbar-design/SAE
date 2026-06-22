@@ -164,7 +164,7 @@ export default function LandingPage() {
             <div className="absolute -inset-4 bg-gradient-to-r from-teal-500/20 via-purple-500/10 to-teal-500/20 rounded-2xl blur-3xl" />
             <div className="relative rounded-xl overflow-hidden border border-border shadow-2xl bg-card p-6 sm:p-8 text-left">
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-muted/50 border border-border mb-6">
-                <Search className="w-4 h-4 text-teal-600 dark:text-teal-700 dark:text-teal-400 shrink-0" />
+                <Search className="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0" />
                 <span className="text-sm text-muted-foreground">Search {totalDocuments} documents — pricing, hiring, incident response…</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -174,7 +174,7 @@ export default function LandingPage() {
                   { cat: 'AI Intelligence', title: 'Writing Assistant + Semantic Search', meta: 'Draft SOPs · Natural language query · Chat' },
                 ].map((d) => (
                   <div key={d.title} className="p-5 rounded-lg bg-muted/30 border border-border/60">
-                    <span className={`inline-block text-[11px] font-medium px-2 py-0.5 rounded-full mb-3 ${d.cat === 'AI Intelligence' ? 'text-purple-700 dark:text-purple-700 dark:text-purple-400 bg-purple-500/10 border border-purple-500/20' : 'text-teal-700 dark:text-teal-400 bg-teal-500/10 border border-teal-500/20'}`}>{d.cat}</span>
+                    <span className={`inline-block text-[11px] font-medium px-2 py-0.5 rounded-full mb-3 ${d.cat === 'AI Intelligence' ? 'text-purple-700 dark:text-purple-400 bg-purple-500/10 border border-purple-500/20' : 'text-teal-700 dark:text-teal-400 bg-teal-500/10 border border-teal-500/20'}`}>{d.cat}</span>
                     <p className="text-sm font-semibold text-foreground leading-snug mb-2">{d.title}</p>
                     <p className="text-xs text-muted-foreground">{d.meta}</p>
                   </div>
