@@ -6,23 +6,22 @@
 
 1. [memory/MEMORY.md](./memory/MEMORY.md) — index
 2. **[Skill: arg-builder](../skills/arg-builder/SKILL.md)** — operational runbook (deploy, UI, graph, logo, verify)
-3. [SESSION-INVENTORY.md](./SESSION-INVENTORY.md) — skills, tools, PRs through 2026-06-22 audit session
-4. [memory/cloud_agent_updates.md](./memory/cloud_agent_updates.md) — latest cloud-agent work
+3. **[Skill: obsidian-second-brain](../skills/obsidian-second-brain/SKILL.md)** — daily second brain workflow
+4. [obsidian-vault/README.md](../../obsidian-vault/README.md) — open as Obsidian vault
+5. [SESSION-INVENTORY.md](./SESSION-INVENTORY.md) — skills, tools, PRs through 2026-06-22 audit session
+6. [memory/cloud_agent_updates.md](./memory/cloud_agent_updates.md) — latest cloud-agent work
 
 ## Structure
 
 ```
 .cursor/
-├── skills/arg-builder/SKILL.md    ← READ THIS for deploy/UI/graph workflows
-└── arg-builder-memory/
-    ├── SESSION-INVENTORY.md
-    └── memory/
-        ├── MEMORY.md
-        ├── user_jamal_*.md          (3)
-        ├── project_*.md               (7)
-        ├── reference_*.md             (5)
-        ├── feedback_*.md              (4)
-        └── cloud_agent_updates.md
+├── skills/
+│   ├── arg-builder/SKILL.md         ← deploy/UI/graph
+│   └── obsidian-second-brain/SKILL.md ← daily workflow
+├── arg-builder-memory/
+│   └── memory/
+obsidian-vault/                      ← open in Obsidian app
+scripts/obsidian/sync-memory-to-vault.sh
 ```
 
 ## Rules for agents

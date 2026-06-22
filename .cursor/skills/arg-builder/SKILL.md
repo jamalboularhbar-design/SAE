@@ -198,9 +198,12 @@ When you learn something new or fix a recurring bug:
 2. Update `project_deploy_state.md` if deploy status changed
 3. Add/update a `reference_*.md` if it's a reusable pattern
 4. Update **this skill** if the workflow changed
-5. Commit memory + skill with the code change (or immediately after ship)
+5. **Sync to Obsidian:** `./scripts/obsidian/sync-memory-to-vault.sh`
+6. Commit memory + skill with the code change (or immediately after ship)
 
 **User rule:** "Next time everything should be turned as a skill" — if you do something twice, document it here.
+
+**Obsidian:** See `.cursor/skills/obsidian-second-brain/SKILL.md` — daily captures go to `obsidian-vault/`.
 
 ---
 
