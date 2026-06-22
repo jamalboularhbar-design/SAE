@@ -22,7 +22,8 @@
     "docs:restore-catalog": "node scripts/restore-catalog-docs.mjs",
     "seed:525": "node seed-all-documents.mjs --force --with-stubs --include-persona",
     "seed:docs-seed": "node seed-all-documents.mjs --force --docs-only",
-    "seed:upsert": "node seed-all-documents.mjs --with-stubs",
+    "seed:upsert": "node seed-all-documents.mjs --with-stubs --include-persona",
+    "seed:refresh": "node seed-all-documents.mjs --with-stubs --include-persona && node scripts/populate-knowledge-graph.mjs",
     "graph:populate": "node scripts/populate-knowledge-graph.mjs",
     "favicons:generate": "python3 scripts/generate-favicons.py"
   },
