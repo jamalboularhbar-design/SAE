@@ -13,6 +13,7 @@ import { BRAND } from '@/lib/brand';
 import SEO from '@/components/SEO';
 import VerticalShowcase from '@/components/VerticalShowcase';
 import LogoMark from '@/components/LogoMark';
+import MarketingNav from '@/components/MarketingNav';
 
 const FUNCTION_COUNT = Object.keys(categoryCounts).length;
 const AI_TOOL_COUNT = 11;
@@ -69,15 +70,15 @@ const FAQS = [
 
 function CompareCell({ value, highlight }: { value: string; highlight?: boolean }) {
   if (value === 'Yes' || value === 'Native' || value.startsWith(String(totalDocuments)) || value.includes('tools')) {
-    return <span className="text-teal-400 font-medium">{value}</span>;
+    return <span className="text-teal-700 dark:text-teal-400 font-medium">{value}</span>;
   }
   if (value === 'None' || value === 'Start blank' || value === 'N/A') {
-    return <span className="text-gray-500 flex items-center justify-center gap-1"><X className="w-3.5 h-3.5" />{value}</span>;
+    return <span className="text-muted-foreground flex items-center justify-center gap-1"><X className="w-3.5 h-3.5" />{value}</span>;
   }
   if (value === 'Add-on AI' || value === 'Manual' || value === 'Inconsistent') {
-    return <span className="text-gray-500 flex items-center justify-center gap-1"><Minus className="w-3.5 h-3.5" />{value}</span>;
+    return <span className="text-muted-foreground flex items-center justify-center gap-1"><Minus className="w-3.5 h-3.5" />{value}</span>;
   }
-  return <span className={highlight ? 'text-teal-400 font-medium' : 'text-gray-400'}>{value}</span>;
+  return <span className={highlight ? 'text-teal-700 dark:text-teal-400 font-medium' : 'text-muted-foreground'}>{value}</span>;
 }
 
 export default function LandingPage() {
@@ -118,61 +119,10 @@ export default function LandingPage() {
   const sortedCategories = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1]);
 
   return (
-    <div className="min-h-screen bg-[#0B1120] text-white overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEO {...{ title: 'Product', description: `${BRAND.description} ${totalDocuments}+ documents, ${AI_TOOL_COUNT} AI tools, ${FUNCTION_COUNT} business functions.` }} />
 
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0B1120]/80 backdrop-blur-xl border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <LogoMark />
-            <span className="text-xl font-bold tracking-tight">{BRAND.parentName}</span>
-            <span className="hidden sm:inline text-xs text-gray-500 font-normal">Playbooks</span>
-          </div>
-          <div className="hidden md:flex items-center gap-8 text-sm text-gray-400">
-            <a href="#why" className="hover:text-white transition-colors">Why</a>
-            <a href="#library" className="hover:text-white transition-colors">Library</a>
-            <a href="#intelligence" className="hover:text-purple-300 transition-colors text-purple-400/90">Intelligence</a>
-            <a href="#platform" className="hover:text-white transition-colors">Platform</a>
-            <a href="#compare" className="hover:text-white transition-colors">Compare</a>
-            <Link href="/product/templates" className="hover:text-teal-300 transition-colors text-teal-400/90">Templates</Link>
-            <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
-            <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link href="/ai">
-              <Button size="sm" variant="outline" className="hidden sm:flex border-purple-500/30 text-purple-300 hover:bg-purple-500/10 gap-1.5">
-                <Brain className="w-4 h-4" /> Intelligence
-              </Button>
-            </Link>
-            <a href="/os/">
-              <Button size="sm" variant="outline" className="hidden sm:flex border-teal-500/30 text-teal-300 hover:bg-teal-500/10 gap-1.5">
-                <Sparkles className="w-4 h-4" /> Nexus OS
-              </Button>
-            </a>
-            {user ? (
-              <Link href="/">
-                <Button size="sm" className="bg-teal-500 hover:bg-teal-400 text-black font-semibold">
-                  Go to App <ArrowRight className="w-4 h-4 ml-1" />
-                </Button>
-              </Link>
-            ) : (
-              <>
-                <Link href="/start-trial?plan=professional&utm_source=product&utm_medium=nav">
-                  <Button size="sm" variant="outline" className="hidden sm:flex border-white/20 text-white hover:bg-white/5">
-                    Free trial
-                  </Button>
-                </Link>
-                <a href="#pricing">
-                  <Button size="sm" className="bg-teal-500 hover:bg-teal-400 text-black font-semibold">
-                    Become a Founding Member
-                  </Button>
-                </a>
-              </>
-            )}
-          </div>
-        </div>
-      </nav>
+      <MarketingNav subtitle="Playbooks" />
 
       {/* Hero */}
       <section className="pt-32 pb-20 px-4 relative">
@@ -180,11 +130,11 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto relative text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/20 mb-4">
             <span className="w-2 h-2 rounded-full bg-teal-400" />
-            <span className="text-sm font-medium text-teal-300">{BRAND.productName}</span>
+            <span className="text-sm font-medium text-teal-700 dark:text-teal-300">{BRAND.productName}</span>
           </div>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-8 ml-0 sm:ml-2">
-            <Brain className="w-3.5 h-3.5 text-purple-400" />
-            <span className="text-sm font-medium text-purple-300">{AI_TOOL_COUNT} AI tools included</span>
+            <Brain className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+            <span className="text-sm font-medium text-purple-700 dark:text-purple-300">{AI_TOOL_COUNT} AI tools included</span>
           </div>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 tracking-tight">
             Every playbook your company needs.<br />
@@ -192,7 +142,7 @@ export default function LandingPage() {
               Already written. AI-powered.
             </span>
           </h1>
-          <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed">
             {BRAND.productName} is an operating reference platform: {totalDocuments} structured documents covering
             all {FUNCTION_COUNT} functions of a running company — plus {BRAND.aiHubTitle} for writing, semantic search,
             and doc-aware chat. Searchable, versioned, and organized the way a COO would build it.
@@ -204,18 +154,18 @@ export default function LandingPage() {
               </Button>
             </a>
             <Link href="/ai">
-              <Button size="lg" variant="outline" className="border-purple-500/40 text-purple-200 hover:bg-purple-500/10 px-8 py-6 text-lg gap-2">
+              <Button size="lg" variant="outline" className="border-purple-500/40 text-purple-800 dark:text-purple-200 hover:bg-purple-500/10 px-8 py-6 text-lg gap-2">
                 <Brain className="w-5 h-5" /> Explore AI Hub
               </Button>
             </Link>
           </div>
-          <p className="mt-5 text-sm text-gray-600 font-mono">{totalDocuments} documents · {FUNCTION_COUNT} functions · {AI_TOOL_COUNT} AI tools</p>
+          <p className="mt-5 text-sm text-muted-foreground font-mono">{totalDocuments} documents · {FUNCTION_COUNT} functions · {AI_TOOL_COUNT} AI tools</p>
           <div className="relative mt-16 mx-auto max-w-5xl">
             <div className="absolute -inset-4 bg-gradient-to-r from-teal-500/20 via-purple-500/10 to-teal-500/20 rounded-2xl blur-3xl" />
-            <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-[#0E1628] p-6 sm:p-8 text-left">
-              <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-white/[0.04] border border-white/10 mb-6">
-                <Search className="w-4 h-4 text-teal-400 shrink-0" />
-                <span className="text-sm text-gray-500">Search {totalDocuments} documents — pricing, hiring, incident response…</span>
+            <div className="relative rounded-xl overflow-hidden border border-border shadow-2xl bg-card p-6 sm:p-8 text-left">
+              <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-muted/50 border border-border mb-6">
+                <Search className="w-4 h-4 text-teal-600 dark:text-teal-700 dark:text-teal-400 shrink-0" />
+                <span className="text-sm text-muted-foreground">Search {totalDocuments} documents — pricing, hiring, incident response…</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
@@ -223,10 +173,10 @@ export default function LandingPage() {
                   { cat: 'Strategy & Operations', title: 'Annual Planning & OKR System', meta: 'Cadence · Metrics · Review templates' },
                   { cat: 'AI Intelligence', title: 'Writing Assistant + Semantic Search', meta: 'Draft SOPs · Natural language query · Chat' },
                 ].map((d) => (
-                  <div key={d.title} className="p-5 rounded-lg bg-white/[0.03] border border-white/5">
-                    <span className={`inline-block text-[11px] font-medium px-2 py-0.5 rounded-full mb-3 ${d.cat === 'AI Intelligence' ? 'text-purple-400 bg-purple-500/10 border border-purple-500/20' : 'text-teal-400 bg-teal-500/10 border border-teal-500/20'}`}>{d.cat}</span>
-                    <p className="text-sm font-semibold text-white leading-snug mb-2">{d.title}</p>
-                    <p className="text-xs text-gray-500">{d.meta}</p>
+                  <div key={d.title} className="p-5 rounded-lg bg-muted/30 border border-border/60">
+                    <span className={`inline-block text-[11px] font-medium px-2 py-0.5 rounded-full mb-3 ${d.cat === 'AI Intelligence' ? 'text-purple-700 dark:text-purple-700 dark:text-purple-400 bg-purple-500/10 border border-purple-500/20' : 'text-teal-700 dark:text-teal-400 bg-teal-500/10 border border-teal-500/20'}`}>{d.cat}</span>
+                    <p className="text-sm font-semibold text-foreground leading-snug mb-2">{d.title}</p>
+                    <p className="text-xs text-muted-foreground">{d.meta}</p>
                   </div>
                 ))}
               </div>
@@ -236,16 +186,16 @@ export default function LandingPage() {
       </section>
 
       {/* Waitlist + vertical demos */}
-      <section className="py-12 px-4 border-b border-white/5">
+      <section className="py-12 px-4 border-b border-border">
         <div className="max-w-xl mx-auto mb-12">
-          <p className="text-sm text-gray-400 text-center mb-3">Launch updates & template drops:</p>
+          <p className="text-sm text-muted-foreground text-center mb-3">Launch updates & template drops:</p>
           <div className="flex gap-2">
             <input
               type="email"
               value={waitlistEmail}
               onChange={(e) => setWaitlistEmail(e.target.value)}
               placeholder="you@company.com"
-              className="flex-1 px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/50"
+              className="flex-1 px-4 py-2.5 rounded-lg bg-input border border-border text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/50"
             />
             <Button
               className="bg-teal-500 hover:bg-teal-400 text-black font-semibold shrink-0"
@@ -269,21 +219,21 @@ export default function LandingPage() {
           </div>
         </div>
         <div className="max-w-6xl mx-auto">
-          <VerticalShowcase variant="dark" compact />
+          <VerticalShowcase compact />
         </div>
       </section>
 
       {/* Why */}
-      <section id="why" className="py-24 px-4 bg-gradient-to-b from-transparent to-white/[0.02]">
+      <section id="why" className="py-24 px-4 bg-gradient-to-b from-transparent to-muted/30">
         <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-700 dark:text-teal-400 text-xs font-medium mb-6">
             Why this exists
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">
             You're running a company without an operations manual.<br />
-            <span className="text-teal-400">Nobody has time to write one.</span>
+            <span className="text-teal-700 dark:text-teal-400">Nobody has time to write one.</span>
           </h2>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
             Solo founders and small teams run on memory and improvisation. Consultants charge five figures to document what
             you need. Template packs give you forty Word files and silence. Notion gives you blank pages.
             {BRAND.productName} is the third option: a complete operating reference with {AI_TOOL_COUNT} AI tools built in —
@@ -291,9 +241,9 @@ export default function LandingPage() {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {STATS.map((s) => (
-              <div key={s.label} className="p-6 rounded-xl bg-white/[0.03] border border-white/5 text-left">
-                <div className="text-4xl font-bold text-teal-400 mb-2">{s.n}</div>
-                <p className="text-sm text-gray-400">{s.label}</p>
+              <div key={s.label} className="p-6 rounded-xl bg-muted/30 border border-border/60 text-left">
+                <div className="text-4xl font-bold text-teal-700 dark:text-teal-400 mb-2">{s.n}</div>
+                <p className="text-sm text-muted-foreground">{s.label}</p>
               </div>
             ))}
           </div>
@@ -304,26 +254,26 @@ export default function LandingPage() {
       <section id="intelligence" className="py-24 px-4 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent pointer-events-none" />
         <div className="max-w-6xl mx-auto text-center relative">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-700 dark:text-purple-400 text-xs font-medium mb-6">
             <Brain className="w-3.5 h-3.5" /> {BRAND.aiHubName}
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">{BRAND.aiHubTitle}</h2>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
             {BRAND.aiHubTagline}. Not a bolt-on — {AI_TOOL_COUNT} AI tools wired into your playbooks from day one.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
             {AI_TOOLS.map((t) => (
-              <div key={t.title} className="p-6 rounded-xl bg-white/[0.03] border border-purple-500/20 hover:border-purple-500/40 transition-colors text-left">
+              <div key={t.title} className="p-6 rounded-xl bg-muted/30 border border-purple-500/20 hover:border-purple-500/40 transition-colors text-left">
                 <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4">
-                  <t.icon className="w-5 h-5 text-purple-400" />
+                  <t.icon className="w-5 h-5 text-purple-700 dark:text-purple-400" />
                 </div>
                 <h3 className="font-semibold mb-2">{t.title}</h3>
-                <p className="text-sm text-gray-400">{t.desc}</p>
+                <p className="text-sm text-muted-foreground">{t.desc}</p>
               </div>
             ))}
           </div>
           <Link href="/ai">
-            <Button size="lg" className="bg-purple-600 hover:bg-purple-500 text-white font-semibold gap-2">
+            <Button size="lg" className="bg-purple-600 hover:bg-purple-500 text-primary-foreground font-semibold gap-2">
               <Brain className="w-5 h-5" /> Open {BRAND.aiHubTitle}
               <ArrowRight className="w-5 h-5" />
             </Button>
@@ -335,16 +285,16 @@ export default function LandingPage() {
       <section className="py-24 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">Built for operators, not enterprises</h2>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
             {BRAND.productName} isn't a wiki you have to fill or an enterprise tool you have to configure. It deploys
             complete. Each document follows the same architecture — frameworks, decision tables, templates,
             metrics. Learn the structure once, navigate everything.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {AUDIENCES.map((a) => (
-              <div key={a.title} className="p-8 rounded-xl bg-white/[0.03] border border-white/5 hover:border-teal-500/30 transition-colors text-left">
+              <div key={a.title} className="p-8 rounded-xl bg-muted/30 border border-border/60 hover:border-teal-500/30 transition-colors text-left">
                 <h3 className="text-lg font-semibold mb-2">{a.title}</h3>
-                <p className="text-sm text-gray-400">{a.desc}</p>
+                <p className="text-sm text-muted-foreground">{a.desc}</p>
               </div>
             ))}
           </div>
@@ -352,17 +302,17 @@ export default function LandingPage() {
       </section>
 
       {/* Library */}
-      <section id="library" className="py-24 px-4 bg-gradient-to-b from-transparent to-white/[0.02]">
+      <section id="library" className="py-24 px-4 bg-gradient-to-b from-transparent to-muted/30">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">All {FUNCTION_COUNT} functions. One architecture.</h2>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-10">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-10">
             Every document ends in templates and decision tables — take the structure, fill in your company.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             {sortedCategories.map(([name, count]) => (
               <Link key={name} href={`/category/${encodeURIComponent(name)}`}>
-                <span className="inline-block px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-sm text-gray-400 hover:border-teal-500/40 transition-colors cursor-pointer">
-                  <span className="text-teal-400 font-semibold mr-1.5">{count}</span>{name}
+                <span className="inline-block px-4 py-2 rounded-full bg-muted/30 border border-border text-sm text-muted-foreground hover:border-teal-500/40 transition-colors cursor-pointer">
+                  <span className="text-teal-700 dark:text-teal-400 font-semibold mr-1.5">{count}</span>{name}
                 </span>
               </Link>
             ))}
@@ -376,12 +326,12 @@ export default function LandingPage() {
           <h2 className="text-3xl sm:text-4xl font-bold mb-12">A reference platform, not a folder of files</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {FEATURES.map((f) => (
-              <div key={f.title} className="p-8 rounded-xl bg-white/[0.03] border border-white/5 hover:border-teal-500/30 transition-colors text-left">
+              <div key={f.title} className="p-8 rounded-xl bg-muted/30 border border-border/60 hover:border-teal-500/30 transition-colors text-left">
                 <div className="w-11 h-11 rounded-lg bg-teal-500/10 border border-teal-500/20 flex items-center justify-center mb-5">
-                  <f.icon className="w-5 h-5 text-teal-400" />
+                  <f.icon className="w-5 h-5 text-teal-700 dark:text-teal-400" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{f.title}</h3>
-                <p className="text-sm text-gray-400">{f.desc}</p>
+                <p className="text-sm text-muted-foreground">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -389,26 +339,26 @@ export default function LandingPage() {
       </section>
 
       {/* Compare */}
-      <section id="compare" className="py-24 px-4 bg-gradient-to-b from-transparent to-white/[0.02]">
+      <section id="compare" className="py-24 px-4 bg-gradient-to-b from-transparent to-muted/30">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">How {BRAND.parentName} compares</h2>
-          <p className="text-lg text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
             Pre-built library + AI intelligence + platform — not blank pages or dead template files.
           </p>
-          <div className="overflow-x-auto rounded-xl border border-white/10">
+          <div className="overflow-x-auto rounded-xl border border-border">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-white/10 bg-white/[0.02]">
-                  <th className="text-left p-4 font-semibold text-gray-400">Feature</th>
-                  <th className="p-4 font-semibold text-teal-400">{BRAND.productName}</th>
-                  <th className="p-4 font-semibold text-gray-400">Notion</th>
-                  <th className="p-4 font-semibold text-gray-400">Template packs</th>
+                <tr className="border-b border-border bg-muted/20">
+                  <th className="text-left p-4 font-semibold text-muted-foreground">Feature</th>
+                  <th className="p-4 font-semibold text-teal-700 dark:text-teal-400">{BRAND.productName}</th>
+                  <th className="p-4 font-semibold text-muted-foreground">Notion</th>
+                  <th className="p-4 font-semibold text-muted-foreground">Template packs</th>
                 </tr>
               </thead>
               <tbody>
                 {COMPARISON.map((row) => (
-                  <tr key={row.feature} className="border-b border-white/5 hover:bg-white/[0.02]">
-                    <td className="p-4 text-gray-300 font-medium">{row.feature}</td>
+                  <tr key={row.feature} className="border-b border-border/60 hover:bg-muted/20">
+                    <td className="p-4 text-foreground/80 font-medium">{row.feature}</td>
                     <td className="p-4 text-center"><CompareCell value={row.us} highlight /></td>
                     <td className="p-4 text-center"><CompareCell value={row.notion} /></td>
                     <td className="p-4 text-center"><CompareCell value={row.templates} /></td>
@@ -426,12 +376,12 @@ export default function LandingPage() {
           <h2 className="text-3xl sm:text-4xl font-bold mb-12">Working in minutes, not months</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {STEPS.map((s, i) => (
-              <div key={s.title} className="relative p-8 rounded-xl bg-white/[0.03] border border-white/5 text-left">
-                <span className="absolute -top-3 left-6 px-3 py-0.5 rounded-md bg-[#0B1120] border border-teal-500/30 text-teal-400 text-xs font-mono font-semibold">
+              <div key={s.title} className="relative p-8 rounded-xl bg-muted/30 border border-border/60 text-left">
+                <span className="absolute -top-3 left-6 px-3 py-0.5 rounded-md bg-background border border-teal-500/30 text-teal-700 dark:text-teal-400 text-xs font-mono font-semibold">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <h3 className="text-lg font-semibold mb-2 mt-1">{s.title}</h3>
-                <p className="text-sm text-gray-400">{s.desc}</p>
+                <p className="text-sm text-muted-foreground">{s.desc}</p>
               </div>
             ))}
           </div>
@@ -439,13 +389,13 @@ export default function LandingPage() {
       </section>
 
       {/* Templates flywheel */}
-      <section id="templates" className="py-24 px-4 border-t border-white/5">
+      <section id="templates" className="py-24 px-4 border-t border-border/60">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-teal-400 text-sm font-semibold uppercase tracking-wider mb-3">Templates → Playbooks flywheel</p>
+              <p className="text-teal-700 dark:text-teal-400 text-sm font-semibold uppercase tracking-wider mb-3">Templates → Playbooks flywheel</p>
               <h2 className="text-3xl sm:text-4xl font-bold mb-4">Start with templates. Scale on the platform.</h2>
-              <p className="text-gray-400 mb-6 leading-relaxed">
+              <p className="text-muted-foreground mb-6 leading-relaxed">
                 Not ready for SaaS? Buy curated SOP bundles from ${49} — Notion, Markdown, and Google Docs.
                 Every bundle includes credit toward {BRAND.productName} when you're ready to run live with AI.
               </p>
@@ -456,7 +406,7 @@ export default function LandingPage() {
                   </Button>
                 </Link>
                 <Link href="/start-trial?plan=professional&utm_source=product&utm_medium=templates_section">
-                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/5 w-full sm:w-auto">
+                  <Button variant="outline" className="border-border text-foreground hover:bg-muted/50 w-full sm:w-auto">
                     Skip to free trial
                   </Button>
                 </Link>
@@ -469,10 +419,10 @@ export default function LandingPage() {
                 { name: 'Complete Library', price: '$199', docs: '280+ docs' },
                 { name: 'Template Club', price: '$29/mo', docs: 'All + monthly' },
               ].map((b) => (
-                <div key={b.name} className="p-4 rounded-xl bg-white/[0.03] border border-white/10">
+                <div key={b.name} className="p-4 rounded-xl bg-muted/30 border border-border">
                   <p className="font-semibold text-sm">{b.name}</p>
-                  <p className="text-teal-400 text-lg font-bold">{b.price}</p>
-                  <p className="text-xs text-gray-500">{b.docs}</p>
+                  <p className="text-teal-700 dark:text-teal-400 text-lg font-bold">{b.price}</p>
+                  <p className="text-xs text-muted-foreground">{b.docs}</p>
                 </div>
               ))}
             </div>
@@ -481,39 +431,39 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-24 px-4 bg-gradient-to-b from-transparent to-white/[0.02]">
+      <section id="pricing" className="py-24 px-4 bg-gradient-to-b from-transparent to-muted/30">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-3">One plan. Everything.</h2>
-          <p className="text-lg text-gray-400 mb-14">Library + platform + {AI_TOOL_COUNT} AI tools. No tiers, no per-seat math.</p>
+          <p className="text-lg text-muted-foreground mb-14">Library + platform + {AI_TOOL_COUNT} AI tools. No tiers, no per-seat math.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-8 rounded-2xl bg-white/[0.03] border border-white/10 text-left flex flex-col">
-              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Membership</h3>
-              <div className="text-5xl font-bold my-4">$39<span className="text-base text-gray-400 font-medium">/month</span></div>
+            <div className="p-8 rounded-2xl bg-muted/30 border border-border text-left flex flex-col">
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Membership</h3>
+              <div className="text-5xl font-bold my-4">$39<span className="text-base text-muted-foreground font-medium">/month</span></div>
               <ul className="space-y-3 mb-8 flex-1">
                 {[`Full access to all ${totalDocuments} documents`, `${BRAND.aiHubTitle} (${AI_TOOL_COUNT} tools)`, 'Search, collections, annotations', 'PDF, DOCX & zip export', 'Every update as the library grows', 'Cancel anytime'].map((f) => (
-                  <li key={f} className="flex items-start gap-2.5 text-sm text-gray-400">
-                    <CheckCircle2 className="w-4 h-4 text-teal-400 mt-0.5 shrink-0" />{f}
+                  <li key={f} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                    <CheckCircle2 className="w-4 h-4 text-teal-700 dark:text-teal-400 mt-0.5 shrink-0" />{f}
                   </li>
                 ))}
               </ul>
               <Button
                 variant="outline"
-                className="w-full border-white/20 text-white hover:bg-white/5"
+                className="w-full border-border text-foreground hover:bg-muted/50"
                 onClick={() => subscribe('monthly')}
                 disabled={createCheckout.isPending}
               >
                 {createCheckout.isPending ? 'Processing...' : 'Start now'}
               </Button>
             </div>
-            <div className="relative p-8 rounded-2xl bg-gradient-to-b from-teal-500/10 to-white/[0.02] border border-teal-500/30 text-left flex flex-col">
+            <div className="relative p-8 rounded-2xl bg-gradient-to-b from-teal-500/10 to-muted/30 border border-teal-500/30 text-left flex flex-col">
               <span className="absolute -top-3 left-7 px-3.5 py-1 rounded-full bg-teal-500 text-black text-xs font-bold">Founding Member</span>
-              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mt-1">Annual</h3>
-              <div className="text-5xl font-bold mt-4 mb-1">$290<span className="text-base text-gray-400 font-medium">/year</span></div>
-              <p className="text-teal-400 text-sm font-semibold mb-4">Save 38% — price locked permanently</p>
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mt-1">Annual</h3>
+              <div className="text-5xl font-bold mt-4 mb-1">$290<span className="text-base text-muted-foreground font-medium">/year</span></div>
+              <p className="text-teal-700 dark:text-teal-400 text-sm font-semibold mb-4">Save 38% — price locked permanently</p>
               <ul className="space-y-3 mb-8 flex-1">
                 {['Everything in Membership', 'All AI tools included', 'Price locked at $290 — forever', 'Direct line to the founder', 'Your requests shape what gets documented next'].map((f) => (
-                  <li key={f} className="flex items-start gap-2.5 text-sm text-gray-400">
-                    <CheckCircle2 className="w-4 h-4 text-teal-400 mt-0.5 shrink-0" />{f}
+                  <li key={f} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                    <CheckCircle2 className="w-4 h-4 text-teal-700 dark:text-teal-400 mt-0.5 shrink-0" />{f}
                   </li>
                 ))}
               </ul>
@@ -527,7 +477,7 @@ export default function LandingPage() {
               </Button>
             </div>
           </div>
-          <p className="text-sm text-gray-600 mt-7">Founding pricing ends when the first 10 seats are taken — cohort then closes.</p>
+          <p className="text-sm text-muted-foreground mt-7">Founding pricing ends when the first 10 seats are taken — cohort then closes.</p>
         </div>
       </section>
 
@@ -537,11 +487,11 @@ export default function LandingPage() {
           <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">Fair questions</h2>
           <div className="space-y-4">
             {FAQS.map((f) => (
-              <details key={f.q} className="rounded-xl bg-white/[0.03] border border-white/10 overflow-hidden group">
+              <details key={f.q} className="rounded-xl bg-muted/30 border border-border overflow-hidden group">
                 <summary className="cursor-pointer px-6 py-5 font-semibold text-[15px] list-none flex justify-between items-center">
-                  {f.q}<span className="text-teal-400 text-xl font-normal group-open:rotate-45 transition-transform">+</span>
+                  {f.q}<span className="text-teal-700 dark:text-teal-400 text-xl font-normal group-open:rotate-45 transition-transform">+</span>
                 </summary>
-                <p className="px-6 pb-5 text-sm text-gray-400 leading-relaxed">{f.a}</p>
+                <p className="px-6 pb-5 text-sm text-muted-foreground leading-relaxed">{f.a}</p>
               </details>
             ))}
           </div>
@@ -553,7 +503,7 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(45,212,191,0.08),transparent_70%)]" />
         <div className="max-w-3xl mx-auto text-center relative">
           <h2 className="text-3xl sm:text-5xl font-bold mb-5">Your company, documented — with AI built in.</h2>
-          <p className="text-lg text-gray-400 mb-10">
+          <p className="text-lg text-muted-foreground mb-10">
             The companies that scale cleanly run on structure instead of memory.
             {BRAND.productName} gives you the structure and the intelligence to use it.
           </p>
@@ -568,25 +518,25 @@ export default function LandingPage() {
               {!createCheckout.isPending && <ArrowRight className="w-5 h-5 ml-2" />}
             </Button>
             <Link href="/ai">
-              <Button size="lg" variant="outline" className="border-purple-500/40 text-purple-200 hover:bg-purple-500/10 px-8 py-6 text-lg">
+              <Button size="lg" variant="outline" className="border-purple-500/40 text-purple-800 dark:text-purple-200 hover:bg-purple-500/10 px-8 py-6 text-lg">
                 Try AI Hub free inside app
               </Button>
             </Link>
           </div>
-          <p className="mt-6 text-sm text-gray-600 font-mono">{totalDocuments} documents · {FUNCTION_COUNT} functions · {AI_TOOL_COUNT} AI tools</p>
+          <p className="mt-6 text-sm text-muted-foreground font-mono">{totalDocuments} documents · {FUNCTION_COUNT} functions · {AI_TOOL_COUNT} AI tools</p>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 border-t border-white/5">
+      <footer className="py-12 px-4 border-t border-border/60">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <LogoMark size="sm" />
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-muted-foreground">
               {BRAND.productName} — {BRAND.tagline.toLowerCase()}.
             </span>
           </div>
-          <div className="flex items-center gap-6 text-xs text-gray-600">
+          <div className="flex items-center gap-6 text-xs text-muted-foreground">
             <span>&copy; {new Date().getFullYear()} {BRAND.parentName}</span>
             <span>·</span>
             <span>{BRAND.domain}</span>

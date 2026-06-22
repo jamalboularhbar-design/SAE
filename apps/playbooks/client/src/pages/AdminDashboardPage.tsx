@@ -162,12 +162,12 @@ export default function AdminDashboardPage() {
   }, [catDist]);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white p-6">
+    <div className="min-h-screen bg-background text-foreground p-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-[#d4af37]">Analytics Dashboard</h1>
-            <p className="text-gray-400 mt-1">Document engagement and usage metrics</p>
+            <p className="text-muted-foreground mt-1">Document engagement and usage metrics</p>
           </div>
           <div className="flex items-center gap-3">
             <button
@@ -181,7 +181,7 @@ export default function AdminDashboardPage() {
               <TrendingUp className="w-4 h-4" />
               Advanced Analytics
             </Link>
-            <Link href="/admin/editor" className="text-sm text-gray-400 hover:text-[#d4af37]">
+            <Link href="/admin/editor" className="text-sm text-muted-foreground hover:text-[#d4af37]">
               ← Back to Admin
             </Link>
           </div>
@@ -195,7 +195,7 @@ export default function AdminDashboardPage() {
         {/* Charts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Views Over Time */}
-          <div className="bg-[#12121a] border border-gray-800 rounded-lg p-6">
+          <div className="bg-card border border-border rounded-lg p-6">
             <div className="flex items-center gap-2 mb-4">
               <TrendingUp className="w-5 h-5 text-[#d4af37]" />
               <h2 className="text-lg font-semibold">Views Over Time (30 days)</h2>
@@ -206,7 +206,7 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Download Trends */}
-          <div className="bg-[#12121a] border border-gray-800 rounded-lg p-6">
+          <div className="bg-card border border-border rounded-lg p-6">
             <div className="flex items-center gap-2 mb-4">
               <Download className="w-5 h-5 text-indigo-400" />
               <h2 className="text-lg font-semibold">Download Trends (30 days)</h2>
@@ -217,7 +217,7 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Category Distribution */}
-          <div className="bg-[#12121a] border border-gray-800 rounded-lg p-6">
+          <div className="bg-card border border-border rounded-lg p-6">
             <div className="flex items-center gap-2 mb-4">
               <PieChart className="w-5 h-5 text-emerald-400" />
               <h2 className="text-lg font-semibold">Category Distribution</h2>
@@ -228,14 +228,14 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Top Documents Table */}
-          <div className="bg-[#12121a] border border-gray-800 rounded-lg p-6">
+          <div className="bg-card border border-border rounded-lg p-6">
             <div className="flex items-center gap-2 mb-4">
               <BarChart3 className="w-5 h-5 text-amber-400" />
               <h2 className="text-lg font-semibold">Top Documents</h2>
             </div>
             <div className="overflow-auto max-h-[250px]">
               <table className="w-full text-sm">
-                <thead className="text-gray-400 border-b border-gray-700">
+                <thead className="text-muted-foreground border-b border-border">
                   <tr>
                     <th className="text-left py-2">Title</th>
                     <th className="text-right py-2">Views</th>
@@ -244,13 +244,13 @@ export default function AdminDashboardPage() {
                 </thead>
                 <tbody>
                   {topDocs?.map((doc: any) => (
-                    <tr key={doc.slug} className="border-b border-gray-800">
+                    <tr key={doc.slug} className="border-b border-border">
                       <td className="py-2 truncate max-w-[200px]">
                         <Link href={`/docs/${doc.slug}`} className="hover:text-[#d4af37]">
                           {doc.title}
                         </Link>
                       </td>
-                      <td className="text-right py-2 text-gray-400">{doc.viewCount}</td>
+                      <td className="text-right py-2 text-muted-foreground">{doc.viewCount}</td>
                       <td className="text-right py-2">
                         <span className="text-green-400">+{doc.upvotes}</span>
                         {' / '}

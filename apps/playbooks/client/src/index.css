@@ -180,10 +180,14 @@
     background-color: var(--card);
     color: var(--card-foreground);
     border-radius: 0.65rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border);
     padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     transition: all 0.3s ease-out;
+  }
+
+  .dark .card-premium {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
   @media (min-width: 640px) {

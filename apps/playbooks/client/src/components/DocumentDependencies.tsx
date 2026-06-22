@@ -15,15 +15,15 @@ export default function DocumentDependencies({ slug }: Props) {
   }
 
   return (
-    <div className="bg-[#12121a] border border-gray-800 rounded-lg p-5 mt-6">
+    <div className="bg-card border border-border rounded-lg p-5 mt-6">
       <div className="flex items-center gap-2 mb-4">
-        <GitBranch className="w-5 h-5 text-[#d4af37]" />
-        <h3 className="text-lg font-semibold text-white">Document Dependencies</h3>
+        <GitBranch className="w-5 h-5 text-primary" />
+        <h3 className="text-lg font-semibold text-foreground">Document Dependencies</h3>
       </div>
 
       {prerequisites && prerequisites.length > 0 && (
         <div className="mb-4">
-          <h4 className="text-sm font-medium text-gray-400 mb-2 flex items-center gap-1">
+          <h4 className="text-sm font-medium text-muted-foreground mb-2 flex items-center gap-1">
             <ArrowLeft className="w-3 h-3" /> Prerequisites (read these first)
           </h4>
           <div className="space-y-2">
@@ -31,10 +31,10 @@ export default function DocumentDependencies({ slug }: Props) {
               <Link
                 key={dep.prerequisiteSlug}
                 href={`/docs/${dep.prerequisiteSlug}`}
-                className="block bg-[#0a0a0f] border border-gray-700 rounded p-3 hover:border-[#d4af37]/50 transition-colors"
+                className="block bg-muted border border-border rounded p-3 hover:border-primary/50 transition-colors"
               >
-                <span className="text-sm text-white">{dep.title}</span>
-                <span className="text-xs text-gray-500 ml-2">{dep.category}</span>
+                <span className="text-sm text-foreground">{dep.title}</span>
+                <span className="text-xs text-muted-foreground ml-2">{dep.category}</span>
               </Link>
             ))}
           </div>
@@ -43,7 +43,7 @@ export default function DocumentDependencies({ slug }: Props) {
 
       {dependents && dependents.length > 0 && (
         <div>
-          <h4 className="text-sm font-medium text-gray-400 mb-2 flex items-center gap-1">
+          <h4 className="text-sm font-medium text-muted-foreground mb-2 flex items-center gap-1">
             <ArrowRight className="w-3 h-3" /> Dependent Documents (read after this)
           </h4>
           <div className="space-y-2">
@@ -51,10 +51,10 @@ export default function DocumentDependencies({ slug }: Props) {
               <Link
                 key={dep.documentSlug}
                 href={`/docs/${dep.documentSlug}`}
-                className="block bg-[#0a0a0f] border border-gray-700 rounded p-3 hover:border-[#d4af37]/50 transition-colors"
+                className="block bg-muted border border-border rounded p-3 hover:border-primary/50 transition-colors"
               >
-                <span className="text-sm text-white">{dep.title}</span>
-                <span className="text-xs text-gray-500 ml-2">{dep.category}</span>
+                <span className="text-sm text-foreground">{dep.title}</span>
+                <span className="text-xs text-muted-foreground ml-2">{dep.category}</span>
               </Link>
             ))}
           </div>

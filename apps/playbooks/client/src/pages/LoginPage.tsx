@@ -332,7 +332,7 @@ export default function LoginPage() {
         <p className="text-center mt-6">
           <a
             href="/os/"
-            className="text-sm text-teal-400 hover:text-teal-300 transition-colors"
+            className="text-sm text-teal-700 dark:text-teal-400 hover:text-teal-600 dark:hover:text-teal-300 transition-colors"
           >
             Open Nexus OS →
           </a>

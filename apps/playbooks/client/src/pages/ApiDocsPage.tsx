@@ -104,37 +104,37 @@ export default function ApiDocsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white p-6">
+    <div className="min-h-screen bg-background text-foreground p-6">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center gap-3 mb-4">
           <Code className="w-8 h-8 text-[#d4af37]" />
           <div>
             <h1 className="text-3xl font-bold text-[#d4af37]">API Documentation</h1>
-            <p className="text-gray-400 text-sm">Public REST-like endpoints for external integrations</p>
+            <p className="text-muted-foreground text-sm">Public REST-like endpoints for external integrations</p>
           </div>
         </div>
 
         {/* Introduction */}
-        <div className="bg-[#12121a] border border-gray-800 rounded-lg p-6 mb-6">
+        <div className="bg-card border border-border rounded-lg p-6 mb-6">
           <h2 className="text-lg font-semibold mb-3">Overview</h2>
-          <p className="text-gray-300 text-sm mb-3">
+          <p className="text-foreground/80 text-sm mb-3">
             This API uses <strong>tRPC over HTTP</strong>. All endpoints are accessible via standard HTTP requests.
             Query procedures use GET with URL-encoded JSON input, and mutation procedures use POST with JSON body.
           </p>
-          <div className="bg-[#0a0a0f] rounded p-4 font-mono text-sm">
-            <p className="text-gray-400 mb-1"># Example: List documents</p>
+          <div className="bg-muted rounded p-4 font-mono text-sm">
+            <p className="text-muted-foreground mb-1"># Example: List documents</p>
             <p className="text-green-400">GET /api/trpc/documents.list?input={`{"json":{"limit":10}}`}</p>
-            <p className="text-gray-400 mt-3 mb-1"># Example: Record a view</p>
+            <p className="text-muted-foreground mt-3 mb-1"># Example: Record a view</p>
             <p className="text-blue-400">POST /api/trpc/documents.recordView</p>
-            <p className="text-gray-400">Content-Type: application/json</p>
+            <p className="text-muted-foreground">Content-Type: application/json</p>
             <p className="text-yellow-300">{`{"json":{"slug":"my-document-slug"}}`}</p>
           </div>
         </div>
 
         {/* Authentication Note */}
-        <div className="bg-[#12121a] border border-amber-900/50 rounded-lg p-4 mb-6">
+        <div className="bg-card border border-amber-500/30 rounded-lg p-4 mb-6">
           <p className="text-amber-400 text-sm font-medium">Authentication</p>
-          <p className="text-gray-400 text-sm mt-1">
+          <p className="text-muted-foreground text-sm mt-1">
             Public endpoints (GET queries, ratings, comments) require no authentication.
             Admin endpoints (create, update, delete, analytics) require an authenticated session cookie with admin role.
           </p>
@@ -143,34 +143,34 @@ export default function ApiDocsPage() {
         {/* Endpoints */}
         <div className="space-y-3">
           {API_ENDPOINTS.map(group => (
-            <div key={group.group} className="bg-[#12121a] border border-gray-800 rounded-lg overflow-hidden">
+            <div key={group.group} className="bg-card border border-border rounded-lg overflow-hidden">
               <button
                 onClick={() => toggleGroup(group.group)}
-                className="w-full flex items-center justify-between p-4 hover:bg-[#1a1a24] transition-colors"
+                className="w-full flex items-center justify-between p-4 hover:bg-muted/50 transition-colors"
               >
                 <div className="flex items-center gap-2">
-                  {expandedGroups.has(group.group) ? <ChevronDown className="w-4 h-4 text-gray-400" /> : <ChevronRight className="w-4 h-4 text-gray-400" />}
+                  {expandedGroups.has(group.group) ? <ChevronDown className="w-4 h-4 text-muted-foreground" /> : <ChevronRight className="w-4 h-4 text-muted-foreground" />}
                   <span className="font-semibold">{group.group}</span>
-                  <span className="text-xs text-gray-500 bg-gray-800 px-2 py-0.5 rounded">{group.endpoints.length}</span>
+                  <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded">{group.endpoints.length}</span>
                 </div>
               </button>
               {expandedGroups.has(group.group) && (
-                <div className="border-t border-gray-800">
+                <div className="border-t border-border">
                   {group.endpoints.map(ep => (
-                    <div key={ep.path} className="p-4 border-b border-gray-800/50 last:border-b-0 hover:bg-[#0f0f17]">
+                    <div key={ep.path} className="p-4 border-b border-border/50 last:border-b-0 hover:bg-muted/50">
                       <div className="flex items-start gap-3">
                         <span className={`text-xs font-bold px-2 py-0.5 rounded ${ep.method === 'GET' ? 'bg-green-900/30 text-green-400' : 'bg-blue-900/30 text-blue-400'}`}>
                           {ep.method}
                         </span>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
-                            <code className="text-sm text-gray-200 font-mono truncate">{ep.path}</code>
-                            <button onClick={() => copyPath(ep.path)} className="text-gray-500 hover:text-[#d4af37] shrink-0">
+                            <code className="text-sm text-foreground font-mono truncate">{ep.path}</code>
+                            <button onClick={() => copyPath(ep.path)} className="text-muted-foreground hover:text-[#d4af37] shrink-0">
                               {copiedPath === ep.path ? <Check className="w-3 h-3 text-green-400" /> : <Copy className="w-3 h-3" />}
                             </button>
                           </div>
-                          <p className="text-sm text-gray-400 mt-1">{ep.description}</p>
-                          <p className="text-xs text-gray-600 mt-1 font-mono">Params: {ep.params}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{ep.description}</p>
+                          <p className="text-xs text-muted-foreground mt-1 font-mono">Params: {ep.params}</p>
                         </div>
                       </div>
                     </div>
