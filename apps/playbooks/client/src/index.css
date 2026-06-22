@@ -307,3 +307,110 @@ html {
     color: #333 !important;
   }
 }
+
+/* Knowledge Graph — Rovo / Teamwork Graph visualizer style */
+.kg-rovo-viewport {
+  background: var(--kg-bg, #0c0e14);
+}
+
+.kg-rovo-light {
+  --kg-bg: #f4f5f7;
+  --kg-card-bg: rgba(255, 255, 255, 0.88);
+  --kg-card-border: rgba(101, 84, 192, 0.12);
+  --kg-card-shadow: 0 2px 8px rgba(9, 30, 66, 0.08), 0 0 1px rgba(9, 30, 66, 0.12);
+  --kg-mesh-1: rgba(101, 84, 192, 0.08);
+  --kg-mesh-2: rgba(0, 82, 204, 0.06);
+  --kg-mesh-3: rgba(135, 119, 217, 0.05);
+  --kg-dot: rgba(9, 30, 66, 0.06);
+}
+
+.kg-rovo-dark {
+  --kg-bg: #0c0e14;
+  --kg-card-bg: rgba(22, 26, 36, 0.82);
+  --kg-card-border: rgba(135, 119, 217, 0.18);
+  --kg-card-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), 0 0 1px rgba(135, 119, 217, 0.15);
+  --kg-mesh-1: rgba(101, 84, 192, 0.15);
+  --kg-mesh-2: rgba(0, 82, 204, 0.1);
+  --kg-mesh-3: rgba(135, 119, 217, 0.08);
+  --kg-dot: rgba(255, 255, 255, 0.04);
+}
+
+.kg-rovo-viewport::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 20%, var(--kg-mesh-1), transparent),
+    radial-gradient(ellipse 50% 45% at 85% 75%, var(--kg-mesh-2), transparent),
+    radial-gradient(ellipse 40% 35% at 50% 50%, var(--kg-mesh-3), transparent),
+    var(--kg-bg);
+  pointer-events: none;
+}
+
+.kg-rovo-viewport::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--kg-dot) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.kg-rovo-canvas {
+  transform-origin: center center;
+}
+
+.kg-rovo-card,
+.kg-rovo-cluster {
+  border: 1px solid var(--kg-card-border);
+  border-radius: 10px;
+  background: var(--kg-card-bg);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--kg-card-shadow);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.kg-rovo-card::before,
+.kg-rovo-cluster::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--kg-accent, #6554C0);
+  border-radius: 10px 0 0 10px;
+}
+
+.kg-rovo-card-inner,
+.kg-rovo-cluster-inner {
+  position: relative;
+  padding: 8px 10px 8px 14px;
+  color: inherit;
+}
+
+.kg-rovo-card-compact .kg-rovo-card-inner {
+  padding: 6px 8px 6px 12px;
+}
+
+.kg-rovo-card-active {
+  border-color: var(--kg-accent);
+  box-shadow: var(--kg-card-shadow), 0 0 0 1px var(--kg-accent), 0 0 20px var(--kg-glow);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.kg-rovo-card-selected {
+  border-color: var(--kg-accent);
+  box-shadow: var(--kg-card-shadow), 0 0 0 2px var(--kg-accent), 0 0 28px var(--kg-glow);
+  transform: translateY(-3px) scale(1.03);
+}
+
+.kg-rovo-card-dimmed {
+  opacity: 0.38;
+  filter: saturate(0.6);
+}
+
+.kg-rovo-detail-header {
+  background: linear-gradient(135deg, rgba(101, 84, 192, 0.06), rgba(135, 119, 217, 0.03));
+}

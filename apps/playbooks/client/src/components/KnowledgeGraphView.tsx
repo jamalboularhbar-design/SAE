@@ -3,6 +3,7 @@ import { useLocation } from 'wouter';
 import { useTheme } from '@/contexts/ThemeContext';
 import {
   ZoomIn, ZoomOut, Maximize2, ExternalLink, GitBranch, Link2, ArrowRight,
+  FileText, Layers,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -33,68 +34,144 @@ type KnowledgeGraphViewProps = {
 
 type SimNode = GraphNode & { x: number; y: number; vx: number; vy: number; degree: number };
 
-const CATEGORY_PALETTE = [
-  '#14b8a6', '#8b5cf6', '#f59e0b', '#3b82f6', '#ec4899',
-  '#10b981', '#f97316', '#6366f1', '#ef4444', '#06b6d4',
+type ClusterNode = {
+  id: string;
+  label: string;
+  count: number;
+  nodeIds: string[];
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+};
+
+/* Atlassian-inspired palette (Rovo / Teamwork Graph) */
+const ROVO_PALETTE = [
+  { accent: '#6554C0', glow: 'rgba(101,84,192,0.35)' },
+  { accent: '#0052CC', glow: 'rgba(0,82,204,0.35)' },
+  { accent: '#00B8D9', glow: 'rgba(0,184,217,0.35)' },
+  { accent: '#FF5630', glow: 'rgba(255,86,48,0.35)' },
+  { accent: '#36B37E', glow: 'rgba(54,179,126,0.35)' },
+  { accent: '#FFAB00', glow: 'rgba(255,171,0,0.35)' },
+  { accent: '#8777D9', glow: 'rgba(135,119,217,0.35)' },
+  { accent: '#2684FF', glow: 'rgba(38,132,255,0.35)' },
+  { accent: '#403294', glow: 'rgba(64,50,148,0.35)' },
+  { accent: '#00875A', glow: 'rgba(0,135,90,0.35)' },
 ];
 
-function categoryColor(group: string | null, index: number): string {
-  if (!group) return '#94a3b8';
+const CARD_W = 172;
+const CARD_H = 68;
+const CARD_W_COMPACT = 108;
+const CARD_H_COMPACT = 38;
+const CLUSTER_W = 196;
+const CLUSTER_H = 84;
+
+function categoryStyle(group: string | null, index: number) {
+  if (!group) return ROVO_PALETTE[0];
   let hash = 0;
   for (let i = 0; i < group.length; i++) hash = group.charCodeAt(i) + ((hash << 5) - hash);
-  return CATEGORY_PALETTE[Math.abs(hash) % CATEGORY_PALETTE.length];
+  return ROVO_PALETTE[Math.abs(hash) % ROVO_PALETTE.length];
 }
 
-function wrapLabel(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, maxLines = 2): string[] {
-  const words = text.split(/\s+/);
-  const lines: string[] = [];
-  let current = '';
-  for (const word of words) {
-    const test = current ? `${current} ${word}` : word;
-    if (ctx.measureText(test).width > maxWidth && current) {
-      lines.push(current);
-      current = word;
-      if (lines.length >= maxLines - 1) break;
-    } else {
-      current = test;
-    }
-  }
-  if (current && lines.length < maxLines) lines.push(current);
-  if (lines.length === maxLines && words.join(' ').length > lines.join(' ').length) {
-    const last = lines[maxLines - 1];
-    lines[maxLines - 1] = last.length > 3 ? `${last.slice(0, -1)}…` : `${last}…`;
-  }
-  return lines.length ? lines : [text.slice(0, 24) + (text.length > 24 ? '…' : '')];
+function truncate(text: string, max: number) {
+  return text.length > max ? `${text.slice(0, max - 1)}…` : text;
 }
 
-function drawArrow(
-  ctx: CanvasRenderingContext2D,
-  fromX: number, fromY: number,
-  toX: number, toY: number,
-  nodeRadius: number,
+function curvedPath(x1: number, y1: number, x2: number, y2: number, curvature = 0.22) {
+  const mx = (x1 + x2) / 2;
+  const my = (y1 + y2) / 2;
+  const cx = mx - (y2 - y1) * curvature;
+  const cy = my + (x2 - x1) * curvature;
+  return `M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`;
+}
+
+function anchorPoints(
+  sx: number, sy: number, sw: number, sh: number,
+  tx: number, ty: number, tw: number, th: number,
 ) {
-  const dx = toX - fromX;
-  const dy = toY - fromY;
-  const dist = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
-  const ux = dx / dist;
-  const uy = dy / dist;
-  const startX = fromX + ux * (nodeRadius + 2);
-  const startY = fromY + uy * (nodeRadius + 2);
-  const endX = toX - ux * (nodeRadius + 6);
-  const endY = toY - uy * (nodeRadius + 6);
+  const scx = sx + sw / 2;
+  const scy = sy + sh / 2;
+  const tcx = tx + tw / 2;
+  const tcy = ty + th / 2;
+  const dx = tcx - scx;
+  const dy = tcy - scy;
+  const angle = Math.atan2(dy, dx);
 
-  ctx.beginPath();
-  ctx.moveTo(startX, startY);
-  ctx.lineTo(endX, endY);
-  ctx.stroke();
+  const srcHalfW = sw / 2;
+  const srcHalfH = sh / 2;
+  const tgtHalfW = tw / 2;
+  const tgtHalfH = th / 2;
 
-  const headLen = 8;
-  ctx.beginPath();
-  ctx.moveTo(endX, endY);
-  ctx.lineTo(endX - ux * headLen - uy * 4, endY - uy * headLen + ux * 4);
-  ctx.lineTo(endX - ux * headLen + uy * 4, endY - uy * headLen - ux * 4);
-  ctx.closePath();
-  ctx.fill();
+  const srcDist = Math.abs(Math.cos(angle)) < 0.001
+    ? srcHalfH
+    : Math.abs(Math.sin(angle)) < 0.001
+      ? srcHalfW
+      : Math.min(Math.abs(srcHalfW / Math.cos(angle)), Math.abs(srcHalfH / Math.sin(angle)));
+  const tgtDist = Math.abs(Math.cos(angle)) < 0.001
+    ? tgtHalfH
+    : Math.abs(Math.sin(angle)) < 0.001
+      ? tgtHalfW
+      : Math.min(Math.abs(tgtHalfW / Math.cos(angle)), Math.abs(tgtHalfH / Math.sin(angle)));
+
+  return {
+    x1: scx + Math.cos(angle) * (srcDist - 2),
+    y1: scy + Math.sin(angle) * (srcDist - 2),
+    x2: tcx - Math.cos(angle) * (tgtDist - 6),
+    y2: tcy - Math.sin(angle) * (tgtDist - 6),
+  };
+}
+
+function buildClusters(nodes: GraphNode[], edges: GraphEdge[]): ClusterNode[] {
+  const groups = new Map<string, GraphNode[]>();
+  for (const n of nodes) {
+    const key = n.group || 'Uncategorized';
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(n);
+  }
+
+  const clusters: ClusterNode[] = [];
+  let i = 0;
+  for (const [label, members] of Array.from(groups.entries())) {
+    const angle = i * 2.399;
+    clusters.push({
+      id: `cluster:${label}`,
+      label,
+      count: members.length,
+      nodeIds: members.map((m: GraphNode) => m.id),
+      x: 450 + Math.cos(angle) * 280,
+      y: 320 + Math.sin(angle) * 220,
+      vx: 0,
+      vy: 0,
+    });
+    i++;
+  }
+
+  return clusters;
+}
+
+function clusterEdges(clusters: ClusterNode[], edges: GraphEdge[]) {
+  const nodeToCluster = new Map<string, string>();
+  for (const c of clusters) {
+    for (const id of c.nodeIds) nodeToCluster.set(id, c.id);
+  }
+
+  const seen = new Set<string>();
+  const result: { source: string; target: string; type: string; weight: number }[] = [];
+
+  for (const e of edges) {
+    const cs = nodeToCluster.get(e.source);
+    const ct = nodeToCluster.get(e.target);
+    if (!cs || !ct || cs === ct) continue;
+    const key = [cs, ct].sort().join('|') + e.type;
+    if (seen.has(key)) {
+      const existing = result.find((r) => r.source === cs && r.target === ct && r.type === e.type);
+      if (existing) existing.weight++;
+      continue;
+    }
+    seen.add(key);
+    result.push({ source: cs, target: ct, type: e.type, weight: 1 });
+  }
+  return result;
 }
 
 export default function KnowledgeGraphView({
@@ -104,27 +181,32 @@ export default function KnowledgeGraphView({
   selectedCategory = 'all',
   height = 640,
 }: KnowledgeGraphViewProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const simRef = useRef<SimNode[]>([]);
+  const clusterSimRef = useRef<ClusterNode[]>([]);
   const animRef = useRef<number>(0);
   const [, navigate] = useLocation();
   const { theme } = useTheme();
 
+  const [viewportW, setViewportW] = useState(900);
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [tick, setTick] = useState(0);
+  const [localCategory, setLocalCategory] = useState<string | null>(null);
   const dragStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
   const [showDependencies, setShowDependencies] = useState(true);
   const [showReferences, setShowReferences] = useState(true);
 
   const isDark = theme === 'dark';
+  const effectiveCategory = localCategory ?? (selectedCategory !== 'all' ? selectedCategory : null);
 
   const filtered = useMemo(() => {
     let fn = nodes;
-    if (selectedCategory !== 'all') {
-      fn = fn.filter((n) => n.group === selectedCategory);
+    if (effectiveCategory) {
+      fn = fn.filter((n) => (n.group || 'Uncategorized') === effectiveCategory);
     }
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
@@ -143,7 +225,9 @@ export default function KnowledgeGraphView({
         (e.type === 'dependency' ? showDependencies : showReferences),
     );
     return { nodes: fn, edges: fe };
-  }, [nodes, edges, searchQuery, selectedCategory, showDependencies, showReferences]);
+  }, [nodes, edges, searchQuery, effectiveCategory, showDependencies, showReferences]);
+
+  const isClusterMode = zoom < 0.52 && filtered.nodes.length > 35 && !searchQuery.trim();
 
   const degreeMap = useMemo(() => {
     const m = new Map<string, number>();
@@ -180,393 +264,506 @@ export default function KnowledgeGraphView({
     [filtered.nodes],
   );
 
-  // Initialize simulation nodes
+  const cardSize = zoom < 0.72 ? { w: CARD_W_COMPACT, h: CARD_H_COMPACT } : { w: CARD_W, h: CARD_H };
+
+  // Initialize document simulation
   useEffect(() => {
-    const W = 900;
+    const W = viewportW;
     const H = height;
     simRef.current = filtered.nodes.map((n, i) => ({
       ...n,
-      x: W / 2 + Math.cos(i * 2.399) * Math.min(W, H) * 0.32,
-      y: H / 2 + Math.sin(i * 2.399) * Math.min(W, H) * 0.32,
+      x: W / 2 + Math.cos(i * 2.399) * Math.min(W, H) * 0.34,
+      y: H / 2 + Math.sin(i * 2.399) * Math.min(W, H) * 0.34,
       vx: 0,
       vy: 0,
       degree: degreeMap.get(n.id) ?? 0,
     }));
-  }, [filtered.nodes, degreeMap, height]);
+  }, [filtered.nodes, degreeMap, height, viewportW]);
 
-  const screenToWorld = useCallback(
-    (sx: number, sy: number, canvasW: number, canvasH: number) => {
-      const cx = canvasW / 2;
-      const cy = canvasH / 2;
-      return {
-        x: (sx - cx - pan.x) / zoom + cx,
-        y: (sy - cy - pan.y) / zoom + cy,
-      };
-    },
-    [pan, zoom],
-  );
-
-  const findNodeAt = useCallback(
-    (wx: number, wy: number) => {
-      for (const node of simRef.current) {
-        const r = 10 + Math.min(node.degree * 2, 14);
-        const dx = node.x - wx;
-        const dy = node.y - wy;
-        if (dx * dx + dy * dy <= (r + 14) * (r + 14)) return node.id;
-      }
-      return null;
-    },
-    [],
-  );
-
-  // Simulation + draw loop
+  // Initialize cluster simulation
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas || filtered.nodes.length === 0) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    clusterSimRef.current = buildClusters(filtered.nodes, filtered.edges);
+  }, [filtered.nodes, filtered.edges]);
 
+  // Force simulation loop
+  useEffect(() => {
+    if (filtered.nodes.length === 0) return;
     let frame = 0;
     let running = true;
+    const W = viewportW;
+    const H = height;
+    const pad = 80;
+    const cw = isClusterMode ? CLUSTER_W : cardSize.w;
+    const ch = isClusterMode ? CLUSTER_H : cardSize.h;
 
     const run = () => {
       if (!running) return;
-      const W = canvas.width;
-      const H = canvas.height;
-      const simNodes = simRef.current;
-      const nodeIndex = new Map(simNodes.map((n, i) => [n.id, i]));
 
-      if (frame < 120) {
-        for (let i = 0; i < simNodes.length; i++) {
-          for (let j = i + 1; j < simNodes.length; j++) {
-            const dx = simNodes[j].x - simNodes[i].x;
-            const dy = simNodes[j].y - simNodes[i].y;
-            const dist = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
-            const force = 8000 / (dist * dist);
-            simNodes[i].vx -= (dx / dist) * force;
-            simNodes[i].vy -= (dy / dist) * force;
-            simNodes[j].vx += (dx / dist) * force;
-            simNodes[j].vy += (dy / dist) * force;
+      if (isClusterMode) {
+        const clusters = clusterSimRef.current;
+        const cEdges = clusterEdges(clusters, filtered.edges);
+        const cIndex = new Map(clusters.map((c, i) => [c.id, i]));
+
+        if (frame < 100) {
+          for (let i = 0; i < clusters.length; i++) {
+            for (let j = i + 1; j < clusters.length; j++) {
+              const dx = clusters[j].x - clusters[i].x;
+              const dy = clusters[j].y - clusters[i].y;
+              const dist = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
+              const force = 12000 / (dist * dist);
+              clusters[i].vx -= (dx / dist) * force;
+              clusters[i].vy -= (dy / dist) * force;
+              clusters[j].vx += (dx / dist) * force;
+              clusters[j].vy += (dy / dist) * force;
+            }
           }
+          for (const e of cEdges) {
+            const si = cIndex.get(e.source);
+            const ti = cIndex.get(e.target);
+            if (si === undefined || ti === undefined) continue;
+            const dx = clusters[ti].x - clusters[si].x;
+            const dy = clusters[ti].y - clusters[si].y;
+            const dist = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
+            const ideal = 220;
+            const force = (dist - ideal) * 0.02;
+            clusters[si].vx += (dx / dist) * force;
+            clusters[si].vy += (dy / dist) * force;
+            clusters[ti].vx -= (dx / dist) * force;
+            clusters[ti].vy -= (dy / dist) * force;
+          }
+          for (const c of clusters) {
+            c.vx += (W / 2 - c.x) * 0.003;
+            c.vy += (H / 2 - c.y) * 0.003;
+            c.x += c.vx * 0.35;
+            c.y += c.vy * 0.35;
+            c.vx *= 0.82;
+            c.vy *= 0.82;
+            c.x = Math.max(pad, Math.min(W - pad - CLUSTER_W, c.x));
+            c.y = Math.max(pad, Math.min(H - pad - CLUSTER_H, c.y));
+          }
+          frame++;
         }
-        for (const edge of filtered.edges) {
-          const si = nodeIndex.get(edge.source);
-          const ti = nodeIndex.get(edge.target);
-          if (si === undefined || ti === undefined) continue;
-          const dx = simNodes[ti].x - simNodes[si].x;
-          const dy = simNodes[ti].y - simNodes[si].y;
-          const dist = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
-          const ideal = edge.type === 'dependency' ? 140 : 100;
-          const force = (dist - ideal) * 0.015;
-          simNodes[si].vx += (dx / dist) * force;
-          simNodes[si].vy += (dy / dist) * force;
-          simNodes[ti].vx -= (dx / dist) * force;
-          simNodes[ti].vy -= (dy / dist) * force;
-        }
-        for (const node of simNodes) {
-          node.vx += (W / 2 - node.x) * 0.002;
-          node.vy += (H / 2 - node.y) * 0.002;
-          node.x += node.vx * 0.4;
-          node.y += node.vy * 0.4;
-          node.vx *= 0.85;
-          node.vy *= 0.85;
-          node.x = Math.max(60, Math.min(W - 60, node.x));
-          node.y = Math.max(60, Math.min(H - 60, node.y));
-        }
-        frame++;
-      }
+      } else {
+        const simNodes = simRef.current;
+        const nodeIndex = new Map(simNodes.map((n, i) => [n.id, i]));
 
-      // Background
-      ctx.fillStyle = isDark ? '#0f1419' : '#f8fafc';
-      ctx.fillRect(0, 0, W, H);
-
-      // Subtle grid
-      ctx.strokeStyle = isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)';
-      ctx.lineWidth = 1;
-      for (let gx = 0; gx < W; gx += 40) {
-        ctx.beginPath();
-        ctx.moveTo(gx, 0);
-        ctx.lineTo(gx, H);
-        ctx.stroke();
-      }
-      for (let gy = 0; gy < H; gy += 40) {
-        ctx.beginPath();
-        ctx.moveTo(0, gy);
-        ctx.lineTo(W, gy);
-        ctx.stroke();
-      }
-
-      ctx.save();
-      ctx.translate(W / 2 + pan.x, H / 2 + pan.y);
-      ctx.scale(zoom, zoom);
-      ctx.translate(-W / 2, -H / 2);
-
-      const connectedToSelected = new Set<string>();
-      if (selectedId) {
-        connectedToSelected.add(selectedId);
-        for (const e of filtered.edges) {
-          if (e.source === selectedId) connectedToSelected.add(e.target);
-          if (e.target === selectedId) connectedToSelected.add(e.source);
-        }
-      }
-
-      // Edges
-      for (const edge of filtered.edges) {
-        const si = nodeIndex.get(edge.source);
-        const ti = nodeIndex.get(edge.target);
-        if (si === undefined || ti === undefined) continue;
-        const sn = simNodes[si];
-        const tn = simNodes[ti];
-        const isActive =
-          selectedId &&
-          (edge.source === selectedId || edge.target === selectedId);
-        const isHighlight =
-          highlightIds.has(edge.source) || highlightIds.has(edge.target);
-
-        if (edge.type === 'dependency') {
-          ctx.strokeStyle = isActive
-            ? '#f59e0b'
-            : isHighlight
-              ? 'rgba(245,158,11,0.55)'
-              : isDark
-                ? 'rgba(245,158,11,0.35)'
-                : 'rgba(217,119,6,0.45)';
-          ctx.fillStyle = ctx.strokeStyle;
-          ctx.lineWidth = isActive ? 2.5 : 1.5;
-          ctx.setLineDash([]);
-          drawArrow(ctx, sn.x, sn.y, tn.x, tn.y, 10 + Math.min(sn.degree * 2, 14));
-        } else {
-          ctx.strokeStyle = isActive
-            ? '#14b8a6'
-            : edge.type === 'suggested'
-              ? isDark ? 'rgba(148,163,184,0.25)' : 'rgba(100,116,139,0.35)'
-              : isHighlight
-                ? 'rgba(20,184,166,0.5)'
-                : isDark
-                  ? 'rgba(20,184,166,0.3)'
-                  : 'rgba(13,148,136,0.4)';
-          ctx.lineWidth = isActive ? 2 : 1;
-          ctx.setLineDash(edge.type === 'suggested' ? [4, 4] : []);
-          ctx.beginPath();
-          ctx.moveTo(sn.x, sn.y);
-          ctx.lineTo(tn.x, tn.y);
-          ctx.stroke();
-          ctx.setLineDash([]);
+        if (frame < 140) {
+          for (let i = 0; i < simNodes.length; i++) {
+            for (let j = i + 1; j < simNodes.length; j++) {
+              const dx = simNodes[j].x - simNodes[i].x;
+              const dy = simNodes[j].y - simNodes[i].y;
+              const dist = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
+              const force = 14000 / (dist * dist);
+              simNodes[i].vx -= (dx / dist) * force;
+              simNodes[i].vy -= (dy / dist) * force;
+              simNodes[j].vx += (dx / dist) * force;
+              simNodes[j].vy += (dy / dist) * force;
+            }
+          }
+          for (const edge of filtered.edges) {
+            const si = nodeIndex.get(edge.source);
+            const ti = nodeIndex.get(edge.target);
+            if (si === undefined || ti === undefined) continue;
+            const dx = simNodes[ti].x - simNodes[si].x;
+            const dy = simNodes[ti].y - simNodes[si].y;
+            const dist = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
+            const ideal = edge.type === 'dependency' ? 200 : 160;
+            const force = (dist - ideal) * 0.018;
+            simNodes[si].vx += (dx / dist) * force;
+            simNodes[si].vy += (dy / dist) * force;
+            simNodes[ti].vx -= (dx / dist) * force;
+            simNodes[ti].vy -= (dy / dist) * force;
+          }
+          for (const node of simNodes) {
+            node.vx += (W / 2 - node.x) * 0.0025;
+            node.vy += (H / 2 - node.y) * 0.0025;
+            node.x += node.vx * 0.38;
+            node.y += node.vy * 0.38;
+            node.vx *= 0.84;
+            node.vy *= 0.84;
+            node.x = Math.max(pad, Math.min(W - pad - cw, node.x));
+            node.y = Math.max(pad, Math.min(H - pad - ch, node.y));
+          }
+          frame++;
         }
       }
 
-      // Nodes
-      for (let i = 0; i < simNodes.length; i++) {
-        const node = simNodes[i];
-        const color = categoryColor(node.group, i);
-        const isSelected = selectedId === node.id;
-        const isHovered = hoveredId === node.id;
-        const isDimmed =
-          (highlightIds.size > 0 && !highlightIds.has(node.id)) ||
-          (selectedId && !connectedToSelected.has(node.id));
-        const radius = 10 + Math.min(node.degree * 2, 14);
-
-        // Glow
-        if (isSelected || isHovered) {
-          ctx.beginPath();
-          ctx.arc(node.x, node.y, radius + 8, 0, Math.PI * 2);
-          ctx.fillStyle = isSelected ? `${color}33` : `${color}22`;
-          ctx.fill();
-        }
-
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
-        ctx.fillStyle = isDimmed ? `${color}88` : color;
-        ctx.fill();
-        ctx.strokeStyle = isSelected ? '#fff' : isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.15)';
-        ctx.lineWidth = isSelected ? 2.5 : 1.5;
-        ctx.stroke();
-
-        // Degree badge
-        if (node.degree > 0) {
-          ctx.fillStyle = isDark ? '#0f1419' : '#fff';
-          ctx.font = 'bold 9px Inter, sans-serif';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(String(node.degree), node.x, node.y);
-        }
-
-        // Label card below node
-        const labelAlpha = isDimmed ? 0.35 : isSelected || isHovered ? 1 : 0.92;
-        ctx.font = `${isSelected ? 'bold ' : ''}10px Inter, sans-serif`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'top';
-        const lines = wrapLabel(ctx, node.label, 100, 2);
-        const lineH = 13;
-        const padY = 4;
-        const padX = 6;
-        const boxW = Math.max(...lines.map((l) => ctx.measureText(l).width)) + padX * 2;
-        const boxH = lines.length * lineH + padY * 2;
-        const boxX = node.x - boxW / 2;
-        const boxY = node.y + radius + 6;
-
-        ctx.fillStyle = isDark ? `rgba(15,20,25,${labelAlpha * 0.92})` : `rgba(255,255,255,${labelAlpha * 0.95})`;
-        ctx.strokeStyle = isDark ? `rgba(255,255,255,${labelAlpha * 0.15})` : `rgba(0,0,0,${labelAlpha * 0.08})`;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.roundRect(boxX, boxY, boxW, boxH, 4);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.fillStyle = isDark
-          ? `rgba(248,250,252,${labelAlpha})`
-          : `rgba(15,23,42,${labelAlpha})`;
-        lines.forEach((line, li) => {
-          ctx.fillText(line, node.x, boxY + padY + li * lineH);
-        });
-
-        // Category pill
-        if (node.group && (isSelected || isHovered)) {
-          ctx.font = '8px Inter, sans-serif';
-          const catText = node.group.length > 18 ? node.group.slice(0, 16) + '…' : node.group;
-          const catW = ctx.measureText(catText).width + 8;
-          ctx.fillStyle = `${color}33`;
-          ctx.fillRect(node.x - catW / 2, boxY + boxH + 3, catW, 12);
-          ctx.fillStyle = color;
-          ctx.fillText(catText, node.x, boxY + boxH + 5);
-        }
-      }
-
-      ctx.restore();
+      if (frame % 2 === 0) setTick((t) => t + 1);
       animRef.current = requestAnimationFrame(run);
     };
 
+    frame = 0;
     animRef.current = requestAnimationFrame(run);
     return () => {
       running = false;
       cancelAnimationFrame(animRef.current);
     };
-  }, [filtered, hoveredId, selectedId, highlightIds, zoom, pan, isDark, height]);
+  }, [filtered.nodes, filtered.edges, height, viewportW, isClusterMode, cardSize.w, cardSize.h]);
 
-  // Resize canvas
+  // Resize observer
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ro = new ResizeObserver(() => {
-      canvas.width = canvas.parentElement?.clientWidth ?? 900;
-      canvas.height = height;
-    });
-    ro.observe(canvas.parentElement ?? canvas);
-    canvas.width = canvas.parentElement?.clientWidth ?? 900;
-    canvas.height = height;
+    const el = viewportRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setViewportW(el.clientWidth || 900));
+    ro.observe(el);
+    setViewportW(el.clientWidth || 900);
     return () => ro.disconnect();
-  }, [height]);
+  }, []);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const rect = canvas.getBoundingClientRect();
-    const sx = e.clientX - rect.left;
-    const sy = e.clientY - rect.top;
-
-    if (isDragging) {
-      setPan({
-        x: dragStart.current.panX + (sx - dragStart.current.x),
-        y: dragStart.current.panY + (sy - dragStart.current.y),
-      });
-      return;
+  const connectedToSelected = useMemo(() => {
+    const set = new Set<string>();
+    if (!selectedId) return set;
+    set.add(selectedId);
+    for (const e of filtered.edges) {
+      if (e.source === selectedId) set.add(e.target);
+      if (e.target === selectedId) set.add(e.source);
     }
+    return set;
+  }, [filtered.edges, selectedId]);
 
-    const { x, y } = screenToWorld(sx, sy, canvas.width, canvas.height);
-    setHoveredId(findNodeAt(x, y));
-  };
-
-  const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const handlePanStart = (e: React.MouseEvent) => {
     if (e.button !== 0) return;
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const rect = canvas.getBoundingClientRect();
-    const { x, y } = screenToWorld(e.clientX - rect.left, e.clientY - rect.top, canvas.width, canvas.height);
-    const hit = findNodeAt(x, y);
-    if (hit) {
-      setSelectedId(hit);
-    } else {
-      setIsDragging(true);
-      dragStart.current = { x: e.clientX - rect.left, y: e.clientY - rect.top, panX: pan.x, panY: pan.y };
-    }
+    setIsDragging(true);
+    dragStart.current = { x: e.clientX, y: e.clientY, panX: pan.x, panY: pan.y };
   };
 
-  const handleMouseUp = () => setIsDragging(false);
+  const handlePanMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    setPan({
+      x: dragStart.current.panX + (e.clientX - dragStart.current.x),
+      y: dragStart.current.panY + (e.clientY - dragStart.current.y),
+    });
+  };
 
-  const handleWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
+  const handlePanEnd = () => setIsDragging(false);
+
+  const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
-    setZoom((z) => Math.min(2.5, Math.max(0.4, z - e.deltaY * 0.001)));
+    setZoom((z) => Math.min(2.2, Math.max(0.35, z - e.deltaY * 0.001)));
+  };
+
+  const expandCluster = (label: string) => {
+    setLocalCategory(label);
+    setZoom(0.85);
+    setPan({ x: 0, y: 0 });
+    setSelectedId(null);
+  };
+
+  const resetView = () => {
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
+    setLocalCategory(null);
+    setSelectedId(null);
   };
 
   const depCount = filtered.edges.filter((e) => e.type === 'dependency').length;
   const refCount = filtered.edges.filter((e) => e.type !== 'dependency').length;
 
+  const simNodes = simRef.current;
+  const clusters = clusterSimRef.current;
+  const cEdges = isClusterMode ? clusterEdges(clusters, filtered.edges) : [];
+  const posMap = new Map(simNodes.map((n) => [n.id, n]));
+  const clusterMap = new Map(clusters.map((c) => [c.id, c]));
+
+  const showEdge = (source: string, target: string) => {
+    if (zoom >= 0.55) return true;
+    if (!selectedId && !hoveredId) return false;
+    const focus = selectedId ?? hoveredId;
+    return source === focus || target === focus;
+  };
+
+  // tick dependency for re-render during simulation
+  void tick;
+
   return (
     <div className="flex flex-col lg:flex-row gap-4">
-      <div className="flex-1 min-w-0 rounded-xl border border-border overflow-hidden bg-card">
+      <div className="flex-1 min-w-0 rounded-xl border border-border overflow-hidden bg-card shadow-sm">
         {/* Toolbar */}
-        <div className="flex flex-wrap items-center gap-2 px-3 py-2 border-b border-border bg-muted/30">
+        <div className="flex flex-wrap items-center gap-2 px-3 py-2.5 border-b border-border bg-muted/20 backdrop-blur-sm">
           <button
             onClick={() => setShowDependencies((v) => !v)}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
-              showDependencies ? 'bg-amber-500/15 text-amber-700 dark:text-amber-400' : 'text-muted-foreground'
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition-all ${
+              showDependencies
+                ? 'bg-[#FFAB00]/15 text-[#B76E00] dark:text-[#FFAB00] ring-1 ring-[#FFAB00]/25'
+                : 'text-muted-foreground hover:bg-muted'
             }`}
           >
             <GitBranch className="w-3.5 h-3.5" /> Dependencies ({depCount})
           </button>
           <button
             onClick={() => setShowReferences((v) => !v)}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
-              showReferences ? 'bg-teal-500/15 text-teal-700 dark:text-teal-400' : 'text-muted-foreground'
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition-all ${
+              showReferences
+                ? 'bg-[#6554C0]/15 text-[#403294] dark:text-[#8777D9] ring-1 ring-[#6554C0]/25'
+                : 'text-muted-foreground hover:bg-muted'
             }`}
           >
             <Link2 className="w-3.5 h-3.5" /> References ({refCount})
           </button>
+
+          {isClusterMode && (
+            <span className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium bg-[#6554C0]/10 text-[#6554C0] dark:text-[#8777D9]">
+              <Layers className="w-3 h-3" /> Category overview — zoom in for documents
+            </span>
+          )}
+
+          {localCategory && (
+            <button
+              onClick={() => { setLocalCategory(null); setZoom(0.45); }}
+              className="text-[10px] px-2 py-1 rounded-lg border border-[#6554C0]/30 text-[#6554C0] dark:text-[#8777D9] hover:bg-[#6554C0]/5"
+            >
+              ← All categories
+            </button>
+          )}
+
           <div className="ml-auto flex items-center gap-1">
-            <button onClick={() => setZoom((z) => Math.max(0.4, z - 0.15))} className="p-1.5 rounded-md hover:bg-muted text-muted-foreground" title="Zoom out">
+            <button onClick={() => setZoom((z) => Math.max(0.35, z - 0.12))} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground" title="Zoom out">
               <ZoomOut className="w-4 h-4" />
             </button>
-            <span className="text-xs text-muted-foreground w-10 text-center">{Math.round(zoom * 100)}%</span>
-            <button onClick={() => setZoom((z) => Math.min(2.5, z + 0.15))} className="p-1.5 rounded-md hover:bg-muted text-muted-foreground" title="Zoom in">
+            <span className="text-xs text-muted-foreground w-10 text-center tabular-nums">{Math.round(zoom * 100)}%</span>
+            <button onClick={() => setZoom((z) => Math.min(2.2, z + 0.12))} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground" title="Zoom in">
               <ZoomIn className="w-4 h-4" />
             </button>
-            <button onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }} className="p-1.5 rounded-md hover:bg-muted text-muted-foreground" title="Reset view">
+            <button onClick={resetView} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground" title="Reset view">
               <Maximize2 className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        <canvas
-          ref={canvasRef}
-          className="w-full cursor-grab active:cursor-grabbing"
+        {/* Graph viewport */}
+        <div
+          ref={viewportRef}
+          className={`kg-rovo-viewport relative overflow-hidden ${isDark ? 'kg-rovo-dark' : 'kg-rovo-light'}`}
           style={{ height }}
-          onMouseMove={handleMouseMove}
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={() => { setIsDragging(false); setHoveredId(null); }}
+          onMouseDown={handlePanStart}
+          onMouseMove={handlePanMove}
+          onMouseUp={handlePanEnd}
+          onMouseLeave={handlePanEnd}
           onWheel={handleWheel}
-        />
+        >
+          <div
+            className="kg-rovo-canvas absolute inset-0 will-change-transform"
+            style={{
+              width: viewportW,
+              height,
+              transformOrigin: `${viewportW / 2}px ${height / 2}px`,
+              transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+              cursor: isDragging ? 'grabbing' : 'grab',
+            }}
+          >
+            {/* SVG edges layer */}
+            <svg
+              className="absolute inset-0 pointer-events-none"
+              width={viewportW}
+              height={height}
+              aria-hidden
+            >
+              <defs>
+                <marker id="kg-arrow-dep" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                  <path d="M0,0 L8,4 L0,8 Z" fill="#FFAB00" />
+                </marker>
+                <marker id="kg-arrow-dep-dim" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                  <path d="M0,0 L8,4 L0,8 Z" fill="rgba(255,171,0,0.45)" />
+                </marker>
+                <linearGradient id="kg-edge-ref-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#6554C0" stopOpacity="0.3" />
+                  <stop offset="50%" stopColor="#8777D9" stopOpacity="0.7" />
+                  <stop offset="100%" stopColor="#6554C0" stopOpacity="0.3" />
+                </linearGradient>
+              </defs>
 
-        <div className="px-3 py-2 border-t border-border text-[10px] text-muted-foreground flex flex-wrap gap-x-4 gap-y-1">
-          <span><span className="inline-block w-3 h-0.5 bg-amber-500 align-middle mr-1" /> Dependency (prerequisite → doc)</span>
-          <span><span className="inline-block w-3 h-0.5 bg-teal-500 align-middle mr-1" /> Cross-reference</span>
-          <span><span className="inline-block w-3 h-0.5 border-t border-dashed border-muted-foreground align-middle mr-1" /> Suggested link</span>
-          <span className="ml-auto">Click node for details · Drag canvas to pan</span>
+              {isClusterMode
+                ? cEdges.map((e, idx) => {
+                    const sn = clusterMap.get(e.source);
+                    const tn = clusterMap.get(e.target);
+                    if (!sn || !tn) return null;
+                    const { x1, y1, x2, y2 } = anchorPoints(sn.x, sn.y, CLUSTER_W, CLUSTER_H, tn.x, tn.y, CLUSTER_W, CLUSTER_H);
+                    const isDep = e.type === 'dependency';
+                    const stroke = isDep ? '#FFAB00' : '#8777D9';
+                    const opacity = Math.min(0.35 + e.weight * 0.08, 0.85);
+                    return (
+                      <path
+                        key={`ce-${idx}`}
+                        d={curvedPath(x1, y1, x2, y2, 0.18)}
+                        fill="none"
+                        stroke={stroke}
+                        strokeWidth={Math.min(1 + e.weight * 0.4, 3)}
+                        strokeOpacity={opacity}
+                        markerEnd={isDep ? 'url(#kg-arrow-dep-dim)' : undefined}
+                      />
+                    );
+                  })
+                : filtered.edges.map((e, idx) => {
+                    if (!showEdge(e.source, e.target)) return null;
+                    const sn = posMap.get(e.source);
+                    const tn = posMap.get(e.target);
+                    if (!sn || !tn) return null;
+
+                    const { w, h } = cardSize;
+                    const { x1, y1, x2, y2 } = anchorPoints(sn.x, sn.y, w, h, tn.x, tn.y, w, h);
+                    const isActive = selectedId && (e.source === selectedId || e.target === selectedId);
+                    const isHighlight = highlightIds.has(e.source) || highlightIds.has(e.target);
+                    const isDep = e.type === 'dependency';
+
+                    let stroke = isDep ? '#FFAB00' : '#8777D9';
+                    let opacity = isDark ? 0.35 : 0.45;
+                    let width = 1.5;
+                    let dash = '';
+
+                    if (isActive) {
+                      opacity = 1;
+                      width = 2.5;
+                      stroke = isDep ? '#FFAB00' : '#6554C0';
+                    } else if (isHighlight) {
+                      opacity = 0.75;
+                      width = 2;
+                    } else if (selectedId && !connectedToSelected.has(e.source) && !connectedToSelected.has(e.target)) {
+                      opacity = 0.12;
+                    }
+
+                    if (e.type === 'suggested') dash = '5 4';
+
+                    return (
+                      <path
+                        key={`e-${idx}-${e.source}-${e.target}`}
+                        d={curvedPath(x1, y1, x2, y2)}
+                        fill="none"
+                        stroke={stroke}
+                        strokeWidth={width}
+                        strokeOpacity={opacity}
+                        strokeDasharray={dash}
+                        markerEnd={isDep ? (isActive ? 'url(#kg-arrow-dep)' : 'url(#kg-arrow-dep-dim)') : undefined}
+                      />
+                    );
+                  })}
+            </svg>
+
+            {/* Cluster cards */}
+            {isClusterMode &&
+              clusters.map((cluster, i) => {
+                const style = categoryStyle(cluster.label, i);
+                const isHovered = hoveredId === cluster.id;
+                return (
+                  <button
+                    key={cluster.id}
+                    type="button"
+                    className={`kg-rovo-cluster absolute text-left transition-all duration-200 ${isHovered ? 'kg-rovo-card-active z-20' : 'z-10'}`}
+                    style={{
+                      left: cluster.x,
+                      top: cluster.y,
+                      width: CLUSTER_W,
+                      height: CLUSTER_H,
+                      ['--kg-accent' as string]: style.accent,
+                      ['--kg-glow' as string]: style.glow,
+                    }}
+                    onMouseEnter={() => setHoveredId(cluster.id)}
+                    onMouseLeave={() => setHoveredId(null)}
+                    onMouseDown={(ev) => ev.stopPropagation()}
+                    onClick={() => expandCluster(cluster.label)}
+                  >
+                    <div className="kg-rovo-cluster-inner h-full flex flex-col justify-between">
+                      <div className="flex items-start gap-2">
+                        <Layers className="w-4 h-4 shrink-0 mt-0.5 opacity-70" style={{ color: style.accent }} />
+                        <span className="text-sm font-semibold leading-tight line-clamp-2">{cluster.label}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] text-muted-foreground">{cluster.count} documents</span>
+                        <span className="text-[10px] font-medium px-2 py-0.5 rounded-full" style={{ background: `${style.accent}22`, color: style.accent }}>
+                          Explore →
+                        </span>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+
+            {/* Document cards */}
+            {!isClusterMode &&
+              simNodes.map((node, i) => {
+                const style = categoryStyle(node.group, i);
+                const isSelected = selectedId === node.id;
+                const isHovered = hoveredId === node.id;
+                const isDimmed =
+                  (highlightIds.size > 0 && !highlightIds.has(node.id)) ||
+                  (selectedId !== null && !connectedToSelected.has(node.id));
+                const compact = zoom < 0.72;
+                const { w, h } = cardSize;
+
+                return (
+                  <button
+                    key={node.id}
+                    type="button"
+                    className={`kg-rovo-card absolute text-left transition-all duration-200 ${
+                      isSelected ? 'kg-rovo-card-selected z-30' : isHovered ? 'kg-rovo-card-active z-20' : 'z-10'
+                    } ${isDimmed ? 'kg-rovo-card-dimmed' : ''} ${compact ? 'kg-rovo-card-compact' : ''}`}
+                    style={{
+                      left: node.x,
+                      top: node.y,
+                      width: w,
+                      height: h,
+                      ['--kg-accent' as string]: style.accent,
+                      ['--kg-glow' as string]: style.glow,
+                    }}
+                    onMouseEnter={() => setHoveredId(node.id)}
+                    onMouseLeave={() => setHoveredId(null)}
+                    onMouseDown={(ev) => ev.stopPropagation()}
+                    onClick={() => setSelectedId(node.id)}
+                  >
+                    <div className="kg-rovo-card-inner h-full flex flex-col justify-center gap-0.5 overflow-hidden">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <FileText className="w-3 h-3 shrink-0 opacity-60" style={{ color: style.accent }} />
+                        <span className={`font-medium leading-tight truncate ${compact ? 'text-[10px]' : 'text-xs'}`}>
+                          {truncate(node.label, compact ? 14 : 28)}
+                        </span>
+                      </div>
+                      {!compact && node.group && (
+                        <span className="text-[9px] text-muted-foreground truncate pl-[18px]">
+                          {truncate(node.group, 24)}
+                        </span>
+                      )}
+                      {node.degree > 0 && (
+                        <span
+                          className="absolute top-1.5 right-1.5 text-[9px] font-bold tabular-nums min-w-[16px] h-4 px-1 rounded-full flex items-center justify-center"
+                          style={{ background: `${style.accent}22`, color: style.accent }}
+                        >
+                          {node.degree}
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
+          </div>
+        </div>
+
+        <div className="px-3 py-2 border-t border-border text-[10px] text-muted-foreground flex flex-wrap gap-x-4 gap-y-1 bg-muted/10">
+          <span><span className="inline-block w-4 h-0.5 rounded bg-[#FFAB00] align-middle mr-1" /> Dependency</span>
+          <span><span className="inline-block w-4 h-0.5 rounded bg-[#8777D9] align-middle mr-1" /> Cross-reference</span>
+          <span><span className="inline-block w-4 h-0.5 border-t border-dashed border-muted-foreground align-middle mr-1" /> Suggested</span>
+          <span className="ml-auto">Click card for details · Drag to pan · Scroll to zoom</span>
         </div>
       </div>
 
-      {/* Detail panel */}
-      <aside className="w-full lg:w-80 shrink-0 rounded-xl border border-border bg-card p-4 flex flex-col gap-4 max-h-[720px] overflow-y-auto">
+      {/* Detail panel — Rovo-style */}
+      <aside className="w-full lg:w-80 shrink-0 rounded-xl border border-border bg-card/80 backdrop-blur-md p-4 flex flex-col gap-4 max-h-[720px] overflow-y-auto shadow-sm">
         {selectedNode ? (
           <>
-            <div>
-              <Badge variant="outline" className="mb-2 text-[10px]">{selectedNode.group || 'Uncategorized'}</Badge>
+            <div className="kg-rovo-detail-header rounded-lg p-3 border border-border/60">
+              <Badge
+                variant="outline"
+                className="mb-2 text-[10px] border-[#6554C0]/30 text-[#6554C0] dark:text-[#8777D9]"
+              >
+                {selectedNode.group || 'Uncategorized'}
+              </Badge>
               <h3 className="font-semibold text-foreground leading-snug">{selectedNode.label}</h3>
               <p className="text-xs text-muted-foreground mt-1 font-mono truncate">{selectedNode.slug}</p>
+              {selectedNode.wordCount != null && selectedNode.wordCount > 0 && (
+                <p className="text-[10px] text-muted-foreground mt-1">{selectedNode.wordCount.toLocaleString()} words</p>
+              )}
             </div>
             <Button
               size="sm"
-              className="w-full"
+              className="w-full bg-[#6554C0] hover:bg-[#5243AA] text-white"
               onClick={() => navigate(`/docs/${selectedNode.slug}`)}
             >
               Open document <ExternalLink className="w-3.5 h-3.5 ml-2" />
@@ -574,7 +771,7 @@ export default function KnowledgeGraphView({
 
             {nodeRelations.prerequisites.length > 0 && (
               <div>
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-2 flex items-center gap-1.5">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-[#B76E00] dark:text-[#FFAB00] mb-2 flex items-center gap-1.5">
                   <GitBranch className="w-3.5 h-3.5" /> Prerequisites ({nodeRelations.prerequisites.length})
                 </h4>
                 <ul className="space-y-1.5">
@@ -582,7 +779,7 @@ export default function KnowledgeGraphView({
                     <li key={`${e.source}-${e.target}`}>
                       <button
                         onClick={() => setSelectedId(e.source)}
-                        className="w-full text-left text-xs px-2.5 py-2 rounded-lg bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/15 text-foreground transition-colors"
+                        className="w-full text-left text-xs px-2.5 py-2 rounded-lg bg-[#FFAB00]/10 border border-[#FFAB00]/20 hover:bg-[#FFAB00]/15 text-foreground transition-colors"
                       >
                         <span className="text-muted-foreground">Read first → </span>
                         {nodeLabel(e.source)}
@@ -595,7 +792,7 @@ export default function KnowledgeGraphView({
 
             {nodeRelations.dependents.length > 0 && (
               <div>
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-2 flex items-center gap-1.5">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-[#B76E00] dark:text-[#FFAB00] mb-2 flex items-center gap-1.5">
                   <ArrowRight className="w-3.5 h-3.5" /> Dependents ({nodeRelations.dependents.length})
                 </h4>
                 <ul className="space-y-1.5">
@@ -615,7 +812,7 @@ export default function KnowledgeGraphView({
 
             {nodeRelations.references.length > 0 && (
               <div>
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-teal-600 dark:text-teal-400 mb-2 flex items-center gap-1.5">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-[#403294] dark:text-[#8777D9] mb-2 flex items-center gap-1.5">
                   <Link2 className="w-3.5 h-3.5" /> Related ({nodeRelations.references.length})
                 </h4>
                 <ul className="space-y-1.5">
@@ -625,7 +822,7 @@ export default function KnowledgeGraphView({
                       <li key={`${e.source}-${e.target}-ref`}>
                         <button
                           onClick={() => setSelectedId(otherId)}
-                          className="w-full text-left text-xs px-2.5 py-2 rounded-lg bg-teal-500/10 border border-teal-500/20 hover:bg-teal-500/15 text-foreground transition-colors"
+                          className="w-full text-left text-xs px-2.5 py-2 rounded-lg bg-[#6554C0]/10 border border-[#6554C0]/20 hover:bg-[#6554C0]/15 text-foreground transition-colors"
                         >
                           {nodeLabel(otherId)}
                           {e.label && e.label !== 'related' && (
@@ -647,13 +844,20 @@ export default function KnowledgeGraphView({
           </>
         ) : (
           <div className="text-center py-8 text-muted-foreground">
-            <GitBranch className="w-10 h-10 mx-auto mb-3 opacity-30" />
+            <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-[#6554C0]/10 flex items-center justify-center">
+              <GitBranch className="w-6 h-6 text-[#6554C0] dark:text-[#8777D9] opacity-70" />
+            </div>
             <p className="text-sm font-medium text-foreground mb-1">Select a document</p>
-            <p className="text-xs">Click any node to see its prerequisites, dependents, and related docs.</p>
-            <div className="mt-6 text-left space-y-2 text-xs">
+            <p className="text-xs">Click any card to explore prerequisites, dependents, and related docs.</p>
+            <div className="mt-6 text-left space-y-2 text-xs rounded-lg border border-border/60 p-3 bg-muted/20">
               <p><strong>{filtered.nodes.length}</strong> documents</p>
               <p><strong>{depCount}</strong> dependency edges</p>
               <p><strong>{refCount}</strong> cross-reference edges</p>
+              {isClusterMode && (
+                <p className="text-[#6554C0] dark:text-[#8777D9] pt-1 border-t border-border/40">
+                  Zoom in to see individual document cards
+                </p>
+              )}
             </div>
           </div>
         )}
