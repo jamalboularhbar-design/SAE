@@ -24,7 +24,7 @@ export default function UserDashboardPage() {
   return (
     <div className="container max-w-5xl py-8">
       <div className="flex items-center gap-3 mb-6">
-        <User className="w-6 h-6 text-blue-400" />
+        <User className="w-6 h-6 text-blue-600 dark:text-blue-400" />
         <div>
           <h1 className="text-2xl font-bold">My Dashboard</h1>
           <p className="text-sm text-muted-foreground">Welcome back, {user?.name || 'User'}</p>
@@ -42,44 +42,44 @@ export default function UserDashboardPage() {
         </div>
       ) : stats && (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          <Card className="bg-card/80 border-border/50">
+          <Card className="bg-card border-border shadow-sm">
             <CardContent className="pt-5 pb-4 text-center">
-              <BookOpen className="w-6 h-6 mx-auto mb-2 text-blue-400" />
+              <BookOpen className="w-6 h-6 mx-auto mb-2 text-blue-600 dark:text-blue-400" />
               <div className="text-3xl font-bold">{stats.totalDocsRead}</div>
               <div className="text-xs text-muted-foreground mt-1">Documents Read</div>
             </CardContent>
           </Card>
-          <Card className="bg-card/80 border-border/50">
+          <Card className="bg-card border-border shadow-sm">
             <CardContent className="pt-5 pb-4 text-center">
-              <Star className="w-6 h-6 mx-auto mb-2 text-yellow-400" />
+              <Star className="w-6 h-6 mx-auto mb-2 text-amber-600 dark:text-yellow-400" />
               <div className="text-3xl font-bold">{stats.totalBookmarks}</div>
               <div className="text-xs text-muted-foreground mt-1">Bookmarks</div>
             </CardContent>
           </Card>
-          <Card className="bg-card/80 border-border/50">
+          <Card className="bg-card border-border shadow-sm">
             <CardContent className="pt-5 pb-4 text-center">
-              <Brain className="w-6 h-6 mx-auto mb-2 text-purple-400" />
+              <Brain className="w-6 h-6 mx-auto mb-2 text-purple-600 dark:text-purple-400" />
               <div className="text-3xl font-bold">{stats.quizzesTaken}</div>
               <div className="text-xs text-muted-foreground mt-1">Quizzes Taken</div>
             </CardContent>
           </Card>
-          <Card className="bg-card/80 border-border/50">
+          <Card className="bg-card border-border shadow-sm">
             <CardContent className="pt-5 pb-4 text-center">
-              <Trophy className="w-6 h-6 mx-auto mb-2 text-orange-400" />
+              <Trophy className="w-6 h-6 mx-auto mb-2 text-orange-600 dark:text-orange-400" />
               <div className="text-3xl font-bold">{stats.averageQuizScore}%</div>
               <div className="text-xs text-muted-foreground mt-1">Avg Quiz Score</div>
             </CardContent>
           </Card>
-          <Card className="bg-card/80 border-border/50">
+          <Card className="bg-card border-border shadow-sm">
             <CardContent className="pt-5 pb-4 text-center">
-              <Flame className="w-6 h-6 mx-auto mb-2 text-red-400" />
+              <Flame className="w-6 h-6 mx-auto mb-2 text-red-600 dark:text-red-400" />
               <div className="text-3xl font-bold">{stats.currentStreak}</div>
               <div className="text-xs text-muted-foreground mt-1">Current Streak (days)</div>
             </CardContent>
           </Card>
-          <Card className="bg-card/80 border-border/50">
+          <Card className="bg-card border-border shadow-sm">
             <CardContent className="pt-5 pb-4 text-center">
-              <Flame className="w-6 h-6 mx-auto mb-2 text-amber-400" />
+              <Flame className="w-6 h-6 mx-auto mb-2 text-amber-600 dark:text-amber-400" />
               <div className="text-3xl font-bold">{stats.longestStreak}</div>
               <div className="text-xs text-muted-foreground mt-1">Longest Streak (days)</div>
             </CardContent>
