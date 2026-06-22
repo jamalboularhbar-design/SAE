@@ -35,7 +35,7 @@ export default function Header() {
     <header className="border-b border-border/50 bg-gradient-to-b from-card/80 to-card/40 backdrop-blur-md sticky top-0 z-50" role="banner">
       <div className="container flex items-center justify-between py-3 sm:py-5">
         <div className="flex items-center gap-2.5 sm:gap-4" role="heading" aria-level={1}>
-          <LogoMark size="lg" className="shadow-lg" />
+          <LogoMark size="lg" />
           <div className="min-w-0">
             <h1 className="font-display text-lg sm:text-2xl font-bold text-foreground truncate">{BRAND.productName}</h1>
             <p className="text-[10px] sm:text-xs text-muted-foreground tracking-wide hidden sm:block">{BRAND.tagline}</p>

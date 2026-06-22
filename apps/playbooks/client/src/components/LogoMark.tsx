@@ -15,13 +15,14 @@ type LogoMarkProps = {
   alt?: string;
 };
 
-/** Brand mark — uses the canonical PNG at /logo-mark.png */
+/** Brand mark — transparent PNG; no background box on dark UI */
 export default function LogoMark({ size = 'md', className, alt }: LogoMarkProps) {
   return (
     <img
       src="/logo-mark.png"
       alt={alt ?? BRAND.parentName}
-      className={cn(sizes[size], 'shrink-0 object-contain', className)}
+      className={cn(sizes[size], 'shrink-0 object-contain bg-transparent', className)}
+      decoding="async"
     />
   );
 }

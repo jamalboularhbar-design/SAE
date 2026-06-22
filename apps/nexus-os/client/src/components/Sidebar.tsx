@@ -54,7 +54,8 @@ export function Sidebar({
         <img
           src={`${import.meta.env.BASE_URL}logo-mark.png`}
           alt="Nexus OS"
-          className="w-9 h-9 shrink-0 object-contain"
+          className="w-9 h-9 shrink-0 object-contain bg-transparent"
+          decoding="async"
         />
         <div>
           <p className="font-extrabold leading-tight tracking-tight">Nexus OS</p>
