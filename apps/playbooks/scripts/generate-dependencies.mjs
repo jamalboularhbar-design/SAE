@@ -1,6 +1,6 @@
 /**
  * Auto-generate logical document dependencies for the Knowledge Graph.
- * Uses raw mysql2 — no drizzle schema import (works on Railway /app).
+ * Tuned: capped per-doc deps, prioritized learning paths, lighter foundation links.
  *
  * Usage: DATABASE_URL=... node scripts/generate-dependencies.mjs
  */
@@ -16,34 +16,42 @@ if (!DATABASE_URL) {
   process.exit(1);
 }
 
-const FOUNDATION_PATTERNS = [
-  "master-document-index",
-  "comprehensive-business-plan",
-  "business-plan",
-  "technical-architecture",
-  "go-to-market",
-  "gtm-sales-strategy",
-  "founder-s-operating-manual",
-  "founders-operating-manual",
-];
+const MAX_DEPS_PER_DOC = 5;
+const MIN_WORD_COUNT = 120;
 
 const LEARNING_PATHS = [
-  ["arg-builder-annual-planning", "arg-builder-strategic-planning-okrs", "arg-builder-okr-framework"],
-  ["arg-builder-data-driven-decisions", "arg-builder-startup-metrics-dashboard-design"],
-  ["arg-builder-mvp-roadmap", "arg-builder-product-roadmap-governance", "arg-builder-feature-prioritization", "arg-builder-product-launch"],
-  ["arg-builder-product-metrics", "arg-builder-product-analytics"],
-  ["arg-builder-technical-architecture", "arg-builder-scalability-infrastructure", "arg-builder-technical-debt"],
-  ["arg-builder-engineering-culture", "arg-builder-security-incident-response", "arg-builder-soc-2-compliance-roadmap"],
-  ["arg-builder-sales-enablement", "arg-builder-sales-demo", "arg-builder-comprehensive-sales-objection-library", "arg-builder-sales-forecasting"],
-  ["arg-builder-pricing-validation", "arg-builder-pricing-page-optimization", "arg-builder-pricing-experimentation"],
-  ["arg-builder-brand-identity", "arg-builder-content-marketing-playbook", "arg-builder-demand-generation-engine"],
-  ["arg-builder-competitive-positioning", "arg-builder-competitive-intelligence", "arg-builder-competitive-moat"],
-  ["arg-builder-customer-segmentation", "arg-builder-customer-journey-mapping", "arg-builder-customer-onboarding", "arg-builder-customer-success"],
-  ["arg-builder-customer-health-score", "arg-builder-churn-prevention", "arg-builder-customer-retention"],
-  ["arg-builder-financial-controls", "arg-builder-revenue-recognition", "arg-builder-revenue-forecasting"],
-  ["arg-builder-hiring-playbook", "arg-builder-employee-onboarding", "arg-builder-performance-review"],
-  ["arg-builder-partner-program-design", "arg-builder-channel-partner-enablement", "arg-builder-partner-ecosystem"],
+  ["annual-planning", "strategic-planning", "okr-framework"],
+  ["data-driven-decisions", "startup-metrics-dashboard", "saas-benchmarks"],
+  ["mvp-roadmap", "product-roadmap-governance", "feature-prioritization", "product-launch"],
+  ["product-metrics", "product-analytics", "product-analytics-framework"],
+  ["technical-architecture", "scalability-infrastructure", "technical-debt"],
+  ["engineering-culture", "security-incident-response", "soc-2-compliance"],
+  ["sales-enablement", "sales-demo", "comprehensive-sales-objection", "sales-forecasting"],
+  ["pricing-validation", "pricing-page-optimization", "pricing-experimentation"],
+  ["brand-identity", "content-marketing", "demand-generation"],
+  ["competitive-positioning", "competitive-intelligence", "competitive-moat"],
+  ["customer-segmentation", "customer-journey", "customer-onboarding", "customer-success"],
+  ["customer-health-score", "churn-prevention", "customer-retention"],
+  ["financial-controls", "revenue-recognition", "revenue-forecasting"],
+  ["hiring-playbook", "employee-onboarding", "performance-review"],
+  ["partner-program", "channel-partner-enablement", "partner-ecosystem"],
 ];
+
+const CATEGORY_FOUNDATION = {
+  Sales: ["go-to-market", "gtm-sales", "sales-enablement"],
+  Marketing: ["brand-identity", "demand-generation"],
+  "Customer Success": ["customer-segmentation", "customer-onboarding"],
+  Product: ["mvp-roadmap", "product-roadmap"],
+  Engineering: ["technical-architecture"],
+  "Finance & Legal": ["financial-controls", "business-plan"],
+  "Strategy & Operations": ["business-plan", "okr-framework"],
+  "People & Culture": ["hiring-playbook", "culture-values"],
+  "AI & Developer": ["ai-ml-governance", "technical-architecture"],
+  "Security & Compliance": ["security-incident", "compliance-privacy"],
+  "Partnerships & GTM": ["partner-program", "gtm-partnerships"],
+  "Data & Analytics": ["data-analytics", "startup-metrics"],
+  "Revenue & Pricing": ["pricing-validation", "unit-economics"],
+};
 
 function slugifyTitle(title) {
   return title
@@ -67,29 +75,27 @@ function extractPrerequisiteSection(content) {
   return match ? match[1] : "";
 }
 
-function addDep(deps, seen, documentSlug, prerequisiteSlug, reason) {
-  if (!documentSlug || !prerequisiteSlug || documentSlug === prerequisiteSlug) return;
-  const key = `${prerequisiteSlug}->${documentSlug}`;
-  if (seen.has(key)) return;
-  seen.add(key);
-  deps.push({ documentSlug, prerequisiteSlug, reason });
+function depPriority(reason) {
+  if (reason.startsWith("Learning path")) return 1;
+  if (reason.startsWith("Content:")) return 2;
+  if (reason.startsWith("Master Index")) return 3;
+  if (reason.startsWith("Foundation:")) return 4;
+  return 5;
 }
 
 async function main() {
   const connection = await mysql.createConnection(DATABASE_URL);
 
-  console.log("Fetching published documents...");
-  const [docs] = await connection.execute(
-    "SELECT id, slug, title, category, content FROM documents WHERE status = 'published'"
+  const [rows] = await connection.execute(
+    "SELECT id, slug, title, category, content, wordCount FROM documents WHERE status = 'published'"
   );
+  const docs = rows.filter((d) => (d.wordCount ?? 0) >= MIN_WORD_COUNT || (d.content?.length ?? 0) > 800);
 
-  console.log(`Found ${docs.length} documents`);
+  console.log(`Found ${docs.length} substantive documents`);
 
   const slugSet = new Set(docs.map((d) => d.slug));
   const allSlugs = docs.map((d) => d.slug);
-
-  const foundationSlugs = FOUNDATION_PATTERNS.map((p) => findSlugMatch(p, slugSet, allSlugs)).filter(Boolean);
-  console.log(`Foundation hubs: ${foundationSlugs.join(", ") || "(none matched)"}`);
+  const titleToSlug = new Map(docs.map((d) => [d.title.toLowerCase(), d.slug]));
 
   await connection.execute("DELETE FROM document_dependencies");
   console.log("Cleared existing dependencies");
@@ -97,85 +103,72 @@ async function main() {
   const deps = [];
   const seen = new Set();
 
-  // Strategy 1: Learning paths
-  console.log("Applying curated learning paths...");
+  const addDep = (documentSlug, prerequisiteSlug, reason) => {
+    if (!documentSlug || !prerequisiteSlug || documentSlug === prerequisiteSlug) return;
+    const key = `${prerequisiteSlug}->${documentSlug}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    deps.push({ documentSlug, prerequisiteSlug, reason, priority: depPriority(reason) });
+  };
+
+  // Learning paths
+  console.log("Applying learning paths...");
   for (const chain of LEARNING_PATHS) {
     const resolved = chain.map((p) => findSlugMatch(p, slugSet, allSlugs)).filter(Boolean);
     for (let i = 1; i < resolved.length; i++) {
-      addDep(deps, seen, resolved[i], resolved[i - 1], `Learning path: ${chain[i]}`);
+      addDep(resolved[i], resolved[i - 1], `Learning path: ${chain[i]}`);
     }
   }
-  console.log(`  ${deps.length} path dependencies`);
+  console.log(`  ${deps.length} path deps`);
 
-  // Strategy 2: Foundation hubs
+  // Category foundation (1 per doc max)
   const foundationCount = deps.length;
-  const CATEGORY_FOUNDATION = {
-    Sales: ["go-to-market", "gtm-sales"],
-    Marketing: ["go-to-market", "brand-identity"],
-    "Customer Success": ["customer-segmentation", "customer-journey"],
-    Product: ["mvp-roadmap", "product-roadmap"],
-    Engineering: ["technical-architecture", "engineering-culture"],
-    "Finance & Legal": ["financial-controls", "business-plan"],
-    "Strategy & Operations": ["comprehensive-business-plan", "okr"],
-    "People & Culture": ["hiring-playbook", "culture"],
-    "AI & Developer": ["ai-ml", "technical-architecture"],
-    "Security & Compliance": ["security-incident", "compliance-privacy"],
-    "Partnerships & GTM": ["partner-program", "gtm-partnerships"],
-    "Data & Analytics": ["data-analytics", "startup-metrics"],
-  };
-
-  const indexSlug = foundationSlugs.find((s) => s.includes("master-document-index"));
+  const indexSlug = findSlugMatch("master-document-index", slugSet, allSlugs);
 
   for (const doc of docs) {
-    if (indexSlug && doc.slug !== indexSlug) {
-      addDep(deps, seen, doc.slug, indexSlug, "Foundation: Master Document Index");
+    if (indexSlug && doc.slug !== indexSlug && doc.category !== "Strategy & Operations") {
+      addDep(doc.slug, indexSlug, "Foundation: Master Document Index");
     }
-    const patterns = CATEGORY_FOUNDATION[doc.category] ?? ["comprehensive-business-plan"];
-    for (const pattern of patterns.slice(0, 1)) {
+    const patterns = CATEGORY_FOUNDATION[doc.category] ?? ["business-plan"];
+    for (const pattern of patterns) {
       const anchor = findSlugMatch(pattern, slugSet, allSlugs);
-      if (anchor && anchor !== doc.slug && anchor !== indexSlug) {
-        addDep(deps, seen, doc.slug, anchor, `Foundation: ${doc.category}`);
+      if (anchor && anchor !== doc.slug) {
+        addDep(doc.slug, anchor, `Foundation: ${doc.category}`);
         break;
       }
     }
   }
-  console.log(`  +${deps.length - foundationCount} foundation links`);
+  console.log(`  +${deps.length - foundationCount} foundation deps`);
 
-  // Strategy 3 & 4: Content-based prerequisites
+  // Content prerequisites (prerequisite section only — high confidence)
   const contentCount = deps.length;
-  console.log("Scanning content for prerequisite signals...");
-  const signalWords = /\b(builds on|requires|prerequisite|before reading|see also|depends on|start with)\b/i;
-
   for (const doc of docs) {
     if (!doc.content) continue;
     const prereqBlock = extractPrerequisiteSection(doc.content);
-    const searchZones = [prereqBlock, doc.content.slice(0, 2000)].filter(Boolean);
+    if (!prereqBlock) continue;
+    const blockLower = prereqBlock.toLowerCase();
 
-    for (const zone of searchZones) {
-      const zoneLower = zone.toLowerCase();
-      const hasSignal = signalWords.test(zone) || zone === prereqBlock;
-
-      for (const other of docs) {
-        if (other.id === doc.id) continue;
-        const titleLower = other.title.toLowerCase();
-        if (titleLower.length < 12) continue;
-        if (zoneLower.includes(titleLower) && (hasSignal || zone === prereqBlock)) {
-          addDep(deps, seen, doc.slug, other.slug, `Content: mentions "${other.title}"`);
-        }
-        if (zone.includes(`/docs/${other.slug}`)) {
-          addDep(deps, seen, doc.slug, other.slug, `Content: links to /docs/${other.slug}`);
-        }
+    for (const other of docs) {
+      if (other.id === doc.id) continue;
+      const titleLower = other.title.toLowerCase();
+      if (titleLower.length < 10) continue;
+      if (blockLower.includes(titleLower)) {
+        addDep(doc.slug, other.slug, `Content: prerequisite mentions "${other.title}"`);
+      }
+      if (prereqBlock.includes(`/docs/${other.slug}`)) {
+        addDep(doc.slug, other.slug, `Content: links to /docs/${other.slug}`);
       }
     }
   }
-  console.log(`  +${deps.length - contentCount} content-based dependencies`);
+  console.log(`  +${deps.length - contentCount} content deps`);
 
-  // Strategy 5: Master Document Index sequential order
+  // Master index sequential (same section only — every 5th to reduce noise)
   const indexDoc = docs.find((d) => d.slug.includes("master-document-index"));
   if (indexDoc?.content) {
     const indexCount = deps.length;
     const fileMatches = [...indexDoc.content.matchAll(/\|\s*\d+\s*\|\s*([^|]+)\|\s*([^|]+)\|/g)];
     let prevSlug = null;
+    let n = 0;
 
     for (const row of fileMatches) {
       const docName = row[1].trim();
@@ -185,21 +178,35 @@ async function main() {
         findSlugMatch(slugifyTitle(docName), slugSet, allSlugs);
 
       if (slug) {
-        if (prevSlug && prevSlug !== slug) {
-          addDep(deps, seen, slug, prevSlug, "Master Index: sequential");
+        n++;
+        if (prevSlug && prevSlug !== slug && n % 3 === 0) {
+          addDep(slug, prevSlug, "Master Index: sequential");
         }
         prevSlug = slug;
       }
     }
-    console.log(`  +${deps.length - indexCount} index-order dependencies`);
+    console.log(`  +${deps.length - indexCount} index deps`);
   }
 
-  console.log(`\nTotal dependencies: ${deps.length}`);
+  // Cap dependencies per document (keep highest priority)
+  const byTarget = {};
+  for (const d of deps) {
+    if (!byTarget[d.documentSlug]) byTarget[d.documentSlug] = [];
+    byTarget[d.documentSlug].push(d);
+  }
 
-  if (deps.length > 0) {
+  const capped = [];
+  for (const list of Object.values(byTarget)) {
+    list.sort((a, b) => a.priority - b.priority);
+    capped.push(...list.slice(0, MAX_DEPS_PER_DOC));
+  }
+
+  console.log(`\nTotal dependencies: ${capped.length} (capped from ${deps.length})`);
+
+  if (capped.length > 0) {
     const batchSize = 100;
-    for (let i = 0; i < deps.length; i += batchSize) {
-      const batch = deps.slice(i, i + batchSize);
+    for (let i = 0; i < capped.length; i += batchSize) {
+      const batch = capped.slice(i, i + batchSize);
       const placeholders = batch.map(() => "(?, ?)").join(", ");
       const values = batch.flatMap((d) => [d.documentSlug, d.prerequisiteSlug]);
       await connection.execute(
@@ -210,17 +217,14 @@ async function main() {
   }
 
   const byReason = {};
-  for (const d of deps) {
+  for (const d of capped) {
     const type = d.reason.split(":")[0];
     byReason[type] = (byReason[type] || 0) + 1;
   }
-  console.log("Breakdown:");
-  for (const [type, count] of Object.entries(byReason)) {
-    console.log(`  ${type}: ${count}`);
-  }
+  console.log("Breakdown:", byReason);
 
   await connection.end();
-  console.log("\nDone! Dependency edges ready for Knowledge Graph.");
+  console.log("\nDone! Dependencies ready for Knowledge Graph.");
 }
 
 main().catch((err) => {

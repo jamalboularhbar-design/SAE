@@ -1,6 +1,6 @@
 /**
  * Auto-generate document cross-references for the Knowledge Graph.
- * Uses raw mysql2 — no drizzle schema import (works on Railway /app).
+ * Tuned for quality over quantity — fewer, higher-confidence edges.
  *
  * Usage: DATABASE_URL=... node scripts/generate-cross-refs.mjs
  */
@@ -16,68 +16,86 @@ if (!DATABASE_URL) {
   process.exit(1);
 }
 
+const MIN_WORD_COUNT = 120; // skip stub-thin docs
+const MAX_REFS_PER_DOC = 12;
+
 async function main() {
   const connection = await mysql.createConnection(DATABASE_URL);
 
-  console.log("Fetching all published documents...");
-  const [docs] = await connection.execute(
-    "SELECT id, slug, title, category, content FROM documents WHERE status = 'published'"
+  console.log("Fetching published documents...");
+  const [rows] = await connection.execute(
+    "SELECT id, slug, title, category, content, wordCount FROM documents WHERE status = 'published'"
   );
 
-  console.log(`Found ${docs.length} published documents`);
+  const docs = rows.filter((d) => (d.wordCount ?? 0) >= MIN_WORD_COUNT || (d.content?.length ?? 0) > 800);
+  console.log(`Found ${docs.length} substantive documents (${rows.length} total published)`);
 
   await connection.execute("DELETE FROM document_cross_references");
   console.log("Cleared existing cross-references");
 
   const crossRefs = [];
   const seen = new Set();
+  const perDocCount = new Map();
 
   const addRef = (sourceId, targetId, score, reason) => {
     if (sourceId === targetId) return;
-    const key = `${Math.min(sourceId, targetId)}-${Math.max(sourceId, targetId)}`;
+    const key = `${sourceId}->${targetId}`;
     if (seen.has(key)) return;
+
+    const srcCount = perDocCount.get(sourceId) ?? 0;
+    if (srcCount >= MAX_REFS_PER_DOC) return;
+
     seen.add(key);
-    crossRefs.push({ sourceDocId: sourceId, targetDocId: targetId, relevanceScore: score, reason, status: "approved" });
+    perDocCount.set(sourceId, srcCount + 1);
+    crossRefs.push({
+      sourceDocId: sourceId,
+      targetDocId: targetId,
+      relevanceScore: score,
+      reason,
+      status: "approved",
+    });
   };
 
-  // Strategy 1: Title mentions in content
-  console.log("Scanning for title mentions in content...");
+  const idToDoc = new Map(docs.map((d) => [d.id, d]));
+
+  // Strategy 1: Title mentions (high confidence)
+  console.log("Scanning for title mentions...");
   for (const doc of docs) {
     if (!doc.content) continue;
     const contentLower = doc.content.toLowerCase();
     for (const other of docs) {
       if (other.id === doc.id) continue;
-      const titleWords = other.title.split(/\s+/).length;
-      if (titleWords < 3) continue;
+      if (other.title.split(/\s+/).length < 4) continue;
       if (contentLower.includes(other.title.toLowerCase())) {
-        addRef(doc.id, other.id, 0.9, `Title "${other.title}" mentioned in content`);
+        addRef(doc.id, other.id, 0.92, `Title "${other.title}" mentioned in content`);
       }
     }
   }
-  console.log(`  Found ${crossRefs.length} title-mention links`);
+  console.log(`  ${crossRefs.length} title-mention links`);
 
-  // Strategy 2: Slug mentions
-  const slugRefCount = crossRefs.length;
-  console.log("Scanning for slug references in content...");
+  // Strategy 2: Slug / docs links
+  const slugCount = crossRefs.length;
   for (const doc of docs) {
     if (!doc.content) continue;
     for (const other of docs) {
       if (other.id === doc.id) continue;
-      if (doc.content.includes(`/docs/${other.slug}`) || doc.content.includes(`href="${other.slug}"`)) {
-        addRef(doc.id, other.id, 0.85, `Link to /docs/${other.slug}`);
+      if (
+        doc.content.includes(`/docs/${other.slug}`) ||
+        doc.content.includes(`(${other.slug})`) ||
+        doc.content.includes(`docs/${other.slug}`)
+      ) {
+        addRef(doc.id, other.id, 0.88, `Link to /docs/${other.slug}`);
       }
     }
   }
-  console.log(`  Found ${crossRefs.length - slugRefCount} slug-reference links`);
+  console.log(`  +${crossRefs.length - slugCount} slug links`);
 
-  // Strategy 3: Shared title keywords
-  const keywordRefCount = crossRefs.length;
-  console.log("Analyzing shared title keywords...");
+  // Strategy 3: Shared keywords (stricter — 3+ shared, same category bonus)
+  const kwCount = crossRefs.length;
   const stopWords = new Set([
-    "about", "after", "again", "being", "below", "between", "could", "doing", "during",
-    "every", "first", "found", "great", "guide", "their", "there", "these", "thing",
-    "those", "under", "using", "where", "which", "while", "would", "other", "process",
-    "system", "management", "operational", "reference",
+    "about", "guide", "their", "there", "these", "those", "under", "using", "which",
+    "while", "would", "other", "process", "system", "management", "operational", "reference",
+    "builder", "playbook", "framework", "strategy",
   ]);
 
   const getKeywords = (title) =>
@@ -89,20 +107,22 @@ async function main() {
 
   for (let i = 0; i < docs.length; i++) {
     const kwA = getKeywords(docs[i].title);
-    if (kwA.length === 0) continue;
+    if (kwA.length < 2) continue;
     for (let j = i + 1; j < docs.length; j++) {
       const kwB = getKeywords(docs[j].title);
       const shared = kwA.filter((w) => kwB.includes(w));
-      if (shared.length >= 2) {
-        addRef(docs[i].id, docs[j].id, 0.6 + shared.length * 0.05, `Shared keywords: ${shared.join(", ")}`);
+      if (shared.length >= 3) {
+        const sameCat = docs[i].category === docs[j].category;
+        const score = 0.55 + shared.length * 0.04 + (sameCat ? 0.08 : 0);
+        addRef(docs[i].id, docs[j].id, Math.min(score, 0.85), `Shared keywords: ${shared.slice(0, 4).join(", ")}`);
+        addRef(docs[j].id, docs[i].id, Math.min(score, 0.85), `Shared keywords: ${shared.slice(0, 4).join(", ")}`);
       }
     }
   }
-  console.log(`  Found ${crossRefs.length - keywordRefCount} keyword-overlap links`);
+  console.log(`  +${crossRefs.length - kwCount} keyword links`);
 
-  // Strategy 4: Same category neighbors
-  const catRefCount = crossRefs.length;
-  console.log("Adding same-category neighbor links...");
+  // Strategy 4: Same category — 1 adjacent neighbor only (catalog order by title)
+  const catCount = crossRefs.length;
   const byCategory = {};
   for (const doc of docs) {
     if (!byCategory[doc.category]) byCategory[doc.category] = [];
@@ -110,52 +130,54 @@ async function main() {
   }
 
   for (const [cat, catDocs] of Object.entries(byCategory)) {
-    if (catDocs.length < 2) continue;
+    catDocs.sort((a, b) => a.title.localeCompare(b.title));
     for (let i = 0; i < catDocs.length; i++) {
-      const neighbors = [catDocs[i - 1], catDocs[i + 1], catDocs[i + 2]].filter(Boolean);
-      for (const neighbor of neighbors) {
-        addRef(catDocs[i].id, neighbor.id, 0.4, `Same category: ${cat}`);
+      const neighbor = catDocs[i + 1];
+      if (neighbor) {
+        addRef(catDocs[i].id, neighbor.id, 0.42, `Same category: ${cat}`);
       }
     }
   }
-  console.log(`  Found ${crossRefs.length - catRefCount} same-category links`);
+  console.log(`  +${crossRefs.length - catCount} category links`);
 
-  console.log(`\nTotal cross-references to insert: ${crossRefs.length}`);
+  // Strategy 5: Related section in content lists peer titles
+  const relatedCount = crossRefs.length;
+  for (const doc of docs) {
+    const block = doc.content?.match(/## Related Playbooks[\s\S]*?(?=\n## |\n---|\Z)/i)?.[0];
+    if (!block) continue;
+    for (const other of docs) {
+      if (other.id === doc.id) continue;
+      if (block.toLowerCase().includes(other.title.toLowerCase())) {
+        addRef(doc.id, other.id, 0.75, `Related playbooks section`);
+      }
+    }
+  }
+  console.log(`  +${crossRefs.length - relatedCount} related-section links`);
+
+  console.log(`\nTotal cross-references: ${crossRefs.length}`);
 
   if (crossRefs.length > 0) {
     const batchSize = 100;
     for (let i = 0; i < crossRefs.length; i += batchSize) {
       const batch = crossRefs.slice(i, i + batchSize);
       const placeholders = batch.map(() => "(?, ?, ?, ?, ?)").join(", ");
-      const values = batch.flatMap((r) => [
-        r.sourceDocId,
-        r.targetDocId,
-        r.relevanceScore,
-        r.reason,
-        r.status,
-      ]);
+      const values = batch.flatMap((r) => [r.sourceDocId, r.targetDocId, r.relevanceScore, r.reason, r.status]);
       await connection.execute(
         `INSERT INTO document_cross_references (sourceDocId, targetDocId, relevanceScore, reason, status) VALUES ${placeholders}`,
         values
       );
-      console.log(`  Inserted batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(crossRefs.length / batchSize)}`);
     }
   }
-
-  console.log("\nDone! Knowledge Graph cross-references populated.");
-  console.log(`Summary: ${crossRefs.length} connections across ${docs.length} documents`);
 
   const byReason = {};
   for (const ref of crossRefs) {
     const type = ref.reason.split(":")[0].split('"')[0].trim();
     byReason[type] = (byReason[type] || 0) + 1;
   }
-  console.log("Breakdown:");
-  for (const [type, count] of Object.entries(byReason)) {
-    console.log(`  ${type}: ${count}`);
-  }
+  console.log("Breakdown:", byReason);
 
   await connection.end();
+  console.log("\nDone! Cross-references populated.");
 }
 
 main().catch((err) => {
