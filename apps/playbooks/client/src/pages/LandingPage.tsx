@@ -530,8 +530,8 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="py-12 px-4 pb-28 sm:pb-32 border-t border-border/60">
         <div className="max-w-2xl mx-auto flex flex-col items-center text-center gap-4">
-          <div className="flex items-center justify-center gap-3">
-            <LogoMark size="sm" />
+          <div className="flex flex-col items-center gap-2">
+            <LogoMark size="md" />
             <span className="text-sm text-muted-foreground">
               {BRAND.productName} — {BRAND.tagline.toLowerCase()}.
             </span>

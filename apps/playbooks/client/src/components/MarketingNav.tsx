@@ -76,18 +76,18 @@ export default function MarketingNav({
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-xl border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="h-16 flex items-center gap-4 lg:gap-6">
-          {/* Brand */}
-          <div className="flex items-center gap-2.5 shrink-0 min-w-0">
+          {/* Brand — logo must not shrink (min-w-0 only on text) */}
+          <div className="flex items-center gap-3 shrink-0">
             {backHref ? (
-              <Link href={backHref} className="flex items-center gap-2.5 min-w-0">
-                <LogoMark />
+              <Link href={backHref} className="flex items-center gap-3 min-w-0">
+                <LogoMark size="nav" />
                 <span className="text-lg sm:text-xl font-bold tracking-tight truncate">
                   {title ?? BRAND.parentName}
                 </span>
               </Link>
             ) : (
               <>
-                <LogoMark />
+                <LogoMark size="nav" />
                 <div className="min-w-0 leading-tight">
                   <span className="block text-lg sm:text-xl font-bold tracking-tight truncate">
                     {title ?? BRAND.parentName}
