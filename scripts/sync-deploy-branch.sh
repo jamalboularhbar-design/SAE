@@ -18,12 +18,20 @@ cp -a "$PLAYBOOKS/." "$WORK/"
 # Railway. Exclude transient/local-only dirs.
 if [ -d "$NEXUS_OS" ]; then
   mkdir -p "$WORK/nexus-os"
-  rsync -a \
-    --exclude='node_modules' \
-    --exclude='.data' \
-    --exclude='dist' \
-    --exclude='.git' \
-    "$NEXUS_OS/" "$WORK/nexus-os/"
+  if command -v rsync >/dev/null 2>&1; then
+    rsync -a \
+      --exclude='node_modules' \
+      --exclude='.data' \
+      --exclude='dist' \
+      --exclude='.git' \
+      "$NEXUS_OS/" "$WORK/nexus-os/"
+  else
+    tar -C "$NEXUS_OS" -cf - . \
+      --exclude='node_modules' \
+      --exclude='.data' \
+      --exclude='dist' \
+      --exclude='.git' 2>/dev/null | tar -C "$WORK/nexus-os" -xf -
+  fi
 fi
 
 cd "$ROOT"
