@@ -153,7 +153,3 @@ This document defines ARG-Builder's framework for making decisions based on evid
 | Documentation | Pre-registered in experiment tracker |
 | Analysis | Completed within 1 week of experiment end |
 | Decision | Ship, iterate, or kill — decided within 48h of analysis |
-
----
-
-*Document prepared by Manus AI for ARG-Builder strategic operations.*

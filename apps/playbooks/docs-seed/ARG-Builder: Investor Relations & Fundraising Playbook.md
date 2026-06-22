@@ -188,7 +188,3 @@ Send on the 5th of each month. Keep concise (< 500 words). Include:
 | Quarterly | Board meeting | 2 hours | Full board deck (12 slides) |
 | Annual | Strategy session | Half-day | Long-term planning, market review |
 | Ad-hoc | Phone/video | 30 min | Major decisions, urgent issues |
-
----
-
-*Document prepared by Manus AI for ARG-Builder fundraising and investor relations.*

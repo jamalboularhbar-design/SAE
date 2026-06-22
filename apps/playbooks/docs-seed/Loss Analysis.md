@@ -167,7 +167,3 @@ This document defines ARG-Builder's win/loss analysis program — the systematic
 | Crayon / Kompyte | Competitive intelligence monitoring | $1K–$3K/month |
 | CRM (custom fields) | Deal-level win/loss data capture | Included |
 | Notion/Confluence | Battle cards and competitive wiki | Included |
-
----
-
-*Document prepared by Manus AI for ARG-Builder competitive intelligence operations.*

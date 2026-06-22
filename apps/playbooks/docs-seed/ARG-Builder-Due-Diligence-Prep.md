@@ -312,7 +312,3 @@ Define in advance:
 - Schedule reference calls in advance
 - Have legal counsel on standby for term sheet review
 - Create urgency with competing interest (if genuine)
-
----
-
-*Document prepared by Manus AI. Due diligence preparation package designed for ARG-Builder fundraising success.*

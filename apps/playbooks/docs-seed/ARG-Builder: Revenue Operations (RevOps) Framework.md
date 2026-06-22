@@ -244,7 +244,3 @@ This document defines ARG-Builder's Revenue Operations framework — the unified
 | Monthly business review | Monthly | All leadership | Performance vs. plan |
 | Quarterly planning | Quarterly | All revenue teams | Goals, territories, compensation |
 | Annual planning | Annually | All leadership | Strategy, budgets, headcount |
-
----
-
-*Document prepared by Manus AI for ARG-Builder revenue operations.*

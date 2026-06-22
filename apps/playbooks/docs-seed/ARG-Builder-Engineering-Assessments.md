@@ -307,7 +307,3 @@ Technical assessments determine whether engineering candidates can perform the a
 | Compensation | Paid for take-home assessments (> 2 hours) |
 | IP clarity | Candidate retains IP of assessment work |
 | Feedback | Constructive feedback available on request |
-
----
-
-*Document prepared by Manus AI. Engineering technical assessment framework designed for ARG-Builder talent acquisition with rigor and fairness.*

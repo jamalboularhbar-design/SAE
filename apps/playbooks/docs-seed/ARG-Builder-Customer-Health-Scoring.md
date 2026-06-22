@@ -325,7 +325,3 @@ Health Score = (Product Usage Score / 50 × 35) +
 | CSM override tracking | CSM disagrees with score | Metric refinement | Monthly |
 | New signal discovery | Patterns in churned/expanded accounts | New metrics added | Quarterly |
 | Threshold optimization | Score-to-outcome correlation | Threshold adjustments | Semi-annual |
-
----
-
-*Document prepared by Manus AI. Customer health scoring model designed for ARG-Builder proactive customer success and revenue protection.*

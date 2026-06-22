@@ -218,7 +218,3 @@ This document defines ARG-Builder's sales compensation plan — the quota struct
 | < 50% attainment (2 consecutive quarters) | Formal PIP with specific targets | 45 days |
 | < 50% attainment (3 consecutive quarters) | Separation | Immediate |
 | < 30% attainment (any quarter) | Immediate PIP | 30 days |
-
----
-
-*Document prepared by Manus AI for ARG-Builder sales compensation operations.*

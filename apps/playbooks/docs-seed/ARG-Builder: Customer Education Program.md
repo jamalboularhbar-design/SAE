@@ -208,7 +208,3 @@ Each course follows a consistent structure:
 | Accessibility | Alt text, captions, transcript for video |
 | Freshness | Reviewed and updated within 90 days of product changes |
 | Feedback | Helpfulness rating visible, feedback mechanism on every page |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer education operations.*

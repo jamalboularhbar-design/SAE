@@ -185,7 +185,3 @@ The QBR is the primary vehicle for identifying and advancing expansion opportuni
 | Time to First Expansion | < 6 months | Days from initial contract to first expansion |
 | Expansion Win Rate | > 60% | Expansion deals won / expansion opportunities created |
 | CSM-Sourced Pipeline | > $200K/quarter | Pipeline value from CSM-identified opportunities |
-
----
-
-*Document prepared by Manus AI for ARG-Builder revenue growth operations.*

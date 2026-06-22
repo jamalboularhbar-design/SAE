@@ -210,7 +210,3 @@ This document defines ARG-Builder's crisis communications framework — the prot
 | Communication effectiveness | 15 min | Communications + CS |
 | Corrective actions (assign owners) | 20 min | Full crisis team |
 | Process improvements | 10 min | Crisis Lead |
-
----
-
-*Document prepared by Manus AI for ARG-Builder crisis communications operations.*

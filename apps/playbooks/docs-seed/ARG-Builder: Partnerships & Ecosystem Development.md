@@ -180,7 +180,3 @@ This document defines ARG-Builder's partnership and ecosystem strategy — the s
 | Custom revenue share | VP Partnerships + CFO | CEO |
 | Partner termination | VP Partnerships | CEO |
 | Co-development commitment | VP Product + VP Partnerships | CEO |
-
----
-
-*Document prepared by Manus AI for ARG-Builder business development.*

@@ -273,7 +273,3 @@ The greatest threat to a startup's culture is not external competition but inter
 | Higher productivity | 20–30% improvement (engaged vs. disengaged) |
 | Better customer outcomes | Correlated with employee engagement |
 | Innovation | 3x more likely from psychologically safe teams |
-
----
-
-*Document prepared by Manus AI. Culture scaling playbook designed for ARG-Builder preserving and evolving organizational culture through hypergrowth stages.*

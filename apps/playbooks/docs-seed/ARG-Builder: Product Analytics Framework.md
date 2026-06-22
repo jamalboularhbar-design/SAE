@@ -184,7 +184,3 @@ This document defines ARG-Builder's product analytics framework — the metrics,
 | Monthly product board | Leadership | Monthly | North Star, cohorts, feature adoption |
 | Quarterly deep-dive | Board | Quarterly | Strategic metrics, competitive position |
 | Annual product review | All company | Annually | Year in review, product vision |
-
----
-
-*Document prepared by Manus AI for ARG-Builder product analytics operations.*

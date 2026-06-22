@@ -300,7 +300,3 @@ The pricing page is the single highest-leverage page on any SaaS website — it 
 | Price increase | CEO + Board awareness | 90-day notice to customers | Phased rollout |
 | Price decrease | CEO + Finance | Marketing campaign | Immediate |
 | Packaging change | Product + CEO | Blog + email + FAQ update | Coordinated launch |
-
----
-
-*Document prepared by Manus AI. Pricing page optimization and conversion framework designed for ARG-Builder maximum revenue capture from website visitors.*

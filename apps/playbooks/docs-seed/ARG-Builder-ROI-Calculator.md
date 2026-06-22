@@ -351,7 +351,3 @@ Payback (days) = Annual Investment / (Total Annual Savings / 365)
 | Sales team usage (% of demos) | > 80% | CRM activity |
 | Customer QBR usage | > 90% | CS tracking |
 | PDF downloads | 150/month | Analytics |
-
----
-
-*Document prepared by Manus AI. ROI calculator designed for ARG-Builder sales acceleration and value demonstration.*

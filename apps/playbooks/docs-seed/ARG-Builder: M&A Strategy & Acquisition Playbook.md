@@ -178,7 +178,3 @@ This document defines ARG-Builder's mergers and acquisitions strategy — both a
 | Customer contracts | Ensure assignability, long-term commitments | Always |
 | Technology | Clean code, documentation, no dependencies on individuals | Ongoing |
 | Narrative | Clear story of market position, growth trajectory, vision | Always ready |
-
----
-
-*Document prepared by Manus AI for ARG-Builder corporate strategy.*

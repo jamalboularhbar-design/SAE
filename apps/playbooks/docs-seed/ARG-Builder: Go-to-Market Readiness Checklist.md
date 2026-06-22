@@ -167,7 +167,3 @@ This document defines ARG-Builder's comprehensive Go-to-Market (GTM) readiness c
 | **Feature launch** | Significant new capability | Medium (sections 1, 3, 4, 5) | Product, Marketing, CS, Support |
 | **Minor update** | Bug fix, small improvement | Light (sections 1, 5) | Product, Support |
 | **Internal launch** | Process change, tool change | Internal only (section 7) | Operations |
-
----
-
-*Document prepared by Manus AI for ARG-Builder go-to-market operations.*

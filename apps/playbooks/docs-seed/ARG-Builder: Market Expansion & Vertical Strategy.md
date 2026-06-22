@@ -149,7 +149,3 @@ This document defines ARG-Builder's strategy for expanding beyond the initial be
 | Year 3 | 35% | 20% | 15% | 15% | 10% | 5% |
 | Year 4 | 25% | 18% | 18% | 18% | 12% | 9% |
 | Year 5 | 20% | 18% | 20% | 20% | 12% | 10% |
-
----
-
-*Document prepared by Manus AI for ARG-Builder growth strategy.*

@@ -323,7 +323,3 @@ Compensation is the most tangible expression of how a company values its people.
 | Long-term contractor (3–12 months) | 1.2–1.4x equivalent salary | Consider advisory grant |
 | Fractional executive | Market rate for fractional | Advisory-level equity |
 | Agency/firm | Project-based or retainer | None |
-
----
-
-*Document prepared by Manus AI. Employee equity and compensation philosophy designed for ARG-Builder fair, transparent, and competitive total rewards that attract and retain exceptional talent.*

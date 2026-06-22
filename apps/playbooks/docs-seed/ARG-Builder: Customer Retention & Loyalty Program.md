@@ -165,7 +165,3 @@ This document defines ARG-Builder's comprehensive retention and loyalty strategy
 | Expansion Rate | Expanded accounts / Total accounts | > 30% | Quarterly |
 | Time to Churn | Average tenure of churned customers | Increasing | Quarterly |
 | Save Rate | Saved / (Saved + Churned after save attempt) | > 40% | Monthly |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer operations.*

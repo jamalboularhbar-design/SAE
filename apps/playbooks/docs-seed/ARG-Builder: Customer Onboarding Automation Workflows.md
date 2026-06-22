@@ -147,7 +147,3 @@ This document defines ARG-Builder's automated onboarding system — the technolo
 | Day-7 activation rate | > 60% | Per cohort |
 | CSM time saved per onboarding | > 4 hours | Quarterly estimate |
 | Customer satisfaction (onboarding CSAT) | > 4.5/5 | Post-onboarding survey |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer operations.*

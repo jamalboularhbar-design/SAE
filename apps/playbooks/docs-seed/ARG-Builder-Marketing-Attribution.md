@@ -348,7 +348,3 @@ The "dark funnel" refers to buyer activities that cannot be directly tracked —
 | Pipeline coverage (marketing) | — | — | — | ↑↓→ |
 | Top channel (by pipeline) | — | — | — | — |
 | Marketing efficiency ratio | — | — | — | ↑↓→ |
-
----
-
-*Document prepared by Manus AI. Marketing attribution model designed for ARG-Builder data-driven marketing investment.*

@@ -351,7 +351,3 @@ In early-stage SaaS, losing a key engineer or sales leader can set the company b
 | October | Q3 recognition awards | Leadership |
 | November | Engagement survey #4 | HR |
 | December | Annual performance review + equity refresh | HR + Managers |
-
----
-
-*Document prepared by Manus AI. Talent retention strategy designed for ARG-Builder people-first organizational excellence.*

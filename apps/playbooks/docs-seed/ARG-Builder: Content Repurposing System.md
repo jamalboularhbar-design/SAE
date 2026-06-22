@@ -122,7 +122,3 @@ This document defines ARG-Builder's content repurposing methodology — the syst
 | Leads generated | Direct attribution | Assisted attribution | Total pipeline |
 | Cost per lead | Total cost / leads | — | Blended CPL |
 | Content multiplier | 1x | — | Total assets / pillar pieces |
-
----
-
-*Document prepared by Manus AI for ARG-Builder content repurposing operations.*

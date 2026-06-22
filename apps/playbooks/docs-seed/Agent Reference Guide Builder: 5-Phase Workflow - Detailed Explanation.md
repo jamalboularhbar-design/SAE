@@ -1394,4 +1394,3 @@ Once your reference guide is complete and published:
 1. **Expand** - Add new features (team roles, client intake forms, analytics)
 
 The reference guide is a living document that should evolve with your business.
-

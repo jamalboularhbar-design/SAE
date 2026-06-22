@@ -177,7 +177,3 @@ Every feature must define success metrics before building begins:
 | Monthly Roadmap Review | Monthly | PM + Engineering + Design | Progress, reprioritization | Updated roadmap |
 | Quarterly Planning | Quarterly | Leadership + PM + Engineering | Set quarterly commitments | Quarterly roadmap |
 | Annual Strategy | Annually | All leadership | Set annual themes and vision | Annual product strategy |
-
----
-
-*Document prepared by Manus AI for ARG-Builder product management operations.*

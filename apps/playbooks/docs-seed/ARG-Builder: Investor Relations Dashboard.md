@@ -191,7 +191,3 @@ This document defines ARG-Builder's Investor Relations Dashboard — the metrics
 | Carta | Cap table, investor portal | $3K–$10K/year | VP Finance |
 | ChartMogul / Baremetrics | SaaS metrics automation | $200–$500/month | VP Finance |
 | Notion (Board portal) | Document sharing, meeting notes | Included | CEO |
-
----
-
-*Document prepared by Manus AI for ARG-Builder investor relations operations.*

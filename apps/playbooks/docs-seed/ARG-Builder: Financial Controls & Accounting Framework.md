@@ -218,7 +218,3 @@ This document defines ARG-Builder's financial controls, accounting policies, and
 | Gusto/Rippling | Payroll, benefits | $40 + $6/person/month | HR |
 | Metabase | Financial dashboards | $500/month | VP Finance |
 | Google Sheets | Ad-hoc modeling, budgets | Included in Workspace | VP Finance |
-
----
-
-*Document prepared by Manus AI for ARG-Builder financial controls and accounting.*

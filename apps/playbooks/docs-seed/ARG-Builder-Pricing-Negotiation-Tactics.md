@@ -272,7 +272,3 @@ Pricing negotiation is where revenue strategy meets execution. Every enterprise 
 | Win rate at full price | > 40% | CRM |
 | Negotiation-to-close time | < 21 days | CRM |
 | Customer satisfaction (post-negotiation) | > 4/5 | Survey |
-
----
-
-*Document prepared by Manus AI. Pricing negotiation tactics and deal structuring playbook designed for ARG-Builder revenue maximization and sales team enablement.*

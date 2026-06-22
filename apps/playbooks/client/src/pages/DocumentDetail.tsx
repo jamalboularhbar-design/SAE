@@ -57,6 +57,8 @@ import CrossPersonaLinksPanel from '@/components/CrossPersonaLinksPanel';
 import DocumentSnapshots from '@/components/DocumentSnapshots';
 import AddToCollectionButton from '@/components/AddToCollectionButton';
 import ReadingTimeEstimate from '@/components/ReadingTimeEstimate';
+import DocumentLibraryFooter from '@/components/DocumentLibraryFooter';
+import { prepareDocumentContent } from '@shared/documentContent';
 
 // Reading time calculation - uses configurable WPM from branding settings
 function getReadingTime(wordCount: number, wpm = 200): string {
@@ -218,10 +220,15 @@ export default function DocumentDetail() {
   }, [document]);
 
   // Table of contents
+  const displayContent = useMemo(
+    () => prepareDocumentContent(document?.content || ''),
+    [document?.content]
+  );
+
   const headings = useMemo(() => {
-    if (!document?.content) return [];
-    return extractHeadings(document.content);
-  }, [document?.content]);
+    if (!displayContent) return [];
+    return extractHeadings(displayContent);
+  }, [displayContent]);
 
   // Scroll spy for TOC
   useEffect(() => {
@@ -441,7 +448,7 @@ export default function DocumentDetail() {
             {document && <ReadingPositionTracker documentSlug={document.slug} />}
             {document && <ShareDocument title={document.title} slug={document.slug} category={document.category} />}
             {document && <QuickEditInline documentId={document.id} title={document.title} content={document.content || ''} onSaved={() => { /* invalidate via trpc utils */ }} />}
-            {document && <DistractionFreeMode><ReactMarkdown remarkPlugins={[remarkGfm]}>{document.content || ''}</ReactMarkdown></DistractionFreeMode>}
+            {document && <DistractionFreeMode><ReactMarkdown remarkPlugins={[remarkGfm]}>{displayContent}</ReactMarkdown></DistractionFreeMode>}
           </div>
         </div>
         {document && <ShareLinkManager documentSlug={document.slug} />}
@@ -607,13 +614,19 @@ export default function DocumentDetail() {
                   },
                 }}
               >
-                {interpolateTemplateVars(document.content || '')}
+                {interpolateTemplateVars(displayContent)}
               </ReactMarkdown>
             </article>
 
+            <DocumentLibraryFooter
+              category={document.category}
+              slug={document.slug}
+              updatedAt={document.updatedAt || document.createdAt}
+            />
+
             {/* Process Timeline (for persona process docs) */}
             {(document.category === 'Riad & Routes' || document.category === 'ArtKech Design Studio') && (
-              <ProcessTimelineVisualization content={document.content || ''} />
+              <ProcessTimelineVisualization content={displayContent} />
             )}
 
             {/* Cross-Persona Related Documents */}

@@ -386,7 +386,3 @@ A meeting becomes a Sales Qualified Lead (SQL) when:
 | Glassdoor | Culture signals, pain indicators |
 | Job postings | Growth signals, technology stack |
 | News alerts | Trigger events |
-
----
-
-*Document prepared by Manus AI. SDR playbook designed for ARG-Builder outbound pipeline generation.*

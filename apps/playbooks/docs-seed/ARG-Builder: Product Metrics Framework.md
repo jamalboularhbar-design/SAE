@@ -153,7 +153,3 @@ This document defines ARG-Builder's product metrics architecture — the structu
 | Funnel | Visitors → Signups → Activated → Paid | Funnel chart |
 | Engagement | DAU/WAU/MAU, DAU/MAU ratio | Line chart |
 | Health | NPS, CSAT, uptime, error rate | Gauges |
-
----
-
-*Document prepared by Manus AI for ARG-Builder product metrics operations.*

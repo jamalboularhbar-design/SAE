@@ -145,4 +145,3 @@ Jamal
 All company data sourced from Built In, LinkedIn, and public company profiles as of May 2026. Employee counts are approximate and based on publicly available information. Decision-maker titles are suggested based on typical organizational structures — actual titles should be verified on LinkedIn before outreach.
 
 **Priority order for outreach:** Start with companies 6, 7, 11, 16, 26 (one per vertical) to test messaging, then expand to the full list.
-

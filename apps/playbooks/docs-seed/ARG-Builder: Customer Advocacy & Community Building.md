@@ -196,7 +196,3 @@ This document defines ARG-Builder's customer advocacy and community building str
 | **Total investment** | **$300K** | **$690K** | **$1.235M** |
 | **Revenue influenced** | **$500K** | **$2M** | **$5M** |
 | **ROI** | **67%** | **190%** | **305%** |
-
----
-
-*Document prepared by Manus AI for ARG-Builder growth operations.*

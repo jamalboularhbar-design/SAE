@@ -201,7 +201,3 @@ This document defines ARG-Builder's Strategic Advisory Board — the composition
 | Voting rights | None | Yes (major decisions) |
 | Removal | Easy (30 days notice) | Complex (shareholder vote) |
 | Best for | Expertise, network, credibility | Governance, fundraising, accountability |
-
----
-
-*Document prepared by Manus AI for ARG-Builder strategic advisory operations.*

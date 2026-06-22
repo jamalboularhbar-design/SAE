@@ -189,7 +189,3 @@ This document defines ARG-Builder's talent acquisition strategy and employer bra
 | Peer departure | Team churn tracking | Proactive stay interview |
 | Passed over for promotion | Promotion cycle review | Development plan, timeline |
 | Life event (relocation, family) | Manager awareness | Flexibility discussion |
-
----
-
-*Document prepared by Manus AI for ARG-Builder people operations.*

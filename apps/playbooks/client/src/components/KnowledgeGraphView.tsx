@@ -30,6 +30,7 @@ type KnowledgeGraphViewProps = {
   searchQuery?: string;
   selectedCategory?: string;
   height?: number;
+  initialFocusSlug?: string | null;
 };
 
 type SimNode = GraphNode & { x: number; y: number; vx: number; vy: number; degree: number };
@@ -180,6 +181,7 @@ export default function KnowledgeGraphView({
   searchQuery = '',
   selectedCategory = 'all',
   height = 640,
+  initialFocusSlug = null,
 }: KnowledgeGraphViewProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const simRef = useRef<SimNode[]>([]);
@@ -199,6 +201,12 @@ export default function KnowledgeGraphView({
   const dragStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
   const [showDependencies, setShowDependencies] = useState(true);
   const [showReferences, setShowReferences] = useState(true);
+
+  useEffect(() => {
+    if (!initialFocusSlug || nodes.length === 0) return;
+    const match = nodes.find((n) => n.slug === initialFocusSlug || n.id === initialFocusSlug);
+    if (match) setSelectedId(match.id);
+  }, [initialFocusSlug, nodes]);
 
   const isDark = theme === 'dark';
   const effectiveCategory = localCategory ?? (selectedCategory !== 'all' ? selectedCategory : null);

@@ -185,7 +185,3 @@ This document defines ARG-Builder's Customer Data Platform architecture — the 
 | Right to deletion | Automated deletion pipeline (< 30 days) |
 | Data portability | Customer can export all their data (JSON/CSV) |
 | Cross-border | Data residency options (US, EU) |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer data platform architecture.*

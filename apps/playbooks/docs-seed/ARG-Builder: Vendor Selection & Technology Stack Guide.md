@@ -136,7 +136,3 @@ This document defines ARG-Builder's complete technology stack recommendations an
 | Vendor acquired (uncertainty) | Evaluate, plan contingency | 90–180 days |
 | Team outgrows tool capabilities | Plan upgrade/migration | 90–120 days |
 | Security incident at vendor | Immediate review, potential switch | 30–60 days |
-
----
-
-*Document prepared by Manus AI for ARG-Builder technology operations.*

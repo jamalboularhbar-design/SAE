@@ -170,7 +170,3 @@ This document defines ARG-Builder's Account-Based Marketing strategy — the coo
 | Hot accounts (ready for outreach) | 10 min | Marketing + SDRs |
 | Campaign performance | 5 min | Marketing |
 | Feedback and adjustments | 5 min | All |
-
----
-
-*Document prepared by Manus AI for ARG-Builder account-based marketing operations.*

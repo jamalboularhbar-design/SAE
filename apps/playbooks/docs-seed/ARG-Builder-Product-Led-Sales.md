@@ -301,7 +301,3 @@ Product-Led Sales (PLS) is the hybrid motion that combines the efficiency of pro
 | PLS AEs (hybrid) | PQL engagement, consultative selling | Phase 2 |
 | Product Manager (Growth) | In-product conversion, experimentation | Phase 3 |
 | Data Analyst | PQL model refinement, funnel analysis | Phase 4 |
-
----
-
-*Document prepared by Manus AI. Product-led sales motion framework designed for ARG-Builder optimal hybrid conversion combining product signals with human sales expertise.*

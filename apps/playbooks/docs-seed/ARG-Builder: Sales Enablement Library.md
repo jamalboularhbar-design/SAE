@@ -173,7 +173,3 @@ This library provides the complete arsenal of tools, scripts, templates, and fra
 | 16–20% | VP Sales | 3-year commitment AND case study agreement |
 | 21–25% | CEO | Exceptional strategic value (logo, reference, market entry) |
 | > 25% | Not available | Redirect to smaller package or phased approach |
-
----
-
-*Document prepared by Manus AI for ARG-Builder sales operations.*

@@ -317,7 +317,3 @@ As ARG-Builder integrates AI capabilities (content generation, recommendations, 
 | Regulatory landscape scan | Monthly | Compliance updates |
 | Industry best practices review | Quarterly | Policy updates |
 | External ethics advisory (future) | Semi-annual | Independent perspective |
-
----
-
-*Document prepared by Manus AI. AI/ML model governance and ethics framework designed for ARG-Builder responsible, trustworthy, and compliant AI-powered product development.*

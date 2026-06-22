@@ -244,7 +244,3 @@ This document defines ARG-Builder's annual planning and budgeting process — th
 | Monthly | Revenue + cash | Track actuals vs. plan | Finance |
 | Quarterly | Full P&L | Adjust annual forecast | Finance + Leadership |
 | Ad hoc | Specific scenarios | Material changes (new funding, market shift) | CEO + Finance |
-
----
-
-*Document prepared by Manus AI for ARG-Builder financial planning operations.*

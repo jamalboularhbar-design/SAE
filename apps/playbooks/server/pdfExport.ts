@@ -2,6 +2,7 @@ import { Express, Request, Response } from "express";
 import { marked } from "marked";
 import { getDocumentBySlug } from "./db";
 import { BRAND } from "./brand";
+import { prepareDocumentContent } from "@shared/documentContent";
 
 /**
  * Generates a styled HTML document from markdown content for PDF rendering.
@@ -115,7 +116,7 @@ function markdownToHtml(title: string, category: string, content: string): strin
     ${htmlContent}
   </div>
   <div class="footer">
-    NexusAI Playbooks &middot; Operational Document Library
+    ${BRAND.productName} Playbooks &middot; ${BRAND.domain} &middot; Operational Document Library
   </div>
 </body>
 </html>`;
@@ -141,7 +142,7 @@ export function registerPdfExport(app: Express) {
         return;
       }
 
-      const html = markdownToHtml(doc.title, doc.category, doc.content);
+      const html = markdownToHtml(doc.title, doc.category, prepareDocumentContent(doc.content));
 
       // Return as downloadable HTML file that can be opened in browser and printed to PDF
       const format = req.query.format;

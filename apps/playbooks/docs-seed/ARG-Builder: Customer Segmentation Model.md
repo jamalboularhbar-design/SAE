@@ -138,7 +138,3 @@ This document defines ARG-Builder's customer segmentation strategy — the data-
 | Mid-Market | Email + CSM | Events, webinars | Case studies, ROI tools | 1x/week |
 | Enterprise | CSM + exec meetings | Events, custom content | Custom research, benchmarks | Bi-weekly |
 | Strategic | Named CSM + exec sponsor | On-site, advisory board | Bespoke strategy, co-creation | As needed |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer segmentation operations.*

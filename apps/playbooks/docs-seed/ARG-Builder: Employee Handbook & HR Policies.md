@@ -248,7 +248,3 @@ This document defines ARG-Builder's employee handbook — the comprehensive guid
 | Position elimination | 2 weeks | 4 weeks + COBRA | Signed separation agreement |
 | Misconduct | Immediate | None | Investigation complete |
 | Reduction in force | 2 weeks | 4–8 weeks (tenure-based) | WARN Act compliance |
-
----
-
-*Document prepared by Manus AI for ARG-Builder human resources operations.*

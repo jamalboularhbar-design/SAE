@@ -260,7 +260,3 @@ Winning back churned customers is 5–7x more cost-effective than acquiring new 
 | Average ACV recovered | $15,000 | $18,000 | $22,000 |
 | Total ARR recovered | $300,000 | $630,000 | $1,100,000 |
 | Program ROI | 2.2x | 4.7x | 8.1x |
-
----
-
-*Document prepared by Manus AI. Customer win-back program designed for ARG-Builder revenue recovery and customer lifecycle optimization.*

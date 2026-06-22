@@ -269,7 +269,3 @@ Tier 1: Major conferences, keynotes (2-3x/year)
 | Community Manager | 0.5 FTE | 1 FTE |
 | Ghostwriter (CEO content) | Contractor | Contractor |
 | Research Analyst | Contractor | 1 FTE |
-
----
-
-*Document prepared by Manus AI. Thought leadership strategy designed for ARG-Builder category authority.*

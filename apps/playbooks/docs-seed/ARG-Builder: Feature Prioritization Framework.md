@@ -145,7 +145,3 @@ ARG-Builder uses a modified RICE framework enhanced with a Strategic Alignment f
 When declining a feature request:
 
 > "Thank you for suggesting [feature]. We've evaluated it against our current priorities and it scored [X] on our prioritization framework. Here's why: [brief reasoning]. We're currently focused on [higher-priority items] that will benefit [broader audience]. We've added this to our backlog and will re-evaluate [timeframe]. In the meantime, here's a workaround: [alternative approach]."
-
----
-
-*Document prepared by Manus AI for ARG-Builder product operations.*

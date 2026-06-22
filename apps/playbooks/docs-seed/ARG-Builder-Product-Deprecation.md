@@ -270,7 +270,3 @@ Product deprecation is as critical as product development — every feature carr
 | Feature/Product | Sunset Date | Affected Accounts | Churn Rate | Lessons |
 |----------------|-------------|-------------------|-----------|---------|
 | (Template row) | Date | Number | % | Key learnings |
-
----
-
-*Document prepared by Manus AI. Product deprecation and sunsetting framework designed for ARG-Builder responsible product lifecycle management.*

@@ -223,7 +223,3 @@ After achieving SOC 2 Type II, maintain compliance through annual audits and con
 | Security tooling | Annual | $10K–$15K |
 | Training & awareness | Annual | $2K–$5K |
 | **Total Annual Maintenance** | — | **$60K–$100K** |
-
----
-
-*Document prepared by Manus AI for ARG-Builder security and compliance strategy.*

@@ -359,7 +359,3 @@ Data governance ensures that ARG-Builder manages customer data responsibly, comp
 | Customer feedback on privacy | Quarterly | Product improvements |
 | Internal audit | Semi-annual | Findings and remediation |
 | External audit (SOC 2) | Annual | Certification |
-
----
-
-*Document prepared by Manus AI. Data governance and privacy framework designed for ARG-Builder enterprise trust and regulatory compliance.*

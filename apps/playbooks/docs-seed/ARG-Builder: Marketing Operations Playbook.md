@@ -198,7 +198,3 @@ ARG-Builder uses a custom W-shaped attribution model that gives credit to the mo
 | Marketing % of CAC | Marketing cost / total CAC | < 50% |
 | Content ROI | Pipeline generated / content investment | > 10x |
 | Channel efficiency | Pipeline per dollar by channel | Varies (see benchmarks) |
-
----
-
-*Document prepared by Manus AI for ARG-Builder marketing operations.*

@@ -151,7 +151,3 @@ This document defines ARG-Builder's complete contract and negotiation framework 
 | Channel Partner Agreement | New partners | Semi-annually | Partnerships |
 | Pilot Agreement | POC/trials | Quarterly | Sales Ops |
 | Amendment Template | Contract changes | As needed | Legal |
-
----
-
-*Document prepared by Manus AI for ARG-Builder sales operations.*

@@ -190,7 +190,3 @@ Available to Gold and Platinum partners for co-marketing activities.
 | Partner-sourced deal close rate | 22% | 28% | 32% |
 | Partner satisfaction (NPS) | > 40 | > 50 | > 60 |
 | Partner retention rate | > 80% | > 85% | > 90% |
-
----
-
-*Document prepared by Manus AI for ARG-Builder partner ecosystem development.*

@@ -151,9 +151,38 @@ curl -s "https://argbuilder.io/assets/$JS" | grep -c 'kg-rovo' || echo "MISSING"
 
 **Data:** `getKnowledgeGraphData()` merges `document_dependencies` + `documentCrossReferences`; nodes keyed by slug.
 
-**API:**
-- Public: `trpc.documentGraph.get`
-- Admin: `trpc.knowledgeGraph.data`
+**Populate graph (production DB):**
+```bash
+cd apps/playbooks
+DATABASE_URL=... pnpm graph:populate   # cross-refs + dependencies
+# Or individually:
+node scripts/generate-cross-refs.mjs
+node scripts/generate-dependencies.mjs
+```
+
+**Scripts:** `generate-cross-refs.mjs` (title mentions, slug links, keywords, category neighbors), `generate-dependencies.mjs` (learning paths, foundation hubs, prerequisite sections, Master Index order).
+
+**Cross-ref status:** `approved` and `confirmed` both render as reference edges in the graph.
+
+---
+
+## Document footers (Manus → library)
+
+- **Strip utility:** `shared/documentContent.ts` → `stripManusFooter()` / `prepareDocumentContent()`
+- **UI footer:** `DocumentLibraryFooter.tsx` on every doc detail page (replaces Manus attribution)
+- **Batch clean seed files:** `pnpm docs:strip-manus` (docs-seed only) or `pnpm docs:strip-manus:db` (+ production DB)
+- **PDF export:** `server/pdfExport.ts` strips Manus + uses ARG-Builder footer
+- **Re-seed:** `seed-from-files.mjs` strips on import
+
+---
+
+## Favicons
+
+Regenerate from `logo-mark.png` (crops transparent padding so mark reads larger):
+```bash
+cd apps/playbooks && pnpm favicons:generate
+```
+Outputs: `favicon-16/32/48/192.png`, `favicon.ico`, `apple-touch-icon.png` (180×180).
 
 ---
 

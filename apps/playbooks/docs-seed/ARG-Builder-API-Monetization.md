@@ -325,7 +325,3 @@ APIs transform a SaaS product from a standalone application into a platform — 
 | Partner program | $30,000 | $80,000 |
 | **Total Investment** | **$720,000** | **$930,000** |
 | **ROI (Year 2 revenue / Year 1 investment)** | — | **2.0x** |
-
----
-
-*Document prepared by Manus AI. API monetization strategy designed for ARG-Builder platform ecosystem and developer revenue.*

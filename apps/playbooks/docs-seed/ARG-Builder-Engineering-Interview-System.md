@@ -331,7 +331,3 @@ This document extends ARG-Builder's hiring playbook with a deep-dive into the en
 | Diversity | Pipeline and outcome demographics | Adjust sourcing/process |
 | Question effectiveness | Which questions correlate with success? | Rotate bank |
 | Interviewer performance | Scoring consistency, candidate feedback | Training/coaching |
-
----
-
-*Document prepared by Manus AI. Engineering interview system designed for ARG-Builder rigorous, fair, and candidate-friendly technical talent evaluation.*

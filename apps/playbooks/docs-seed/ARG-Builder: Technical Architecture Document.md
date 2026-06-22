@@ -294,7 +294,3 @@ The architecture supports horizontal scaling at every layer. ECS Fargate auto-sc
 
 **Decision:** Use EventBridge for inter-service communication with REST for synchronous needs.
 **Rationale:** Loose coupling between services enables independent scaling and deployment. Event-driven patterns naturally support the asynchronous nature of guide generation (which takes hours, not seconds). REST is reserved for real-time user-facing operations where immediate response is required.
-
----
-
-*Document prepared by Manus AI for ARG-Builder engineering team.*

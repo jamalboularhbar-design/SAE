@@ -210,7 +210,3 @@ Begin building relationships with potential acquirers 2–3 years before a poten
 | Customer overlap | Serve mutual customers, create shared success | Year 2–4 |
 | Advisory relationships | Invite acquirer executives as advisors | Year 2–3 |
 | Joint marketing | Co-host webinars, co-author content | Year 2–4 |
-
----
-
-*Document prepared by Manus AI for ARG-Builder exit planning and shareholder value maximization.*

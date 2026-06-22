@@ -317,7 +317,3 @@ A Customer Advisory Board (CAB) is a strategic asset that provides direct access
 | Annual recognition | Public acknowledgment at events/website |
 | Offsite variety | Rotate locations, include experiences |
 | Continuous engagement | Don't go dark between meetings |
-
----
-
-*Document prepared by Manus AI. Customer Advisory Board framework designed for ARG-Builder strategic customer engagement.*

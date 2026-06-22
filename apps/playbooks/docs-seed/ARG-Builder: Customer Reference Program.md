@@ -155,7 +155,3 @@ This document defines ARG-Builder's Customer Reference Program — a structured 
 | G2 / Capterra | Review management | Marketing |
 | Sendoso / Postal | Gift and swag fulfillment | Reference rewards |
 | Slack (#customer-references) | Internal coordination | Team communication |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer reference operations.*

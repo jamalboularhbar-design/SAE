@@ -277,7 +277,3 @@ Measure → Analyze → Hypothesize → Test → Measure
 | Vanity metrics | Celebrating wrong numbers | Focus on retention and Sean Ellis, not sign-ups |
 | Founder-led sales dependency | Only founders can close | PMF requires repeatable, non-founder sales |
 | Custom work disguised as product | Building one-offs for big customers | Track % of revenue from standard product |
-
----
-
-*Document prepared by Manus AI. Product-market fit framework designed for ARG-Builder systematic validation and growth.*

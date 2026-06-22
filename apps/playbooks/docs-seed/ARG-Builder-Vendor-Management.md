@@ -340,7 +340,3 @@ As ARG-Builder scales, the number of vendors, tools, and third-party services gr
 | Contract compliance | 100% | Compliant vendors / total |
 | Savings from negotiation | > 15% of renewals | Savings / original price |
 | Tool redundancy | < 5% | Overlapping tools / total tools |
-
----
-
-*Document prepared by Manus AI. Vendor management framework designed for ARG-Builder operational efficiency and risk management.*

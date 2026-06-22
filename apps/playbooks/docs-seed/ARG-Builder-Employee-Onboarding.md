@@ -341,7 +341,3 @@ The first 90 days of employment determine whether a new hire becomes a high-perf
 | Documentation-first | All processes documented, not just tribal knowledge |
 | Async updates | Daily written updates in Slack during ramp |
 | Virtual social | Weekly virtual team social (optional but encouraged) |
-
----
-
-*Document prepared by Manus AI. Employee onboarding playbook designed for ARG-Builder talent integration and rapid productivity.*

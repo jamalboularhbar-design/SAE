@@ -165,7 +165,3 @@ This single metric captures the combined effect of retention, expansion, and con
 | CS Monthly Report | Monthly | Executive team | Full metrics, trends, insights | Dashboard + narrative |
 | CS Quarterly Business Review | Quarterly | Board + Exec | Strategic metrics, OKR progress, plans | Presentation |
 | CS Annual Report | Annually | All stakeholders | Year in review, next year strategy | Document |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer success operations.*

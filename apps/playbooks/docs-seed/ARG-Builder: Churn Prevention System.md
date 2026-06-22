@@ -245,7 +245,3 @@ After every churn event, conduct a structured post-mortem to extract learnings a
 | Time to intervention (from alert) | < 48 hours | — |
 | Health score accuracy (predicts churn) | > 75% | — |
 | False positive rate | < 20% | — |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer success and retention operations.*

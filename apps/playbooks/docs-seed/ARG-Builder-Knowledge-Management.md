@@ -470,7 +470,3 @@ Quality = (Accuracy × 0.30) + (Completeness × 0.20) + (Clarity × 0.20) +
 | Call intelligence | Gong | Chorus | $1,500–$3,000 |
 | Analytics | Amplitude | Mixpanel | $500–$1,000 |
 | Total | | | $4,500–$11,000 |
-
----
-
-*Document prepared by Manus AI. Knowledge management system designed for ARG-Builder operational excellence.*

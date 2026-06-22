@@ -133,7 +133,3 @@ This document defines ARG-Builder's onboarding email automation — the structur
 | Suppression | Don't email if user is active/engaged that day |
 | Deliverability | SPF, DKIM, DMARC, dedicated sending domain |
 | Analytics | Per-email and per-sequence metrics |
-
----
-
-*Document prepared by Manus AI for ARG-Builder email automation operations.*

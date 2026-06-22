@@ -187,7 +187,3 @@ The prototype should support a guided demo mode where screens advance automatica
 | Testing & polish | 3 days | Cross-browser, responsive, performance |
 
 **Total:** 5 weeks from design to demo-ready prototype
-
----
-
-*Document prepared by Manus AI for ARG-Builder product prototype development.*

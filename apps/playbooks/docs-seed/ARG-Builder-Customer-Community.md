@@ -315,7 +315,3 @@ A well-built customer community reduces support costs by 25%, increases retentio
 | Product insight value | $50,000 | $100,000 |
 | **Total Value** | **$480,000** | **$1,160,000** |
 | **ROI** | **2.7x** | **4.5x** |
-
----
-
-*Document prepared by Manus AI. Customer community strategy designed for ARG-Builder retention and advocacy.*

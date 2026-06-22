@@ -310,7 +310,3 @@ Internationalization (i18n) is the architectural foundation that enables localiz
 | Locale-specific NPS | Within 5 points of English | NPS by locale |
 | Activation rate (localized) | Within 10% of English | Product analytics |
 | Support tickets (i18n-related) | < 2% of total | Ticket tagging |
-
----
-
-*Document prepared by Manus AI. Product localization and i18n strategy designed for ARG-Builder international market expansion.*

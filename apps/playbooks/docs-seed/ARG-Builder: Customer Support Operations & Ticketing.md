@@ -194,7 +194,3 @@ This document defines ARG-Builder's customer support operations — the systems,
 | Resolution | Per severity SLA | Fix deployed, verified | External: Updates every 30 min (S1) or 2h (S2) |
 | Recovery | < 2h post-fix | Full service restored, monitoring | External: "Resolved" notification |
 | Post-mortem | < 48h | Root cause analysis, prevention plan | Internal: Post-mortem document shared |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer operations.*

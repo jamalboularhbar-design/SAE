@@ -323,7 +323,3 @@ Vertical specialization is the fastest path to enterprise PMF. By tailoring ARG-
 | NRR | > 120% |
 | Referrals within vertical | > 2 per customer per year |
 | Industry analyst recognition | Named in relevant report |
-
----
-
-*Document prepared by Manus AI. Vertical GTM strategy designed for ARG-Builder industry-specific market penetration.*

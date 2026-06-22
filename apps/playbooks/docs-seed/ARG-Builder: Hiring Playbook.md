@@ -198,7 +198,3 @@ Every new hire goes through a structured 30-60-90 day onboarding program designe
 ## Diversity & Inclusion Commitments
 
 ARG-Builder is committed to building a diverse team from Day 1. Specific commitments include ensuring every final-round interview slate includes at least one candidate from an underrepresented background, using structured interviews with scorecards to reduce bias, publishing salary ranges in all job postings, and conducting annual pay equity audits starting in Year 2.
-
----
-
-*Document prepared by Manus AI for ARG-Builder talent acquisition strategy.*

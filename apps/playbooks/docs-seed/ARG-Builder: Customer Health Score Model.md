@@ -194,7 +194,3 @@ This document defines ARG-Builder's Customer Health Score Model — a predictive
 | Churn prediction (accounts scoring < 40 that actually churn within 90 days) | > 70% | Baseline TBD |
 | False positive rate (accounts scoring < 40 that don't churn) | < 30% | Baseline TBD |
 | Expansion prediction (accounts scoring > 85 that expand within 180 days) | > 50% | Baseline TBD |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer success operations.*

@@ -245,7 +245,3 @@ Key elements:
 | Low adoption at Day 10 (< 50%) | Emergency adoption intervention | CS Manager | Day 10 |
 | Customer champion disengaged | Executive sponsor outreach | VP CS | Day 7 |
 | Technical issues blocking deployment | Engineering escalation | CTO | Immediate |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer success operations.*

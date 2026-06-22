@@ -136,7 +136,3 @@ This document defines ARG-Builder's investor communication framework — the str
 | Respond to investor replies within 24 hours | Ignore investor responses |
 | Track which investors help with asks | Forget to thank investors who help |
 | Include forward-looking priorities | Only look backward |
-
----
-
-*Document prepared by Manus AI for ARG-Builder investor relations operations.*

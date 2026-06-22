@@ -157,4 +157,3 @@ The agent is designed to be compatible with both Manus and Claude platforms. The
 ## 6. Conclusion
 
 This AI agent, with its dual personas and robust operational frameworks, is poised to significantly enhance the efficiency, client satisfaction, and overall success of both the Luxury Travel Company and ArtKech. By automating key processes and maintaining a high standard of professionalism and quality, the agent will serve as an invaluable asset to both businesses.
-

@@ -333,7 +333,3 @@ ARG-Builder is an AI-powered platform that autonomously generates complete opera
 - Use approved logos and screenshots only
 - Link to argbuilder.com for product information
 - Contact press@argbuilder.com for additional assets
-
----
-
-*Document prepared by Manus AI. Press kit designed for ARG-Builder media relations and brand communications.*

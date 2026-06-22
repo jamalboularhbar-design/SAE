@@ -193,7 +193,3 @@ This document defines ARG-Builder's compliance automation and governance framewo
 | Incident response time | Within SLA | Incident tracking | Per incident |
 | Audit findings (critical) | 0 | Audit reports | Per audit |
 | Vendor risk assessments current | > 90% | Vendor management | Quarterly |
-
----
-
-*Document prepared by Manus AI for ARG-Builder compliance operations.*

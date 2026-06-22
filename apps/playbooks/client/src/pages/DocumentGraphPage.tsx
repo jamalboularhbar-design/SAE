@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useLocation } from 'wouter';
+import { useLocation, useSearch } from 'wouter';
 import { trpc } from '@/lib/trpc';
 import { ArrowLeft, Network, Loader2, Search, Filter, X } from 'lucide-react';
 import Header from '@/components/Header';
@@ -7,6 +7,8 @@ import KnowledgeGraphView from '@/components/KnowledgeGraphView';
 
 export default function DocumentGraphPage() {
   const [, navigate] = useLocation();
+  const search = useSearch();
+  const focusSlug = useMemo(() => new URLSearchParams(search).get('focus'), [search]);
   const { data, isLoading } = trpc.documentGraph.get.useQuery();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -112,6 +114,7 @@ export default function DocumentGraphPage() {
             searchQuery={searchQuery}
             selectedCategory={selectedCategory}
             height={620}
+            initialFocusSlug={focusSlug}
           />
         ) : (
           <div className="text-center py-16 text-muted-foreground rounded-xl border border-border">

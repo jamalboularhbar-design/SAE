@@ -14,6 +14,13 @@ dotenv.config();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DOCS_DIR = path.join(__dirname, 'docs-seed');
 
+function stripManusFooter(content) {
+  const MANUS_FOOTER_PATTERN = /\n*---?\n*\n*\*Document prepared by Manus AI[^*]*\*\s*$/i;
+  const MANUS_FOOTER_ALT = /\n*\*?(?:Document )?(?:prepared|generated) by Manus(?: AI)?[^*\n]*\*?\s*$/i;
+  if (!content) return content;
+  return content.replace(MANUS_FOOTER_PATTERN, '').replace(MANUS_FOOTER_ALT, '').trimEnd();
+}
+
 const categories = {
   'Engineering': ['engineering','ci-cd','cicd','devops','kubernetes','docker','api','database','testing','code','monorepo','microservice','serverless','webhook','graphql','typescript','frontend','backend','deployment','pipeline','observability','monitoring','logging','caching','pagination','dependency','git','release','feature-flag','architecture','infrastructure','terraform','container','gateway','queue','secrets','configuration','environment','error-handling','resilience','performance','load-test','chaos','trunk-based','zero-trust','opentelemetry','canary','rollout','devsecops','regression','finops'],
   'Sales': ['sales','sdr','deal','pipeline','territory','quota','commission','demo','discovery','objection','negotiation','closing','competitive','battle-card','forecast','handoff','proof-of-concept','intent-data','buyer-signal','procurement','rfp','revenue-intelligence','win-loss','revops','outreach','cold'],
@@ -82,7 +89,7 @@ async function main() {
 
     for (const filename of batch) {
       const filePath = path.join(DOCS_DIR, filename);
-      const content = fs.readFileSync(filePath, 'utf-8');
+      const content = stripManusFooter(fs.readFileSync(filePath, 'utf-8'));
       const wordCount = content.split(/\s+/).filter(Boolean).length;
       const slug = slugify(filename);
       const title = filename.replace(/\.md$/, '').replace(/ARG-Builder[-: ]+/gi, '').replace(/[-_]/g, ' ').trim();

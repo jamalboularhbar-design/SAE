@@ -245,7 +245,3 @@ When evaluating new market segments, geographies, or verticals:
 | Go-to-market | Can we reach them with existing channels? |
 | Unit economics | Will CAC/LTV remain healthy? |
 | Strategic value | Does this strengthen our overall position? |
-
----
-
-*Document prepared by Manus AI for ARG-Builder board governance and reporting.*

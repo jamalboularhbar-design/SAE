@@ -4536,7 +4536,7 @@ export async function getKnowledgeGraphData() {
     edges.push({
       source: sourceDoc.slug,
       target: targetDoc.slug,
-      type: ref.status === 'confirmed' ? 'reference' : 'suggested',
+      type: ref.status === 'confirmed' || ref.status === 'approved' ? 'reference' : 'suggested',
       label: ref.reason ?? 'related',
     });
   }

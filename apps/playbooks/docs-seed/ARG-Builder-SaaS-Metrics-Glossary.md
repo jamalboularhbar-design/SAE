@@ -505,7 +505,3 @@ LTV = ARPA × Gross Margin × Customer Lifetime × (1 + Annual Expansion Rate)
 | Customer health | Weekly | CS, Product |
 | Financial (burn, runway) | Monthly | CEO, CFO, Board |
 | All metrics (comprehensive) | Monthly | Board deck |
-
----
-
-*Document prepared by Manus AI. Metrics glossary designed as the authoritative reference for ARG-Builder business measurement.*

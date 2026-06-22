@@ -124,7 +124,3 @@ This document provides ARG-Builder's standardized Quarterly Business Review temp
 | Send pre-read materials 3+ days before | Surprise attendees with new information |
 | Document action items with owners and dates | Leave with vague next steps |
 | Follow up within 24 hours with summary | Let momentum die after the meeting |
-
----
-
-*Document prepared by Manus AI for ARG-Builder quarterly review operations.*

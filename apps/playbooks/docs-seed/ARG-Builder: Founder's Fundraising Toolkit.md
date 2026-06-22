@@ -190,7 +190,3 @@ This document is the complete fundraising toolkit for ARG-Builder — everything
 | Verbal commitments | Not binding, waste time | "Excited" ≠ committed until signed |
 | Neglecting existing investors | Lose pro-rata, references | Keep current investors informed |
 | Post-close radio silence | Lose trust, no help when needed | Monthly updates without fail |
-
----
-
-*Document prepared by Manus AI for ARG-Builder founder operations.*

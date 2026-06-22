@@ -250,7 +250,3 @@ Send this to all investors in your pipeline (even those who passed) every month.
 | Term sheets received | 2–4 |
 | Round close timeline | 10–12 weeks |
 | Final valuation | $10–12M post-money |
-
----
-
-*Document prepared by Manus AI for ARG-Builder seed fundraising campaign.*

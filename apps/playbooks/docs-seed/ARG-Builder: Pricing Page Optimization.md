@@ -136,7 +136,3 @@ This document defines ARG-Builder's pricing page strategy — the design, copy, 
 | Average deal size | — | $60K ACV | CRM |
 | Time on pricing page | — | 2–4 minutes | Analytics |
 | Bounce rate | — | < 40% | Analytics |
-
----
-
-*Document prepared by Manus AI for ARG-Builder pricing optimization.*

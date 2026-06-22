@@ -200,7 +200,3 @@ This document defines ARG-Builder's Technical Debt Management framework — the 
 | Top 10 priority items | Table: ranked by RICE-D score | Weekly |
 | Category breakdown | Pie chart: items by category | Monthly |
 | Average resolution time | Line chart: days to resolve | Monthly |
-
----
-
-*Document prepared by Manus AI for ARG-Builder engineering operations.*

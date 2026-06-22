@@ -201,7 +201,3 @@ The CAB must deliver genuine value to members — not just extract feedback. The
 | Member churn | 0% | Retention data |
 | NPS of CAB members | > 70 | Survey |
 | Actionable insights per meeting | > 3 | Meeting notes |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer advisory board governance.*

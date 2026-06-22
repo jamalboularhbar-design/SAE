@@ -160,7 +160,3 @@ This document defines ARG-Builder's 12-month pricing experimentation strategy â€
 | Revenue impact | Incremental revenue from pricing changes | Finance + Board |
 | Next month plan | Upcoming experiments | Product + Engineering |
 | Learnings log | Key insights accumulated | All teams |
-
----
-
-*Document prepared by Manus AI for ARG-Builder pricing operations.*

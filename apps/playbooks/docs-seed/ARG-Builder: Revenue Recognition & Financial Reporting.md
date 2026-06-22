@@ -156,7 +156,3 @@ This document defines ARG-Builder's revenue recognition policies and financial r
 | Banking | Statements, reconciliations | 7 years |
 | Tax | Returns, supporting schedules | 7 years |
 | Corporate | Minutes, resolutions, filings | Permanent |
-
----
-
-*Document prepared by Manus AI for ARG-Builder finance operations.*

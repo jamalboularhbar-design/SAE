@@ -309,7 +309,3 @@ This is the CEO's personal operating system — the frameworks, rhythms, and dec
 | Product outage | Engineering all-hands, customer communication | Transparency builds trust |
 | Co-founder conflict | Mediated conversation, clear roles/responsibilities | Address early, don't let fester |
 | PR crisis | Acknowledge, take responsibility, state actions | Speed and honesty matter most |
-
----
-
-*Document prepared by Manus AI for ARG-Builder founder operations.*

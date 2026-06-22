@@ -117,7 +117,3 @@ This document defines ARG-Builder's customer community platform strategy — the
 | Bettermode (Tribe) | Customer communities at scale | $599–$1,499/month | Gamification, SSO, analytics |
 | Slack (Community) | Real-time discussion, small communities | Free–$12.50/user/month | Channels, integrations, familiar |
 | Khoros / Higher Logic | Enterprise communities | $2K+/month | Robust, scalable, enterprise features |
-
----
-
-*Document prepared by Manus AI for ARG-Builder community operations.*

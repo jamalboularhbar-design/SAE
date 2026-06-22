@@ -189,7 +189,3 @@ This document defines ARG-Builder's intellectual property strategy — covering 
 | Trade secret inventory | Required | Encrypted vault |
 | No known IP disputes or claims | Required | Legal representation letter |
 | Prior invention disclosures | Required | HR files |
-
----
-
-*Document prepared by Manus AI for ARG-Builder intellectual property strategy.*

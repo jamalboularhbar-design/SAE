@@ -362,7 +362,3 @@ Step 7: Referrer notified of reward + encouraged to refer again
 | **Total** | **$160,000** | **$453,000** |
 | **Projected referral revenue** | **$330,000** | **$1,500,000** |
 | **Program ROI** | **2.1x** | **3.3x** |
-
----
-
-*Document prepared by Manus AI. Referral program designed for ARG-Builder customer-driven growth.*

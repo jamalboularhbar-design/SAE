@@ -149,7 +149,3 @@ This document defines ARG-Builder's sales forecasting methodology — the system
 | Bear case | 70% of commit closes, 20% of best case, 0% pipeline | $XXX | $XXX | 15% |
 | Base case | 90% of commit, 50% of best case, 10% pipeline | $XXX | $XXX | 60% |
 | Bull case | 100% of commit, 75% of best case, 25% pipeline | $XXX | $XXX | 25% |
-
----
-
-*Document prepared by Manus AI for ARG-Builder revenue forecasting operations.*

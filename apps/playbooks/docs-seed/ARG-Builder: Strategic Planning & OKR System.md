@@ -214,7 +214,3 @@ This document defines ARG-Builder's strategic planning methodology and OKR (Obje
 | Max 3–4 KRs per objective | Keep measurable and trackable |
 | Shared KRs | At least 1 KR per team should be shared with another team |
 | Stretch targets | At least 1 KR should be a stretch (70% confidence of hitting) |
-
----
-
-*Document prepared by Manus AI for ARG-Builder strategic operations.*

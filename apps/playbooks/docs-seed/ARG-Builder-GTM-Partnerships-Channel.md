@@ -303,7 +303,3 @@ Partnerships can accelerate growth by 2–5x when executed well — and waste ye
 | Partner with 2–3 consultants | Qualified referrals | Low |
 | List on Slack/Zapier | Awareness, credibility | Low |
 | Account mapping with 1 co-sell partner | Joint pipeline | Low |
-
----
-
-*Document prepared by Manus AI. Go-to-market partnerships and channel strategy designed for ARG-Builder building scalable, revenue-generating partner ecosystems.*

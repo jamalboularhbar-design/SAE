@@ -339,7 +339,3 @@ The organizations that learn fastest win. Post-mortems are the most powerful mec
 | Is psychological safety improving? | Culture health |
 | What systemic improvements have we made? | Impact |
 | What should we focus on next quarter? | Prioritization |
-
----
-
-*Document prepared by Manus AI. Post-mortem and organizational learning culture framework designed for ARG-Builder building a continuously improving, psychologically safe organization that compounds institutional wisdom.*

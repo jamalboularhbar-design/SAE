@@ -182,7 +182,3 @@ This document defines ARG-Builder's internal communication system — the cadenc
 | Decision cycle time | < 3 days | 3–7 days | > 7 days |
 | Meeting NPS (quarterly survey) | > 30 | 0–30 | < 0 |
 | Information accessibility score | > 80% | 60–80% | < 60% |
-
----
-
-*Document prepared by Manus AI for ARG-Builder internal operations.*

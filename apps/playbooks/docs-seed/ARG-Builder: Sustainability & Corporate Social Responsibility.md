@@ -173,7 +173,3 @@ This document defines ARG-Builder's sustainability and corporate social responsi
 | Employee wellbeing | $40K | $100K | $200K |
 | **Total** | **$130K** | **$305K** | **$550K** |
 | **% of revenue** | **6%** | **3.5%** | **2.5%** |
-
----
-
-*Document prepared by Manus AI for ARG-Builder corporate responsibility.*

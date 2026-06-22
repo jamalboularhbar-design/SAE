@@ -134,7 +134,3 @@ This document defines ARG-Builder's channel partner enablement program — the c
 | Deal registration → close rate | > 25% | CRM pipeline |
 | Time to first deal | < 90 days from certification | CRM |
 | Partner retention | > 85% annually | Program records |
-
----
-
-*Document prepared by Manus AI for ARG-Builder channel partner enablement operations.*

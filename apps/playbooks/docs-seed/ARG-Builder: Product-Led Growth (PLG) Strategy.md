@@ -183,7 +183,3 @@ The pricing page is the highest-leverage conversion asset. Design principles:
 | Phase 3: Conversion | Months 5–7 | Upgrade prompts, pricing page, self-serve checkout |
 | Phase 4: PQL Engine | Months 7–9 | Lead scoring, sales-assist triggers, CRM integration |
 | Phase 5: Optimization | Months 9–12 | A/B testing, viral loops, referral program |
-
----
-
-*Document prepared by Manus AI for ARG-Builder product-led growth strategy.*

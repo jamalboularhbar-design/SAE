@@ -133,7 +133,3 @@ This document defines ARG-Builder's systematic approach to collecting, managing,
 | Logo permissions | 5–8 | 15–20 | 60+ |
 | Testimonial usage (in deals) | 80% of proposals | — | — |
 | Testimonial-influenced revenue | — | 30% of new ARR | — |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer testimonial operations.*

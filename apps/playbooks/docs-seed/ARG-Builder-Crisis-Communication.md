@@ -401,7 +401,3 @@ Contact: [press email]
 | Employee sentiment shift | Pulse surveys | Leadership attention |
 | Regulatory communication | Legal inbox | Immediate legal review |
 | Competitor attack | Competitive monitoring | Prepare response |
-
----
-
-*Document prepared by Manus AI. Crisis communication plan designed for ARG-Builder organizational resilience and trust protection.*

@@ -315,7 +315,3 @@ Strategic accounts represent disproportionate revenue, reference value, and grow
 | Variable (expansion) | 10–15% | NRR / expansion revenue |
 | Variable (health) | 5–10% | Health score improvement |
 | Accelerators | Above target | 1.5–2x for exceeding NRR target |
-
----
-
-*Document prepared by Manus AI. Strategic account management framework designed for ARG-Builder maximizing value from the most important customer relationships.*

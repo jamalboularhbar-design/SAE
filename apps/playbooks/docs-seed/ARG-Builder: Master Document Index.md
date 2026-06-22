@@ -269,4 +269,4 @@ This index catalogs all documents created for the ARG-Builder AI-powered operati
 
 ---
 
-*Master Index prepared by Manus AI. Last updated: April 2026.*
+*Master Index

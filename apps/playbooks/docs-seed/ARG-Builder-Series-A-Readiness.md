@@ -366,7 +366,3 @@ A Series A round typically raises $8M–$25M at a $40M–$100M pre-money valuati
 | Product development sprint | Month 1–3 | Engineering focus |
 | SOC 2 Type II completion | Month 3–6 | $50K |
 | International expansion prep | Month 4–6 | Research + planning |
-
----
-
-*Document prepared by Manus AI. Series A readiness checklist designed for ARG-Builder fundraising preparation and execution.*

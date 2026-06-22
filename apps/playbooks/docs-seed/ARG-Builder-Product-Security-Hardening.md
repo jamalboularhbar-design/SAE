@@ -348,7 +348,3 @@ Security is not a feature — it is a foundational requirement for enterprise Sa
 | Phishing simulation click rate | < 5% | Phishing platform |
 | Open security findings | < 10 | Issue tracker |
 | Uptime (security-related) | 99.99% | Monitoring |
-
----
-
-*Document prepared by Manus AI. Product security hardening guide designed for ARG-Builder enterprise trust and compliance.*

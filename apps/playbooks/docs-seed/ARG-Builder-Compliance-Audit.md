@@ -170,7 +170,3 @@ Enterprise customers require vendors to demonstrate security and compliance matu
 | Training platform | $5,000 | $5,000 |
 | Consultant/advisory | $20,000 | $10,000 |
 | **Total** | **$130,000** | **$115,000** |
-
----
-
-*Document prepared by Manus AI. Compliance and audit readiness guide designed for ARG-Builder enterprise trust and market access.*

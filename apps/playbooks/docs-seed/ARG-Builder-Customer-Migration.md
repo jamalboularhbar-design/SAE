@@ -277,7 +277,3 @@ Label                       →    Tag
 | Content quality degradation | Medium | Medium | Quality gates, sample audits |
 | Integration failures | Low | High | Test thoroughly, have fallback |
 | Executive support loss | Low | Critical | Regular updates, show early wins |
-
----
-
-*Document prepared by Manus AI. Migration playbook designed for seamless ARG-Builder customer transitions.*

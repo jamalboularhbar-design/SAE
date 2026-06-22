@@ -113,7 +113,3 @@ This document defines ARG-Builder's competitive positioning — the visual and s
 | Process Street | "They're excellent for checklists. We're complementary — we handle the 'why' and 'how' that sits above the checklist." | Positioning as strategic layer |
 | "We'll build it" | "Totally possible. Let me share what that typically costs and takes, so you can make an informed build-vs-buy decision." | Build vs. buy analysis |
 | Consulting firm | "Great for one-time transformation. We're the ongoing system that keeps that investment alive and current." | Cost comparison + maintenance angle |
-
----
-
-*Document prepared by Manus AI for ARG-Builder competitive positioning operations.*

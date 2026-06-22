@@ -305,7 +305,3 @@ Expansion revenue is the engine of sustainable SaaS growth. With a 125% NRR targ
 | Settings | Trying locked feature | "This feature is available on [tier]" | "See what's included" |
 | Admin panel | Adding user beyond limit | "Need more seats? Add instantly" | "Add seats" |
 | Reports | Viewing limited analytics | "Get deeper insights with Analytics+" | "Learn more" |
-
----
-
-*Document prepared by Manus AI. Customer expansion playbook designed for ARG-Builder systematic revenue growth.*

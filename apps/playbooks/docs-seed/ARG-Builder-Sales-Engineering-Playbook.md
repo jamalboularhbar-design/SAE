@@ -323,7 +323,3 @@ A "technical win" is achieved when the technical evaluators confirm that ARG-Bui
 | RFP response time | < 10 business days | Submission date - receipt date |
 | Pipeline influenced | > $1.5M/quarter | SE-engaged pipeline |
 | Revenue closed (SE-engaged) | > $500K/quarter | Closed-won with SE involvement |
-
----
-
-*Document prepared by Manus AI. Sales engineering playbook designed for ARG-Builder technical pre-sales excellence.*

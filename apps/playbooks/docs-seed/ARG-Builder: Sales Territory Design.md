@@ -127,7 +127,3 @@ This document defines ARG-Builder's sales territory strategy — the structured 
 | Quota attainment | > 80% | 60–80% | < 60% | Performance plan |
 | Activity level | > 50 activities/week | 30–50 | < 30 | Activity coaching |
 | Pipeline velocity | Improving QoQ | Flat | Declining | Process review |
-
----
-
-*Document prepared by Manus AI for ARG-Builder sales territory operations.*

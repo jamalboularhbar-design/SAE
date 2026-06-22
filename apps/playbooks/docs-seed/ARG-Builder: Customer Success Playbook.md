@@ -193,7 +193,3 @@ When an account reaches L3 or L4:
 | NPS | Net Promoter Score | > 60 |
 | Expansion rate | % of accounts that expand annually | > 35% |
 | CSM productivity | ARR managed per CSM | $1.5M–$2.5M |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer success operations.*

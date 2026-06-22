@@ -117,7 +117,3 @@ This document defines ARG-Builder's customer feedback system — the structured 
 | Dovetail / Grain | Interview recording and analysis | Calendar, Slack |
 | Mixpanel / Amplitude | Usage analytics (passive feedback) | Product |
 | Slack (#feedback channel) | Internal feedback sharing | All tools |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer feedback operations.*

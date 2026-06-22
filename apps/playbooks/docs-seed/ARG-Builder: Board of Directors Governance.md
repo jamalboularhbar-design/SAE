@@ -209,7 +209,3 @@ This document defines ARG-Builder's Board of Directors governance framework — 
 | Committees | Are committees functioning effectively? | — |
 | CEO relationship | Is the board-CEO relationship healthy and productive? | — |
 | Time allocation | Is meeting time spent on the right topics? | — |
-
----
-
-*Document prepared by Manus AI for ARG-Builder board governance.*

@@ -260,7 +260,3 @@ We sincerely apologize for this incident and are committed to preventing future 
 | Disaster recovery test | Semi-annually | Engineering |
 | SOC 2 audit | Annually | External auditor |
 | Vendor security review | Annually (or on new vendor) | Security lead |
-
----
-
-*Document prepared by Manus AI for ARG-Builder security operations and incident response.*

@@ -205,7 +205,3 @@ All new features ship behind feature flags. This enables:
 | Test coverage (critical paths) | % of critical code covered by tests | > 80% |
 | Technical debt ratio | % of sprint capacity on debt | 20% (± 5%) |
 | Developer satisfaction | Quarterly survey score | > 4/5 |
-
----
-
-*Document prepared by Manus AI for ARG-Builder engineering operations.*

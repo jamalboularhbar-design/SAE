@@ -254,7 +254,3 @@ Once a founding customer signs, execute this onboarding sequence to ensure rapid
 | Day 30 | First feedback session (30 min) | Founder |
 | Day 60 | Product roadmap input session (45 min) | Founder |
 | Day 90 | Case study interview (60 min) | Founder |
-
----
-
-*Document prepared by Manus AI for ARG-Builder founding customer acquisition.*

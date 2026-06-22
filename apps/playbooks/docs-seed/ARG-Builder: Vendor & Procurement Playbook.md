@@ -153,7 +153,3 @@ This document defines ARG-Builder's vendor evaluation, negotiation, and manageme
 | 6 | Cut over to new vendor | Engineering | Week 8 |
 | 7 | Decommission old vendor | Engineering + Finance | Week 9 |
 | 8 | Confirm data deletion from old vendor | Security | Week 10 |
-
----
-
-*Document prepared by Manus AI for ARG-Builder vendor and procurement operations.*

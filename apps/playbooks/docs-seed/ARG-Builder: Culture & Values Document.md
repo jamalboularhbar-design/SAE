@@ -221,7 +221,3 @@ ARG-Builder operates as a remote-first company with intentional in-person connec
 | Home office support | $2,000 setup budget + $100/month stipend |
 | No meeting days | Wednesday = no meetings (deep work day) |
 | Trust over surveillance | No tracking software, no mandatory camera-on |
-
----
-
-*Document prepared by Manus AI for ARG-Builder organizational culture and values.*

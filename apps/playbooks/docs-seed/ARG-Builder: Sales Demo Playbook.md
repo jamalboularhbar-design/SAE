@@ -144,7 +144,3 @@ This document defines ARG-Builder's structured demo methodology — the repeatab
 | "Aha moment" achieved | > 80% of demos | Post-demo survey or AE assessment |
 | Follow-up meeting booked (same call) | > 50% | CRM next steps |
 | Time from demo to decision | < 30 days (MM), < 60 days (ENT) | CRM pipeline |
-
----
-
-*Document prepared by Manus AI for ARG-Builder sales demonstration operations.*

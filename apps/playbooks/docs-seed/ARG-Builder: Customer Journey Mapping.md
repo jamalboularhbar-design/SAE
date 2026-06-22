@@ -162,7 +162,3 @@ This document defines ARG-Builder's end-to-end customer journey — the complete
 | Adoption | DAU/MAU ratio | > 30% | Feature adoption, team usage |
 | Expansion | Net revenue retention | > 120% | Expansion rate, upsell conversion |
 | Advocacy | NPS | > 50 | Referrals, reviews, case studies |
-
----
-
-*Document prepared by Manus AI for ARG-Builder customer journey operations.*

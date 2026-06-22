@@ -168,7 +168,3 @@ This document defines ARG-Builder's demand generation engine — the systematic,
 | CAC by channel | Customer acquisition cost per channel | Varies (see above) | Monthly |
 | Marketing ROI | Pipeline generated / marketing spend | > 10x | Quarterly |
 | Content engagement | Page views, time on page, shares | Growing MoM | Weekly |
-
----
-
-*Document prepared by Manus AI for ARG-Builder demand generation operations.*

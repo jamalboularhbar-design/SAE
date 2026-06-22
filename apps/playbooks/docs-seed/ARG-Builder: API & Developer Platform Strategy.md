@@ -230,7 +230,3 @@ This document defines ARG-Builder's public API and developer platform strategy â
 | Community | 70% | Published app, basic quality | Listing, basic support |
 | Verified | 75% | Quality review, support SLA | Featured placement, co-marketing |
 | Premier | 80% | Enterprise-ready, dedicated support | Priority placement, joint sales |
-
----
-
-*Document prepared by Manus AI for ARG-Builder developer platform strategy.*

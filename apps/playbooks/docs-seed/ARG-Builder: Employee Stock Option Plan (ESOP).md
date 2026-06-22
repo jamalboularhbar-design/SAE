@@ -167,7 +167,3 @@ This document defines ARG-Builder's equity compensation strategy — the option 
 | Fully diluted share count | All employees | Annual update |
 | Equity band ranges | Hiring managers | Compensation guide |
 | Vesting status | Individual | Carta portal |
-
----
-
-*Document prepared by Manus AI for ARG-Builder equity compensation operations.*
