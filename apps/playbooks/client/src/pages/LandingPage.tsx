@@ -528,19 +528,19 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 border-t border-border/60">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+      <footer className="py-12 px-4 pb-28 sm:pb-32 border-t border-border/60">
+        <div className="max-w-2xl mx-auto flex flex-col items-center text-center gap-4">
+          <div className="flex items-center justify-center gap-3">
             <LogoMark size="sm" />
             <span className="text-sm text-muted-foreground">
               {BRAND.productName} — {BRAND.tagline.toLowerCase()}.
             </span>
           </div>
-          <div className="flex items-center gap-6 text-xs text-muted-foreground">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
             <span>&copy; {new Date().getFullYear()} {BRAND.parentName}</span>
-            <span>·</span>
+            <span aria-hidden="true">·</span>
             <span>{BRAND.domain}</span>
-            <span>·</span>
+            <span aria-hidden="true">·</span>
             <span>{BRAND.supportEmail}</span>
           </div>
         </div>
