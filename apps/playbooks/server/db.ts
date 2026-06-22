@@ -2337,23 +2337,7 @@ export async function clearUserSearchHistory(userOpenId: string) {
 
 // âââ Batch 15: Document Relationships Graph Data âââââââââââââââââââââââââââââ
 export async function getDocumentGraph() {
-  const db = await getDb();
-  if (!db) return { nodes: [], edges: [] };
-  const docs = await db.select({
-    slug: documents.slug,
-    title: documents.title,
-    category: documents.category,
-    wordCount: documents.wordCount,
-  }).from(documents).where(eq(documents.status, 'published'));
-  
-  const deps = await db.select({
-    source: sql<string>`documentSlug`,
-    target: sql<string>`prerequisiteSlug`,
-  }).from(sql`document_dependencies`);
-  
-  const nodes = docs.map(d => ({ id: d.slug, label: d.title, category: d.category, size: d.wordCount || 100 }));
-  const edges = deps.map(d => ({ source: d.source, target: d.target }));
-  return { nodes, edges };
+  return getKnowledgeGraphData();
 }
 
 // âââ Batch 15: Admin Content Calendar ââââââââââââââââââââââââââââââââââââââââ

@@ -1398,7 +1398,7 @@ export const appRouter = router({
 
   // ─── Batch 15: Document Graph ──────────────────────────────────────────
   documentGraph: router({
-    get: publicProcedure.query(async () => getDocumentGraph()),
+    get: publicProcedure.query(async () => getKnowledgeGraphData()),
   }),
 
   // ─── Batch 15: Content Calendar ────────────────────────────────────────

@@ -136,7 +136,7 @@ export default function Header() {
           <button
             onClick={() => navigate('/graph')}
             className="hidden lg:block p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card/80 border border-border/50 transition-colors active:bg-card/60"
-            title="Document Graph"
+            title="Knowledge Graph"
           >
             <Network className="w-4 h-4" />
           </button>
