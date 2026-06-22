@@ -541,7 +541,7 @@ export default function DocumentDetail() {
             </div>
 
             {/* Markdown Content */}
-            <article data-document-content className="prose prose-invert prose-sm max-w-none
+            <article data-document-content className="prose dark:prose-invert prose-sm max-w-none
               prose-headings:font-display prose-headings:text-foreground
               prose-h1:text-xl sm:prose-h1:text-2xl prose-h1:mt-6 sm:prose-h1:mt-8 prose-h1:mb-3 sm:prose-h1:mb-4
               prose-h2:text-lg sm:prose-h2:text-xl prose-h2:mt-5 sm:prose-h2:mt-6 prose-h2:mb-2 sm:prose-h2:mb-3 prose-h2:border-b prose-h2:border-border/30 prose-h2:pb-2
@@ -552,9 +552,9 @@ export default function DocumentDetail() {
               prose-a:text-accent prose-a:no-underline hover:prose-a:underline
               prose-code:text-accent prose-code:bg-accent/10 prose-code:px-1 sm:prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-[11px] sm:prose-code:text-xs
               prose-pre:bg-card prose-pre:border prose-pre:border-border/50 prose-pre:rounded-xl prose-pre:overflow-x-auto prose-pre:text-xs
-              prose-table:border prose-table:border-border/50 prose-table:text-xs sm:prose-table:text-sm
-              prose-th:bg-card/50 prose-th:border prose-th:border-border/50 prose-th:px-2 sm:prose-th:px-3 prose-th:py-1.5 sm:prose-th:py-2 prose-th:text-foreground
-              prose-td:border prose-td:border-border/50 prose-td:px-2 sm:prose-td:px-3 prose-td:py-1.5 sm:prose-td:py-2
+              prose-table:border prose-table:border-border prose-table:text-xs sm:prose-table:text-sm
+              prose-th:bg-muted prose-th:border prose-th:border-border prose-th:px-2 sm:prose-th:px-3 prose-th:py-1.5 sm:prose-th:py-2 prose-th:text-foreground prose-th:font-semibold
+              prose-td:border prose-td:border-border prose-td:px-2 sm:prose-td:px-3 prose-td:py-1.5 sm:prose-td:py-2 prose-td:text-foreground
               prose-blockquote:border-accent/50 prose-blockquote:text-muted-foreground
               prose-hr:border-border/50
               print:prose-p:text-black print:prose-headings:text-black
@@ -682,31 +682,33 @@ export default function DocumentDetail() {
             {/* Prev/Next Document Navigation */}
             <DocumentNavigation slug={document.slug} category={document.category} />
 
-            {/* Bottom Navigation */}
-            <div className="mt-8 sm:mt-12 pt-4 sm:pt-6 border-t border-border/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <button
-                onClick={() => navigate('/')}
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Back to Library
-              </button>
-              <div className="flex items-center gap-3">
+            {/* Bottom Navigation — centered so admin quick actions don't cover actions */}
+            <div className="mt-8 sm:mt-12 pt-4 sm:pt-6 border-t border-border/50 pb-28 sm:pb-32">
+              <div className="max-w-lg mx-auto flex flex-col items-center gap-4 text-center">
                 <button
-                  onClick={handleCopy}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs text-muted-foreground hover:text-foreground bg-card/50 border border-border/50 hover:border-accent/30 transition-colors"
+                  onClick={() => navigate('/')}
+                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors"
                 >
-                  <Copy className="w-3.5 h-3.5" />
-                  Copy
+                  <ArrowLeft className="w-4 h-4" />
+                  Back to Library
                 </button>
-                <button
-                  onClick={handleDownload}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs text-muted-foreground hover:text-foreground bg-card/50 border border-border/50 hover:border-accent/30 transition-colors"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  Download .md
-                </button>
-                <ExportDocx slug={document.slug} title={document.title} />
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  <button
+                    onClick={handleCopy}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs text-muted-foreground hover:text-foreground bg-card border border-border hover:border-accent/30 transition-colors"
+                  >
+                    <Copy className="w-3.5 h-3.5" />
+                    Copy
+                  </button>
+                  <button
+                    onClick={handleDownload}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs text-muted-foreground hover:text-foreground bg-card border border-border hover:border-accent/30 transition-colors"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    Download .md
+                  </button>
+                  <ExportDocx slug={document.slug} title={document.title} />
+                </div>
               </div>
             </div>
           </main>
@@ -784,7 +786,7 @@ function ScrollToTop() {
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 p-3 sm:p-3 rounded-full bg-accent/20 border border-accent/40 text-accent hover:bg-accent/30 active:bg-accent/40 transition-all shadow-lg no-print"
+      className="fixed bottom-24 left-6 z-50 p-3 rounded-full bg-accent/20 border border-accent/40 text-accent hover:bg-accent/30 active:bg-accent/40 transition-all shadow-lg no-print"
       title="Scroll to top"
     >
       <ArrowUp className="w-5 h-5" />

@@ -53,8 +53,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
+        <div className="border-t border-border pt-6 flex flex-col items-center justify-center gap-4 text-center max-w-3xl mx-auto pb-24 sm:pb-28">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
             <span className="text-sm font-bold text-primary">{BRAND.productName}</span>
             <span className="text-xs text-muted-foreground">{BRAND.tagline}</span>
           </div>

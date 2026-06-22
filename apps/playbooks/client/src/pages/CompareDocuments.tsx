@@ -160,7 +160,7 @@ export default function CompareDocuments() {
                         ))}
                       </div>
                     ) : doc?.content ? (
-                      <div className="prose prose-sm prose-invert max-w-none">
+                      <div className="prose prose-sm dark:prose-invert max-w-none prose-td:text-foreground prose-th:text-foreground">
                         <ReactMarkdown remarkPlugins={[remarkGfm]}>{doc.content}</ReactMarkdown>
                       </div>
                     ) : (
