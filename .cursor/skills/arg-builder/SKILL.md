@@ -109,9 +109,9 @@ curl -s "https://argbuilder.io/assets/$JS" | grep -c 'kg-rovo' || echo "MISSING"
 
 | Surface | Size | Notes |
 |---------|------|-------|
-| `MarketingNav` header | `lg` | Subtitle stacks *below* title, not beside logo |
+| `MarketingNav` header | `nav` | 44px, shrink-0 wrapper; `min-w-0` only on text |
 | `Header` (app) | `lg` | |
-| `LandingPage` footer | `sm` | Centered with tagline |
+| `LandingPage` footer | `md` | Stacked above tagline |
 | Login | `xl` | |
 
 **Common failures:**

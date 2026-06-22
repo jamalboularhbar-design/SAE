@@ -1,20 +1,20 @@
 # Logo fix
 
-**Status:** Open  
-**Reported:** 2026-06-22 — "logo crushed again" on `/product`
+**Status:** Fixed 2026-06-22  
+**Commit:** `3e6f75d`
 
-## Symptoms
+## Root cause
 
-- Broken or squashed logo in MarketingNav header + footer
-- Asset: `apps/playbooks/client/public/logo-mark.png`
+Logo was crushed by flex layout — `min-w-0` on brand container + default `md` (32px) size.
 
-## Fix plan
+## Fix
 
-- [ ] `LogoMark size="lg"` in MarketingNav
-- [ ] Verify PNG on `deploy/production` after sync
-- [ ] `curl -sI https://argbuilder.io/logo-mark.png` → 200
+- `LogoMark`: shrink-0 wrapper, `min-h/min-w`, `nav` size (44px), `BASE_URL` path
+- `MarketingNav`: `size="nav"`, `min-w-0` only on text block
+- Footer: stacked layout, `size="md"`
 
-## Links
+## Verify
 
-- [[MOCs/ARG-Builder]]
-- Skill: `.cursor/skills/arg-builder/SKILL.md` → Logo rules
+```bash
+curl -sI https://argbuilder.io/logo-mark.png | grep HTTP
+```
