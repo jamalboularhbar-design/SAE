@@ -3,6 +3,7 @@ import { ArrowUp, Loader2, CheckCircle2, Circle, Sparkles } from "lucide-react";
 import clsx from "clsx";
 import { api } from "@/lib/api";
 import { Badge } from "@/components/ui";
+import { LogoMark } from "@/components/LogoMark";
 import type { Run, RunStep, Specialist } from "@shared/types";
 
 const SUGGESTIONS = [
@@ -110,9 +111,7 @@ export function Console({
     <div className="h-full flex flex-col max-w-3xl mx-auto w-full">
       {!run && (
         <div className="flex-1 flex flex-col items-center justify-center text-center px-6">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center text-2xl mb-5">
-            ⬡
-          </div>
+          <LogoMark size="xl" className="mb-5" />
           <h1 className="text-3xl font-extrabold tracking-tight">
             You ask once. <span className="nx-grad-text">Nexus puts a team on it.</span>
           </h1>
