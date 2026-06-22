@@ -206,13 +206,13 @@ export default function App() {
   const dim = biz?.dim || "rgba(201,165,90,0.12)";
 
   if (!biz) return (
-    <>
+    <div className="jamal-hub">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
-        *{box-sizing:border-box;margin:0;padding:0}
-        body{background:#0D0D0D;color:#E8E0D0;font-family:'DM Sans',sans-serif;min-height:100vh}
-        ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
-        .sel{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;background:radial-gradient(ellipse 80% 60% at 50% 20%,rgba(201,165,90,0.04) 0%,transparent 70%)}
+        .jamal-hub,.jamal-hub *{box-sizing:border-box}
+        .jamal-hub{margin:0;padding:0;background:#0D0D0D;color:#E8E0D0;font-family:'DM Sans',sans-serif;min-height:100%;height:100%}
+        .jamal-hub ::-webkit-scrollbar{width:6px}.jamal-hub ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:4px}
+        .sel{min-height:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;background:radial-gradient(ellipse 80% 60% at 50% 20%,rgba(201,165,90,0.04) 0%,transparent 70%)}
         .sel-head{text-align:center;margin-bottom:52px}
         .sel-tag{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(232,224,208,0.35);margin-bottom:12px}
         .sel-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,52px);font-weight:300;line-height:1.1;color:#E8E0D0}
@@ -250,32 +250,32 @@ export default function App() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 
   return (
-    <>
+    <div className="jamal-hub">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
-        *{box-sizing:border-box;margin:0;padding:0}
-        body{background:#0D0D0D;color:#E8E0D0;font-family:'DM Sans',sans-serif;min-height:100vh}
-        ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:2px}
-        .hub{display:flex;height:100vh;overflow:hidden}
-        .sb{width:210px;flex-shrink:0;background:#111;border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;overflow-y:auto}
-        .sb-top{padding:16px 16px 12px;border-bottom:1px solid rgba(255,255,255,0.06)}
-        .sb-back{display:flex;align-items:center;gap:6px;cursor:pointer;color:rgba(232,224,208,0.35);font-size:11.5px;letter-spacing:0.04em;padding:4px 0;transition:color 0.15s;margin-bottom:10px}
-        .sb-back:hover{color:rgba(232,224,208,0.6)}
-        .sb-biz{display:flex;align-items:center;gap:8px}
-        .sb-biz-dot{width:7px;height:7px;border-radius:50%}
-        .sb-biz-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400}
-        .sb-biz-domain{font-size:10px;color:rgba(232,224,208,0.3);letter-spacing:0.06em;margin-top:1px}
-        .sb-nav{padding:8px 0;flex:1}
-        .nav-it{display:flex;align-items:center;gap:8px;padding:8px 16px;cursor:pointer;transition:all 0.15s;border-left:2px solid transparent;font-size:12px;color:rgba(232,224,208,0.4);letter-spacing:0.01em}
-        .nav-it:hover{color:rgba(232,224,208,0.7);background:rgba(255,255,255,0.02)}
-        .nav-it.on{color:#E8E0D0;border-left-color:var(--acc);background:rgba(255,255,255,0.04)}
-        .nav-ic{font-size:10px;width:12px;text-align:center}
-        .nav-n{flex:1}
-        .nav-b{margin-left:auto;font-size:10px;color:rgba(232,224,208,0.2);background:rgba(255,255,255,0.03);border-radius:8px;padding:1px 5px}
+        .jamal-hub,.jamal-hub *{box-sizing:border-box}
+        .jamal-hub{margin:0;padding:0;background:#0D0D0D;color:#E8E0D0;font-family:'DM Sans',sans-serif;min-height:100%;height:100%}
+        .jamal-hub ::-webkit-scrollbar{width:6px}.jamal-hub ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:4px}
+        .hub{display:flex;height:100%;min-height:100%;overflow:hidden}
+        .sb{width:17rem;flex-shrink:0;background:#111;border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;min-height:0;overflow:hidden}
+        .sb-top{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}
+        .sb-back{display:flex;align-items:center;gap:8px;cursor:pointer;color:rgba(232,224,208,0.4);font-size:12px;letter-spacing:0.04em;padding:6px 0;transition:color 0.15s;margin-bottom:14px}
+        .sb-back:hover{color:rgba(232,224,208,0.7)}
+        .sb-biz{display:flex;align-items:center;gap:10px}
+        .sb-biz-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+        .sb-biz-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;line-height:1.2}
+        .sb-biz-domain{font-size:11px;color:rgba(232,224,208,0.35);letter-spacing:0.06em;margin-top:3px}
+        .sb-nav{padding:12px 10px 16px;flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:6px}
+        .nav-it{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;transition:all 0.15s;border-left:2px solid transparent;border-radius:10px;font-size:14px;line-height:1.3;color:rgba(232,224,208,0.45);letter-spacing:0.01em;flex-shrink:0}
+        .nav-it:hover{color:rgba(232,224,208,0.75);background:rgba(255,255,255,0.03)}
+        .nav-it.on{color:#E8E0D0;border-left-color:var(--acc);background:rgba(255,255,255,0.05);box-shadow:0 0 0 1px rgba(255,255,255,0.04)}
+        .nav-ic{font-size:12px;width:16px;text-align:center;flex-shrink:0;opacity:0.85}
+        .nav-n{flex:1;min-width:0}
+        .nav-b{margin-left:auto;font-size:10px;color:rgba(232,224,208,0.25);background:rgba(255,255,255,0.04);border-radius:10px;padding:2px 7px;flex-shrink:0}
         .nav-it.on .nav-b{color:var(--acc);background:var(--acc-dim)}
         .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
         .tbar{padding:16px 24px;border-bottom:1px solid rgba(255,255,255,0.06);background:#111;display:flex;align-items:center;gap:12px;flex-shrink:0}
@@ -457,6 +457,6 @@ export default function App() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
