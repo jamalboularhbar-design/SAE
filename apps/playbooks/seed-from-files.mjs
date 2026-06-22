@@ -1,7 +1,6 @@
 /**
- * One-time importer: seeds all documents from the /docs folder into the database.
- * Run once after deploy: node seed-from-files.mjs
- * Safe to re-run — clears and re-seeds each time.
+ * @deprecated Use seed-all-documents.mjs instead (pnpm seed:525).
+ * Legacy importer — seeds docs-seed only (~281 files).
  */
 import fs from 'fs';
 import path from 'path';

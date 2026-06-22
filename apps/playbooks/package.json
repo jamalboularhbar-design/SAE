@@ -19,6 +19,10 @@
     "templates:gumroad-copy": "tsx scripts/gumroad-listing-copy.mjs",
     "docs:strip-manus": "node scripts/strip-manus-footers.mjs",
     "docs:strip-manus:db": "node scripts/strip-manus-footers.mjs --db",
+    "seed:all": "node seed-all-documents.mjs --force --with-stubs --include-persona",
+    "seed:525": "node seed-all-documents.mjs --force --with-stubs --include-persona",
+    "seed:docs-seed": "node seed-all-documents.mjs --force --docs-only",
+    "seed:upsert": "node seed-all-documents.mjs --with-stubs",
     "graph:populate": "node scripts/populate-knowledge-graph.mjs",
     "favicons:generate": "python3 scripts/generate-favicons.py"
   },

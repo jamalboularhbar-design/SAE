@@ -25,9 +25,8 @@ try {
     process.exit(0);
   }
 
-  console.log('[seed-if-empty] DB is empty — seeding documents...');
-  execSync('node seed-documents.mjs', { stdio: 'inherit' });
-  execSync('node seed-rr-ak-documents.mjs', { stdio: 'inherit' });
+  console.log('[seed-if-empty] DB is empty — seeding full library (525 target)...');
+  execSync('node seed-all-documents.mjs --force --with-stubs --include-persona', { stdio: 'inherit' });
   console.log('[seed-if-empty] Seeding complete!');
 
 } catch (err) {

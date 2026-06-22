@@ -153,9 +153,11 @@ curl -s "https://argbuilder.io/assets/$JS" | grep -c 'kg-rovo' || echo "MISSING"
 
 **Populate graph (production DB — Railway console):**
 ```bash
-cd /app   # or apps/playbooks locally
-pnpm graph:populate   # cross-refs + dependencies (raw mysql2, no drizzle import)
+pnpm seed:525          # 515 catalog + persona/GTM extras (stubs for missing bodies)
+pnpm graph:populate    # cross-refs + dependencies
 ```
+
+**Note:** Only ~281 markdown files exist in `docs-seed`; ~354 catalog entries use placeholder content until original Manus-era files are restored. Real content is matched via fuzzy filename/title mapping (~161 playbooks).
 
 Scripts use **raw mysql2** (not `drizzle/schema.js`) so they run on Railway without TypeScript compilation.
 

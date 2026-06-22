@@ -18,4 +18,4 @@ ENV PORT=3000
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "node_modules/.bin/drizzle-kit migrate && node seed-from-files.mjs && node --experimental-global-webcrypto dist/index.js"]
+CMD ["sh", "-c", "node_modules/.bin/drizzle-kit migrate && node seed-if-empty.mjs && node --experimental-global-webcrypto dist/index.js"]
