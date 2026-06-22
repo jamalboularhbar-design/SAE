@@ -325,6 +325,15 @@ export default function LoginPage() {
           </button>
         </form>
 
+        <p className="text-center mt-6">
+          <a
+            href="/os/"
+            className="text-sm text-teal-400 hover:text-teal-300 transition-colors"
+          >
+            Open Nexus OS →
+          </a>
+        </p>
+
         <p className="text-center text-xs text-muted-foreground mt-8">
             {BRAND.productName} · {BRAND.tagline}
         </p>
