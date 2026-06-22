@@ -1,20 +1,14 @@
 /**
  * Auto-generate logical document dependencies for the Knowledge Graph.
- *
- * Strategies (ordered by confidence):
- * 1. Curated learning paths — ordered sequences within each domain
- * 2. Foundation hubs — index, business plan, architecture as prerequisites
- * 3. Prerequisites sections — explicit "Prerequisites" / "Before you begin" blocks
- * 4. Content signals — "builds on", "requires", "see also" near title mentions
- * 5. Master Document Index order — sequential docs in same section
+ * Uses raw mysql2 — no drizzle schema import (works on Railway /app).
  *
  * Usage: DATABASE_URL=... node scripts/generate-dependencies.mjs
  */
 
-import { drizzle } from "drizzle-orm/mysql2";
 import mysql from "mysql2/promise";
-import { eq } from "drizzle-orm";
-import * as schema from "../drizzle/schema.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const DATABASE_URL = process.env.DATABASE_URL;
 if (!DATABASE_URL) {
@@ -22,7 +16,6 @@ if (!DATABASE_URL) {
   process.exit(1);
 }
 
-/** Slug fragments for foundation docs (matched against actual slugs) */
 const FOUNDATION_PATTERNS = [
   "master-document-index",
   "comprehensive-business-plan",
@@ -34,31 +27,21 @@ const FOUNDATION_PATTERNS = [
   "founders-operating-manual",
 ];
 
-/** Curated learning paths: each slug depends on the previous in its chain */
 const LEARNING_PATHS = [
-  // Strategy
   ["arg-builder-annual-planning", "arg-builder-strategic-planning-okrs", "arg-builder-okr-framework"],
   ["arg-builder-data-driven-decisions", "arg-builder-startup-metrics-dashboard-design"],
-  // Product
   ["arg-builder-mvp-roadmap", "arg-builder-product-roadmap-governance", "arg-builder-feature-prioritization", "arg-builder-product-launch"],
   ["arg-builder-product-metrics", "arg-builder-product-analytics"],
-  // Engineering
   ["arg-builder-technical-architecture", "arg-builder-scalability-infrastructure", "arg-builder-technical-debt"],
   ["arg-builder-engineering-culture", "arg-builder-security-incident-response", "arg-builder-soc-2-compliance-roadmap"],
-  // Sales
   ["arg-builder-sales-enablement", "arg-builder-sales-demo", "arg-builder-comprehensive-sales-objection-library", "arg-builder-sales-forecasting"],
   ["arg-builder-pricing-validation", "arg-builder-pricing-page-optimization", "arg-builder-pricing-experimentation"],
-  // Marketing
   ["arg-builder-brand-identity", "arg-builder-content-marketing-playbook", "arg-builder-demand-generation-engine"],
   ["arg-builder-competitive-positioning", "arg-builder-competitive-intelligence", "arg-builder-competitive-moat"],
-  // Customer Success
   ["arg-builder-customer-segmentation", "arg-builder-customer-journey-mapping", "arg-builder-customer-onboarding", "arg-builder-customer-success"],
   ["arg-builder-customer-health-score", "arg-builder-churn-prevention", "arg-builder-customer-retention"],
-  // Finance
   ["arg-builder-financial-controls", "arg-builder-revenue-recognition", "arg-builder-revenue-forecasting"],
-  // People
   ["arg-builder-hiring-playbook", "arg-builder-employee-onboarding", "arg-builder-performance-review"],
-  // GTM / Partnerships
   ["arg-builder-partner-program-design", "arg-builder-channel-partner-enablement", "arg-builder-partner-ecosystem"],
 ];
 
@@ -74,8 +57,7 @@ function slugifyTitle(title) {
 
 function findSlugMatch(pattern, slugSet, allSlugs) {
   if (slugSet.has(pattern)) return pattern;
-  const hit = allSlugs.find((s) => s.includes(pattern) || pattern.includes(s));
-  return hit ?? null;
+  return allSlugs.find((s) => s.includes(pattern) || pattern.includes(s)) ?? null;
 }
 
 function extractPrerequisiteSection(content) {
@@ -95,35 +77,21 @@ function addDep(deps, seen, documentSlug, prerequisiteSlug, reason) {
 
 async function main() {
   const connection = await mysql.createConnection(DATABASE_URL);
-  const db = drizzle(connection, { schema, mode: "default" });
 
   console.log("Fetching published documents...");
-  const docs = await db
-    .select({
-      id: schema.documents.id,
-      slug: schema.documents.slug,
-      title: schema.documents.title,
-      category: schema.documents.category,
-      content: schema.documents.content,
-    })
-    .from(schema.documents)
-    .where(eq(schema.documents.status, "published"));
+  const [docs] = await connection.execute(
+    "SELECT id, slug, title, category, content FROM documents WHERE status = 'published'"
+  );
 
   console.log(`Found ${docs.length} documents`);
 
   const slugSet = new Set(docs.map((d) => d.slug));
   const allSlugs = docs.map((d) => d.slug);
-  const titleToSlug = new Map(
-    docs.map((d) => [d.title.toLowerCase(), d.slug])
-  );
 
-  const foundationSlugs = FOUNDATION_PATTERNS.map((p) =>
-    findSlugMatch(p, slugSet, allSlugs)
-  ).filter(Boolean);
-
+  const foundationSlugs = FOUNDATION_PATTERNS.map((p) => findSlugMatch(p, slugSet, allSlugs)).filter(Boolean);
   console.log(`Foundation hubs: ${foundationSlugs.join(", ") || "(none matched)"}`);
 
-  await db.delete(schema.documentDependencies);
+  await connection.execute("DELETE FROM document_dependencies");
   console.log("Cleared existing dependencies");
 
   const deps = [];
@@ -139,7 +107,7 @@ async function main() {
   }
   console.log(`  ${deps.length} path dependencies`);
 
-  // Strategy 2: Foundation hubs — index + one category anchor per doc (max 2)
+  // Strategy 2: Foundation hubs
   const foundationCount = deps.length;
   const CATEGORY_FOUNDATION = {
     Sales: ["go-to-market", "gtm-sales"],
@@ -191,12 +159,9 @@ async function main() {
         if (other.id === doc.id) continue;
         const titleLower = other.title.toLowerCase();
         if (titleLower.length < 12) continue;
-        if (zoneLower.includes(titleLower)) {
-          if (hasSignal || zone === prereqBlock) {
-            addDep(deps, seen, doc.slug, other.slug, `Content: mentions "${other.title}"`);
-          }
+        if (zoneLower.includes(titleLower) && (hasSignal || zone === prereqBlock)) {
+          addDep(deps, seen, doc.slug, other.slug, `Content: mentions "${other.title}"`);
         }
-        // Slug /docs/ links
         if (zone.includes(`/docs/${other.slug}`)) {
           addDep(deps, seen, doc.slug, other.slug, `Content: links to /docs/${other.slug}`);
         }
@@ -211,13 +176,13 @@ async function main() {
     const indexCount = deps.length;
     const fileMatches = [...indexDoc.content.matchAll(/\|\s*\d+\s*\|\s*([^|]+)\|\s*([^|]+)\|/g)];
     let prevSlug = null;
-    let currentSection = "";
 
     for (const row of fileMatches) {
       const docName = row[1].trim();
       const fileRef = row[2].trim().replace(/\.md$/i, "");
-      const slug = findSlugMatch(slugifyTitle(fileRef), slugSet, allSlugs)
-        ?? findSlugMatch(slugifyTitle(docName), slugSet, allSlugs);
+      const slug =
+        findSlugMatch(slugifyTitle(fileRef), slugSet, allSlugs) ??
+        findSlugMatch(slugifyTitle(docName), slugSet, allSlugs);
 
       if (slug) {
         if (prevSlug && prevSlug !== slug) {
@@ -229,16 +194,18 @@ async function main() {
     console.log(`  +${deps.length - indexCount} index-order dependencies`);
   }
 
-  // Insert
   console.log(`\nTotal dependencies: ${deps.length}`);
+
   if (deps.length > 0) {
     const batchSize = 100;
-    const values = deps.map(({ documentSlug, prerequisiteSlug }) => ({
-      documentSlug,
-      prerequisiteSlug,
-    }));
-    for (let i = 0; i < values.length; i += batchSize) {
-      await db.insert(schema.documentDependencies).values(values.slice(i, i + batchSize));
+    for (let i = 0; i < deps.length; i += batchSize) {
+      const batch = deps.slice(i, i + batchSize);
+      const placeholders = batch.map(() => "(?, ?)").join(", ");
+      const values = batch.flatMap((d) => [d.documentSlug, d.prerequisiteSlug]);
+      await connection.execute(
+        `INSERT INTO document_dependencies (documentSlug, prerequisiteSlug) VALUES ${placeholders}`,
+        values
+      );
     }
   }
 

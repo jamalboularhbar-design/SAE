@@ -151,16 +151,13 @@ curl -s "https://argbuilder.io/assets/$JS" | grep -c 'kg-rovo' || echo "MISSING"
 
 **Data:** `getKnowledgeGraphData()` merges `document_dependencies` + `documentCrossReferences`; nodes keyed by slug.
 
-**Populate graph (production DB):**
+**Populate graph (production DB — Railway console):**
 ```bash
-cd apps/playbooks
-DATABASE_URL=... pnpm graph:populate   # cross-refs + dependencies
-# Or individually:
-node scripts/generate-cross-refs.mjs
-node scripts/generate-dependencies.mjs
+cd /app   # or apps/playbooks locally
+pnpm graph:populate   # cross-refs + dependencies (raw mysql2, no drizzle import)
 ```
 
-**Scripts:** `generate-cross-refs.mjs` (title mentions, slug links, keywords, category neighbors), `generate-dependencies.mjs` (learning paths, foundation hubs, prerequisite sections, Master Index order).
+Scripts use **raw mysql2** (not `drizzle/schema.js`) so they run on Railway without TypeScript compilation.
 
 **Cross-ref status:** `approved` and `confirmed` both render as reference edges in the graph.
 
