@@ -1,34 +1,191 @@
 /**
  * Seed the full ARG-Builder document library (target: 525 docs).
+ * Self-contained — no local imports (Railway-safe).
  *
- * Sources (in priority order):
- * 1. documentCatalog.ts — 515 canonical playbooks (Manus-era flat filenames)
- * 2. docs-seed/*.md — 281 markdown files on disk (colon/dash naming)
- * 3. Structured stubs for catalog entries with no matching file (--with-stubs, default)
- *
- * Usage (Railway console):
- *   pnpm seed:525
- *   pnpm graph:populate
- *
- * Flags:
- *   --force            DELETE all documents first, then re-seed
- *   --with-stubs       Placeholder content for catalog entries without a file match (default)
- *   --no-stubs         Skip catalog entries that have no content file
- *   --include-persona  Add RR/AK + GTM docs from docs-seed (515 + ~35 → ~550)
- *   --include-extras   Add all non-meta docs-seed files not already mapped
- *   --docs-only        Only seed docs-seed files (legacy ~281)
+ * Usage: pnpm seed:525
  */
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
-import {
-  parseCatalog,
-  loadDocsSeedFiles,
-  findBestSeedFile,
-  stubContent,
-  categorizeFromFilename,
-} from "./scripts/seed-lib.mjs";
 
 dotenv.config();
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const DOCS_DIR = path.join(__dirname, "docs-seed");
+const CATALOG_TS = path.join(__dirname, "client/src/lib/documentCatalog.ts");
+
+// ── seed helpers (inlined from scripts/seed-lib.mjs) ─────────────────────
+
+function stripManusFooter(content) {
+  if (!content) return content;
+  const MANUS_FOOTER_PATTERN = /\n*---?\n*\n*\*Document prepared by Manus AI[^*]*\*\s*$/i;
+  const MANUS_FOOTER_ALT = /\n*\*?(?:Document )?(?:prepared|generated) by Manus(?: AI)?[^*\n]*\*?\s*$/i;
+  return content.replace(MANUS_FOOTER_PATTERN, "").replace(MANUS_FOOTER_ALT, "").trimEnd();
+}
+
+function slugify(input) {
+  return String(input)
+    .replace(/\.md$/i, "")
+    .replace(/[^a-zA-Z0-9-]/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "")
+    .toLowerCase()
+    .slice(0, 200);
+}
+
+function catalogSlug(filename) {
+  const base = filename.replace(/^ARG-Builder-/i, "").replace(/\.md$/i, "");
+  return slugify(base);
+}
+
+function tokenize(text) {
+  return text
+    .toLowerCase()
+    .replace(/arg-builder[-: ]+/g, " ")
+    .replace(/\.md$/i, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter((w) => w.length > 2 && !["the", "and", "for", "with", "playbook", "framework", "guide"].includes(w));
+}
+
+function tokenScore(a, b) {
+  const A = new Set(tokenize(a));
+  const B = new Set(tokenize(b));
+  if (!A.size || !B.size) return 0;
+  const inter = [...A].filter((x) => B.has(x)).length;
+  return inter / new Set([...A, ...B]).size;
+}
+
+function parseCatalog() {
+  if (!fs.existsSync(CATALOG_TS)) {
+    console.error(`Catalog not found: ${CATALOG_TS}`);
+    process.exit(1);
+  }
+  const raw = fs.readFileSync(CATALOG_TS, "utf-8");
+  return [...raw.matchAll(/\{\s*id:\s*"([^"]+)",\s*title:\s*"([^"]+)",\s*category:\s*"([^"]+)",\s*filename:\s*"([^"]+)"\s*\}/g)].map(
+    (m) => ({
+      id: m[1],
+      title: m[2],
+      category: m[3],
+      filename: m[4],
+      slug: catalogSlug(m[4]),
+    })
+  );
+}
+
+function loadDocsSeedFiles() {
+  if (!fs.existsSync(DOCS_DIR)) {
+    console.error(`docs-seed not found: ${DOCS_DIR}`);
+    return [];
+  }
+  return fs
+    .readdirSync(DOCS_DIR)
+    .filter((f) => f.endsWith(".md"))
+    .sort()
+    .map((filename) => {
+      const filePath = path.join(DOCS_DIR, filename);
+      const content = stripManusFooter(fs.readFileSync(filePath, "utf-8"));
+      return {
+        filename,
+        slug: slugify(filename),
+        title: filename
+          .replace(/\.md$/i, "")
+          .replace(/^ARG-Builder[-: ]+/i, "")
+          .replace(/^ARG Builder — /, "")
+          .replace(/[-_]/g, " ")
+          .trim(),
+        content,
+        wordCount: content.split(/\s+/).filter(Boolean).length,
+      };
+    });
+}
+
+function findBestSeedFile(entry, seedFiles, usedFilenames) {
+  const available = seedFiles.filter((f) => !usedFilenames.has(f.filename));
+  const exact = available.find((f) => f.filename === entry.filename);
+  if (exact) return { file: exact, score: 1, matchType: "exact" };
+
+  let best = null;
+  let bestScore = 0;
+  for (const f of available) {
+    const score = Math.max(
+      tokenScore(entry.filename, f.filename),
+      tokenScore(entry.title, f.title),
+      tokenScore(entry.id, f.filename),
+      tokenScore(entry.slug, f.slug)
+    );
+    if (score > bestScore) {
+      bestScore = score;
+      best = f;
+    }
+  }
+  if (best && bestScore >= 0.45) return { file: best, score: bestScore, matchType: "fuzzy" };
+  return null;
+}
+
+function stubContent(title, category) {
+  return `# ${title}
+
+> **${category}** · Part of the ARG-Builder Playbooks library
+
+This playbook is indexed in the Master Document Library. Structured content for **${title}** is being restored to the library — browse related documents on the [knowledge graph](/graph).
+
+## Purpose
+
+Operational guidance for ${category.toLowerCase()} teams on **${title.toLowerCase()}**.
+
+## Recommended next steps
+
+1. Review prerequisites in the same category on the knowledge graph
+2. Adapt templates and checklists to your workspace
+3. Link this document to active OKRs or operating cadences
+
+---
+
+*ARG-Builder Playbooks · [argbuilder.io](https://argbuilder.io)*
+`;
+}
+
+function categorizeFromFilename(filename) {
+  const categories = {
+    Engineering: ["engineering", "ci-cd", "devops", "kubernetes", "api", "architecture", "infrastructure", "terraform", "pipeline", "observability", "security", "technical"],
+    Sales: ["sales", "sdr", "deal", "pipeline", "demo", "objection", "forecast", "revops", "outreach"],
+    Marketing: ["marketing", "seo", "content", "email", "demand-gen", "abm", "brand", "launch", "linkedin"],
+    "Customer Success": ["customer", "onboarding", "churn", "retention", "health-score", "qbr", "success"],
+    Product: ["product", "roadmap", "feature", "prototype", "analytics", "metrics"],
+    "Finance & Legal": ["finance", "legal", "accounting", "revenue", "fundraising", "investor", "cap-table", "pricing"],
+    "Strategy & Operations": ["strategy", "okr", "planning", "board", "operating", "founder", "implementation"],
+    "People & Culture": ["hiring", "talent", "employee", "culture", "handbook", "hr"],
+    "AI & Developer": ["ai", "ml", "agent", "llm", "copilot"],
+    "Security & Compliance": ["compliance", "soc-2", "gdpr", "privacy", "audit"],
+    "Partnerships & GTM": ["partner", "channel", "gtm", "referral", "ecosystem"],
+    "Data & Analytics": ["data", "analytics", "cohort", "cdp", "warehouse"],
+    "Revenue & Pricing": ["pricing", "monetization", "acv", "unit-economics"],
+    Operations: ["incident", "on-call", "runbook", "vendor", "procurement"],
+    "Riad & Routes": ["RR-", "riad", "routes", "concierge", "hospitality", "travel"],
+    "ArtKech Design Studio": ["AK-", "artkech", "creative", "design-studio"],
+  };
+
+  if (filename.includes("RR-") || filename.includes("Riad")) return "Riad & Routes";
+  if (filename.includes("AK-") || filename.includes("ArtKech")) return "ArtKech Design Studio";
+
+  const nameLower = filename.toLowerCase();
+  let best = "Strategy & Operations";
+  let bestScore = 0;
+  for (const [cat, keywords] of Object.entries(categories)) {
+    const score = keywords.filter((kw) => nameLower.includes(kw)).length;
+    if (score > bestScore) {
+      bestScore = score;
+      best = cat;
+    }
+  }
+  return best;
+}
+
+// ── main ───────────────────────────────────────────────────────────────────
 
 const args = new Set(process.argv.slice(2));
 const force = args.has("--force");
@@ -49,12 +206,7 @@ function isMetaSeedFile(filename) {
 }
 
 function isPersonaOrGtmFile(filename) {
-  return (
-    /RR-/i.test(filename) ||
-    /AK-/i.test(filename) ||
-    /^ARG Builder —/i.test(filename) ||
-    /^OpsCanvas /i.test(filename)
-  );
+  return /RR-/i.test(filename) || /AK-/i.test(filename) || /^ARG Builder —/i.test(filename) || /^OpsCanvas /i.test(filename);
 }
 
 async function insertBatch(connection, rows) {
@@ -73,13 +225,8 @@ async function insertBatch(connection, rows) {
     ]);
     await connection.execute(
       `INSERT INTO documents (slug, title, category, filename, content, wordCount, status) VALUES ${placeholders}
-       ON DUPLICATE KEY UPDATE
-         title = VALUES(title),
-         category = VALUES(category),
-         filename = VALUES(filename),
-         content = VALUES(content),
-         wordCount = VALUES(wordCount),
-         status = 'published'`,
+       ON DUPLICATE KEY UPDATE title=VALUES(title), category=VALUES(category), filename=VALUES(filename),
+         content=VALUES(content), wordCount=VALUES(wordCount), status='published'`,
       values
     );
     process.stdout.write(`\r  inserted ${Math.min(i + batchSize, rows.length)}/${rows.length}`);
@@ -88,6 +235,8 @@ async function insertBatch(connection, rows) {
 }
 
 async function main() {
+  console.log(`seed-all-documents v2 (self-contained) cwd=${process.cwd()}`);
+
   const dbUrl = process.env.DATABASE_URL;
   if (!dbUrl) {
     console.error("DATABASE_URL not set");
@@ -95,7 +244,7 @@ async function main() {
   }
 
   const seedFiles = loadDocsSeedFiles();
-  console.log(`docs-seed files on disk: ${seedFiles.length}`);
+  console.log(`docs-seed files on disk: ${seedFiles.length} (${DOCS_DIR})`);
 
   const connection = await mysql.createConnection(dbUrl);
   console.log("Connected to database");
@@ -139,10 +288,6 @@ async function main() {
         wordCount = match.file.wordCount;
         if (match.matchType === "exact") stats.exact++;
         else stats.fuzzy++;
-        // Keep catalog filename for canonical identity; content from matched file
-        if (match.file.filename !== entry.filename) {
-          filename = entry.filename;
-        }
       } else if (withStubs) {
         content = stubContent(entry.title, entry.category);
         wordCount = content.split(/\s+/).filter(Boolean).length;
@@ -165,18 +310,15 @@ async function main() {
       });
     }
 
-    // Persona / GTM extras from docs-seed (target ~525 = 515 catalog + ~10 vertical docs)
     if (includePersona || includeExtras) {
-      const extras = seedFiles.filter((f) => !usedFilenames.has(f.filename) && !usedSlugs.has(f.slug));
-
-      for (const f of extras) {
+      for (const f of seedFiles) {
+        if (usedFilenames.has(f.filename) || usedSlugs.has(f.slug)) continue;
         if (isMetaSeedFile(f.filename)) continue;
         if (includePersona && !includeExtras && !isPersonaOrGtmFile(f.filename)) continue;
 
         usedSlugs.add(f.slug);
         usedFilenames.add(f.filename);
         stats.docsSeedOnly++;
-
         toInsert.push({
           slug: f.slug,
           title: f.title,
@@ -196,13 +338,10 @@ async function main() {
   await insertBatch(connection, toInsert);
 
   const [[{ count }]] = await connection.execute("SELECT COUNT(*) as count FROM documents");
-  console.log(`\nDone! ${count} documents in database (target library: 525).`);
+  console.log(`\nDone! ${count} documents in database.`);
 
-  if (Number(count) < 525 && withStubs) {
-    console.log("Note: fewer than 525 rows — some catalog slugs may have collided or stubs were disabled.");
-  }
   if (stats.stub > 0) {
-    console.log(`${stats.stub} catalog entries use placeholder content until original markdown is restored.`);
+    console.log(`${stats.stub} catalog entries use placeholder content until originals are restored.`);
   }
 
   await connection.end();
