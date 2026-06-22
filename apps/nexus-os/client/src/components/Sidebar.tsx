@@ -51,9 +51,11 @@ export function Sidebar({
   return (
     <aside className="w-60 shrink-0 border-r border-[var(--color-border)] flex flex-col bg-[var(--color-surface)]/60">
       <div className="px-5 py-5 flex items-center gap-2.5">
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-teal-400 flex items-center justify-center font-black text-[#07090f]">
-          ⬡
-        </div>
+        <img
+          src={`${import.meta.env.BASE_URL}logo-mark.svg`}
+          alt="Nexus OS"
+          className="w-9 h-9 shrink-0"
+        />
         <div>
           <p className="font-extrabold leading-tight tracking-tight">Nexus OS</p>
           <p className="text-[10px] text-[var(--color-muted)] -mt-0.5">Autonomous AI</p>

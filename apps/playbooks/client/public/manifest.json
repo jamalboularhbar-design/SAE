@@ -1,17 +1,23 @@
 {
-  "name": "NexusAI Playbooks",
-  "short_name": "NexusAI",
-  "description": "Multi-brand operational playbooks with AI-powered intelligence",
+  "name": "ARG-Builder",
+  "short_name": "ARG-Builder",
+  "description": "Playbooks and Nexus OS — the operating reference and the runtime that runs it.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0B1120",
-  "theme_color": "#14b8a6",
+  "theme_color": "#22d3ee",
   "icons": [
     {
       "src": "/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
+    },
+    {
+      "src": "/logo-mark.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     },
     {
       "src": "/apple-touch-icon.png",

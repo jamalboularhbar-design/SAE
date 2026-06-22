@@ -1,9 +1,10 @@
-import { Sparkles, List, BookOpen, FileText, Tag, Columns, Book, Target, Code, Bookmark, Sun, Moon, Clock, Library, Bell, Network, Trophy, Settings, FileDown, User, Brain, Hexagon } from 'lucide-react';
+import { List, BookOpen, FileText, Tag, Columns, Book, Target, Code, Bookmark, Sun, Moon, Clock, Library, Bell, Network, Trophy, Settings, FileDown, User, Brain, Hexagon } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLocation } from 'wouter';
 import { useAuth } from '@/_core/hooks/useAuth';
 import AdminNavDropdown from './AdminNavDropdown';
+import LogoMark from './LogoMark';
 import { BRAND } from '@/lib/brand';
 
 function NotificationBell({ navigate }: { navigate: (path: string) => void }) {
@@ -34,9 +35,7 @@ export default function Header() {
     <header className="border-b border-border/50 bg-gradient-to-b from-card/80 to-card/40 backdrop-blur-md sticky top-0 z-50" role="banner">
       <div className="container flex items-center justify-between py-3 sm:py-5">
         <div className="flex items-center gap-2.5 sm:gap-4" role="heading" aria-level={1}>
-          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg bg-gradient-to-br from-accent via-accent/80 to-accent/60 flex items-center justify-center shadow-lg flex-shrink-0">
-            <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-accent-foreground" />
-          </div>
+          <LogoMark size="lg" className="shadow-lg" />
           <div className="min-w-0">
             <h1 className="font-display text-lg sm:text-2xl font-bold text-foreground truncate">{BRAND.productName}</h1>
             <p className="text-[10px] sm:text-xs text-muted-foreground tracking-wide hidden sm:block">{BRAND.tagline}</p>

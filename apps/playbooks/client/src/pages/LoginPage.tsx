@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BRAND } from '@/lib/brand';
+import LogoMark from '@/components/LogoMark';
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -256,6 +257,9 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         {/* Logo / title */}
         <div className="text-center mb-10">
+          <div className="flex justify-center mb-4">
+            <LogoMark size="xl" />
+          </div>
           <h1 className="text-3xl font-bold text-foreground tracking-tight mb-1">
             {BRAND.productName}
           </h1>

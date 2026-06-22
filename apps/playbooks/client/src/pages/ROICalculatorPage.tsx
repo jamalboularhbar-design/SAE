@@ -7,14 +7,7 @@ import { trpc } from '@/lib/trpc';
 import { toast } from 'sonner';
 import { BRAND } from '@/lib/brand';
 import SEO from '@/components/SEO';
-
-function LogoMark() {
-  return (
-    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-purple-600 text-white font-bold flex items-center justify-center text-[11px] tracking-tight shrink-0">
-      NX
-    </div>
-  );
-}
+import LogoMark from '@/components/LogoMark';
 
 export default function ROICalculatorPage() {
   const submitLead = trpc.leads.submit.useMutation();

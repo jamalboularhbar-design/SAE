@@ -12,14 +12,7 @@ import { TEMPLATE_BUNDLES, TEMPLATE_CLUB } from "@shared/templateBundles";
 import type { TemplateBundleId } from "@shared/templateBundles";
 import SEO from "@/components/SEO";
 import VerticalShowcase from "@/components/VerticalShowcase";
-
-function LogoMark() {
-  return (
-    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-purple-600 text-white font-bold flex items-center justify-center text-[11px] tracking-tight shrink-0">
-      NX
-    </div>
-  );
-}
+import LogoMark from "@/components/LogoMark";
 
 export default function TemplatesBundlesPage() {
   const [, navigate] = useLocation();

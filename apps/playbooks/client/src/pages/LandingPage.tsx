@@ -12,29 +12,10 @@ import { totalDocuments, categoryCounts } from '@/lib/documentCatalog';
 import { BRAND } from '@/lib/brand';
 import SEO from '@/components/SEO';
 import VerticalShowcase from '@/components/VerticalShowcase';
+import LogoMark from '@/components/LogoMark';
 
 const FUNCTION_COUNT = Object.keys(categoryCounts).length;
 const AI_TOOL_COUNT = 11;
-
-function LogoMark({ size = 'md' }: { size?: 'sm' | 'md' }) {
-  const cls = size === 'sm' ? 'w-7 h-7' : 'w-8 h-8';
-  // Book + circuit gradient mark. Replace /logo-mark.png with the new asset.
-  return (
-    <img
-      src="/logo-mark.png"
-      alt={BRAND.productName}
-      className={`${cls} rounded-lg shrink-0`}
-      onError={(e) => {
-        // Fallback: keep the page renderable until the new asset is dropped in.
-        const t = e.currentTarget;
-        t.replaceWith(Object.assign(document.createElement('div'), {
-          className: `${cls} rounded-lg bg-gradient-to-br from-[#2c3a7b] via-[#3e7ddf] to-[#7d3fef] flex items-center justify-center text-white font-bold text-[11px]`,
-          textContent: 'AB',
-        }));
-      }}
-    />
-  );
-}
 
 const STATS = [
   { n: String(totalDocuments), label: 'structured operating documents, each one decision-ready' },
