@@ -101,8 +101,7 @@ export default function AIHubPage() {
                 {services.map(service => {
                   const stats = getServiceStats(service.name);
                   const Icon = service.icon;
-                  return (
-                    <Link key={service.path} href={service.path}>
+                  const card = (
                       <Card className="h-full hover:border-purple-500/40 transition-colors cursor-pointer group">
                         <CardHeader className="pb-3">
                           <div className="flex items-start justify-between">
@@ -127,6 +126,17 @@ export default function AIHubPage() {
                           </div>
                         </CardContent>
                       </Card>
+                  );
+                  if (service.path.startsWith('/os')) {
+                    return (
+                      <a key={service.path} href={`${service.path}/`}>
+                        {card}
+                      </a>
+                    );
+                  }
+                  return (
+                    <Link key={service.path} href={service.path}>
+                      {card}
                     </Link>
                   );
                 })}

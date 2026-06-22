@@ -164,11 +164,11 @@ export default function LandingPage() {
                 <Brain className="w-4 h-4" /> Intelligence
               </Button>
             </Link>
-            <Link href="/os">
+            <a href="/os/">
               <Button size="sm" variant="outline" className="hidden sm:flex border-teal-500/30 text-teal-300 hover:bg-teal-500/10 gap-1.5">
                 <Sparkles className="w-4 h-4" /> Nexus OS
               </Button>
-            </Link>
+            </a>
             {user ? (
               <Link href="/">
                 <Button size="sm" className="bg-teal-500 hover:bg-teal-400 text-black font-semibold">
