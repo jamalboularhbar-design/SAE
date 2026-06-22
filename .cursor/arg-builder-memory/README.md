@@ -1,29 +1,38 @@
 # ARG-Builder agent memory
 
-Persistent context for Cursor Cloud Agents and local sessions.
+**Canonical memory store** for Cursor Cloud Agents and local sessions.
 
 ## Start here
 
-1. [memory/MEMORY.md](./memory/MEMORY.md) — index
-2. [SESSION-INVENTORY.md](./SESSION-INVENTORY.md) — PRs, open items, skills
+1. [memory/MEMORY.md](./memory/MEMORY.md) — index (18 files)
+2. [SESSION-INVENTORY.md](./SESSION-INVENTORY.md) — skills, tools, PRs through 2026-06-22 audit session
+3. [memory/cloud_agent_updates.md](./memory/cloud_agent_updates.md) — later cloud-agent work (nav, logo, deploy)
 
-## Sync from your local export
+## Structure
 
-Your canonical export lives at:
+```
+.cursor/arg-builder-memory/
+├── SESSION-INVENTORY.md
+└── memory/
+    ├── MEMORY.md
+    ├── user_jamal_*.md          (3)
+    ├── project_*.md               (7)
+    ├── reference_*.md             (4)
+    ├── feedback_*.md              (3)
+    └── cloud_agent_updates.md     (supplement)
+```
+
+## Local source (Jamal)
 
 ```
 C:\Users\G-shop\Downloads\arg-builder-memory-2026-06-22\
 ```
 
-To update the repo copy after editing locally:
+To refresh from local edits, copy files into this folder and commit.
 
-```powershell
-# From Windows — copy into SAE monorepo
-xcopy /E /Y "C:\Users\G-shop\Downloads\arg-builder-memory-2026-06-22\*" ".\.cursor\arg-builder-memory\"
-```
+## Rules for agents
 
-Or copy individual `memory/*.md` files and `SESSION-INVENTORY.md`.
-
-## Repo copy
-
-Committed to git so cloud agents read it on clone. Last agent sync: **2026-06-22**.
+- Read `MEMORY.md` first every session
+- Brand/naming changes → see `feedback_brand_decisions.md`
+- Communication → `feedback_communication_style.md`, `feedback_judgment_over_survey.md`
+- Deploy state → `project_deploy_state.md` + `cloud_agent_updates.md`

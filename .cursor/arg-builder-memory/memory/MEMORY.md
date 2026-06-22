@@ -1,61 +1,27 @@
-# ARG-Builder Agent Memory — Index
+# Memory index
 
-**Start here.** This folder is the persistent memory store for Cloud Agent / Cursor sessions on ARG-Builder.
+## User
+- [Who Jamal is](user_jamal_role.md) — Marrakech founder, three ventures
+- [25-year arc](user_jamal_background.md) — the Marrakech-1995-to-Autopilots story; this is the moat
+- [Personal context](user_jamal_personal.md) — the 30-day reset; smoking + sleep + work-late loop
 
-## Source
+## Project — ARG-Builder / Playbooks + Nexus OS
+- [The thesis](project_thesis.md) — Autonomous Capacity, not software; playbook + the runtime that runs it
+- [Brand decision history](project_brand_history.md) — ARG-Builder → NexusAI → back to ARG-Builder
+- [Pre-launch playbook](project_pre_launch.md) — 4-week sprint, NY/SF founder trip June 2026
+- [Founding cohort](project_founding_cohort.md) — 10 seats, capped, $290/yr or $39/mo
+- [Riad & Routes](project_riad_routes.md) — luxury Moroccan travel, the first proof business
+- [ArtKech](project_artkech.md) — creative studio, the second proof business
+- [Live deploy state](project_deploy_state.md) — last known state of argbuilder.io and the merged-not-shipped PRs
+- [Cloud agent updates](cloud_agent_updates.md) — nav fix, logo, post-export PRs
 
-- **Local bundle (user):** `C:\Users\G-shop\Downloads\arg-builder-memory-2026-06-22\`
-- **Repo copy (agents):** `.cursor/arg-builder-memory/` in SAE monorepo
-- **Last sync:** 2026-06-22
+## Reference
+- [Repos](reference_repos.md) — SAE, nexus-os, ARG-Builder, agent-reference-guide; which one is canonical
+- [Railway + Cloudflare](reference_railway_cloudflare.md) — pretty-nourishment project, sync pipeline, DNS state
+- [Brand collision risk](reference_brand_collision.md) — Nexus AI Factory ($1.28B Morocco gov MoU); why NexusAI parent was retired
+- [Local workspace quirks](reference_local_workspace.md) — the cwd-lock issue inside node_modules, file paths
 
-## File map
-
-### About the user (`user_*.md`)
-
-| File | Contents |
-|------|----------|
-| [user_profile.md](./user_profile.md) | Identity, environment, GitLab |
-| [user_goals.md](./user_goals.md) | What they're building and why |
-| [user_tools.md](./user_tools.md) | Connected services, local paths |
-
-### About the project (`project_*.md`)
-
-| File | Contents |
-|------|----------|
-| [project_arg_builder.md](./project_arg_builder.md) | Product definition, brand decision |
-| [project_playbooks.md](./project_playbooks.md) | Playbooks app, routes, stack |
-| [project_nexus_os.md](./project_nexus_os.md) | Nexus OS runtime, `/os` mount |
-| [project_integration.md](./project_integration.md) | How Playbooks + Nexus OS connect |
-| [project_deploy.md](./project_deploy.md) | Railway, deploy branch, Docker |
-| [project_brand.md](./project_brand.md) | Logo, favicon, naming |
-| [project_launch_audit.md](./project_launch_audit.md) | argbuilder.io launch gaps |
-
-### Reference (`reference_*.md`)
-
-| File | Contents |
-|------|----------|
-| [reference_repos.md](./reference_repos.md) | GitHub repos and branches |
-| [reference_railway.md](./reference_railway.md) | Deploy pipeline, env |
-| [reference_brand_collision.md](./reference_brand_collision.md) | Why ARG-Builder not NexusAI |
-| [reference_workspace.md](./reference_workspace.md) | Monorepo layout |
-
-### Feedback (`feedback_*.md`)
-
-| File | Contents |
-|------|----------|
-| [feedback_communication.md](./feedback_communication.md) | How to write responses |
-| [feedback_implementation.md](./feedback_implementation.md) | Code style, scope |
-| [feedback_corrections.md](./feedback_corrections.md) | Past mistakes to avoid |
-
-### Session
-
-| File | Contents |
-|------|----------|
-| [../SESSION-INVENTORY.md](../SESSION-INVENTORY.md) | PRs, skills, open items |
-
-## Quick facts
-
-- **Brand:** ARG-Builder (not NexusAI parent — Morocco factory collision)
-- **Two products:** Playbooks (library) + Nexus OS (runtime at `/os`)
-- **Logo:** User-provided book+circuit gradient PNG — **never redraw**; use transparent `logo-mark.png`
-- **Nav bug pattern:** `/os` is NOT a Playbooks SPA route — always full-page `window.location` or `<a href="/os/">`
+## Feedback
+- [Communication style](feedback_communication_style.md) — terse, decisive, execution over surveys
+- [Judgment over options](feedback_judgment_over_survey.md) — wants synthesis, not A/B/C menus
+- [Brand decisions are his alone](feedback_brand_decisions.md) — naming and pricing changes need explicit yes
