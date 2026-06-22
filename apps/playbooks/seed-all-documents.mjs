@@ -26,7 +26,7 @@ import {
   findBestSeedFile,
   stubContent,
   categorizeFromFilename,
-} from "./seed-lib.mjs";
+} from "./scripts/seed-lib.mjs";
 
 dotenv.config();
 
