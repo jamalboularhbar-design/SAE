@@ -1,30 +1,53 @@
 # Cloud agent updates (post-export)
 
-Supplements [SESSION-INVENTORY.md](../SESSION-INVENTORY.md) and [project_deploy_state.md](./project_deploy_state.md).  
-Added: 2026-06-22 (Cursor Cloud Agent on SAE monorepo).
+Supplements [SESSION-INVENTORY.md](../SESSION-INVENTORY.md) and [project_deploy_state.md](./project_deploy_state.md).
 
-## Merged / shipped after SESSION-INVENTORY export
+## 2026-06-22 — Light mode + product nav + docs
 
-| PR / branch | Summary |
-|-------------|---------|
-| SAE #15 | fix: Nexus OS links use full-page nav (`/os/` not wouter SPA) |
-| `cursor/brand-logo-0c61` | LogoMark component, favicon, logo-mark.png |
-| `cursor/fix-logo-transparent-0c61` | Strip white/gray PNG background for dark UI embed |
-| `cursor/arg-builder-memory-0c61` | This memory store in repo |
+| Change | Files |
+|--------|-------|
+| Shared marketing nav + theme toggle | `MarketingNav.tsx` |
+| Light mode across marketing/app | `LandingPage`, Templates, ROI, Glossary, API docs, etc. |
+| Doc table readability | `DocumentDetail.tsx` — `dark:prose-invert` |
+| Product header collision fix | `MarketingNav` — subtitle stacked below title |
+| Footer centering + Quick Actions pad | `LandingPage` footer `pb-28` |
 
-## Production fixes verified
+## 2026-06-22 — Knowledge graph
 
-- `https://argbuilder.io/os/` — Nexus OS UI + API live
-- Header / product / login → `/os/` via full-page navigation
-- Logo: transparent `logo-mark.png` (user's book+circuit mark — do not redraw)
+| Change | Files |
+|--------|-------|
+| Data layer | `server/db.ts` → `getKnowledgeGraphData()` |
+| Admin graph | `/admin/knowledge-graph` |
+| Public graph upgrade | `/graph` → shared `KnowledgeGraphView` |
+| **Rovo Pro redesign** | Card nodes, SVG curved edges, cluster mode, `kg-rovo-*` CSS |
+| PR | SAE #17 — merged + deployed |
 
-## Deploy
+## 2026-06-22 — Merge + deploy workflow (verified)
 
-- `deploy/production` force-synced from `main` after each fix
-- Railway project: see [reference_railway_cloudflare.md](./reference_railway_cloudflare.md)
+1. Merge feature branch → `main`, push
+2. `sync-deploy-branch.yml` runs OR manual cp-based sync to `deploy/production`
+3. Force-push `deploy/production`
+4. Railway rebuilds in ~3–5 min
+5. Verify with curl (logo-mark.png, JS bundle feature flags, title)
 
-## Still open (carried forward)
+**ARG-Builder repo push fails** (`cursor[bot]` 403) — ignore; SAE `deploy/production` is canonical.
 
-- `og-image.png` not yet updated with new logo
-- Railway GitHub secrets for auto-redeploy
-- User's exact logo PNG — if regenerated, replace `apps/playbooks/client/public/logo-mark.png`
+## Logo (recurring)
+
+- Asset: `apps/playbooks/client/public/logo-mark.png` (user's mark — do not redraw)
+- Component: `LogoMark.tsx`
+- User report: "logo crushed again" on `/product` — check size + deploy branch includes PNG
+- Production serves PNG at 200 OK (~75753 bytes) as of last deploy
+
+## Agent memory + skill (user request)
+
+- Skill: `.cursor/skills/arg-builder/SKILL.md` — operational runbook
+- Memory: `.cursor/arg-builder-memory/memory/` — read `MEMORY.md` every session
+- Rule: `feedback_agent_memory.md` — persist learnings, don't forget deploy/verify workflow
+
+## Still open
+
+- Logo sizing in MarketingNav (crushed appearance)
+- Railway GitHub secrets for explicit redeploy workflow
+- `og-image.png` refresh with new logo
+- `/` vs `/app` auth-gate split

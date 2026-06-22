@@ -18,6 +18,7 @@
 ## Reference
 - [Repos](reference_repos.md) — SAE, nexus-os, ARG-Builder, agent-reference-guide; which one is canonical
 - [Railway + Cloudflare](reference_railway_cloudflare.md) — pretty-nourishment project, sync pipeline, DNS state
+- [Playbooks UI patterns](reference_playbooks_ui.md) — light mode, nav, logo, graph, footer
 - [Brand collision risk](reference_brand_collision.md) — Nexus AI Factory ($1.28B Morocco gov MoU); why NexusAI parent was retired
 - [Local workspace quirks](reference_local_workspace.md) — the cwd-lock issue inside node_modules, file paths
 
@@ -25,3 +26,4 @@
 - [Communication style](feedback_communication_style.md) — terse, decisive, execution over surveys
 - [Judgment over options](feedback_judgment_over_survey.md) — wants synthesis, not A/B/C menus
 - [Brand decisions are his alone](feedback_brand_decisions.md) — naming and pricing changes need explicit yes
+- [Agent memory + skills](feedback_agent_memory.md) — turn workflows into skills; read memory every session

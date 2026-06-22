@@ -1,45 +1,62 @@
 ---
 name: project-deploy-state
-description: Live deploy state of argbuilder.io as of session end (2026-06-22) — three merges sitting on main but not actually deployed.
-metadata: 
+description: Live deploy state of argbuilder.io — updated 2026-06-22 after Rovo graph merge+deploy.
+metadata:
   node_type: memory
   type: project
-  originSessionId: ee5d7b67-b6ec-425f-85dc-32239b69176f
 ---
 
-**As of 2026-06-22 ~02:30 UTC, end of session:**
+**As of 2026-06-22 ~16:46 UTC:**
 
-- `argbuilder.io` is serving from Railway (project `pretty-nourishment`, service `ARG-Builder`).
-- The live container is still on a build from **2026-06-19** (commit `e22c2d1`, the "Gumroad manual listing kit" commit). Title still shows *"NexusAI Playbooks — AI-Powered Operational Intelligence"* (the old em-dash version).
-- `/os` returns 404.
-- /product shows 4 NexusAI string hits, 0 ARG-Builder.
+## Live status ✓
 
-**Three SAE PRs are merged to main but none have shipped to the container:**
-- [#11](https://github.com/jamalboularhbar-design/SAE/pull/11) — ARG-Builder rebrand + audit P0 fixes
-- [#13](https://github.com/jamalboularhbar-design/SAE/pull/13) — Dockerfile + sync-deploy script unblock
-- [#14](https://github.com/jamalboularhbar-design/SAE/pull/14) — /os mount path resolution + static index.html title
+- **URL:** https://argbuilder.io
+- **Railway:** project `pretty-nourishment`, service `ARG-Builder`, edge `yyz1`/`cdg1`
+- **Source:** SAE repo branch `deploy/production`
+- **Title:** `ARG-Builder | Playbooks and the runtime that runs them`
+- **Nexus OS:** https://argbuilder.io/os/ — live
+- **Knowledge graph (Rovo):** https://argbuilder.io/graph — live (`kg-rovo` in JS bundle)
 
-`main` HEAD: `d3e962a` · `deploy/production` HEAD: `f07da4f` (correctly synced).
+## Git SHAs
 
-**Why nothing has shipped:** Railway's auto-deploy on push to `deploy/production` isn't firing. The `railway-redeploy.yml` workflow that would call Railway's GraphQL is failing on every push because the secrets aren't set in the SAE repo settings. See [[reference-railway-cloudflare]] for the exact secrets needed.
+| Branch | SHA | Notes |
+|--------|-----|-------|
+| `main` | `e9f0be0` | Rovo Pro knowledge graph redesign |
+| `deploy/production` | `9ff46b4` | Synced from main e9f0be0 |
 
-**To ship the merged work:** manual Redeploy in Railway dashboard. Then set the three secrets/vars so future merges auto-deploy.
+## Recent merges (shipped)
 
-**What's expected once it ships:**
+| PR | Summary | Status |
+|----|---------|--------|
+| #17 | Rovo Pro-style knowledge graph | Merged + deployed |
+| (prior) | Light mode UI, doc tables, product nav/footer | Merged + deployed |
+| (prior) | Public `/graph` enhanced visualization | Merged + deployed |
 
-| Check | Expected after deploy |
-|---|---|
-| `<title>` | `ARG-Builder \| Playbooks and the runtime that runs them` |
-| `/product` masthead | "ARG-Builder" |
-| Founding cohort copy | "first 10 seats" |
-| Demo verticals | labelled "Reference architecture" (was "Demo vertical") |
-| `/os` | UI loads (assuming `build:nexus-os` finds the vendored source) |
-| Railway runtime log | `⬡ Nexus OS: using mount module /app/nexus-os/dist/server/mount.js` |
+## Deploy pipeline (working)
 
-If the rebrand strings land but `/os` still 404s, the diagnostic is in the build log — `build:nexus-os` either succeeded (mount module exists) or failed silently (the PR #14 verbose logging will say which paths were tried).
+```
+push main → sync-deploy-branch.yml → force-push deploy/production → Railway rebuild (~3–5 min)
+```
 
-**Open code questions** (not part of this PR series):
-- `/` vs `/app` split — the homepage still shows the app shell to anonymous visitors. Needs the auth-gate decision.
-- Drop or keep the $39/mo Stripe tier on the public surface — audit synthesis recommends drop, Jamal hasn't decided.
+**Verify after every ship:**
 
-**How to apply:** Don't assume code changes are live until verified against `curl -s https://argbuilder.io | grep title` (or similar). The merge-to-deploy gap is real and currently manual.
+```bash
+curl -sI https://argbuilder.io/logo-mark.png | grep HTTP    # 200
+JS=$(curl -s https://argbuilder.io/graph | grep -oE 'index-[^"]+\.js' | head -1)
+curl -s "https://argbuilder.io/assets/$JS" | grep -c 'kg-rovo'
+```
+
+## Known gaps
+
+| Issue | Status |
+|-------|--------|
+| `railway-redeploy.yml` | Fails without `RAILWAY_TOKEN` secret — Railway still redeploys on `deploy/production` push (observed working) |
+| `ARG-Builder` repo push | `cursor[bot]` denied — use SAE `deploy/production` only |
+| `sync-deploy-branch.sh` | Needs `rsync` OR manual `cp` fallback on cloud VMs |
+| Logo "crushed" on `/product` | Open — may need `LogoMark size="lg"` in MarketingNav + verify asset on deploy branch |
+| `og-image.png` | Not updated with new logo mark |
+
+## Do not assume
+
+- Merge to `main` ≠ live until `deploy/production` pushed AND curl verification passes
+- User dashboard (`/my-dashboard`) ≠ marketing pages — fix both when doing theme work
