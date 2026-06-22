@@ -4498,12 +4498,65 @@ export async function savePerformanceBenchmark(data: { metricKey: string; metric
 export async function getKnowledgeGraphData() {
   const db = await getDb();
   if (!db) return { nodes: [], edges: [] };
-  // Get all documents as nodes
-  const docs = await db.select({ id: documents.id, title: documents.title, slug: documents.slug, category: documents.category }).from(documents).where(eq(documents.status, 'published'));
-  // Get cross-references as edges
+
+  const docs = await db
+    .select({
+      id: documents.id,
+      title: documents.title,
+      slug: documents.slug,
+      category: documents.category,
+      wordCount: documents.wordCount,
+    })
+    .from(documents)
+    .where(eq(documents.status, 'published'));
+
+  const idToDoc = new Map(docs.map((d) => [d.id, d]));
+  const slugSet = new Set(docs.map((d) => d.slug));
+
   const refs = await db.select().from(documentCrossReferences);
-  const nodes = docs.map(d => ({ id: d.id, label: d.title, slug: d.slug, group: d.category }));
-  const edges = refs.map(r => ({ source: r.sourceDocId, target: r.targetDocId, type: r.status }));
+  const deps = await db.select().from(documentDependencies);
+
+  const nodes = docs.map((d) => ({
+    id: d.slug,
+    docId: d.id,
+    label: d.title,
+    slug: d.slug,
+    group: d.category,
+    wordCount: d.wordCount ?? 0,
+  }));
+
+  type GraphEdge = {
+    source: string;
+    target: string;
+    type: 'dependency' | 'reference' | 'suggested';
+    label?: string | null;
+  };
+
+  const edges: GraphEdge[] = [];
+
+  for (const dep of deps) {
+    if (slugSet.has(dep.prerequisiteSlug) && slugSet.has(dep.documentSlug)) {
+      edges.push({
+        source: dep.prerequisiteSlug,
+        target: dep.documentSlug,
+        type: 'dependency',
+        label: 'prerequisite',
+      });
+    }
+  }
+
+  for (const ref of refs) {
+    const sourceDoc = idToDoc.get(ref.sourceDocId);
+    const targetDoc = idToDoc.get(ref.targetDocId);
+    if (!sourceDoc || !targetDoc) continue;
+    edges.push({
+      source: sourceDoc.slug,
+      target: targetDoc.slug,
+      type: ref.status === 'confirmed' ? 'reference' : 'suggested',
+      label: ref.reason ?? 'related',
+    });
+  }
+
   return { nodes, edges };
 }
 
