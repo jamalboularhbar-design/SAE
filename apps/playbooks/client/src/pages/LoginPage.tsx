@@ -329,7 +329,14 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p className="text-center mt-6">
+        <p className="text-center mt-6 space-x-4">
+          <a
+            href="/product"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Explore product
+          </a>
+          <span className="text-muted-foreground">·</span>
           <a
             href="/os/"
             className="text-sm text-teal-700 dark:text-teal-400 hover:text-teal-600 dark:hover:text-teal-300 transition-colors"

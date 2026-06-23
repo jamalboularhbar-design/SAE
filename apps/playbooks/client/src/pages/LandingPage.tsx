@@ -12,6 +12,12 @@ import { totalDocuments, categoryCounts } from '@/lib/documentCatalog';
 import { BRAND } from '@/lib/brand';
 import SEO from '@/components/SEO';
 import VerticalShowcase from '@/components/VerticalShowcase';
+import ProductProofBar from '@/components/product/ProductProofBar';
+import ProductArchitectureStrip from '@/components/product/ProductArchitectureStrip';
+import ProductDemoSection from '@/components/product/ProductDemoSection';
+import IntegrationsStrip from '@/components/product/IntegrationsStrip';
+import SocialProofStrip from '@/components/product/SocialProofStrip';
+import { PLATFORM_STATS } from '@shared/platformStats';
 import LogoMark from '@/components/LogoMark';
 import MarketingNav from '@/components/MarketingNav';
 
@@ -159,7 +165,9 @@ export default function LandingPage() {
               </Button>
             </Link>
           </div>
-          <p className="mt-5 text-sm text-muted-foreground font-mono">{totalDocuments} documents · {FUNCTION_COUNT} functions · {AI_TOOL_COUNT} AI tools</p>
+          <p className="mt-5 text-sm text-muted-foreground font-mono">
+            {PLATFORM_STATS.documents}+ documents · {PLATFORM_STATS.businessFunctions} functions · {PLATFORM_STATS.aiTools} AI tools · {PLATFORM_STATS.graphEdges.toLocaleString()} graph edges
+          </p>
           <div className="relative mt-16 mx-auto max-w-5xl">
             <div className="absolute -inset-4 bg-gradient-to-r from-teal-500/20 via-purple-500/10 to-teal-500/20 rounded-2xl blur-3xl" />
             <div className="relative rounded-xl overflow-hidden border border-border shadow-2xl bg-card p-6 sm:p-8 text-left">
@@ -220,6 +228,27 @@ export default function LandingPage() {
         </div>
         <div className="max-w-6xl mx-auto">
           <VerticalShowcase compact />
+        </div>
+      </section>
+
+      <section className="px-4 pb-12">
+        <div className="max-w-6xl mx-auto">
+          <ProductProofBar />
+        </div>
+      </section>
+
+      <ProductDemoSection />
+
+      <section className="px-4 py-16">
+        <div className="max-w-6xl mx-auto">
+          <ProductArchitectureStrip id="platform-arch" />
+        </div>
+      </section>
+
+      <section className="px-4 pb-8">
+        <div className="max-w-6xl mx-auto">
+          <SocialProofStrip />
+          <IntegrationsStrip />
         </div>
       </section>
 

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { trpc } from '@/lib/trpc';
 import { BRAND } from '@/lib/brand';
 import SEO from '@/components/SEO';
+import ExamplePromptsPanel from '@/components/product/ExamplePromptsPanel';
 
 const aiServices = [
   { name: BRAND.nexusOsName, description: BRAND.nexusOsTagline, icon: Brain, path: BRAND.nexusOsPath, color: 'text-teal-400', category: 'Automation', featured: true },
@@ -86,6 +87,8 @@ export default function AIHubPage() {
             )}
           </div>
         </div>
+
+        <ExamplePromptsPanel className="mb-10" />
 
         {/* Services by Category */}
         {categories.map(category => {
