@@ -88,7 +88,7 @@ export const PAGE_SEO: Record<string, SEOProps> = {
   },
   pricing: {
     title: 'Pricing',
-    description: 'Simple, transparent pricing for teams of all sizes. Start with a 14-day free trial. Plans from $299/month for agencies to custom enterprise solutions.',
+    description: 'Membership at $39/month or Founding Member at $290/year (price locked). Morocco companies: facture/virement — no card required.',
   },
   resources: {
     title: 'Resources & Learning Center',

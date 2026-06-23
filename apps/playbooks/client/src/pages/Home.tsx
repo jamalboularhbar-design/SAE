@@ -118,19 +118,19 @@ export default function Home() {
       'offers': [
         {
           '@type': 'Offer',
-          'name': 'Starter',
-          'price': '299',
+          'name': 'Membership',
+          'price': '39',
           'priceCurrency': 'USD',
           'priceValidUntil': '2027-12-31',
-          'description': 'Flat rate for teams up to 25 users'
+          'description': 'Full library access, AI hub, Nexus OS early access'
         },
         {
           '@type': 'Offer',
-          'name': 'Professional',
-          'price': '15',
+          'name': 'Founding Member',
+          'price': '290',
           'priceCurrency': 'USD',
           'priceValidUntil': '2027-12-31',
-          'description': 'Per user per month, 25-seat minimum'
+          'description': 'Annual founding access — price locked, direct founder onboarding'
         }
       ],
       'publisher': {

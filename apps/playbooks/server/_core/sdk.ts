@@ -3,7 +3,7 @@ import { ForbiddenError } from "@shared/_core/errors";
 import { parse as parseCookieHeader } from "cookie";
 import type { Request } from "express";
 import { SignJWT, jwtVerify } from "jose";
-import { scrypt, timingSafeEqual } from "crypto";
+import { scrypt, timingSafeEqual, randomBytes } from "crypto";
 import { promisify } from "util";
 import type { User } from "../../drizzle/schema";
 import * as db from "../db";
@@ -38,6 +38,22 @@ export async function checkAdminPassword(inputPassword: string): Promise<boolean
   a.write(inputPassword);
   b.write(adminPassword);
   return timingSafeEqual(a, b) && inputPassword === adminPassword;
+}
+
+/** Hash a password for storage on invited/founding users (saltHex:hashHex). */
+export async function hashPassword(password: string): Promise<string> {
+  const saltHex = Buffer.from(randomBytes(16)).toString("hex");
+  const hash = await scryptHash(password, saltHex);
+  return `${saltHex}:${hash.toString("hex")}`;
+}
+
+export async function verifyPasswordHash(inputPassword: string, stored: string): Promise<boolean> {
+  if (!stored.includes(":")) return false;
+  const [saltHex, hashHex] = stored.split(":");
+  const hash = await scryptHash(inputPassword, saltHex!);
+  const expected = Buffer.from(hashHex!, "hex");
+  if (hash.length !== expected.length) return false;
+  return timingSafeEqual(hash, expected);
 }
 
 // ─── Session management ──────────────────────────────────────────────────────

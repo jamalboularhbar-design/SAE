@@ -2,6 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import LoginPage from "@/pages/LoginPage";
+import InviteAcceptPage from "@/pages/InviteAcceptPage";
 import { Route, Switch, useLocation } from "wouter";
 import { useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -233,6 +234,7 @@ function Router() {
   return (
     <Switch>
       <Route path={"/login"} component={LoginPage} />
+      <Route path={"/invite/:token"} component={InviteAcceptPage} />
       <Route path={"/"} component={Home} />
       <Route path={"/docs/:slug"} component={DocumentDetail} />
       <Route path={"/category/:category"} component={CategoryPage} />

@@ -10,6 +10,11 @@ export const users = mysqlTable("users", {
   email: varchar("email", { length: 320 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
   role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
+  /** scrypt hash saltHex:hashHex — set when user accepts invite */
+  passwordHash: varchar("passwordHash", { length: 255 }),
+  /** founding = Morocco/manual cohort; membership = paid tier */
+  membershipTier: mysqlEnum("membershipTier", ["none", "founding", "membership"]).default("none").notNull(),
+  companyName: varchar("companyName", { length: 255 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
@@ -1150,6 +1155,10 @@ export const inviteTokens = mysqlTable("invite_tokens", {
   token: varchar("token", { length: 64 }).notNull().unique(),
   email: varchar("email", { length: 320 }).notNull(),
   role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
+  companyName: varchar("companyName", { length: 255 }),
+  inviteeName: varchar("inviteeName", { length: 255 }),
+  membershipTier: mysqlEnum("membershipTier", ["team", "founding"]).default("team").notNull(),
+  workspaceId: int("workspaceId"),
   invitedBy: int("invitedBy").notNull(),
   expiresAt: timestamp("expiresAt").notNull(),
   acceptedAt: timestamp("acceptedAt"),

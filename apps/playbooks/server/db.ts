@@ -35,7 +35,7 @@ export async function upsertUser(user: InsertUser): Promise<void> {
     };
     const updateSet: Record<string, unknown> = {};
 
-    const textFields = ["name", "email", "loginMethod"] as const;
+    const textFields = ["name", "email", "loginMethod", "passwordHash", "companyName"] as const;
     type TextField = (typeof textFields)[number];
 
     const assignNullable = (field: TextField) => {
@@ -58,6 +58,10 @@ export async function upsertUser(user: InsertUser): Promise<void> {
     } else if (user.openId === ENV.ownerOpenId) {
       values.role = 'admin';
       updateSet.role = 'admin';
+    }
+    if (user.membershipTier !== undefined) {
+      values.membershipTier = user.membershipTier;
+      updateSet.membershipTier = user.membershipTier;
     }
 
     if (!values.lastSignedIn) {
@@ -87,6 +91,42 @@ export async function getUserByOpenId(openId: string) {
   const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
 
   return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getUserByEmail(email: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const normalized = email.toLowerCase().trim();
+  const rows = await db.select().from(users).where(eq(users.email, normalized)).limit(1);
+  return rows[0];
+}
+
+export async function createInvitedUser(data: {
+  email: string;
+  name: string;
+  passwordHash: string;
+  companyName?: string;
+  membershipTier: "founding" | "membership" | "none";
+  role?: "user" | "admin";
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const email = data.email.toLowerCase().trim();
+  const openId = `member-${email.replace(/[^a-z0-9]+/g, "-")}`;
+  await db.insert(users).values({
+    openId,
+    email,
+    name: data.name,
+    passwordHash: data.passwordHash,
+    companyName: data.companyName ?? null,
+    membershipTier: data.membershipTier,
+    role: data.role ?? "user",
+    loginMethod: "invite",
+    lastSignedIn: new Date(),
+  });
+  const created = await getUserByOpenId(openId);
+  if (!created) throw new Error("Failed to create user");
+  return created;
 }
 
 // âââ Document Queries âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
@@ -4599,7 +4639,17 @@ export async function getLeadStats() {
 }
 
 // ===== INVITE TOKENS =====
-export async function createInviteToken(data: { token: string; email: string; role: 'user' | 'admin'; invitedBy: number; expiresAt: Date }) {
+export async function createInviteToken(data: {
+  token: string;
+  email: string;
+  role: "user" | "admin";
+  invitedBy: number;
+  expiresAt: Date;
+  companyName?: string;
+  inviteeName?: string;
+  membershipTier?: "team" | "founding";
+  workspaceId?: number;
+}) {
   const db = await getDb();
   if (!db) return null;
   const [result] = await db.insert(inviteTokens).values(data).$returningId();
