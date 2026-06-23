@@ -2,7 +2,7 @@ import { COOKIE_NAME, ONE_YEAR_MS } from "@shared/const";
 import type { Express, Request, Response } from "express";
 import * as db from "../db";
 import { getSessionCookieOptions } from "./cookies";
-import { sdk, checkAdminPassword } from "./sdk";
+import { sdk, checkAdminPassword, hashPassword, verifyPasswordHash } from "./sdk";
 import { ENV } from "./env";
 import { loginLimiter, passwordResetLimiter } from "../rateLimiter";
 import {
@@ -39,22 +39,29 @@ export function registerOAuthRoutes(app: Express) {
     }
 
     // Validate against admin credentials from env vars
-    const emailMatch = email.toLowerCase().trim() === ENV.adminEmail.toLowerCase().trim();
-    const passwordMatch = await checkAdminPassword(password);
+    const emailNorm = email.toLowerCase().trim();
+    const emailMatch = emailNorm === ENV.adminEmail.toLowerCase().trim();
+    const passwordMatch = emailMatch ? await checkAdminPassword(password) : false;
 
-    if (!emailMatch || !passwordMatch) {
-      // Audit log: failed login attempt
-      await db.logActivity("login_failed", undefined, ip, JSON.stringify({
-        email: email.toLowerCase().trim(),
-        reason: !emailMatch ? "invalid_email" : "invalid_password",
-        timestamp: new Date().toISOString(),
-        userAgent: req.headers['user-agent'] || 'unknown',
-      }));
-      res.status(401).json({ error: "Invalid email or password" });
+    if (emailMatch && passwordMatch) {
+      // Admin login — may require 2FA below
+    } else {
+      const member = await db.getUserByEmail(emailNorm);
+      if (!member?.passwordHash || !(await verifyPasswordHash(password, member.passwordHash))) {
+        await db.logActivity("login_failed", undefined, ip, JSON.stringify({
+          email: emailNorm,
+          reason: !member ? "unknown_email" : "invalid_password",
+          timestamp: new Date().toISOString(),
+          userAgent: req.headers['user-agent'] || 'unknown',
+        }));
+        res.status(401).json({ error: "Invalid email or password" });
+        return;
+      }
+      await completeLoginForUser(req, res, member, !!rememberMe, ip);
       return;
     }
 
-    // Check if TOTP is enabled - if so, require 2FA step
+    // Check if TOTP is enabled - if so, require 2FA step (admin only)
     if (isTotpEnabled()) {
       const crypto = await import('crypto');
       const challengeToken = crypto.randomBytes(32).toString('hex');
@@ -269,6 +276,80 @@ export function registerOAuthRoutes(app: Express) {
 
     res.json({ success: true, message: "Password change request sent. Update ADMIN_PASSWORD in Settings → Secrets." });
   });
+
+  /** Accept team/founding invite — creates account (Morocco: no Stripe required). */
+  app.post("/api/auth/accept-invite", async (req: Request, res: Response) => {
+    const ip = (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || req.ip || 'unknown';
+    const { token, name, password } = req.body ?? {};
+
+    if (typeof token !== "string" || typeof name !== "string" || typeof password !== "string") {
+      res.status(400).json({ error: "token, name, and password are required" });
+      return;
+    }
+    if (password.length < 8) {
+      res.status(400).json({ error: "Password must be at least 8 characters" });
+      return;
+    }
+
+    const invite = await db.getInviteByToken(token);
+    if (!invite || invite.acceptedAt) {
+      res.status(400).json({ error: "Invalid or already used invite" });
+      return;
+    }
+    if (new Date(invite.expiresAt) < new Date()) {
+      res.status(400).json({ error: "Invite has expired" });
+      return;
+    }
+
+    const email = invite.email.toLowerCase().trim();
+    const existing = await db.getUserByEmail(email);
+    if (existing) {
+      res.status(400).json({ error: "An account with this email already exists. Please log in." });
+      return;
+    }
+
+    const passwordHash = await hashPassword(password);
+    const membershipTier = invite.membershipTier === "founding" ? "founding" : "none";
+    const user = await db.createInvitedUser({
+      email,
+      name: name.trim(),
+      passwordHash,
+      companyName: invite.companyName ?? undefined,
+      membershipTier,
+      role: invite.role,
+    });
+
+    if (invite.workspaceId) {
+      await db.addWorkspaceMember({
+        workspaceId: invite.workspaceId,
+        userId: user.openId,
+        role: "member",
+      });
+    }
+
+    await db.markInviteAccepted(token);
+    await completeLoginForUser(req, res, user, true, ip);
+  });
+
+  /** Public invite lookup for accept page */
+  app.get("/api/auth/invite/:token", async (req: Request, res: Response) => {
+    const invite = await db.getInviteByToken(req.params.token);
+    if (!invite || invite.acceptedAt) {
+      res.status(404).json({ error: "Invite not found" });
+      return;
+    }
+    if (new Date(invite.expiresAt) < new Date()) {
+      res.status(410).json({ error: "Invite expired" });
+      return;
+    }
+    res.json({
+      email: invite.email,
+      companyName: invite.companyName,
+      inviteeName: invite.inviteeName,
+      membershipTier: invite.membershipTier,
+      expiresAt: invite.expiresAt,
+    });
+  });
 }
 
 // Helper to complete login (shared between direct login and post-2FA)
@@ -298,6 +379,40 @@ async function completeLogin(req: Request, res: Response, rememberMe: boolean, i
     email: ENV.adminEmail,
     rememberMe,
     sessionDuration: sessionDuration / 1000 + 's',
+    timestamp: new Date().toISOString(),
+    userAgent: req.headers['user-agent'] || 'unknown',
+  }));
+
+  res.json({ success: true });
+}
+
+async function completeLoginForUser(
+  req: Request,
+  res: Response,
+  user: { openId: string; name: string | null; email: string | null },
+  rememberMe: boolean,
+  ip: string
+) {
+  await db.upsertUser({
+    openId: user.openId,
+    name: user.name ?? undefined,
+    email: user.email ?? undefined,
+    lastSignedIn: new Date(),
+  });
+
+  const sessionDuration = rememberMe ? SESSION_REMEMBER_ME : SESSION_DEFAULT;
+  const sessionToken = await sdk.createSessionToken(user.openId, {
+    name: user.name ?? "Member",
+    expiresInMs: sessionDuration,
+  });
+
+  const cookieOptions = getSessionCookieOptions(req);
+  res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: sessionDuration });
+
+  await db.logActivity("login_success", undefined, ip, JSON.stringify({
+    email: user.email,
+    openId: user.openId,
+    rememberMe,
     timestamp: new Date().toISOString(),
     userAgent: req.headers['user-agent'] || 'unknown',
   }));

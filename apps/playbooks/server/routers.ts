@@ -1173,16 +1173,72 @@ export const appRouter = router({
       .input(z.object({
         email: z.string().email(),
         role: z.enum(['user', 'admin']),
+        companyName: z.string().optional(),
+        inviteeName: z.string().optional(),
+        membershipTier: z.enum(['team', 'founding']).optional(),
       }))
       .mutation(async ({ input, ctx }) => {
         const crypto = await import('crypto');
         const token = crypto.randomBytes(32).toString('hex');
         const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
         const userId = (ctx.user as any)?.id || 1;
-        await createInviteToken({ token, email: input.email, role: input.role, invitedBy: userId, expiresAt });
+        await createInviteToken({
+          token,
+          email: input.email,
+          role: input.role,
+          invitedBy: userId,
+          expiresAt,
+          companyName: input.companyName,
+          inviteeName: input.inviteeName,
+          membershipTier: input.membershipTier ?? 'team',
+        });
         const inviteUrl = `${ctx.req.headers.origin || BRAND.activeAppUrl}/invite/${token}`;
         await notifyOwner({ title: 'New Team Invite Sent', content: `Invited ${input.email} as ${input.role}. Link: ${inviteUrl}` });
         return { success: true, token, inviteUrl };
+      }),
+
+    /** Morocco founding client: workspace + invite (no Stripe). */
+    provisionFoundingClient: adminProcedure
+      .input(z.object({
+        email: z.string().email(),
+        companyName: z.string().min(1),
+        inviteeName: z.string().min(1),
+        workspaceSlug: z.string().min(1).optional(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const crypto = await import('crypto');
+        const slug = (input.workspaceSlug || input.companyName)
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-|-$/g, '')
+          .slice(0, 60);
+        await createWorkspace({
+          name: input.companyName,
+          slug,
+          description: `Founding client workspace — ${input.companyName}`,
+          ownerId: ctx.user.openId,
+        });
+        const workspace = await getWorkspaceBySlug(slug);
+        const token = crypto.randomBytes(32).toString('hex');
+        const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
+        const userId = (ctx.user as any)?.id || 1;
+        await createInviteToken({
+          token,
+          email: input.email,
+          role: 'user',
+          invitedBy: userId,
+          expiresAt,
+          companyName: input.companyName,
+          inviteeName: input.inviteeName,
+          membershipTier: 'founding',
+          workspaceId: workspace?.id,
+        });
+        const inviteUrl = `${ctx.req.headers.origin || BRAND.activeAppUrl}/invite/${token}`;
+        await notifyOwner({
+          title: `Founding client provisioned: ${input.companyName}`,
+          content: `${input.inviteeName} <${input.email}>\nInvite (30 days): ${inviteUrl}\nPayment: facture/virement — no Stripe required.`,
+        });
+        return { success: true, inviteUrl, workspaceSlug: slug };
       }),
 
     revokeInvite: adminProcedure

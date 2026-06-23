@@ -36,8 +36,8 @@ export default function UsageBillingPage() {
   const totalCost = usageMetrics.reduce((s, m) => s + m.cost, 0);
   const avgCallsPerDay = Math.round(totalCalls / 30);
 
-  const planTier = totalCalls > 5000 ? 'Enterprise' : totalCalls > 1000 ? 'Professional' : 'Starter';
-  const planColors = { Starter: 'text-blue-400', Professional: 'text-purple-400', Enterprise: 'text-amber-400' };
+  const planTier = totalCalls > 5000 ? 'Founding' : totalCalls > 1000 ? 'Membership' : 'Membership';
+  const planColors = { Membership: 'text-blue-400', Founding: 'text-amber-400' };
 
   return (
     <div className="min-h-screen bg-background">
@@ -181,9 +181,8 @@ export default function UsageBillingPage() {
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {[
-                    { plan: 'Starter', calls: '1,000', tokens: '500K', price: '$29/mo' },
-                    { plan: 'Professional', calls: '10,000', tokens: '5M', price: '$99/mo' },
-                    { plan: 'Enterprise', calls: 'Unlimited', tokens: 'Unlimited', price: 'Custom' },
+                    { plan: 'Membership', calls: '5,000', tokens: '2M', price: '$39/mo' },
+                    { plan: 'Founding', calls: 'Unlimited', tokens: 'Unlimited', price: '$290/yr' },
                   ].map(tier => (
                     <div key={tier.plan} className={`p-4 rounded-lg border ${tier.plan === planTier ? 'border-primary bg-primary/5' : 'border-border'}`}>
                       <div className="text-sm font-medium text-foreground mb-2">{tier.plan}</div>

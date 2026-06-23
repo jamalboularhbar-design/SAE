@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { BRAND } from '@/lib/brand';
 import SEO from '@/components/SEO';
 import MarketingNav from '@/components/MarketingNav';
+import { BOOTSTRAP_PRICING } from '@shared/pricing';
 
 export default function ROICalculatorPage() {
   const submitLead = trpc.leads.submit.useMutation();
@@ -36,10 +37,7 @@ export default function ROICalculatorPage() {
     const hoursSaved = annualWastedHours * reductionRate;
     const costSaved = annualWastedCost * reductionRate;
 
-    // NexusAI Playbooks hybrid pricing: $299/mo flat for ≤25 users, $15/user/month for 25+
-    const opsCanvasCost = teamSize <= 25
-      ? 299 * 12 // Starter: $299/month flat
-      : teamSize * 15 * 12; // Professional: $15/user/month
+    const opsCanvasCost = BOOTSTRAP_PRICING.founding.annualUsd;
     const currentToolAnnualCost = teamSize * currentToolCost * 12;
 
     const netSavings = costSaved - opsCanvasCost + currentToolAnnualCost;
@@ -278,12 +276,11 @@ export default function ROICalculatorPage() {
                     <span className="text-sm font-medium text-red-400">{formatCurrency(results.annualWastedCost)}/yr</span>
                   </div>
                   <div className="border-t border-border pt-3 flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">NexusAI Playbooks Professional</span>
+                    <span className="text-sm text-muted-foreground">ARG-Builder Founding Member</span>
                     <span className="text-sm font-medium text-teal-700 dark:text-teal-400">{formatCurrency(results.opsCanvasCost)}/yr</span>
                   </div>
                   <div className="flex justify-between items-center text-xs text-muted-foreground">
-                    <span>${teamSize} users × $15/user × 12 months</span>
-                    <span>= ${(teamSize * 15 * 12).toLocaleString()}</span>
+                    <span>Flat annual — ${BOOTSTRAP_PRICING.founding.annualUsd}/yr (≈ {BOOTSTRAP_PRICING.morocco.annualMadApprox.toLocaleString()} MAD)</span>
                   </div>
                 </div>
               </div>

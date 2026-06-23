@@ -6,9 +6,18 @@ import { Badge } from "@/components/ui/badge";
 import { CreditCard, ExternalLink, Receipt, AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Link } from "wouter";
+import { BOOTSTRAP_PRICING } from "@shared/pricing";
+
+type BillingUser = {
+  membershipTier?: "none" | "founding" | "membership";
+  companyName?: string | null;
+};
 
 export default function BillingPage() {
   const { user, loading: authLoading } = useAuth();
+  const billingUser = user as BillingUser | null;
+  const isFoundingMember = billingUser?.membershipTier === "founding";
+  const isMembershipTier = billingUser?.membershipTier === "membership";
   const { data: subData, isLoading: subLoading } = trpc.stripe.getSubscriptionStatus.useQuery(
     undefined,
     { enabled: !!user }
@@ -92,7 +101,28 @@ export default function BillingPage() {
             <CardTitle className="text-lg">Current Plan</CardTitle>
           </CardHeader>
           <CardContent>
-            {hasSubscription ? (
+            {isFoundingMember ? (
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                  <span className="font-medium text-foreground">Founding Member</span>
+                  <Badge variant="secondary">Active</Badge>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {billingUser?.companyName
+                    ? `Workspace: ${billingUser.companyName}. `
+                    : ""}
+                  Full library + AI hub + Nexus OS. Price locked at ${BOOTSTRAP_PRICING.founding.annualUsd}/yr.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {BOOTSTRAP_PRICING.morocco.note} Contact{" "}
+                  <a href={`mailto:${BOOTSTRAP_PRICING.morocco.contactEmail}`} className="text-teal-500 hover:underline">
+                    {BOOTSTRAP_PRICING.morocco.contactEmail}
+                  </a>{" "}
+                  for invoices.
+                </p>
+              </div>
+            ) : hasSubscription ? (
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
@@ -126,15 +156,33 @@ export default function BillingPage() {
                   </Button>
                 </div>
               </div>
+            ) : isMembershipTier ? (
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                  <span className="font-medium text-foreground">Membership</span>
+                  <Badge variant="secondary">Active</Badge>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  ${BOOTSTRAP_PRICING.membership.monthlyUsd}/mo — full library access.
+                </p>
+              </div>
             ) : (
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
                   <AlertCircle className="w-5 h-5 text-muted-foreground" />
-                  <span className="text-muted-foreground">No active subscription</span>
+                  <span className="text-muted-foreground">No active plan</span>
                 </div>
-                <Link href="/product#pricing">
+                <p className="text-sm text-muted-foreground">
+                  Morocco founding clients: facture/virement — no Stripe required. Contact{" "}
+                  <a href={`mailto:${BOOTSTRAP_PRICING.morocco.contactEmail}`} className="text-teal-500 hover:underline">
+                    {BOOTSTRAP_PRICING.morocco.contactEmail}
+                  </a>
+                  .
+                </p>
+                <Link href="/pricing">
                   <Button className="bg-teal-600 hover:bg-teal-700">
-                    View Plans & Subscribe
+                    View Plans
                   </Button>
                 </Link>
               </div>

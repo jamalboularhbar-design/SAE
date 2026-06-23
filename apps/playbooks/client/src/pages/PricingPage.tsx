@@ -1,233 +1,141 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
-import SEO, { PAGE_SEO } from '@/components/SEO';
-import { Check, X, Zap, Building2, Crown, ArrowRight } from "lucide-react";
-
-const PLANS = [
-  {
-    id: "starter",
-    name: "Starter",
-    description: "For small teams getting organized",
-    monthlyPrice: 29,
-    annualPrice: 24,
-    icon: Zap,
-    highlight: false,
-    features: [
-      { name: "Up to 100 documents", included: true },
-      { name: "5 team members", included: true },
-      { name: "Basic search & navigation", included: true },
-      { name: "Document versioning", included: true },
-      { name: "Email support", included: true },
-      { name: "Custom branding", included: false },
-      { name: "AI-powered summaries", included: false },
-      { name: "Advanced analytics", included: false },
-      { name: "API access", included: false },
-      { name: "SSO / SAML", included: false },
-      { name: "Dedicated account manager", included: false },
-      { name: "Custom integrations", included: false },
-    ],
-  },
-  {
-    id: "professional",
-    name: "Professional",
-    description: "For growing teams that need more power",
-    monthlyPrice: 79,
-    annualPrice: 66,
-    icon: Building2,
-    highlight: true,
-    badge: "Most Popular",
-    features: [
-      { name: "Unlimited documents", included: true },
-      { name: "25 team members", included: true },
-      { name: "Advanced search with AI", included: true },
-      { name: "Document versioning & diff", included: true },
-      { name: "Priority email & chat support", included: true },
-      { name: "Custom branding", included: true },
-      { name: "AI-powered summaries", included: true },
-      { name: "Advanced analytics", included: true },
-      { name: "API access", included: false },
-      { name: "SSO / SAML", included: false },
-      { name: "Dedicated account manager", included: false },
-      { name: "Custom integrations", included: false },
-    ],
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    description: "For organizations that demand the best",
-    monthlyPrice: 199,
-    annualPrice: 166,
-    icon: Crown,
-    highlight: false,
-    features: [
-      { name: "Unlimited documents", included: true },
-      { name: "Unlimited team members", included: true },
-      { name: "Advanced search with AI", included: true },
-      { name: "Document versioning & diff", included: true },
-      { name: "24/7 priority support", included: true },
-      { name: "Custom branding", included: true },
-      { name: "AI-powered summaries", included: true },
-      { name: "Advanced analytics & reports", included: true },
-      { name: "Full API access", included: true },
-      { name: "SSO / SAML", included: true },
-      { name: "Dedicated account manager", included: true },
-      { name: "Custom integrations", included: true },
-    ],
-  },
-];
+import SEO, { PAGE_SEO } from "@/components/SEO";
+import { Check, ArrowRight, Crown, Zap, Mail } from "lucide-react";
+import {
+  BOOTSTRAP_PRICING,
+  MEMBERSHIP_FEATURES,
+  FOUNDING_EXTRAS,
+} from "@shared/pricing";
 
 export default function PricingPage() {
   const [annual, setAnnual] = useState(true);
   const [, navigate] = useLocation();
+  const { membership, founding, morocco } = BOOTSTRAP_PRICING;
 
   return (
     <div className="min-h-screen bg-background">
       <SEO {...PAGE_SEO.pricing} />
-      {/* Header */}
-      <div className="max-w-7xl mx-auto px-4 pt-16 pb-12 text-center">
+      <div className="max-w-5xl mx-auto px-4 pt-16 pb-16">
         <button
           onClick={() => navigate("/")}
           className="text-sm text-muted-foreground hover:text-foreground transition-colors mb-8 inline-flex items-center gap-1"
         >
-          ← Back to Home
+          ← Back to library
         </button>
-        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-          Simple, Transparent Pricing
-        </h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-          Choose the plan that fits your team. All plans include a 14-day free trial with no credit card required.
-        </p>
 
-        {/* Billing Toggle */}
-        <div className="inline-flex items-center gap-3 bg-card border border-border rounded-full p-1.5">
-          <button
-            onClick={() => setAnnual(false)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              !annual ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Monthly
-          </button>
-          <button
-            onClick={() => setAnnual(true)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              annual ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Annual <span className="text-xs opacity-80">Save 17%</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Pricing Cards */}
-      <div className="max-w-7xl mx-auto px-4 pb-20">
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-          {PLANS.map((plan) => {
-            const price = annual ? plan.annualPrice : plan.monthlyPrice;
-            const Icon = plan.icon;
-            return (
-              <div
-                key={plan.id}
-                className={`relative rounded-2xl p-8 transition-all ${
-                  plan.highlight
-                    ? "bg-card border-2 border-primary shadow-lg shadow-primary/10 scale-[1.02]"
-                    : "bg-card border border-border"
-                }`}
-              >
-                {plan.badge && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-bold px-4 py-1 rounded-full">
-                    {plan.badge}
-                  </div>
-                )}
-
-                <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className={`p-2 rounded-lg ${plan.highlight ? "bg-primary/10" : "bg-muted"}`}>
-                      <Icon className={`w-5 h-5 ${plan.highlight ? "text-primary" : "text-foreground"}`} />
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground">{plan.name}</h3>
-                  </div>
-                  <p className="text-sm text-muted-foreground">{plan.description}</p>
-                </div>
-
-                <div className="mb-6">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold text-foreground">${price}</span>
-                    <span className="text-muted-foreground">/mo</span>
-                  </div>
-                  {annual && (
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Billed annually (${price * 12}/year)
-                    </p>
-                  )}
-                </div>
-
-                <button
-                  onClick={() => navigate(`/start-trial?plan=${plan.id}`)}
-                  className={`w-full py-3 px-4 rounded-lg font-medium text-sm transition-colors mb-8 inline-flex items-center justify-center gap-2 ${
-                    plan.highlight
-                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                      : "bg-muted text-foreground hover:bg-muted/80"
-                  }`}
-                >
-                  Start Free Trial
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-
-                <div className="space-y-3">
-                  {plan.features.map((feature) => (
-                    <div key={feature.name} className="flex items-center gap-3">
-                      {feature.included ? (
-                        <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
-                      ) : (
-                        <X className="w-4 h-4 text-muted-foreground/40 flex-shrink-0" />
-                      )}
-                      <span className={`text-sm ${feature.included ? "text-foreground" : "text-muted-foreground/60"}`}>
-                        {feature.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Enterprise CTA */}
-        <div className="mt-16 text-center bg-card border border-border rounded-2xl p-8 md:p-12">
-          <h2 className="text-2xl font-bold text-foreground mb-3">Need a custom solution?</h2>
-          <p className="text-muted-foreground max-w-xl mx-auto mb-6">
-            For teams with 100+ members, compliance requirements, or custom integration needs, we offer tailored enterprise packages.
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            One plan. Two ways to join.
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Full access to 570+ operational playbooks, the knowledge graph, AI hub, and Nexus OS early access.
           </p>
-          <button
-            onClick={() => navigate("/product")}
-            className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
-          >
-            Contact Sales
-            <ArrowRight className="w-4 h-4" />
-          </button>
+
+          <div className="inline-flex items-center gap-3 bg-card border border-border rounded-full p-1.5 mt-8">
+            <button
+              onClick={() => setAnnual(false)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                !annual ? "bg-primary text-primary-foreground" : "text-muted-foreground"
+              }`}
+            >
+              Monthly — ${membership.monthlyUsd}/mo
+            </button>
+            <button
+              onClick={() => setAnnual(true)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                annual ? "bg-primary text-primary-foreground" : "text-muted-foreground"
+              }`}
+            >
+              Founding — ${founding.annualUsd}/yr
+            </button>
+          </div>
         </div>
 
-        {/* FAQ */}
-        <div className="mt-16 max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-foreground text-center mb-8">Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            {[
-              { q: "How does the 14-day trial work?", a: "You get full access to all features in your chosen plan for 14 days. No credit card required. At the end of the trial, you can upgrade to continue or your access will be paused." },
-              { q: "Can I switch plans later?", a: "Absolutely. You can upgrade or downgrade at any time. When upgrading, you'll get immediate access to new features. Downgrades take effect at the next billing cycle." },
-              { q: "What happens to my data if I cancel?", a: "Your data is retained for 30 days after cancellation. You can export everything at any time. After 30 days, data is permanently deleted." },
-              { q: "Do you offer discounts for nonprofits or education?", a: "Yes! We offer 50% off for verified nonprofits and educational institutions. Contact our sales team to apply." },
-              { q: "Is there a setup fee?", a: "No setup fees for Starter or Professional plans. Enterprise plans include complimentary onboarding and data migration assistance." },
-            ].map((faq, i) => (
-              <details key={i} className="group bg-card border border-border rounded-lg">
-                <summary className="flex items-center justify-between cursor-pointer p-4 text-sm font-medium text-foreground">
-                  {faq.q}
-                  <span className="text-muted-foreground group-open:rotate-180 transition-transform">▾</span>
-                </summary>
-                <p className="px-4 pb-4 text-sm text-muted-foreground">{faq.a}</p>
-              </details>
-            ))}
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          {/* Membership */}
+          <div
+            className={`rounded-2xl border p-8 ${!annual ? "border-accent ring-2 ring-accent/30" : "border-border"}`}
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <Zap className="w-5 h-5 text-accent" />
+              <h2 className="text-xl font-bold">{membership.name}</h2>
+            </div>
+            <div className="mb-6">
+              <span className="text-4xl font-bold">${membership.monthlyUsd}</span>
+              <span className="text-muted-foreground">/month</span>
+            </div>
+            <p className="text-sm text-muted-foreground mb-6">{membership.description}</p>
+            <ul className="space-y-3 mb-8">
+              {MEMBERSHIP_FEATURES.map((f) => (
+                <li key={f} className="flex items-start gap-2 text-sm">
+                  <Check className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <button
+              onClick={() => navigate("/product")}
+              className="w-full py-3 rounded-lg bg-muted hover:bg-muted/80 text-foreground font-medium transition-colors"
+            >
+              Start membership
+            </button>
           </div>
+
+          {/* Founding */}
+          <div
+            className={`rounded-2xl border p-8 relative ${annual ? "border-accent ring-2 ring-accent/30 bg-accent/5" : "border-border"}`}
+          >
+            <span className="absolute -top-3 left-6 px-3 py-0.5 bg-accent text-accent-foreground text-xs font-semibold rounded-full">
+              Founding — {founding.seatCap} seats
+            </span>
+            <div className="flex items-center gap-2 mb-4 mt-2">
+              <Crown className="w-5 h-5 text-accent" />
+              <h2 className="text-xl font-bold">{founding.name}</h2>
+            </div>
+            <div className="mb-6">
+              <span className="text-4xl font-bold">${founding.annualUsd}</span>
+              <span className="text-muted-foreground">/year</span>
+              <p className="text-xs text-muted-foreground mt-1">
+                ≈ ${founding.monthlyEquivalentUsd}/mo — price locked forever
+              </p>
+            </div>
+            <p className="text-sm text-muted-foreground mb-4">{founding.description}</p>
+            <ul className="space-y-3 mb-8">
+              {FOUNDING_EXTRAS.map((f) => (
+                <li key={f} className="flex items-start gap-2 text-sm">
+                  <Check className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <button
+              onClick={() => navigate("/request-demo")}
+              className="w-full py-3 rounded-lg bg-accent hover:bg-accent/90 text-accent-foreground font-medium transition-colors flex items-center justify-center gap-2"
+            >
+              Request founding access
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Morocco */}
+        <div className="rounded-2xl border border-border bg-muted/30 p-8 text-center">
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <Mail className="w-5 h-5 text-accent" />
+            <h3 className="text-lg font-semibold">{morocco.label}</h3>
+          </div>
+          <p className="text-muted-foreground max-w-xl mx-auto mb-4">{morocco.note}</p>
+          <p className="text-sm text-muted-foreground mb-4">
+            Founding annual ≈ {morocco.annualMadApprox.toLocaleString()} MAD · Facture proforma sur demande
+          </p>
+          <a
+            href={`mailto:${morocco.contactEmail}?subject=ARG-Builder%20—%20Client%20fondateur%20Maroc`}
+            className="inline-flex items-center gap-2 text-accent hover:underline font-medium"
+          >
+            {morocco.contactEmail}
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </div>

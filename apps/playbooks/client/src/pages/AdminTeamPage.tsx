@@ -15,9 +15,39 @@ export default function AdminTeamPage() {
   const { data: members, isLoading: membersLoading } = trpc.userManagement.teamMembers.useQuery();
   const { data: invites, isLoading: invitesLoading } = trpc.userManagement.invites.useQuery();
   const createInvite = trpc.userManagement.createInvite.useMutation();
+  const provisionFounding = trpc.userManagement.provisionFoundingClient.useMutation();
   const revokeInvite = trpc.userManagement.revokeInvite.useMutation();
   const changeRole = trpc.userManagement.changeRole.useMutation();
   const utils = trpc.useUtils();
+
+  const [foundingEmail, setFoundingEmail] = useState('');
+  const [foundingName, setFoundingName] = useState('');
+  const [foundingCompany, setFoundingCompany] = useState('');
+  const [showFoundingForm, setShowFoundingForm] = useState(false);
+
+  const handleProvisionFounding = async () => {
+    if (!foundingEmail.trim() || !foundingName.trim() || !foundingCompany.trim()) {
+      toast.error('Email, name, and company are required');
+      return;
+    }
+    try {
+      const result = await provisionFounding.mutateAsync({
+        email: foundingEmail,
+        inviteeName: foundingName,
+        companyName: foundingCompany,
+      });
+      toast.success(`Founding workspace created for ${foundingCompany}`);
+      navigator.clipboard.writeText(result.inviteUrl);
+      toast.info('Invite link copied — send after virement/facture');
+      setFoundingEmail('');
+      setFoundingName('');
+      setFoundingCompany('');
+      setShowFoundingForm(false);
+      utils.userManagement.invites.invalidate();
+    } catch {
+      toast.error('Failed to provision founding client');
+    }
+  };
 
   const handleCreateInvite = async () => {
     if (!inviteEmail.trim()) { toast.error('Email is required'); return; }
@@ -65,6 +95,47 @@ export default function AdminTeamPage() {
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
       <div className="max-w-5xl mx-auto">
+        {/* Founding client (Morocco — no Stripe) */}
+        <div className="mb-8 p-6 rounded-xl border border-accent/30 bg-accent/5">
+          <h2 className="text-lg font-semibold mb-1">🇲🇦 Provision founding client</h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            Creates workspace + 30-day invite. Payment via facture/virement — no Stripe required.
+          </p>
+          {showFoundingForm ? (
+            <div className="grid sm:grid-cols-3 gap-3 mb-3">
+              <input
+                type="text"
+                placeholder="Company name"
+                value={foundingCompany}
+                onChange={(e) => setFoundingCompany(e.target.value)}
+                className="px-3 py-2 rounded-lg border border-border bg-background text-sm"
+              />
+              <input
+                type="text"
+                placeholder="Contact full name"
+                value={foundingName}
+                onChange={(e) => setFoundingName(e.target.value)}
+                className="px-3 py-2 rounded-lg border border-border bg-background text-sm"
+              />
+              <input
+                type="email"
+                placeholder="Work email"
+                value={foundingEmail}
+                onChange={(e) => setFoundingEmail(e.target.value)}
+                className="px-3 py-2 rounded-lg border border-border bg-background text-sm"
+              />
+            </div>
+          ) : null}
+          <Button
+            variant={showFoundingForm ? 'default' : 'outline'}
+            onClick={() => (showFoundingForm ? handleProvisionFounding() : setShowFoundingForm(true))}
+            disabled={provisionFounding.isPending}
+            className={showFoundingForm ? 'bg-accent text-accent-foreground' : ''}
+          >
+            {provisionFounding.isPending ? 'Provisioning…' : showFoundingForm ? 'Create workspace + invite' : 'New founding client'}
+          </Button>
+        </div>
+
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
