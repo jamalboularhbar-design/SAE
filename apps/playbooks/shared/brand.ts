@@ -43,7 +43,7 @@ export const BRAND = {
   /** SEO defaults */
   seoTitle: "ARG-Builder | Playbooks and the runtime that runs them",
   seoDescription:
-    "ARG-Builder is two things in one workspace — Playbooks (the library, 515 structured operating documents) and Nexus OS (the runtime that fires them across Slack, Notion and Gmail).",
+    "ARG-Builder is two things in one workspace — Playbooks (the library, 570+ structured operating documents) and Nexus OS (the runtime that fires them across Slack, Notion and Gmail).",
   /** Email / notification signatures */
   teamSignature: "The ARG-Builder Team",
   emailFrom: "ARG-Builder <hello@argbuilder.io>",

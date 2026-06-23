@@ -8,8 +8,8 @@ const BASE_URL = BRAND.activeAppUrl;
 
 // Static routes with their change frequency and priority
 const STATIC_ROUTES = [
-  { path: "/", changefreq: "weekly", priority: "1.0" },
-  { path: "/product", changefreq: "weekly", priority: "0.9" },
+  { path: "/product", changefreq: "weekly", priority: "1.0" },
+  { path: "/", changefreq: "weekly", priority: "0.8" },
   { path: "/product/templates", changefreq: "weekly", priority: "0.85" },
   { path: "/roi", changefreq: "monthly", priority: "0.7" },
   { path: "/billing", changefreq: "monthly", priority: "0.3" },

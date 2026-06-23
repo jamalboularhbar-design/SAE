@@ -7,7 +7,7 @@ import { Route, Switch, useLocation } from "wouter";
 import { useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
+import HomeGate from "./pages/HomeGate";
 import DocumentDetail from "./pages/DocumentDetail";
 import AdminEditor from "./pages/AdminEditor";
 import CategoryPage from "./pages/CategoryPage";
@@ -235,7 +235,7 @@ function Router() {
     <Switch>
       <Route path={"/login"} component={LoginPage} />
       <Route path={"/invite/:token"} component={InviteAcceptPage} />
-      <Route path={"/"} component={Home} />
+      <Route path={"/"} component={HomeGate} />
       <Route path={"/docs/:slug"} component={DocumentDetail} />
       <Route path={"/category/:category"} component={CategoryPage} />
       <Route path={"/compare"} component={CompareDocuments} />

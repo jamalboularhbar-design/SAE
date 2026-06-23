@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
-import { X, ChevronRight, ChevronLeft, Sparkles, Brain, Layers } from 'lucide-react';
-import { Link } from 'wouter';
-import { BRAND, DEMO_WORKSPACES } from '@/lib/brand';
+import { X, ChevronRight, ChevronLeft, Sparkles, Network, BookOpen, Hexagon } from 'lucide-react';
+import { Link, useLocation } from 'wouter';
+import { BRAND } from '@/lib/brand';
+import { useAuth } from '@/_core/hooks/useAuth';
 
 interface TourStep {
   title: string;
@@ -14,55 +15,58 @@ interface TourStep {
 const TOUR_STEPS: TourStep[] = [
   {
     title: `Welcome to ${BRAND.productName}`,
-    description: `${BRAND.parentName} helps multi-brand teams run on playbooks, not memory. You get demo workspaces for ${DEMO_WORKSPACES.travel.name} and ${DEMO_WORKSPACES.creative.name} — add your own brands as you scale.`,
+    description: `${BRAND.tagline}. Your workspace is organized as Library → Graph → ${BRAND.aiHubName} → ${BRAND.nexusOsName}. This tour takes ~60 seconds.`,
     target: null,
   },
   {
-    title: 'Multi-Brand Workspaces',
-    description: 'Each workspace is a separate brand with its own playbooks, team directory, and operational tools. Switch tabs to explore different business models.',
-    target: '[data-tour="workspaces"]',
+    title: 'Product architecture',
+    description: 'Four layers: structured playbooks, the knowledge graph, AI tools, and Nexus OS runtime. Click any card to jump in.',
+    target: '[data-tour="architecture"]',
   },
   {
-    title: BRAND.aiHubTitle,
-    description: `${BRAND.aiHubTagline}. Draft SOPs, search semantically, summarize docs, and build workflows — all from the Intelligence button in the header.`,
-    target: '[data-tour="intelligence"]',
+    title: 'Vertical demos',
+    description: 'Live case studies and industry reference verticals. Riad & Routes is our Morocco proof deployment.',
+    target: '[data-tour="vertical-demos"]',
   },
   {
-    title: 'Search & Command Palette',
-    description: 'Find any playbook in seconds. Press Ctrl+K (⌘K on Mac) for the command palette — jump to docs, workspaces, or AI tools.',
-    target: '[data-tour="search"]',
-  },
-  {
-    title: 'Document Library',
-    description: '525+ operational documents organized by function. Filter by category, track reading progress, and pin what your team uses daily.',
+    title: 'Document library',
+    description: '570+ documents by business function. Filter, pin, and export — this is your primary work surface.',
     target: '[data-tour="library"]',
   },
   {
-    title: "You're ready to go",
-    description: 'Explore the demo workspaces, try Intelligence at /ai, or start a free trial to import your own playbooks.',
+    title: BRAND.aiHubName,
+    description: `${BRAND.aiHubTagline}. Use the Intelligence button anytime, or try example prompts at /ai.`,
+    target: '[data-tour="intelligence"]',
+  },
+  {
+    title: "You're ready",
+    description: 'Explore the graph, run a Nexus OS request, or browse demo workspaces below the library.',
     target: null,
     cta: [
-      { label: 'Open Intelligence Hub', href: '/ai' },
-      { label: 'Start free trial', href: '/start-trial?plan=professional&utm_source=onboarding&utm_medium=tour' },
-      { label: 'Browse templates', href: '/product/templates' },
+      { label: 'Open knowledge graph', href: '/graph' },
+      { label: `Open ${BRAND.nexusOsName}`, href: `${BRAND.nexusOsPath}/` },
+      { label: 'Browse case studies', href: '/case-studies' },
     ],
   },
 ];
 
-const TOUR_KEY = 'onboarding_tour_completed';
+const TOUR_KEY = 'onboarding_tour_completed_v2';
 
 export default function OnboardingTour() {
+  const { isAuthenticated } = useAuth({ redirectOnUnauthenticated: false });
+  const [location] = useLocation();
   const [step, setStep] = useState(0);
   const [visible, setVisible] = useState(false);
   const [tooltipPos, setTooltipPos] = useState<{ top: number; left: number; width: number; height: number } | null>(null);
 
   useEffect(() => {
+    if (!isAuthenticated || location !== '/') return;
     const completed = localStorage.getItem(TOUR_KEY);
     if (!completed) {
       const timer = setTimeout(() => setVisible(true), 1500);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [isAuthenticated, location]);
 
   const positionTooltip = useCallback(() => {
     const currentStep = TOUR_STEPS[step];
@@ -109,11 +113,13 @@ export default function OnboardingTour() {
     if (step > 0) setStep(step - 1);
   };
 
-  if (!visible) return null;
+  if (!visible || !isAuthenticated || location !== '/') return null;
 
   const currentStep = TOUR_STEPS[step];
   const hasTarget = tooltipPos !== null;
   const isLast = step >= TOUR_STEPS.length - 1;
+
+  const StepIcon = step === 4 ? Sparkles : step === 3 ? BookOpen : step === 2 ? Network : step === 1 ? Hexagon : Sparkles;
 
   return (
     <div className="fixed inset-0 z-[200]">
@@ -168,18 +174,13 @@ export default function OnboardingTour() {
         <button
           onClick={handleComplete}
           className="absolute top-3 right-3 text-muted-foreground hover:text-foreground transition-colors"
+          aria-label="Close tour"
         >
           <X className="w-4 h-4" />
         </button>
 
         <div className="flex items-center gap-2 mb-3">
-          {step === 2 ? (
-            <Brain className="w-4 h-4 text-purple-400" />
-          ) : step === 1 ? (
-            <Layers className="w-4 h-4 text-accent" />
-          ) : (
-            <Sparkles className="w-4 h-4 text-accent" />
-          )}
+          <StepIcon className="w-4 h-4 text-accent" />
           <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">
             Step {step + 1} of {TOUR_STEPS.length}
           </span>
@@ -191,10 +192,10 @@ export default function OnboardingTour() {
         {currentStep.cta && (
           <div className="flex flex-col gap-2 mb-4">
             {currentStep.cta.map((link) => (
-              <Link key={link.href} href={link.href}>
+              <Link key={link.href} href={link.href.startsWith('/os') ? '/product#demo' : link.href}>
                 <Button
                   size="sm"
-                  variant={link.href.includes('start-trial') ? 'default' : 'outline'}
+                  variant={link.href.includes('graph') ? 'default' : 'outline'}
                   className="w-full h-8 text-xs"
                   onClick={handleComplete}
                 >
@@ -223,7 +224,7 @@ export default function OnboardingTour() {
               Skip
             </Button>
             <Button size="sm" onClick={handleNext} className="h-8 text-xs">
-              {isLast ? 'Explore app' : 'Next'} <ChevronRight className="w-3 h-3 ml-0.5" />
+              {isLast ? 'Done' : 'Next'} <ChevronRight className="w-3 h-3 ml-0.5" />
             </Button>
           </div>
         </div>

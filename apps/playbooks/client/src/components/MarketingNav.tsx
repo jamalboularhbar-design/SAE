@@ -16,6 +16,7 @@ type MarketingNavProps = {
 };
 
 const PRODUCT_LINKS = [
+  { href: '#demo', label: 'Demo' },
   { href: '#why', label: 'Why' },
   { href: '#library', label: 'Library' },
   { href: '#intelligence', label: 'Intelligence', accent: 'purple' as const },

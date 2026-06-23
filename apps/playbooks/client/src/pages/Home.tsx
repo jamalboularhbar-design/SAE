@@ -3,7 +3,7 @@ import { Link } from 'wouter';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Plane, Palette, ChevronRight, CheckSquare, ClipboardList, Shield, Calendar, BarChart3, FolderOpen, Building2, MessageSquare, Users, TrendingUp } from 'lucide-react';
+import { Plane, Palette, ChevronRight, CheckSquare, ClipboardList, Shield, Calendar, BarChart3, FolderOpen, Building2, MessageSquare, Users, TrendingUp, Network, Brain, Hexagon } from 'lucide-react';
 import TravelConcierge from '@/components/personas/TravelConcierge';
 import CreativeStudio from '@/components/personas/CreativeStudio';
 import Header from '@/components/Header';
@@ -21,9 +21,13 @@ import ReadingStreak from '@/components/ReadingStreak';
 import SmartSuggestions from '@/components/SmartSuggestions';
 import PinnedDocuments from '@/components/PinnedDocuments';
 import StickyHeader from '@/components/StickyHeader';
-import AIHubPromo from '@/components/AIHubPromo';
+import ProductProofBar from '@/components/product/ProductProofBar';
+import ProductArchitectureStrip from '@/components/product/ProductArchitectureStrip';
+import SocialProofStrip from '@/components/product/SocialProofStrip';
+import IntegrationsStrip from '@/components/product/IntegrationsStrip';
 import VerticalShowcase from '@/components/VerticalShowcase';
 import { BRAND } from '@/lib/brand';
+import { PLATFORM_STATS } from '@shared/platformStats';
 import { generatePersonaContent, exportToPDF } from '@/lib/exportPdf';
 
 export default function Home() {
@@ -256,11 +260,11 @@ export default function Home() {
         <Header />
       </StickyHeader>
       
-      <main className="container py-12">
-        {/* Top toolbar */}
-        <div className="flex items-center justify-between mb-12 gap-4 flex-wrap">
+      <main className="container py-8 sm:py-12 pb-24 sm:pb-12">
+        {/* Toolbar */}
+        <div className="flex items-center justify-between mb-8 gap-4 flex-wrap">
           <div>
-            <h2 className="font-display text-3xl mb-1 text-foreground">{BRAND.productName}</h2>
+            <h1 className="font-display text-2xl sm:text-3xl mb-1 text-foreground">{BRAND.productName}</h1>
             <p className="text-muted-foreground text-sm">{BRAND.tagline}</p>
           </div>
           <div className="flex items-center gap-2">
@@ -274,9 +278,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Search Panel */}
         {showSearch && (
-          <Card className="card-premium mb-12">
+          <Card className="card-premium mb-8">
             <CardHeader>
               <CardTitle>Advanced Search</CardTitle>
               <CardDescription>Search across all workspaces, processes, and guidelines</CardDescription>
@@ -287,23 +290,37 @@ export default function Home() {
           </Card>
         )}
 
-        <AIHubPromo />
+        {/* Hero + quick actions */}
+        <section className="mb-10 text-center">
+          <ProductProofBar className="mb-6" />
+          <div className="max-w-lg mx-auto mb-6" data-tour="search">
+            <SearchAutocomplete placeholder={`Quick search ${PLATFORM_STATS.documents}+ documents…`} className="text-left" />
+          </div>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Link href="/graph">
+              <Badge variant="outline" className="px-3 py-1.5 gap-1.5 cursor-pointer hover:border-cyan-500/40">
+                <Network className="w-3.5 h-3.5" /> Graph
+              </Badge>
+            </Link>
+            <Link href="/ai">
+              <Badge variant="outline" className="px-3 py-1.5 gap-1.5 cursor-pointer hover:border-purple-500/40" data-tour="intelligence">
+                <Brain className="w-3.5 h-3.5" /> {BRAND.aiHubName}
+              </Badge>
+            </Link>
+            <a href={`${BRAND.nexusOsPath}/`}>
+              <Badge variant="outline" className="px-3 py-1.5 gap-1.5 cursor-pointer hover:border-indigo-500/40">
+                <Hexagon className="w-3.5 h-3.5" /> {BRAND.nexusOsName}
+              </Badge>
+            </a>
+            <Link href="/toc">
+              <Badge variant="outline" className="px-3 py-1.5 gap-1.5 cursor-pointer hover:border-teal-500/40">
+                Browse all
+              </Badge>
+            </Link>
+          </div>
+        </section>
 
-        {/* Hero Section */}
-        <div className="mb-10 sm:mb-16 text-center py-8 sm:py-12">
-          <div className="inline-block mb-4 sm:mb-6 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-accent/10 border border-accent/20">
-            <p className="text-xs sm:text-sm font-semibold text-accent">Multi-Brand Workspaces</p>
-          </div>
-          <h1 className="font-display text-3xl sm:text-5xl md:text-7xl mb-4 sm:mb-6 text-foreground leading-tight">
-            {BRAND.parentName}
-          </h1>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed px-2">
-            {BRAND.description}
-          </p>
-          <div className="max-w-lg mx-auto" data-tour="search">
-            <SearchAutocomplete placeholder="Quick search 525+ documents..." className="text-left" />
-          </div>
-        </div>
+        <ProductArchitectureStrip showGovernance />
 
         <VerticalShowcase
           onOpenWorkspace={(tab) => {
@@ -312,8 +329,22 @@ export default function Home() {
           }}
         />
 
-        {/* Workspace Selection Tabs */}
-        <div id="workspace-tabs" className="mb-10 sm:mb-16">
+        {/* Document Library — primary work surface */}
+        <section className="mt-10 sm:mt-14 pt-8 border-t border-border/50">
+          <div data-tour="library">
+            <DocumentLibrary />
+          </div>
+        </section>
+
+        {/* Live demo workspaces — secondary */}
+        <section id="workspace-tabs" className="mt-12 sm:mt-16 pt-8 border-t border-border/50">
+          <div className="mb-8">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium mb-2">Live demo workspaces</p>
+            <h2 className="font-display text-xl sm:text-2xl text-foreground">Explore multi-brand operations</h2>
+            <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
+              Riad & Routes and ArtKech — proof deployments on real Morocco operations. Switch tabs to explore tools and process timelines.
+            </p>
+          </div>
           <Tabs value={activePersona} onValueChange={(value) => setActivePersona(value as 'travel' | 'artkech')} className="w-full">
             <TabsList data-tour="workspaces" className="grid w-full max-w-sm sm:max-w-md mx-auto grid-cols-2 mb-8 sm:mb-12 bg-card/50 border border-border/50 p-1 rounded-lg">
               <TabsTrigger value="travel" className="flex items-center gap-2">
@@ -492,127 +523,25 @@ export default function Home() {
               </Card>
             </TabsContent>
           </Tabs>
-        </div>
-
-        {/* General Capabilities Section */}
-        <section className="mt-16 sm:mt-24 mb-12 sm:mb-20 pt-8 sm:pt-12 border-t border-border/50">
-          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-2 sm:mb-3 text-foreground">General Capabilities</h2>
-          <p className="text-muted-foreground text-sm sm:text-base mb-6 sm:mb-8">Core competencies across all workspaces</p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: 'Context Switching',
-                description: 'Seamlessly transition between workspaces based on task context'
-              },
-              {
-                title: 'Client Communication',
-                description: 'Professional interactions with exceptional service focus'
-              },
-              {
-                title: 'Project Management',
-                description: 'Track progress, manage timelines, allocate resources'
-              },
-              {
-                title: 'Information Synthesis',
-                description: 'Access and process information from multiple sources'
-              },
-              {
-                title: 'Automation & Efficiency',
-                description: 'Streamline workflows and improve operational efficiency'
-              },
-              {
-                title: 'Quality Assurance',
-                description: 'Ensure deliverables meet highest standards'
-              }
-            ].map((capability, index) => (
-              <Card key={index} className="card-premium">
-                <CardHeader>
-                  <CardTitle className="text-lg">{capability.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">{capability.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
         </section>
 
-        {/* Pinned Documents */}
-        <PinnedDocuments />
+        <SocialProofStrip />
+        <IntegrationsStrip />
 
-        {/* Reading Streak */}
-        <section className="mt-8">
+        {/* Personal & discovery — end of page */}
+        <section className="mt-12 pt-8 border-t border-border/50 space-y-6">
+          <div>
+            <h2 className="font-display text-lg text-foreground mb-1">Your activity</h2>
+            <p className="text-sm text-muted-foreground">Pinned, recent, and trending from your team.</p>
+          </div>
+          <PinnedDocuments />
           <ReadingStreak />
-        </section>
-
-        {/* Smart Suggestions */}
-        <section className="mt-6">
           <SmartSuggestions />
-        </section>
-
-        {/* Favorites & Recently Viewed */}
-        <Favorites />
-        <RecentlyViewed />
-
-        {/* Popular/Trending Documents */}
-        <PopularDocuments />
-
-        {/* Trending Now (weighted recency) */}
-        <TrendingDocumentsSection />
-
-        {/* Document Statistics */}
-        <section className="mt-16">
+          <Favorites />
+          <RecentlyViewed />
+          <PopularDocuments />
+          <TrendingDocumentsSection />
           <DocumentStats />
-        </section>
-
-        {/* Document Library Section */}
-        <div data-tour="library">
-          <DocumentLibrary />
-        </div>
-
-        {/* Operational Guidelines Section */}
-        <section className="mt-16 sm:mt-24 pt-8 sm:pt-12 border-t border-border/50">
-          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-2 sm:mb-3 text-foreground">Operational Guidelines</h2>
-          <p className="text-muted-foreground text-sm sm:text-base mb-6 sm:mb-8">Core principles guiding all operations</p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                title: 'Prioritization',
-                description: 'Tasks prioritized by urgency, client value, and strategic importance'
-              },
-              {
-                title: 'Confidentiality',
-                description: 'All client information handled with utmost security'
-              },
-              {
-                title: 'Brand Alignment',
-                description: 'Communications adhere to brand voice and quality standards'
-              },
-              {
-                title: 'Escalation',
-                description: 'Complex issues promptly escalated to appropriate team members'
-              },
-              {
-                title: 'Feedback Integration',
-                description: 'Continuously improve through client and team feedback'
-              },
-              {
-                title: 'Proactive Problem Solving',
-                description: 'Identify issues before they arise and implement preventative measures'
-              }
-            ].map((guideline, index) => (
-              <Card key={index} className="card-premium">
-                <CardHeader>
-                  <CardTitle className="text-lg">{guideline.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">{guideline.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
         </section>
       </main>
     </div>
