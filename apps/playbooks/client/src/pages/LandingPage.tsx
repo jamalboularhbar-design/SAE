@@ -159,6 +159,11 @@ export default function LandingPage() {
                 Become a Founding Member <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </a>
+            <Link href="/toc">
+              <Button size="lg" variant="outline" className="border-teal-500/40 text-teal-800 dark:text-teal-200 hover:bg-teal-500/10 px-8 py-6 text-lg gap-2">
+                <FolderOpen className="w-5 h-5" /> Browse library
+              </Button>
+            </Link>
             <Link href="/ai">
               <Button size="lg" variant="outline" className="border-purple-500/40 text-purple-800 dark:text-purple-200 hover:bg-purple-500/10 px-8 py-6 text-lg gap-2">
                 <Brain className="w-5 h-5" /> Explore AI Hub

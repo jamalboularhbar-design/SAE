@@ -1,5 +1,6 @@
 import { BRAND } from "./brand";
-import { DEMO_CATEGORY_ALIASES, DEMO_WORKSPACES } from "./demoWorkspaces";
+import { DEMO_WORKSPACES } from "./demoWorkspaces";
+import { getWorkspaceRoot } from "./workspaceTaxonomy";
 
 export interface PrintDocumentMeta {
   title: string;
@@ -39,28 +40,15 @@ export function parseClientFromFooterText(footerText?: string | null): string | 
   return part || null;
 }
 
-/** Resolve the deploying client from document category or demo workspace names */
+/** Resolve client only for workspace deployments (RR, ArtKech, etc.) — not platform function categories */
 export function resolveDocumentClient(category?: string | null): { name: string; domain?: string } | null {
   if (!category?.trim()) return null;
 
-  const aliasName = DEMO_CATEGORY_ALIASES[category];
-  if (aliasName) {
-    const workspace = Object.values(DEMO_WORKSPACES).find((ws) => ws.name === aliasName);
-    return workspace ? { name: workspace.name, domain: workspace.domain } : { name: aliasName };
-  }
+  const root = getWorkspaceRoot(category);
+  if (!root) return null;
 
-  for (const workspace of Object.values(DEMO_WORKSPACES)) {
-    if (category === workspace.name) {
-      return { name: workspace.name, domain: workspace.domain };
-    }
-  }
-
-  const generic = new Set(["General", "Uncategorized", "Platform", "Templates"]);
-  if (!generic.has(category)) {
-    return { name: category };
-  }
-
-  return null;
+  const workspace = Object.values(DEMO_WORKSPACES).find((ws) => ws.name === root);
+  return workspace ? { name: workspace.name, domain: workspace.domain } : { name: root };
 }
 
 export function resolvePrintClientName(meta: PrintDocumentMeta): string | null {

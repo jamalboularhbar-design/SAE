@@ -1,17 +1,28 @@
 import { useLocation } from 'wouter';
 import { Home, Search, Library, Brain, Hexagon } from 'lucide-react';
 import { BRAND } from '@/lib/brand';
-
-const navItems = [
-  { label: 'Home', icon: Home, path: '/', match: (loc: string) => loc === '/' },
-  { label: 'Search', icon: Search, path: '/search', match: (loc: string) => loc.startsWith('/search') },
-  { label: 'Docs', icon: Library, path: '/toc', match: (loc: string) => loc.startsWith('/toc') || loc.startsWith('/docs') },
-  { label: 'AI', icon: Brain, path: '/ai', match: (loc: string) => loc.startsWith('/ai') },
-  { label: 'OS', icon: Hexagon, path: `${BRAND.nexusOsPath}/`, external: true, match: () => false },
-];
+import { useAuth } from '@/_core/hooks/useAuth';
 
 export default function MobileBottomNav() {
   const [location, navigate] = useLocation();
+  const { isAuthenticated } = useAuth({ redirectOnUnauthenticated: false });
+
+  /** Anonymous users: Home → public TOC (full library is behind login at /) */
+  const homePath = isAuthenticated ? '/' : '/toc';
+
+  const navItems = [
+    {
+      label: isAuthenticated ? 'Home' : 'Library',
+      icon: Home,
+      path: homePath,
+      match: (loc: string) =>
+        isAuthenticated ? loc === '/' : loc === '/toc' || loc.startsWith('/docs'),
+    },
+    { label: 'Search', icon: Search, path: '/search', match: (loc: string) => loc.startsWith('/search') },
+    { label: 'Docs', icon: Library, path: '/toc', match: (loc: string) => loc.startsWith('/toc') || loc.startsWith('/docs') },
+    { label: 'AI', icon: Brain, path: '/ai', match: (loc: string) => loc.startsWith('/ai') },
+    { label: 'OS', icon: Hexagon, path: `${BRAND.nexusOsPath}/`, external: true, match: () => false },
+  ];
 
   return (
     <nav
@@ -43,6 +54,7 @@ export default function MobileBottomNav() {
           return (
             <button
               key={item.path}
+              type="button"
               onClick={() => navigate(item.path)}
               className={`${baseClass} ${activeClass}`}
               aria-label={item.label}

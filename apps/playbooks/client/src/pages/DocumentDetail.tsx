@@ -6,7 +6,7 @@ import remarkGfm from 'remark-gfm';
 import {
   ArrowLeft, FileText, Clock, BookOpen, Copy, Download,
   Bookmark, BookmarkCheck, Printer, ChevronRight, Loader2,
-  Hash, AlertCircle, ArrowUp, ExternalLink, Link2, Calendar
+  Hash, AlertCircle, ArrowUp, ExternalLink, Link2, Calendar, Share2
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
@@ -62,6 +62,7 @@ import { buildPrintCitation, buildPrintFooter, buildPrintHeaderSubtitle, parseCl
 import { shareDocument } from '@/lib/shareDocument';
 import { printDocument } from '@/lib/printDocument';
 import { BRAND } from '@/lib/brand';
+import { useAuth } from '@/_core/hooks/useAuth';
 
 // Reading time calculation - uses configurable WPM from branding settings
 function getReadingTime(wordCount: number, wpm = 200): string {
@@ -157,6 +158,8 @@ export default function DocumentDetail() {
   const params = useParams<{ slug: string }>();
   const [, navigate] = useLocation();
   const slug = params.slug || '';
+  const { isAuthenticated } = useAuth({ redirectOnUnauthenticated: false });
+  const libraryPath = isAuthenticated ? '/' : '/toc';
   
   const { data: document, isLoading, error } = trpc.documents.getBySlug.useQuery(
     { slug },
@@ -340,12 +343,12 @@ export default function DocumentDetail() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        navigate('/');
+        navigate(libraryPath);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [navigate]);
+  }, [navigate, libraryPath]);
 
   if (isLoading) {
     return (
@@ -366,7 +369,7 @@ export default function DocumentDetail() {
           <h2 className="text-xl font-semibold text-foreground mb-2">Document Not Found</h2>
           <p className="text-muted-foreground mb-6">The document you're looking for doesn't exist or has been removed.</p>
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate(libraryPath)}
             className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 text-accent text-sm font-medium hover:bg-accent/20 transition-colors"
           >
             Back to Library
@@ -404,7 +407,7 @@ export default function DocumentDetail() {
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-2">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate(libraryPath)}
             className="flex items-center gap-2 text-foreground/70 hover:text-foreground transition-colors text-sm shrink-0"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -412,8 +415,24 @@ export default function DocumentDetail() {
             <span className="xs:hidden">Back</span>
           </button>
 
-          {/* Mobile: favorite only */}
+          {/* Mobile: print, share, favorite */}
           <div className="flex sm:hidden items-center gap-1">
+            <button
+              onClick={handlePrint}
+              className="p-2.5 rounded-lg text-foreground/60 hover:text-foreground hover:bg-card/80 transition-colors"
+              title="Print document"
+              aria-label="Print document"
+            >
+              <Printer className="w-5 h-5" />
+            </button>
+            <button
+              onClick={handleShareDocument}
+              className="p-2.5 rounded-lg text-foreground/60 hover:text-foreground hover:bg-card/80 transition-colors"
+              title="Share document"
+              aria-label="Share document"
+            >
+              <Share2 className="w-5 h-5" />
+            </button>
             <button
               onClick={handleToggleFavorite}
               className={`p-2.5 rounded-lg transition-colors ${
@@ -456,7 +475,7 @@ export default function DocumentDetail() {
             </button>
             <button
               onClick={handlePrint}
-              className="hidden sm:block p-2.5 sm:p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card/80 transition-colors"
+              className="p-2.5 sm:p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card/80 transition-colors"
               title="Print document"
             >
               <Printer className="w-5 h-5 sm:w-4 sm:h-4" />
@@ -540,9 +559,9 @@ export default function DocumentDetail() {
             <div className="mb-8 pb-6 border-b border-border/50">
               {/* Breadcrumb */}
               <nav className="flex items-center gap-2 text-xs text-muted-foreground mb-4 flex-wrap">
-                <button onClick={() => navigate('/')} className="hover:text-accent transition-colors">Home</button>
+                <button onClick={() => navigate(libraryPath)} className="hover:text-accent transition-colors">Home</button>
                 <ChevronRight className="w-3 h-3 flex-shrink-0" />
-                <button onClick={() => navigate('/')} className="hover:text-accent transition-colors">{document.category}</button>
+                <button onClick={() => navigate(`/category/${encodeURIComponent(document.category)}`)} className="hover:text-accent transition-colors">{document.category}</button>
                 <ChevronRight className="w-3 h-3 flex-shrink-0" />
                 <span className="text-foreground truncate max-w-[200px] sm:max-w-none">{document.title}</span>
               </nav>
@@ -739,7 +758,7 @@ export default function DocumentDetail() {
             <div className="mt-8 sm:mt-12 pt-4 sm:pt-6 border-t border-border/50 pb-28 sm:pb-32">
               <div className="max-w-lg mx-auto flex flex-col items-center gap-4 text-center">
                 <button
-                  onClick={() => navigate('/')}
+                  onClick={() => navigate(libraryPath)}
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors"
                 >
                   <ArrowLeft className="w-4 h-4" />

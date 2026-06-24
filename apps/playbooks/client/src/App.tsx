@@ -3,7 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import LoginPage from "@/pages/LoginPage";
 import InviteAcceptPage from "@/pages/InviteAcceptPage";
-import { Route, Switch, useLocation } from "wouter";
+import { Route, Switch, useLocation, Redirect } from "wouter";
 import { useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -105,7 +105,6 @@ import AdminRetentionPoliciesPage from "./pages/AdminRetentionPoliciesPage";
 import AdminAccessibilityCheckerPage from "./pages/AdminAccessibilityCheckerPage";
 import AdminCustomReportsPage from "./pages/AdminCustomReportsPage";
 import ReadingPathPage from "./pages/ReadingPathPage";
-import NotificationCenterPage from "./pages/NotificationCenterPage";
 import TemplateMarketplacePage from "./pages/TemplateMarketplacePage";
 import AdminComplianceReportPage from "./pages/AdminComplianceReportPage";
 import AdminChangeLogPage from "./pages/AdminChangeLogPage";
@@ -235,6 +234,9 @@ function Router() {
     <Switch>
       <Route path={"/login"} component={LoginPage} />
       <Route path={"/invite/:token"} component={InviteAcceptPage} />
+      <Route path="/intelligence">
+        <Redirect to="/ai" />
+      </Route>
       <Route path={"/"} component={HomeGate} />
       <Route path={"/docs/:slug"} component={DocumentDetail} />
       <Route path={"/category/:category"} component={CategoryPage} />
@@ -335,7 +337,6 @@ function Router() {
       <Route path={"/admin/accessibility"} component={AdminAccessibilityCheckerPage} />
       <Route path={"/admin/custom-reports"} component={AdminCustomReportsPage} />
       <Route path={"/reading-path"} component={ReadingPathPage} />
-      <Route path={"/notifications"} component={NotificationCenterPage} />
       <Route path={"/templates/marketplace"} component={TemplateMarketplacePage} />
       <Route path={"/admin/compliance-reports"} component={AdminComplianceReportPage} />
       <Route path={"/admin/change-log"} component={AdminChangeLogPage} />
