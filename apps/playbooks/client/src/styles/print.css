@@ -116,8 +116,9 @@
   }
 
   .print-footer-block .print-footer-confidential {
-    color: #888;
-    font-size: 7.5pt;
+    color: #555;
+    font-size: 8pt;
+    letter-spacing: 0.01em;
   }
 
   /* Links — no inline URL suffixes (they jam layout and duplicate footer source) */

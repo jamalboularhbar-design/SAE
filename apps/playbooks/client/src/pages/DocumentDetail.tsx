@@ -59,7 +59,7 @@ import AddToCollectionButton from '@/components/AddToCollectionButton';
 import ReadingTimeEstimate from '@/components/ReadingTimeEstimate';
 import DocumentLibraryFooter from '@/components/DocumentLibraryFooter';
 import { prepareDocumentContent } from '@shared/documentContent';
-import { buildPrintCitation, buildPrintFooter, buildPrintHeaderSubtitle } from '@shared/printFooter';
+import { buildPrintCitation, buildPrintFooter, buildPrintHeaderSubtitle, parseClientFromFooterText, resolveDocumentClient } from '@shared/printFooter';
 import { shareDocument } from '@/lib/shareDocument';
 
 // Reading time calculation - uses configurable WPM from branding settings
@@ -173,6 +173,15 @@ export default function DocumentDetail() {
     const setting = brandingSettings?.find((s: any) => s.settingKey === 'words_per_minute');
     return setting ? parseInt(setting.settingValue) || 200 : 200;
   }, [brandingSettings, userWpm]);
+
+  const printClientName = useMemo(() => {
+    const fromCategory = resolveDocumentClient(document?.category)?.name;
+    const footerSetting = brandingSettings?.find(
+      (s: { settingKey: string; settingValue: string }) => s.settingKey === 'footer_text'
+    )?.settingValue;
+    const fromBranding = parseClientFromFooterText(footerSetting);
+    return fromCategory ?? fromBranding ?? undefined;
+  }, [document?.category, brandingSettings]);
 
   // Persist reading progress (auto-saves scroll position)
   useReadingProgress(slug);
@@ -381,6 +390,7 @@ export default function DocumentDetail() {
             title: document.title,
             slug: document.slug,
             category: document.category,
+            clientName: printClientName,
             updatedAt: document.updatedAt || document.createdAt,
           })}
         </div>
@@ -784,10 +794,12 @@ export default function DocumentDetail() {
           title: document.title,
           slug: document.slug,
           category: document.category,
+          clientName: printClientName,
         });
         const citation = buildPrintCitation({
           title: document.title,
           slug: document.slug,
+          clientName: printClientName,
           updatedAt: document.updatedAt || document.createdAt,
         });
         return (

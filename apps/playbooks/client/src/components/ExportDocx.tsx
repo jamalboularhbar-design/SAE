@@ -44,7 +44,7 @@ export default function ExportDocx({ slug, title }: ExportDocxProps) {
   .export-meta { color: #666; font-size: 9pt; margin: 8pt 0 16pt; }
   .export-footer { margin-top: 36pt; padding-top: 12pt; border-top: 1px solid #ccc; font-size: 9pt; color: #666; line-height: 1.5; }
   .export-footer-brand { font-weight: bold; color: #333; margin-bottom: 4pt; }
-  .export-footer-confidential { font-size: 8pt; color: #888; margin-top: 6pt; }
+  .export-footer-confidential { font-size: 8pt; color: #666; margin-top: 6pt; letter-spacing: 0.01em; }
 </style>
 </head>
 <body>

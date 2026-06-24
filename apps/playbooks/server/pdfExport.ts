@@ -132,7 +132,8 @@ function markdownToHtml(
     }
     .footer-confidential {
       font-size: 8pt;
-      color: #94a3b8;
+      color: #64748b;
+      letter-spacing: 0.01em;
     }
     a { color: #1e293b; text-decoration: none; }
   </style>
