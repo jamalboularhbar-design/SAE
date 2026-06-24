@@ -260,9 +260,9 @@ export default function Home() {
         <Header />
       </StickyHeader>
       
-      <main className="container py-8 sm:py-12 pb-24 sm:pb-12">
-        {/* Toolbar */}
-        <div className="flex items-center justify-between mb-8 gap-4 flex-wrap">
+      <main className="container py-4 sm:py-12 pb-24 sm:pb-12">
+        {/* Toolbar — desktop only; mobile uses search below + bottom nav */}
+        <div className="hidden sm:flex items-center justify-between mb-8 gap-4 flex-wrap">
           <div>
             <h1 className="font-display text-2xl sm:text-3xl mb-1 text-foreground">{BRAND.productName}</h1>
             <p className="text-muted-foreground text-sm">{BRAND.tagline}</p>
@@ -279,7 +279,7 @@ export default function Home() {
         </div>
 
         {showSearch && (
-          <Card className="card-premium mb-8">
+          <Card className="card-premium mb-8 hidden sm:block">
             <CardHeader>
               <CardTitle>Advanced Search</CardTitle>
               <CardDescription>Search across all workspaces, processes, and guidelines</CardDescription>
@@ -291,12 +291,12 @@ export default function Home() {
         )}
 
         {/* Hero + quick actions */}
-        <section className="mb-10 text-center">
-          <ProductProofBar className="mb-6" />
-          <div className="max-w-lg mx-auto mb-6" data-tour="search">
+        <section className="mb-6 sm:mb-10 text-center">
+          <ProductProofBar className="mb-4 sm:mb-6" />
+          <div className="max-w-lg mx-auto mb-4 sm:mb-6" data-tour="search">
             <SearchAutocomplete placeholder={`Quick search ${PLATFORM_STATS.documents}+ documents…`} className="text-left" />
           </div>
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="hidden sm:flex flex-wrap justify-center gap-2">
             <Link href="/graph">
               <Badge variant="outline" className="px-3 py-1.5 gap-1.5 cursor-pointer hover:border-cyan-500/40">
                 <Network className="w-3.5 h-3.5" /> Graph
@@ -320,24 +320,28 @@ export default function Home() {
           </div>
         </section>
 
-        <ProductArchitectureStrip showGovernance />
+        <div className="hidden md:block">
+          <ProductArchitectureStrip showGovernance />
+        </div>
 
-        <VerticalShowcase
-          onOpenWorkspace={(tab) => {
-            setActivePersona(tab);
-            document.getElementById("workspace-tabs")?.scrollIntoView({ behavior: "smooth" });
-          }}
-        />
+        <div className="hidden md:block">
+          <VerticalShowcase
+            onOpenWorkspace={(tab) => {
+              setActivePersona(tab);
+              document.getElementById("workspace-tabs")?.scrollIntoView({ behavior: "smooth" });
+            }}
+          />
+        </div>
 
         {/* Document Library — primary work surface */}
-        <section className="mt-10 sm:mt-14 pt-8 border-t border-border/50">
+        <section className="mt-6 sm:mt-14 pt-6 sm:pt-8 border-t border-border/50">
           <div data-tour="library">
             <DocumentLibrary />
           </div>
         </section>
 
-        {/* Live demo workspaces — secondary */}
-        <section id="workspace-tabs" className="mt-12 sm:mt-16 pt-8 border-t border-border/50">
+        {/* Live demo workspaces — desktop only; heavy persona UI */}
+        <section id="workspace-tabs" className="hidden lg:block mt-12 sm:mt-16 pt-8 border-t border-border/50">
           <div className="mb-8">
             <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium mb-2">Live demo workspaces</p>
             <h2 className="font-display text-xl sm:text-2xl text-foreground">Explore multi-brand operations</h2>
@@ -525,8 +529,10 @@ export default function Home() {
           </Tabs>
         </section>
 
-        <SocialProofStrip />
-        <IntegrationsStrip />
+        <div className="hidden sm:block">
+          <SocialProofStrip />
+          <IntegrationsStrip />
+        </div>
 
         {/* Personal & discovery — end of page */}
         <section className="mt-12 pt-8 border-t border-border/50 space-y-6">

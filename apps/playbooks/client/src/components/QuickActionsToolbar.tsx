@@ -47,7 +47,7 @@ export default function QuickActionsToolbar({ slug, title, onShare, isFavorited,
 
   return (
     <>
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1 px-3 py-2 rounded-full bg-card/95 backdrop-blur-sm border border-border shadow-xl print:hidden max-[480px]:bottom-20">
+      <div className="hidden sm:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-40 items-center gap-1 px-3 py-2 rounded-full bg-card/95 backdrop-blur-sm border border-border shadow-xl print:hidden">
         <button
           onClick={() => window.print()}
           className="p-2.5 rounded-full hover:bg-accent/10 text-muted-foreground hover:text-accent transition-colors"

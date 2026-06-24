@@ -113,7 +113,7 @@ export default function AdminQuickActionToolbar() {
     return (
       <button
         onClick={() => setIsVisible(true)}
-        className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-accent text-primary-foreground flex items-center justify-center shadow-lg hover:bg-accent/90 transition-colors"
+        className="fixed bottom-6 right-6 z-50 hidden sm:flex w-12 h-12 rounded-full bg-accent text-primary-foreground items-center justify-center shadow-lg hover:bg-accent/90 transition-colors"
         title="Show Quick Actions"
       >
         <Zap className="w-5 h-5" />
@@ -122,7 +122,7 @@ export default function AdminQuickActionToolbar() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+    <div className="fixed bottom-6 right-6 z-50 hidden sm:flex flex-col items-end gap-2">
       {isExpanded && (
         <div className="flex flex-col gap-2 mb-2 animate-in slide-in-from-bottom-2 duration-200">
           {actions.map((action) => (

@@ -93,7 +93,7 @@ export default function ProductTour() {
   // Floating trigger button
   if (!isOpen && showTrigger) {
     return (
-      <div className="fixed bottom-24 left-6 z-50 animate-bounce">
+      <div className="fixed bottom-24 left-6 z-50 hidden md:block">
         <Button
           onClick={startTour}
           className="rounded-full shadow-lg gap-2 px-4 py-2"

@@ -242,6 +242,11 @@
     padding-left: max(1rem, env(safe-area-inset-left));
     padding-right: max(1rem, env(safe-area-inset-right));
   }
+
+  /* Main content clears fixed bottom nav */
+  main, .mobile-page-pad {
+    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  }
 }
 
 /* Smooth scrolling for all devices */
@@ -311,6 +316,7 @@ html {
 /* Knowledge Graph — Rovo / Teamwork Graph visualizer style */
 .kg-rovo-viewport {
   background: var(--kg-bg, #0c0e14);
+  touch-action: none;
 }
 
 .kg-rovo-light {

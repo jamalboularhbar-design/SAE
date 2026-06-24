@@ -382,16 +382,33 @@ export default function DocumentDetail() {
 
       {/* Top Navigation Bar */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-2">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm"
+            className="flex items-center gap-2 text-foreground/70 hover:text-foreground transition-colors text-sm shrink-0"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Back to Library</span>
+            <span className="hidden xs:inline">Back to Library</span>
+            <span className="xs:hidden">Back</span>
           </button>
-          
-          <div className="flex items-center gap-1 sm:gap-2">
+
+          {/* Mobile: favorite only */}
+          <div className="flex sm:hidden items-center gap-1">
+            <button
+              onClick={handleToggleFavorite}
+              className={`p-2.5 rounded-lg transition-colors ${
+                isFavorited
+                  ? 'text-amber-500 bg-amber-500/10'
+                  : 'text-foreground/60 hover:text-foreground hover:bg-card/80'
+              }`}
+              title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+            >
+              {isFavorited ? <BookmarkCheck className="w-5 h-5" /> : <Bookmark className="w-5 h-5" />}
+            </button>
+          </div>
+
+          {/* Desktop: full toolbar */}
+          <div className="hidden sm:flex items-center gap-1 sm:gap-2">
             <button
               onClick={handleToggleFavorite}
               className={`p-2.5 sm:p-2 rounded-lg transition-colors ${
@@ -447,11 +464,19 @@ export default function DocumentDetail() {
             {document && <SubscribeButton targetType="document" targetValue={document.slug} />}
             {document && <ReadingPositionTracker documentSlug={document.slug} />}
             {document && <ShareDocument title={document.title} slug={document.slug} category={document.category} />}
-            {document && <QuickEditInline documentId={document.id} title={document.title} content={document.content || ''} onSaved={() => { /* invalidate via trpc utils */ }} />}
+            {document && (
+              <div className="hidden md:block">
+                <QuickEditInline documentId={document.id} title={document.title} content={document.content || ''} onSaved={() => { /* invalidate via trpc utils */ }} />
+              </div>
+            )}
             {document && <DistractionFreeMode><ReactMarkdown remarkPlugins={[remarkGfm]}>{displayContent}</ReactMarkdown></DistractionFreeMode>}
           </div>
         </div>
-        {document && <ShareLinkManager documentSlug={document.slug} />}
+        {document && (
+          <div className="hidden sm:block">
+            <ShareLinkManager documentSlug={document.slug} />
+          </div>
+        )}
       </header>
 
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -799,7 +824,7 @@ function ScrollToTop() {
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="fixed bottom-24 left-6 z-50 p-3 rounded-full bg-accent/20 border border-accent/40 text-accent hover:bg-accent/30 active:bg-accent/40 transition-all shadow-lg no-print"
+      className="hidden sm:block fixed bottom-24 left-6 z-50 p-3 rounded-full bg-accent/20 border border-accent/40 text-accent hover:bg-accent/30 active:bg-accent/40 transition-all shadow-lg no-print"
       title="Scroll to top"
     >
       <ArrowUp className="w-5 h-5" />

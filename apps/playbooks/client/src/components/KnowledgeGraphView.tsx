@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import { useLocation } from 'wouter';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useIsMobile } from '@/hooks/useMobile';
 import {
   ZoomIn, ZoomOut, Maximize2, ExternalLink, GitBranch, Link2, ArrowRight,
   FileText, Layers,
@@ -189,6 +190,7 @@ export default function KnowledgeGraphView({
   const animRef = useRef<number>(0);
   const [, navigate] = useLocation();
   const { theme } = useTheme();
+  const isMobile = useIsMobile();
 
   const [viewportW, setViewportW] = useState(900);
   const [zoom, setZoom] = useState(1);
@@ -207,6 +209,14 @@ export default function KnowledgeGraphView({
     const match = nodes.find((n) => n.slug === initialFocusSlug || n.id === initialFocusSlug);
     if (match) setSelectedId(match.id);
   }, [initialFocusSlug, nodes]);
+
+  useEffect(() => {
+    if (initialFocusSlug || nodes.length === 0) return;
+    if (isMobile && nodes.length > 35) {
+      setZoom(0.42);
+      setPan({ x: 0, y: 0 });
+    }
+  }, [isMobile, nodes.length, initialFocusSlug]);
 
   const isDark = theme === 'dark';
   const effectiveCategory = localCategory ?? (selectedCategory !== 'all' ? selectedCategory : null);
@@ -298,6 +308,7 @@ export default function KnowledgeGraphView({
     if (filtered.nodes.length === 0) return;
     let frame = 0;
     let running = true;
+    const maxFrames = isMobile ? 100 : Infinity;
     const W = viewportW;
     const H = height;
     const pad = 80;
@@ -397,7 +408,10 @@ export default function KnowledgeGraphView({
       }
 
       if (frame % 2 === 0) setTick((t) => t + 1);
-      animRef.current = requestAnimationFrame(run);
+      const simDone = isClusterMode ? frame >= 100 : frame >= 140;
+      if (!isMobile || !simDone) {
+        animRef.current = requestAnimationFrame(run);
+      }
     };
 
     frame = 0;
@@ -406,7 +420,7 @@ export default function KnowledgeGraphView({
       running = false;
       cancelAnimationFrame(animRef.current);
     };
-  }, [filtered.nodes, filtered.edges, height, viewportW, isClusterMode, cardSize.w, cardSize.h]);
+  }, [filtered.nodes, filtered.edges, height, viewportW, isClusterMode, cardSize.w, cardSize.h, isMobile]);
 
   // Resize observer
   useEffect(() => {
@@ -444,6 +458,26 @@ export default function KnowledgeGraphView({
   };
 
   const handlePanEnd = () => setIsDragging(false);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length !== 1) return;
+    setIsDragging(true);
+    dragStart.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+      panX: pan.x,
+      panY: pan.y,
+    };
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || e.touches.length !== 1) return;
+    e.preventDefault();
+    setPan({
+      x: dragStart.current.panX + (e.touches[0].clientX - dragStart.current.x),
+      y: dragStart.current.panY + (e.touches[0].clientY - dragStart.current.y),
+    });
+  };
 
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
@@ -541,12 +575,16 @@ export default function KnowledgeGraphView({
         {/* Graph viewport */}
         <div
           ref={viewportRef}
-          className={`kg-rovo-viewport relative overflow-hidden ${isDark ? 'kg-rovo-dark' : 'kg-rovo-light'}`}
+          className={`kg-rovo-viewport relative overflow-hidden touch-none ${isDark ? 'kg-rovo-dark' : 'kg-rovo-light'}`}
           style={{ height }}
           onMouseDown={handlePanStart}
           onMouseMove={handlePanMove}
           onMouseUp={handlePanEnd}
           onMouseLeave={handlePanEnd}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handlePanEnd}
+          onTouchCancel={handlePanEnd}
           onWheel={handleWheel}
         >
           <div
@@ -748,7 +786,8 @@ export default function KnowledgeGraphView({
           <span><span className="inline-block w-4 h-0.5 rounded bg-[#FFAB00] align-middle mr-1" /> Dependency</span>
           <span><span className="inline-block w-4 h-0.5 rounded bg-[#8777D9] align-middle mr-1" /> Cross-reference</span>
           <span><span className="inline-block w-4 h-0.5 border-t border-dashed border-muted-foreground align-middle mr-1" /> Suggested</span>
-          <span className="ml-auto">Click card for details · Drag to pan · Scroll to zoom</span>
+          <span className="ml-auto hidden sm:inline">Click card for details · Drag to pan · Scroll to zoom</span>
+          <span className="ml-auto sm:hidden">Tap a card · Drag to pan · Use +/- to zoom</span>
         </div>
       </div>
 
