@@ -3,12 +3,26 @@ import { marked } from "marked";
 import { getDocumentBySlug } from "./db";
 import { BRAND } from "./brand";
 import { prepareDocumentContent } from "@shared/documentContent";
+import {
+  buildPrintCitation,
+  buildPrintFooter,
+  buildPrintHeaderSubtitle,
+} from "@shared/printFooter";
 
 /**
  * Generates a styled HTML document from markdown content for PDF rendering.
  */
-function markdownToHtml(title: string, category: string, content: string): string {
+function markdownToHtml(
+  title: string,
+  slug: string,
+  category: string,
+  content: string,
+  updatedAt?: Date | string | null
+): string {
   const htmlContent = marked.parse(content, { async: false }) as string;
+  const footer = buildPrintFooter({ title, slug, category });
+  const citation = buildPrintCitation({ title, slug, updatedAt });
+  const headerSubtitle = buildPrintHeaderSubtitle({ title, slug, category, updatedAt });
 
   return `<!DOCTYPE html>
 <html>
@@ -95,13 +109,32 @@ function markdownToHtml(title: string, category: string, content: string): strin
     th { background: #f1f5f9; font-weight: 600; }
     tr:nth-child(even) { background: #f8fafc; }
     .footer {
-      margin-top: 32px;
+      margin-top: 48px;
       padding-top: 16px;
       border-top: 1px solid #e2e8f0;
       font-size: 9pt;
-      color: #94a3b8;
-      text-align: center;
+      color: #64748b;
+      line-height: 1.6;
+      page-break-inside: avoid;
     }
+    .footer-brand {
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 4px;
+    }
+    .footer-source {
+      word-break: break-all;
+      margin-bottom: 4px;
+    }
+    .footer-citation {
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+    .footer-confidential {
+      font-size: 8pt;
+      color: #94a3b8;
+    }
+    a { color: #1e293b; text-decoration: none; }
   </style>
 </head>
 <body>
@@ -109,14 +142,17 @@ function markdownToHtml(title: string, category: string, content: string): strin
     <h1>${title}</h1>
     <div class="meta">
       <span class="category">${category}</span>
-      &nbsp;&middot;&nbsp; Generated ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      &nbsp;&middot;&nbsp; ${headerSubtitle}
     </div>
   </div>
   <div class="content">
     ${htmlContent}
   </div>
   <div class="footer">
-    ${BRAND.productName} Playbooks &middot; ${BRAND.domain} &middot; Operational Document Library
+    <div class="footer-brand">${footer.brandLine}</div>
+    <div class="footer-source">Source: ${footer.sourceLine}</div>
+    <div class="footer-citation">${citation}</div>
+    <div class="footer-confidential">${footer.confidentialLine}</div>
   </div>
 </body>
 </html>`;
@@ -142,7 +178,13 @@ export function registerPdfExport(app: Express) {
         return;
       }
 
-      const html = markdownToHtml(doc.title, doc.category, prepareDocumentContent(doc.content));
+      const html = markdownToHtml(
+        doc.title,
+        doc.slug,
+        doc.category,
+        prepareDocumentContent(doc.content),
+        doc.updatedAt || doc.createdAt
+      );
 
       // Return as downloadable HTML file that can be opened in browser and printed to PDF
       const format = req.query.format;

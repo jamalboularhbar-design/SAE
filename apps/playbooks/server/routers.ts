@@ -2029,14 +2029,15 @@ export const appRouter = router({
       const cached = await getCachedCitation(input.documentId, input.style);
       if (cached) return cached;
       const year = input.date ? new Date(input.date).getFullYear() : new Date().getFullYear();
-      const author = input.author || 'NexusAI Playbooks';
+      const author = input.author || BRAND.parentName;
+      const publisher = BRAND.productName;
       let citation = '';
       if (input.style === 'apa') {
-        citation = `${author}. (${year}). ${input.title}. NexusAI Playbooks.${input.url ? ` Retrieved from ${input.url}` : ''}`;
+        citation = `${author}. (${year}). ${input.title}. ${publisher}.${input.url ? ` ${input.url}` : ''}`;
       } else if (input.style === 'mla') {
-        citation = `${author}. "${input.title}." NexusAI Playbooks, ${year}.${input.url ? ` ${input.url}.` : ''}`;
+        citation = `${author}. "${input.title}." ${publisher}, ${year}.${input.url ? ` ${input.url}.` : ''}`;
       } else if (input.style === 'chicago') {
-        citation = `${author}. "${input.title}." NexusAI Playbooks. ${year}.${input.url ? ` ${input.url}.` : ''}`;
+        citation = `${author}. "${input.title}." ${publisher}. ${year}.${input.url ? ` ${input.url}.` : ''}`;
       }
       await saveCitation(input.documentId, input.style, citation);
       return { id: 0, documentId: input.documentId, style: input.style, citation, createdAt: new Date() };

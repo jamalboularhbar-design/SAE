@@ -53,10 +53,18 @@ export default function Header() {
         <button
           type="button"
           onClick={() => navigate('/')}
-          className="flex items-center shrink-0 rounded-lg hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2.5 shrink-0 rounded-lg hover:opacity-90 transition-opacity text-left"
           aria-label={BRAND.productName}
         >
           <LogoMark size="lg" />
+          <div className="flex flex-col leading-tight min-w-0">
+            <span className="font-serif text-base sm:text-lg font-semibold text-foreground tracking-tight">
+              {BRAND.productName}
+            </span>
+            <span className="hidden sm:block text-[10px] sm:text-xs text-muted-foreground max-w-[220px] truncate">
+              {BRAND.tagline}
+            </span>
+          </div>
         </button>
 
         {/* Mobile: essentials only — bottom nav covers Home / Search / Docs / AI / OS */}

@@ -280,6 +280,12 @@ export default function Home() {
 
         {/* Hero + quick actions */}
         <section className="mb-4 sm:mb-6 text-center">
+          <h1 className="text-2xl sm:text-4xl font-serif font-bold text-foreground mb-1">
+            {BRAND.productName}
+          </h1>
+          <p className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4 max-w-xl mx-auto">
+            {BRAND.tagline}
+          </p>
           <ProductProofBar className="mb-3 sm:mb-4" />
           <div className="max-w-lg mx-auto mb-3 sm:mb-4" data-tour="search">
             <SearchAutocomplete placeholder={`Quick search ${PLATFORM_STATS.documents}+ documents…`} className="text-left" />

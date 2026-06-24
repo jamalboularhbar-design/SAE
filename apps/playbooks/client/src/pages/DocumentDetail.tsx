@@ -59,6 +59,8 @@ import AddToCollectionButton from '@/components/AddToCollectionButton';
 import ReadingTimeEstimate from '@/components/ReadingTimeEstimate';
 import DocumentLibraryFooter from '@/components/DocumentLibraryFooter';
 import { prepareDocumentContent } from '@shared/documentContent';
+import { buildPrintCitation, buildPrintFooter, buildPrintHeaderSubtitle } from '@shared/printFooter';
+import { shareDocument } from '@/lib/shareDocument';
 
 // Reading time calculation - uses configurable WPM from branding settings
 function getReadingTime(wordCount: number, wpm = 200): string {
@@ -310,6 +312,11 @@ export default function DocumentDetail() {
     window.print();
   }, []);
 
+  const handleShareDocument = useCallback(() => {
+    if (!document) return;
+    void shareDocument(document.title, document.slug);
+  }, [document]);
+
   // Reading progress tracking
   const [readingProgress, setReadingProgress] = useState(0);
   useEffect(() => {
@@ -369,7 +376,14 @@ export default function DocumentDetail() {
       {/* Print-only branded header */}
       <div className="print-header hidden">
         <h1>{document.title}</h1>
-        <div className="subtitle">Riad & Routes — Operational Reference Guide | {document.category} | Last updated: {new Date(document.updatedAt || document.createdAt).toLocaleDateString()}</div>
+        <div className="subtitle">
+          {buildPrintHeaderSubtitle({
+            title: document.title,
+            slug: document.slug,
+            category: document.category,
+            updatedAt: document.updatedAt || document.createdAt,
+          })}
+        </div>
       </div>
 
       {/* Reading Progress Bar */}
@@ -758,11 +772,33 @@ export default function DocumentDetail() {
         <QuickActionsToolbar
           slug={document.slug}
           title={document.title}
-          onShare={() => {}}
+          onShare={handleShareDocument}
           isFavorited={isFavorited}
           onToggleFavorite={handleToggleFavorite}
         />
       )}
+
+      {/* Print-only branded footer — after content to avoid overlap */}
+      {document && (() => {
+        const footer = buildPrintFooter({
+          title: document.title,
+          slug: document.slug,
+          category: document.category,
+        });
+        const citation = buildPrintCitation({
+          title: document.title,
+          slug: document.slug,
+          updatedAt: document.updatedAt || document.createdAt,
+        });
+        return (
+          <footer className="print-footer-block hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+            <div className="print-footer-brand">{footer.brandLine}</div>
+            <div className="print-footer-source">Source: {footer.sourceLine}</div>
+            <div className="print-footer-citation">{citation}</div>
+            <div className="print-footer-confidential">{footer.confidentialLine}</div>
+          </footer>
+        );
+      })()}
 
       {/* Scroll to Top Button */}
       <ScrollToTop />
@@ -869,10 +905,6 @@ function MobileTOC({ headings, activeHeading }: { headings: { id: string; text: 
         </nav>
       )}
 
-      {/* Print-only branded footer */}
-      <div className="print-footer hidden">
-        Riad & Routes — riadandroutes.com | Confidential — For internal use only | Printed: {new Date().toLocaleDateString()}
-      </div>
     </div>
   );
 }

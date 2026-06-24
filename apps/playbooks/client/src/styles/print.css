@@ -2,7 +2,7 @@
   /* Hide non-essential elements */
   header,
   nav,
-  footer,
+  footer:not(.print-footer-block),
   .no-print,
   [data-tour],
   button,
@@ -56,14 +56,14 @@
     page-break-inside: avoid;
   }
 
-  /* Page margins and header/footer */
+  /* Page margins */
   @page {
-    margin: 2cm;
+    margin: 2cm 2cm 2.5cm;
     size: A4;
   }
 
   @page :first {
-    margin-top: 3cm;
+    margin-top: 2.5cm;
   }
 
   /* Branded header for print */
@@ -87,29 +87,47 @@
     margin-top: 0.25rem;
   }
 
-  /* Footer for print */
-  .print-footer {
+  /* Footer — static block at end of document (not fixed; avoids overlap) */
+  .print-footer-block {
     display: block !important;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
+    margin-top: 2.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #ccc;
+    page-break-inside: avoid;
     font-size: 8pt;
-    color: #999;
-    border-top: 1px solid #ddd;
-    padding-top: 0.5rem;
+    color: #666;
+    line-height: 1.5;
   }
 
-  /* Links */
+  .print-footer-block .print-footer-brand {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.15rem;
+  }
+
+  .print-footer-block .print-footer-source {
+    word-break: break-all;
+    margin-bottom: 0.15rem;
+  }
+
+  .print-footer-block .print-footer-citation {
+    font-style: italic;
+    margin-bottom: 0.15rem;
+  }
+
+  .print-footer-block .print-footer-confidential {
+    color: #888;
+    font-size: 7.5pt;
+  }
+
+  /* Links — no inline URL suffixes (they jam layout and duplicate footer source) */
   a {
     color: black !important;
     text-decoration: underline;
   }
 
-  a[href^="http"]::after {
-    content: " (" attr(href) ")";
-    font-size: 8pt;
-    color: #666;
+  a[href^="http"]::after,
+  a[href^="https"]::after {
+    content: none !important;
   }
 }

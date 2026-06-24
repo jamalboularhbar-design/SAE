@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { trpc } from '@/lib/trpc';
 import { Button } from '@/components/ui/button';
 import { FileDown, Loader2 } from 'lucide-react';
+import { BRAND } from '@/lib/brand';
+import { buildPrintCitation, buildPrintFooter, documentPermalink } from '@shared/printFooter';
 
 interface ExportDocxProps {
   slug: string;
@@ -16,7 +18,11 @@ export default function ExportDocx({ slug, title }: ExportDocxProps) {
     if (!data || 'error' in data) return;
     setExporting(true);
     try {
-      // Generate a simple DOCX-compatible HTML file for download
+      const footer = buildPrintFooter({ title: data.title, slug, category: data.category });
+      const citation = buildPrintCitation({
+        title: data.title,
+        slug,
+      });
       const htmlContent = `
 <!DOCTYPE html>
 <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
@@ -35,13 +41,23 @@ export default function ExportDocx({ slug, title }: ExportDocxProps) {
   table { border-collapse: collapse; width: 100%; margin: 12pt 0; }
   th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
   th { background: #f8f8f8; font-weight: bold; }
+  .export-meta { color: #666; font-size: 9pt; margin: 8pt 0 16pt; }
+  .export-footer { margin-top: 36pt; padding-top: 12pt; border-top: 1px solid #ccc; font-size: 9pt; color: #666; line-height: 1.5; }
+  .export-footer-brand { font-weight: bold; color: #333; margin-bottom: 4pt; }
+  .export-footer-confidential { font-size: 8pt; color: #888; margin-top: 6pt; }
 </style>
 </head>
 <body>
 <h1>${data.title}</h1>
-<p style="color: #888; font-size: 9pt;">Category: ${data.category} | Exported from Riad & Routes NexusAI Playbooks</p>
+<p class="export-meta">Category: ${data.category} · Exported from ${BRAND.productName} · ${documentPermalink(slug)}</p>
 <hr/>
 ${markdownToHtml(data.content || '')}
+<div class="export-footer">
+  <div class="export-footer-brand">${footer.brandLine}</div>
+  <p>Source: ${footer.sourceLine}</p>
+  <p style="font-style: italic;">${citation}</p>
+  <p class="export-footer-confidential">${footer.confidentialLine}</p>
+</div>
 </body>
 </html>`;
       

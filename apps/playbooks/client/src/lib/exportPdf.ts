@@ -27,6 +27,7 @@ export async function exportToPDF(persona: 'travel' | 'artkech', content: string
 function generateHTML(persona: string, content: string): string {
   const title = persona === 'travel' ? 'Riad & Routes - Luxury Travel Guide' : 'ArtKech Lead Designer - Creative Studio Guide';
   const timestamp = new Date().toLocaleDateString();
+  const year = new Date().getFullYear();
 
   return `
     <!DOCTYPE html>
@@ -148,9 +149,19 @@ function generateHTML(persona: string, content: string): string {
           margin-top: 40px;
           padding-top: 20px;
           border-top: 1px solid #e0e0e0;
-          font-size: 12px;
+          font-size: 11px;
           color: #666;
-          text-align: center;
+          line-height: 1.6;
+        }
+        .footer-brand {
+          font-weight: 600;
+          color: #333;
+          margin-bottom: 4px;
+        }
+        .footer-confidential {
+          font-size: 10px;
+          color: #888;
+          margin-top: 6px;
         }
         
         @media print {
@@ -174,8 +185,9 @@ function generateHTML(persona: string, content: string): string {
       </div>
       
       <div class="footer">
-        <p>NexusAI Playbooks - Confidential Operational Document</p>
-        <p>© ${new Date().getFullYear()} All Rights Reserved</p>
+        <div class="footer-brand">ARG-Builder · argbuilder.io</div>
+        <p>Confidential — For internal use only</p>
+        <p class="footer-confidential">Generated ${timestamp} · © ${year} ARG-Builder. All rights reserved.</p>
       </div>
     </body>
     </html>
