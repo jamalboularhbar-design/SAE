@@ -260,22 +260,10 @@ export default function Home() {
         <Header />
       </StickyHeader>
       
-      <main className="container py-4 sm:py-12 pb-24 sm:pb-12">
-        {/* Toolbar — desktop only; mobile uses search below + bottom nav */}
-        <div className="hidden sm:flex items-center justify-between mb-8 gap-4 flex-wrap">
-          <div>
-            <h1 className="font-display text-2xl sm:text-3xl mb-1 text-foreground">{BRAND.productName}</h1>
-            <p className="text-muted-foreground text-sm">{BRAND.tagline}</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setShowSearch(!showSearch)}
-              className="px-3 py-2 rounded-lg bg-card border border-border/50 text-muted-foreground hover:border-accent/50 transition-colors text-sm"
-            >
-              🔍 Search
-            </button>
-            <CommandPalette onExport={handleExport} onSwitchPersona={setActivePersona} />
-          </div>
+      <main className="container py-4 sm:py-6 pb-24 sm:pb-10">
+        {/* Command palette — desktop */}
+        <div className="hidden sm:flex justify-end mb-4">
+          <CommandPalette onExport={handleExport} onSwitchPersona={setActivePersona} />
         </div>
 
         {showSearch && (
@@ -291,9 +279,9 @@ export default function Home() {
         )}
 
         {/* Hero + quick actions */}
-        <section className="mb-6 sm:mb-10 text-center">
-          <ProductProofBar className="mb-4 sm:mb-6" />
-          <div className="max-w-lg mx-auto mb-4 sm:mb-6" data-tour="search">
+        <section className="mb-4 sm:mb-6 text-center">
+          <ProductProofBar className="mb-3 sm:mb-4" />
+          <div className="max-w-lg mx-auto mb-3 sm:mb-4" data-tour="search">
             <SearchAutocomplete placeholder={`Quick search ${PLATFORM_STATS.documents}+ documents…`} className="text-left" />
           </div>
           <div className="hidden sm:flex flex-wrap justify-center gap-2">
@@ -334,11 +322,7 @@ export default function Home() {
         </div>
 
         {/* Document Library — primary work surface */}
-        <section className="mt-6 sm:mt-14 pt-6 sm:pt-8 border-t border-border/50">
-          <div data-tour="library">
-            <DocumentLibrary />
-          </div>
-        </section>
+        <DocumentLibrary />
 
         {/* Live demo workspaces — desktop only; heavy persona UI */}
         <section id="workspace-tabs" className="hidden lg:block mt-12 sm:mt-16 pt-8 border-t border-border/50">

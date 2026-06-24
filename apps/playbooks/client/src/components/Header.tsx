@@ -49,14 +49,15 @@ export default function Header() {
 
   return (
     <header className="border-b border-border/50 bg-gradient-to-b from-card/80 to-card/40 backdrop-blur-md sticky top-0 z-50" role="banner">
-      <div className="container flex items-center justify-between py-2.5 sm:py-4 gap-2">
-        <div className="flex items-center gap-2 sm:gap-4 min-w-0" role="heading" aria-level={1}>
+      <div className="container flex items-center justify-between py-2.5 sm:py-3 gap-2">
+        <button
+          type="button"
+          onClick={() => navigate('/')}
+          className="flex items-center shrink-0 rounded-lg hover:opacity-90 transition-opacity"
+          aria-label={BRAND.productName}
+        >
           <LogoMark size="lg" />
-          <div className="min-w-0">
-            <h1 className="font-display text-base sm:text-2xl font-bold text-foreground truncate">{BRAND.productName}</h1>
-            <p className="text-[10px] sm:text-xs text-muted-foreground tracking-wide hidden sm:block">{BRAND.tagline}</p>
-          </div>
-        </div>
+        </button>
 
         {/* Mobile: essentials only — bottom nav covers Home / Search / Docs / AI / OS */}
         <nav className="flex sm:hidden items-center gap-1 shrink-0" aria-label="Mobile header actions">

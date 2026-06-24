@@ -211,7 +211,7 @@ export default function DocumentLibrary() {
   };
 
   return (
-    <section className="mt-16 sm:mt-24 pt-8 sm:pt-12 border-t border-border/50">
+    <section data-tour="library" className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-border/50">
       {/* Section Header */}
       <div className="flex items-end justify-between mb-6 sm:mb-8 flex-wrap gap-3 sm:gap-4">
         <div>

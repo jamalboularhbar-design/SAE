@@ -48,7 +48,7 @@ type ProductArchitectureStripProps = {
 
 export default function ProductArchitectureStrip({ showGovernance = true, id }: ProductArchitectureStripProps) {
   return (
-    <section id={id} data-tour="architecture" className="mb-10 sm:mb-14" aria-labelledby="product-architecture-heading">
+    <section id={id} data-tour="architecture" className="mb-6 sm:mb-8" aria-labelledby="product-architecture-heading">
       <div className="mb-6 sm:mb-8">
         <p className="text-xs uppercase tracking-wider font-medium text-teal-700 dark:text-teal-400 mb-2">
           How it works

@@ -31,7 +31,7 @@ function statusVariant(study: CaseStudy): "default" | "secondary" | "outline" {
 
 export default function VerticalShowcase({ onOpenWorkspace, compact }: VerticalShowcaseProps) {
   return (
-    <section data-tour="vertical-demos" className={compact ? "mb-12" : "mb-10 sm:mb-16"}>
+    <section data-tour="vertical-demos" className={compact ? "mb-8" : "mb-6 sm:mb-8"}>
       <div className="text-center mb-6 sm:mb-8">
         <p className="text-xs uppercase tracking-wider font-medium mb-2 text-teal-700 dark:text-teal-400">
           Vertical demos
