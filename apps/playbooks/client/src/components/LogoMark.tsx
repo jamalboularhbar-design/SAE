@@ -28,7 +28,7 @@ export default function LogoMark({ size = 'md', className, alt }: LogoMarkProps)
         alt={alt ?? BRAND.parentName}
         width={px}
         height={px}
-        className="h-full w-full object-contain object-center bg-transparent"
+        className="h-full w-full object-contain object-center"
         decoding="async"
         fetchPriority="high"
       />
