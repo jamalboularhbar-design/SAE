@@ -85,7 +85,7 @@ export default function AdminSlaPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Badge variant="destructive">{getHoursOverdue(doc.updatedAt)}h overdue</Badge>
-                    <Button variant="outline" size="sm" onClick={() => window.open(`/doc/${doc.slug}`, '_blank')}>
+                    <Button variant="outline" size="sm" onClick={() => window.open(`/docs/${doc.slug}`, '_blank')}>
                       View
                     </Button>
                   </div>

@@ -128,7 +128,7 @@ export default function AdminContentHealthPage() {
                   </span>
                 </td>
                 <td className="p-3">
-                  <a href={`/doc/${doc.slug}`} className="hover:text-primary transition-colors">
+                  <a href={`/docs/${doc.slug}`} className="hover:text-primary transition-colors">
                     {doc.title}
                   </a>
                 </td>

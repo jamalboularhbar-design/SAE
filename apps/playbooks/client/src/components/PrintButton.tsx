@@ -1,22 +1,18 @@
-import { Printer } from 'lucide-react';
+import { Printer } from "lucide-react";
+import { printDocument } from "@/lib/printDocument";
 
 interface PrintButtonProps {
+  slug: string;
   title: string;
+  clientName?: string;
   className?: string;
 }
 
-export default function PrintButton({ title, className = '' }: PrintButtonProps) {
-  const handlePrint = () => {
-    // Add a temporary title for the print
-    const originalTitle = document.title;
-    document.title = title;
-    window.print();
-    document.title = originalTitle;
-  };
-
+export default function PrintButton({ slug, title, clientName, className = "" }: PrintButtonProps) {
   return (
     <button
-      onClick={handlePrint}
+      type="button"
+      onClick={() => printDocument({ slug, title, clientName })}
       className={`flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors ${className}`}
       title="Print this document"
       aria-label="Print document"

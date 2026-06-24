@@ -21,7 +21,7 @@ export default function RelatedByTags({ slug }: RelatedByTagsProps) {
         {related.slice(0, 5).map((doc: any) => (
           <Link
             key={doc.slug}
-            href={`/doc/${doc.slug}`}
+            href={`/docs/${doc.slug}`}
             className="block text-sm hover:text-primary transition-colors"
           >
             <span>{doc.title}</span>

@@ -44,7 +44,7 @@ export default function AdminReviewRemindersPage() {
                   </span>
                 </div>
                 <Button size="sm" variant="outline" asChild>
-                  <a href={`/doc/${r.docSlug}`}>Review</a>
+                  <a href={`/docs/${r.docSlug}`}>Review</a>
                 </Button>
               </div>
             ))}

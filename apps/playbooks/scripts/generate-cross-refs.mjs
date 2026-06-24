@@ -10,6 +10,33 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const WORKSPACE_ROOTS = new Set([
+  "Riad & Routes",
+  "ArtKech Design Studio",
+  "Atlas Collective Agency",
+  "Maison Voyager Hospitality",
+]);
+
+function inferWorkspaceFromSlug(slug) {
+  const s = String(slug || "").toLowerCase();
+  if (s.includes("rr-") || s.includes("riad") || s.includes("routes")) return "Riad & Routes";
+  if (s.includes("ak-") || s.includes("artkech")) return "ArtKech Design Studio";
+  return null;
+}
+
+function resolveWorkspace(category, slug) {
+  if (WORKSPACE_ROOTS.has(category)) return category;
+  return inferWorkspaceFromSlug(slug);
+}
+
+function sharesDocumentScope(catA, catB, slugA, slugB) {
+  const wsA = resolveWorkspace(catA, slugA);
+  const wsB = resolveWorkspace(catB, slugB);
+  if (wsA && wsB) return wsA === wsB;
+  if (wsA || wsB) return false;
+  return catA === catB;
+}
+
 const DATABASE_URL = process.env.DATABASE_URL;
 if (!DATABASE_URL) {
   console.error("DATABASE_URL not set");
@@ -39,6 +66,9 @@ async function main() {
 
   const addRef = (sourceId, targetId, score, reason) => {
     if (sourceId === targetId) return;
+    const src = idToDoc.get(sourceId);
+    const tgt = idToDoc.get(targetId);
+    if (src && tgt && !sharesDocumentScope(src.category, tgt.category, src.slug, tgt.slug)) return;
     const key = `${sourceId}->${targetId}`;
     if (seen.has(key)) return;
 

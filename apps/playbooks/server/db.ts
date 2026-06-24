@@ -2,6 +2,7 @@ import { eq, like, or, sql, desc, asc, count, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users, documents, documentRatings, readingLists, readingListItems, searchAnalytics, documentTags, documentComments, documentVersions, customCategories, downloadHistory, announcements, activityLog, documentAuditTrail, bookmarkNotes, shareLinks, scheduledPublish, inlineComments, brandingSettings, webhooks, recentlyViewed, documentFeedback, categoryOrdering, documentSubscriptions, subscriptionNotifications, userReadingPosition, searchHistory, aiSummaries, documentTranslations, userPreferences, readingStreakLeaderboard, glossaryTerms, documentDependencies, readingGoals, readingProgress, documentTemplates, savedFilters, documentQuizzes, reviewReminders, documentAnnotations, documentCollections, collectionItems, workflowStatuses, workflowTransitions, documentWorkflowStatus, archivalPolicies, archivedDocuments, contentGapSuggestions, duplicateContentPairs, activityFeed, documentSnapshots, readingCorrelations, quizResults, documentSeoMeta, systemNotificationLog, adminPermissions, approvalSlaConfig, webhookEventLog, documentAccessRequests, onboardingProgress, documentCitations, readingSessions, documentQualityAudits, emailDigestConfig, documentMedia, workspaces, workspaceMembers, reviewSchedules, coAuthorActivity, migrationJobs, sentimentScores, retentionPolicies, accessibilityChecks, customReports, pushNotifications, templateMarketplace, templateRatings, complianceReports, documentChangeLog, userLandingPreference, bulkExportJobs, documentCrossReferences, userEngagementScorecard, scheduledAnnouncements, dashboardWidgetConfig, brokenLinkScans, savedSearchFilters, duplicateContentScans, userDocCollections, userDocCollectionItems, performanceBenchmarks, leads, inviteTokens, trials, nurturEmails, referrals, onboardingWizardState, aiConfig, apiKeys, teamTasks, teamDiscussions, teamDiscussionReplies, webhookDeliveries, aiUsageLog, customFieldDefinitions, customFieldValues, workflowSlaConfig, workflowSlaBreaches, checklistCompletions, shiftHandoverNotes, providers, providerQualityLogs, guests, incidents, guestFeedback } from "../drizzle/schema";
 import { ENV } from './_core/env';
+import { sharesDocumentScope } from "@shared/workspaceTaxonomy";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -281,9 +282,11 @@ export async function getRelatedDocuments(slug: string, category: string, limit 
     .from(documents)
     .where(sql`${documents.category} = ${category} AND ${documents.slug} != ${slug} AND ${documents.status} = 'published'`)
     .orderBy(sql`RAND()`)
-    .limit(limit);
+    .limit(limit * 2);
 
-  return result;
+  return result
+    .filter((doc) => sharesDocumentScope(category, doc.category, slug, doc.slug))
+    .slice(0, limit);
 }
 
 // âââ Admin Document CRUD ââââââââââââââââââââââââââââââââââââââââââââââââââââ
@@ -1171,7 +1174,10 @@ export async function getDocumentDependencies(slug: string) {
   const db = await getDb();
   if (!db) return [];
 
-  return db.select({
+  const source = await getDocumentBySlug(slug);
+  if (!source) return [];
+
+  const rows = await db.select({
     prerequisiteSlug: documentDependencies.prerequisiteSlug,
     title: documents.title,
     category: documents.category,
@@ -1179,13 +1185,20 @@ export async function getDocumentDependencies(slug: string) {
     .from(documentDependencies)
     .innerJoin(documents, eq(documentDependencies.prerequisiteSlug, documents.slug))
     .where(eq(documentDependencies.documentSlug, slug));
+
+  return rows.filter((dep) =>
+    sharesDocumentScope(source.category, dep.category, slug, dep.prerequisiteSlug)
+  );
 }
 
 export async function getDependentDocuments(slug: string) {
   const db = await getDb();
   if (!db) return [];
 
-  return db.select({
+  const source = await getDocumentBySlug(slug);
+  if (!source) return [];
+
+  const rows = await db.select({
     documentSlug: documentDependencies.documentSlug,
     title: documents.title,
     category: documents.category,
@@ -1193,6 +1206,10 @@ export async function getDependentDocuments(slug: string) {
     .from(documentDependencies)
     .innerJoin(documents, eq(documentDependencies.documentSlug, documents.slug))
     .where(eq(documentDependencies.prerequisiteSlug, slug));
+
+  return rows.filter((dep) =>
+    sharesDocumentScope(source.category, dep.category, slug, dep.documentSlug)
+  );
 }
 
 export async function addDocumentDependency(documentSlug: string, prerequisiteSlug: string) {
@@ -2703,12 +2720,13 @@ export async function getContentHealthScores() {
 export async function getRelatedByTags(documentSlug: string, limit = 5) {
   const db = await getDb();
   if (!db) return [];
-  // Get tags for this document
+  const source = await getDocumentBySlug(documentSlug);
+  if (!source) return [];
+
   const docTags = await db.select({ tag: documentTags.tag }).from(documentTags)
     .where(eq(documentTags.documentSlug, documentSlug));
   if (docTags.length === 0) return [];
   const tagValues = docTags.map(t => t.tag);
-  // Find other documents sharing these tags, ranked by overlap count
   const related = await db.execute(sql`
     SELECT dt.documentSlug, d.title, d.slug, d.category, COUNT(*) as sharedTags
     FROM document_tags dt
@@ -2717,9 +2735,12 @@ export async function getRelatedByTags(documentSlug: string, limit = 5) {
       AND dt.documentSlug != ${documentSlug}
     GROUP BY dt.documentSlug, d.title, d.slug, d.category
     ORDER BY sharedTags DESC
-    LIMIT ${limit}
+    LIMIT ${limit * 3}
   `);
-  return (related as any)[0] || [];
+  const rows = ((related as any)[0] || []) as Array<{ slug: string; category: string; title: string; sharedTags: number }>;
+  return rows
+    .filter((doc) => sharesDocumentScope(source.category, doc.category, documentSlug, doc.slug))
+    .slice(0, limit);
 }
 // ============ BATCH 18 HELPERS ============
 

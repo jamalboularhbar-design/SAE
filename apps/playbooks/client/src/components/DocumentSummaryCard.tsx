@@ -49,7 +49,7 @@ export default function DocumentSummaryCard({ slug, children }: DocumentSummaryC
           onMouseEnter={() => { if (timeoutRef.current) clearTimeout(timeoutRef.current); }}
           onMouseLeave={handleMouseLeave}
         >
-          <Link href={`/doc/${slug}`}>
+          <Link href={`/docs/${slug}`}>
             <h4 className="font-semibold text-sm mb-1 hover:text-primary transition-colors cursor-pointer">{doc.title}</h4>
           </Link>
           <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">

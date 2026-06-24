@@ -53,7 +53,6 @@ import TextToSpeech from '@/components/TextToSpeech';
 import QuickEditInline from '@/components/QuickEditInline';
 import SmartRecommendations from '@/components/SmartRecommendations';
 import ProcessTimelineVisualization from '@/components/ProcessTimelineVisualization';
-import CrossPersonaLinksPanel from '@/components/CrossPersonaLinksPanel';
 import DocumentSnapshots from '@/components/DocumentSnapshots';
 import AddToCollectionButton from '@/components/AddToCollectionButton';
 import ReadingTimeEstimate from '@/components/ReadingTimeEstimate';
@@ -61,6 +60,8 @@ import DocumentLibraryFooter from '@/components/DocumentLibraryFooter';
 import { prepareDocumentContent } from '@shared/documentContent';
 import { buildPrintCitation, buildPrintFooter, buildPrintHeaderSubtitle, parseClientFromFooterText, resolveDocumentClient } from '@shared/printFooter';
 import { shareDocument } from '@/lib/shareDocument';
+import { printDocument } from '@/lib/printDocument';
+import { BRAND } from '@/lib/brand';
 
 // Reading time calculation - uses configurable WPM from branding settings
 function getReadingTime(wordCount: number, wpm = 200): string {
@@ -69,10 +70,11 @@ function getReadingTime(wordCount: number, wpm = 200): string {
 }
 
 // Template variable interpolation: replaces {{variable_name}} with values
-function interpolateTemplateVars(content: string): string {
+function interpolateTemplateVars(content: string, category?: string): string {
+  const client = resolveDocumentClient(category);
   const vars: Record<string, string> = {
-    company_name: 'Riad & Routes',
-    website: 'riadandroutes.com',
+    company_name: client?.name ?? 'Your Company',
+    website: client?.domain ?? BRAND.domain,
     current_date: new Date().toLocaleDateString(),
     current_year: new Date().getFullYear().toString(),
   };
@@ -303,23 +305,17 @@ export default function DocumentDetail() {
     toast.success(nowFavorited ? 'Added to favorites' : 'Removed from favorites');
   }, [document]);
 
-  // Export as PDF (opens styled HTML in new tab for print-to-PDF)
+  // Export as PDF — opens clean document-only print view
   const handleExportPdf = useCallback(() => {
     if (!document) return;
-    const pdfUrl = `/api/export/pdf/${document.slug}`;
-    const printWindow = window.open(pdfUrl, '_blank');
-    if (printWindow) {
-      printWindow.addEventListener('load', () => {
-        setTimeout(() => printWindow.print(), 500);
-      });
-    }
-    toast.success('PDF export opened - use Save as PDF in print dialog');
-  }, [document]);
+    printDocument({ slug: document.slug, title: document.title, clientName: printClientName });
+  }, [document, printClientName]);
 
-  // Print current page
+  // Print — same high-quality document view (not full-screen app chrome)
   const handlePrint = useCallback(() => {
-    window.print();
-  }, []);
+    if (!document) return;
+    printDocument({ slug: document.slug, title: document.title, clientName: printClientName });
+  }, [document, printClientName]);
 
   const handleShareDocument = useCallback(() => {
     if (!document) return;
@@ -663,7 +659,7 @@ export default function DocumentDetail() {
                   },
                 }}
               >
-                {interpolateTemplateVars(displayContent)}
+                {interpolateTemplateVars(displayContent, document.category)}
               </ReactMarkdown>
             </article>
 
@@ -676,11 +672,6 @@ export default function DocumentDetail() {
             {/* Process Timeline (for persona process docs) */}
             {(document.category === 'Riad & Routes' || document.category === 'ArtKech Design Studio') && (
               <ProcessTimelineVisualization content={displayContent} />
-            )}
-
-            {/* Cross-Persona Related Documents */}
-            {(document.category === 'Riad & Routes' || document.category === 'ArtKech Design Studio') && (
-              <CrossPersonaLinksPanel currentDocTitle={document.title} currentCategory={document.category} />
             )}
 
             {/* Document Dependencies */}
@@ -782,6 +773,7 @@ export default function DocumentDetail() {
         <QuickActionsToolbar
           slug={document.slug}
           title={document.title}
+          onPrint={handlePrint}
           onShare={handleShareDocument}
           isFavorited={isFavorited}
           onToggleFavorite={handleToggleFavorite}

@@ -14,12 +14,13 @@ function getVisitorId() {
 interface QuickActionsToolbarProps {
   slug: string;
   title: string;
+  onPrint: () => void;
   onShare: () => void;
   isFavorited: boolean;
   onToggleFavorite: () => void;
 }
 
-export default function QuickActionsToolbar({ slug, title, onShare, isFavorited, onToggleFavorite }: QuickActionsToolbarProps) {
+export default function QuickActionsToolbar({ slug, title, onPrint, onShare, isFavorited, onToggleFavorite }: QuickActionsToolbarProps) {
   const visitorId = getVisitorId();
   const [showListPicker, setShowListPicker] = useState(false);
   const [toast, setToast] = useState('');
@@ -49,7 +50,7 @@ export default function QuickActionsToolbar({ slug, title, onShare, isFavorited,
     <>
       <div className="hidden sm:flex fixed bottom-6 left-1/2 -translate-x-1/2 z-40 items-center gap-1 px-3 py-2 rounded-full bg-card/95 backdrop-blur-sm border border-border shadow-xl print:hidden">
         <button
-          onClick={() => window.print()}
+          onClick={onPrint}
           className="p-2.5 rounded-full hover:bg-accent/10 text-muted-foreground hover:text-accent transition-colors"
           title="Print"
         >

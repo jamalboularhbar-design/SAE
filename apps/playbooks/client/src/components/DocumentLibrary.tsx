@@ -17,6 +17,7 @@ import DocumentLibrarySkeleton from './DocumentLibrarySkeleton';
 import BulkExport from './BulkExport';
 import KeyboardNavigation from './KeyboardNavigation';
 import { usePreferences } from '@/hooks/usePreferences';
+import { isWorkspaceCategory } from '@shared/workspaceTaxonomy';
 import SavedFilters from './SavedFilters';
 import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import { Pin } from 'lucide-react';
@@ -174,6 +175,42 @@ export default function DocumentLibrary() {
   const categoryCounts: Record<string, number> = {};
   mergedCategories.forEach(c => { categoryCounts[c.category] = c.count; });
 
+  const workspaceCategories = useMemo(
+    () => categoryList.filter((cat) => isWorkspaceCategory(cat)),
+    [categoryList]
+  );
+  const platformCategories = useMemo(
+    () => categoryList.filter((cat) => !isWorkspaceCategory(cat)),
+    [categoryList]
+  );
+
+  const renderCategoryPill = (cat: string, catCount: number) => {
+    const Icon = CATEGORY_ICONS[cat] || FileText;
+    const description = CATEGORY_DESCRIPTIONS[cat];
+    return (
+      <Tooltip key={cat}>
+        <TooltipTrigger asChild>
+          <button
+            onClick={() => { setSelectedCategory(cat === selectedCategory ? 'All' : cat); setCurrentPage(1); }}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border flex items-center gap-1.5 ${
+              selectedCategory === cat
+                ? 'bg-accent/20 text-accent border-accent/40'
+                : 'bg-card/50 text-muted-foreground border-border/50 hover:border-accent/30'
+            }`}
+          >
+            <Icon className="w-3 h-3" />
+            {cat} ({catCount})
+          </button>
+        </TooltipTrigger>
+        {description && (
+          <TooltipContent side="bottom" className="max-w-[200px] text-center">
+            <p className="text-xs">{description}</p>
+          </TooltipContent>
+        )}
+      </Tooltip>
+    );
+  };
+
   const documents = documentsData?.documents ?? [];
   const filteredTotal = documentsData?.total ?? 0;
 
@@ -250,46 +287,36 @@ export default function DocumentLibrary() {
           )}
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex flex-wrap gap-1.5 sm:gap-2 max-h-[200px] overflow-y-auto sm:max-h-none sm:overflow-visible">
-          <button
-            onClick={() => { setSelectedCategory('All'); setCurrentPage(1); }}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
-              selectedCategory === 'All'
-                ? 'bg-accent/20 text-accent border-accent/40'
-                : 'bg-card/50 text-muted-foreground border-border/50 hover:border-accent/30'
-            }`}
-          >
-            All ({totalDocuments})
-          </button>
-          {Object.entries(categoryCounts)
-            .sort((a, b) => b[1] - a[1])
-            .map(([cat, catCount]) => {
-              const Icon = CATEGORY_ICONS[cat] || FileText;
-              const description = CATEGORY_DESCRIPTIONS[cat];
-              return (
-                <Tooltip key={cat}>
-                  <TooltipTrigger asChild>
-                    <button
-                      onClick={() => { setSelectedCategory(cat === selectedCategory ? 'All' : cat); setCurrentPage(1); }}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border flex items-center gap-1.5 ${
-                        selectedCategory === cat
-                          ? 'bg-accent/20 text-accent border-accent/40'
-                          : 'bg-card/50 text-muted-foreground border-border/50 hover:border-accent/30'
-                      }`}
-                    >
-                      <Icon className="w-3 h-3" />
-                      {cat} ({catCount})
-                    </button>
-                  </TooltipTrigger>
-                  {description && (
-                    <TooltipContent side="bottom" className="max-w-[200px] text-center">
-                      <p className="text-xs">{description}</p>
-                    </TooltipContent>
-                  )}
-                </Tooltip>
-              );
-            })}
+        {/* Category Filter Pills — workspaces separated from platform catalog */}
+        <div className="space-y-3">
+          {workspaceCategories.length > 0 && (
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">Client workspaces</p>
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                {workspaceCategories
+                  .sort((a, b) => (categoryCounts[b] ?? 0) - (categoryCounts[a] ?? 0))
+                  .map((cat) => renderCategoryPill(cat, categoryCounts[cat] ?? 0))}
+              </div>
+            </div>
+          )}
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">Platform playbooks</p>
+            <div className="flex flex-wrap gap-1.5 sm:gap-2 max-h-[200px] overflow-y-auto sm:max-h-none sm:overflow-visible">
+              <button
+                onClick={() => { setSelectedCategory('All'); setCurrentPage(1); }}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
+                  selectedCategory === 'All'
+                    ? 'bg-accent/20 text-accent border-accent/40'
+                    : 'bg-card/50 text-muted-foreground border-border/50 hover:border-accent/30'
+                }`}
+              >
+                All ({totalDocuments})
+              </button>
+              {platformCategories
+                .sort((a, b) => (categoryCounts[b] ?? 0) - (categoryCounts[a] ?? 0))
+                .map((cat) => renderCategoryPill(cat, categoryCounts[cat] ?? 0))}
+            </div>
+          </div>
         </div>
       </div>
 

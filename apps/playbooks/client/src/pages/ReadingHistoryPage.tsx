@@ -54,7 +54,7 @@ export default function ReadingHistoryPage() {
           <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-2">{date}</h2>
           <div className="space-y-1">
             {(items || []).map((item, idx) => (
-              <Link key={idx} href={`/doc/${item.documentSlug}`}>
+              <Link key={idx} href={`/docs/${item.documentSlug}`}>
                 <div className="flex items-center gap-3 px-4 py-3 rounded-lg border border-border hover:bg-muted/50 transition-colors cursor-pointer group">
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate">{item.title}</p>
