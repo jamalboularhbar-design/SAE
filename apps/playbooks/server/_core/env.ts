@@ -2,7 +2,7 @@ import { BRAND } from "../brand";
 
 export const ENV = {
   cookieSecret: process.env.JWT_SECRET ?? "dev-secret-change-in-production",
-  databaseUrl: process.env.DATABASE_URL ?? "",
+  databaseUrl: process.env.DATABASE_URL ?? process.env.MYSQL_URL ?? "",
   isProduction: process.env.NODE_ENV === "production",
 
   // Admin credentials

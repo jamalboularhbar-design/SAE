@@ -6,11 +6,18 @@ import { sharesDocumentScope } from "@shared/workspaceTaxonomy";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
+function resolveDatabaseUrl(): string | undefined {
+  const url = process.env.DATABASE_URL ?? process.env.MYSQL_URL;
+  if (!url?.trim() || url.includes("${{")) return undefined;
+  return url.trim();
+}
+
 // Lazily create the drizzle instance so local tooling can run without a DB.
 export async function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
+  const databaseUrl = resolveDatabaseUrl();
+  if (!_db && databaseUrl) {
     try {
-      _db = drizzle(process.env.DATABASE_URL);
+      _db = drizzle(databaseUrl);
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
       _db = null;

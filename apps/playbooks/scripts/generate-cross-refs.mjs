@@ -7,6 +7,7 @@
 
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
+import { resolveDatabaseUrl } from "./lib/database-url.mjs";
 
 dotenv.config();
 
@@ -37,9 +38,8 @@ function sharesDocumentScope(catA, catB, slugA, slugB) {
   return catA === catB;
 }
 
-const DATABASE_URL = process.env.DATABASE_URL;
+const DATABASE_URL = resolveDatabaseUrl();
 if (!DATABASE_URL) {
-  console.error("DATABASE_URL not set");
   process.exit(1);
 }
 

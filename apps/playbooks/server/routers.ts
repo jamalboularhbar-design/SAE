@@ -12,6 +12,7 @@ import { createCloseLead, subscribeToNurtureSequence } from "./closeCrm";
 import { leadSubmitLimiter, loginLimiter } from "./rateLimiter";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
+import { runDbMaintenance } from "./dbMaintenance";
 import { publicProcedure, protectedProcedure, router, adminProcedure } from "./_core/trpc";
 import {
   getDocuments, getDocumentBySlug, getDocumentCategories, getRelatedDocuments,
@@ -2512,6 +2513,14 @@ export const appRouter = router({
   knowledgeGraph: router({
     data: adminProcedure.query(async () => getKnowledgeGraphData()),
   }),
+
+  /** Run workspace category fix + cross-ref regeneration on Railway (uses DATABASE_URL / MYSQL_URL). */
+  maintenance: router({
+    runDbScripts: adminProcedure
+      .input(z.object({ dryRun: z.boolean().optional() }).optional())
+      .mutation(async ({ input }) => runDbMaintenance({ dryRun: input?.dryRun ?? false })),
+  }),
+
   // Lead capture (public endpoint for landing page)
   leads: router({
     submit: publicProcedure.input(z.object({

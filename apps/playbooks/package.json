@@ -25,6 +25,9 @@
     "seed:upsert": "node seed-all-documents.mjs --with-stubs --include-persona",
     "seed:refresh": "node seed-all-documents.mjs --with-stubs --include-persona && node scripts/populate-knowledge-graph.mjs",
     "graph:populate": "node scripts/populate-knowledge-graph.mjs",
+    "db:fix-workspaces": "node scripts/fix-workspace-categories.mjs",
+    "db:cross-refs": "node scripts/generate-cross-refs.mjs",
+    "db:maintenance": "node scripts/run-db-maintenance.mjs",
     "favicons:generate": "python3 scripts/generate-favicons.py"
   },
   "dependencies": {

@@ -4,6 +4,7 @@
  */
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
+import { resolveDatabaseUrl } from "./lib/database-url.mjs";
 
 dotenv.config();
 
@@ -14,9 +15,8 @@ const WORKSPACE_RULES = [
 
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
-  const url = process.env.DATABASE_URL;
+  const url = resolveDatabaseUrl();
   if (!url) {
-    console.error("DATABASE_URL required");
     process.exit(1);
   }
 

@@ -88,7 +88,8 @@ Hit `http://localhost:3000` — you should see ARG Builder, login with your ADMI
 
 | Var | Required | Description |
 |-----|----------|-------------|
-| `DATABASE_URL` | ✅ | MySQL connection string |
+| `DATABASE_URL` | ✅ | MySQL connection string (on Railway: `${{MySQL.MYSQL_URL}}`) |
+| `MYSQL_URL` | — | Railway MySQL plugin URL (fallback if `DATABASE_URL` unset) |
 | `JWT_SECRET` | ✅ | Session signing secret (32+ chars) |
 | `ADMIN_EMAIL` | ✅ | Login email |
 | `ADMIN_PASSWORD` | ✅ | Login password |
