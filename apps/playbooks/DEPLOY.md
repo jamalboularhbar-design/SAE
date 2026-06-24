@@ -56,6 +56,19 @@ The `railway.toml` is already configured. Steps:
    - `DATABASE_URL` is auto-set by the MySQL plugin
 6. `railway up` — deploys automatically
 
+**Database maintenance (fix categories + cross-refs):** do **not** use the MySQL service console — it has no Node app or Railway CLI. Instead:
+
+1. Log in as admin at https://argbuilder.io
+2. Open **Admin → Cross-References** (`/admin/cross-references`)
+3. Click **Run full maintenance**
+
+Or from your machine (linked to the **ARG-Builder app service**, not MySQL):
+
+```bash
+railway link   # select ARG-Builder app, not MySQL
+railway run npm run db:maintenance
+```
+
 Or connect your GitHub repo in the Railway dashboard for auto-deploy on push.
 
 ## Step 5 — Optional cleanup

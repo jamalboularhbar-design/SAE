@@ -5,18 +5,32 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Link2, Plus, ArrowRight, CheckCircle, XCircle } from 'lucide-react';
+import { Link2, Plus, ArrowRight, CheckCircle, XCircle, RefreshCw, Wrench } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function AdminCrossReferencesPage() {
   const { data: refs, isLoading } = trpc.crossReferences.all.useQuery();
   const { data: allTitles } = trpc.crossReferences.allTitles.useQuery();
   const utils = trpc.useUtils();
+  const [lastOutput, setLastOutput] = useState<string | null>(null);
 
   const [sourceId, setSourceId] = useState('');
   const [targetId, setTargetId] = useState('');
   const [score, setScore] = useState('0.8');
   const [reason, setReason] = useState('');
+
+  const runMaintenance = trpc.maintenance.runDbScripts.useMutation({
+    onSuccess: (result) => {
+      utils.crossReferences.all.invalidate();
+      const summary = [
+        result.fixOutput,
+        result.crossRefOutput,
+      ].filter(Boolean).join('\n\n');
+      setLastOutput(summary);
+      toast.success(result.dryRun ? 'Dry run complete' : 'Database maintenance complete');
+    },
+    onError: (err) => toast.error(err.message),
+  });
 
   const addRef = trpc.crossReferences.add.useMutation({
     onSuccess: () => {
@@ -44,6 +58,43 @@ export default function AdminCrossReferencesPage() {
         </h1>
         <p className="text-muted-foreground text-sm mt-1">Link related documents together for better discoverability</p>
       </div>
+
+      <Card className="border-teal-500/30 bg-teal-500/5">
+        <CardHeader>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Wrench className="w-5 h-5 text-teal-600" />
+            Database maintenance
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-sm text-muted-foreground">
+            Run workspace category fixes and regenerate all cross-references on the live database.
+            No Railway console or CLI needed — this runs inside the ARG-Builder app where{' '}
+            <code className="text-xs">DATABASE_URL</code> is already configured.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <Button
+              onClick={() => runMaintenance.mutate({ dryRun: false })}
+              disabled={runMaintenance.isPending}
+            >
+              <RefreshCw className={`w-4 h-4 mr-2 ${runMaintenance.isPending ? 'animate-spin' : ''}`} />
+              Run full maintenance
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => runMaintenance.mutate({ dryRun: true })}
+              disabled={runMaintenance.isPending}
+            >
+              Dry run (categories only)
+            </Button>
+          </div>
+          {lastOutput && (
+            <pre className="text-xs bg-muted/50 border border-border rounded-lg p-3 overflow-x-auto max-h-48 whitespace-pre-wrap">
+              {lastOutput}
+            </pre>
+          )}
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader><CardTitle className="text-lg">Add Cross-Reference</CardTitle></CardHeader>
