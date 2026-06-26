@@ -1,4 +1,4 @@
-# OpsCanvas Email Automation Setup Guide
+# ARG-Builder Email Automation Setup Guide
 
 **Purpose:** Connect the leads database to an automated nurture campaign that converts landing page and ROI calculator submissions into demo requests and founding customers.
 
@@ -6,7 +6,7 @@
 
 ## Architecture Overview
 
-OpsCanvas captures leads through two entry points: the product landing page contact form and the ROI calculator "Get Custom Report" form. Both store leads in the `leads` table with source tracking. The goal is to connect this data to an email automation platform that delivers a 5-touch nurture sequence over 21 days.
+ARG-Builder captures leads through two entry points: the product landing page contact form and the ROI calculator "Get Custom Report" form. Both store leads in the `leads` table with source tracking. The goal is to connect this data to an email automation platform that delivers a 5-touch nurture sequence over 21 days.
 
 ---
 
@@ -28,7 +28,7 @@ For a founder-stage SaaS product, **Resend** (resend.com) is the recommended ema
 
 ### Step 1: Create a Resend Account
 
-Sign up at **resend.com** and verify your sending domain. You will need to add DNS records (SPF, DKIM, DMARC) to your domain registrar. Resend provides step-by-step instructions for this process. Use `hello@opscanvas.io` as the sender address (once the domain is registered).
+Sign up at **resend.com** and verify your sending domain. You will need to add DNS records (SPF, DKIM, DMARC) to your domain registrar. Resend provides step-by-step instructions for this process. Use `hello@argbuilder.io` as the sender address (once the domain is registered).
 
 ### Step 2: Add the Resend API Key to the Project
 
@@ -62,7 +62,7 @@ export async function sendNurtureEmail(params: {
   replyTo?: string;
 }) {
   return resend.emails.send({
-    from: 'Jamal at OpsCanvas <hello@opscanvas.io>',
+    from: 'Jamal at ARG-Builder <hello@argbuilder.io>',
     to: params.to,
     subject: params.subject,
     html: params.html,
@@ -77,7 +77,7 @@ The 5-email sequence should be triggered when a new lead is submitted. Each emai
 
 | Email | Delay | Subject Line | Content Focus |
 |---|---|---|---|
-| **Welcome** | Immediate | "Your OpsCanvas ROI report is ready" | Personalized ROI summary, link to full calculator, CTA to book demo |
+| **Welcome** | Immediate | "Your ARG-Builder ROI report is ready" | Personalized ROI summary, link to full calculator, CTA to book demo |
 | **Value** | Day 3 | "The hidden cost of scattered knowledge" | Industry stats, link to State of Operational Knowledge report |
 | **Social Proof** | Day 7 | "How mid-market teams are solving knowledge chaos" | Case study framework, feature highlights, CTA to demo |
 | **Urgency** | Day 14 | "Founding customer spots are filling up" | Founding program details (30% off, 24 months), limited to 20 |
@@ -91,7 +91,7 @@ Modify the `leads.submit` procedure in `server/routers.ts` to trigger the welcom
 // In the leads.submit mutation, after saving to DB:
 await sendNurtureEmail({
   to: input.email,
-  subject: 'Your OpsCanvas ROI report is ready',
+  subject: 'Your ARG-Builder ROI report is ready',
   html: generateWelcomeEmail(input.fullName, input.teamSize),
 });
 ```
@@ -120,17 +120,17 @@ ALTER TABLE leads ADD COLUMN email_opened BOOLEAN DEFAULT FALSE;
 
 ### Email 1: Welcome (Immediate)
 
-**Subject:** Your OpsCanvas ROI report is ready
+**Subject:** Your ARG-Builder ROI report is ready
 
 Hi {firstName},
 
-Thank you for exploring OpsCanvas. Based on your inputs ({teamSize} team members), here's what we calculated:
+Thank you for exploring ARG-Builder. Based on your inputs ({teamSize} team members), here's what we calculated:
 
 **Your projected annual savings: {netSavings}**
 **ROI: {roi}%**
 **Payback period: {paybackDays} days**
 
-These numbers are based on IDC research showing that employees spend 9.3 hours/week searching for information. OpsCanvas reduces that by 60% through AI-powered knowledge governance.
+These numbers are based on IDC research showing that employees spend 9.3 hours/week searching for information. ARG-Builder reduces that by 60% through AI-powered knowledge governance.
 
 Want to see how it works for your specific use case? Book a 30-minute personalized demo:
 
@@ -138,7 +138,7 @@ Want to see how it works for your specific use case? Book a 30-minute personaliz
 
 Best,
 Jamal Boularhbar
-Founder & CEO, OpsCanvas
+Founder & CEO, ARG-Builder
 
 ---
 
@@ -171,7 +171,7 @@ Here's what I keep hearing from operations leaders:
 
 "We have documentation. The problem is nobody can find it, nobody trusts it, and nobody knows if it's current."
 
-OpsCanvas solves this with three capabilities that traditional wikis don't have:
+ARG-Builder solves this with three capabilities that traditional wikis don't have:
 
 1. **Knowledge Graph** — See how every document connects to every other document
 2. **AI Governance** — Automatically detect stale content, duplicates, and broken links
@@ -223,7 +223,7 @@ This is my last email in this sequence — I promise I'm not going to keep filli
 
 If the timing isn't right, no hard feelings at all. I'll keep sharing insights about operational knowledge management on LinkedIn if you'd like to stay in the loop.
 
-But if you're even slightly curious about how OpsCanvas could help {company}, I'd love 30 minutes of your time. No pitch — just a conversation about your documentation challenges and whether we can help.
+But if you're even slightly curious about how ARG-Builder could help {company}, I'd love 30 minutes of your time. No pitch — just a conversation about your documentation challenges and whether we can help.
 
 [Book a Conversation →]
 
@@ -231,7 +231,7 @@ Either way, thank you for your time. I genuinely appreciate it.
 
 Best,
 Jamal Boularhbar
-Founder & CEO, OpsCanvas
+Founder & CEO, ARG-Builder
 
 ---
 

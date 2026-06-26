@@ -1,4 +1,4 @@
-# OpsCanvas Ops Leader Dinner Invitations
+# ARG-Builder Ops Leader Dinner Invitations
 
 **Author:** Jamal Boularhbar, Founder & CEO
 **Purpose:** Personalized dinner invitations for 8–10 operations leaders per city
@@ -17,7 +17,7 @@
 
 Hi [First Name],
 
-I'm Jamal Boularhbar, founder of OpsCanvas — an AI-powered platform that helps mid-market companies turn scattered SOPs, playbooks, and operational guides into a living, searchable knowledge layer.
+I'm Jamal Boularhbar, founder of ARG-Builder — an AI-powered platform that helps mid-market companies turn scattered SOPs, playbooks, and operational guides into a living, searchable knowledge layer.
 
 I'm hosting an intimate dinner for 8–10 operations leaders in Manhattan on **Tuesday, June 17th at 7:00 PM**. No pitch deck. No sales presentation. Just a candid conversation about a problem I think we all share: **how do you keep operational knowledge current, findable, and trusted as your company scales?**
 
@@ -35,7 +35,7 @@ I'd love for you to join us. Here's what's on the table (besides the food):
 - **Group size:** 8–10 people (all VP/Director-level ops, HR, or engineering leaders)
 - **Cost:** Dinner is on me. Just bring your perspective.
 
-I chose to invite you specifically because [personalized reason — e.g., "your work scaling operations at [Company] is exactly the kind of challenge OpsCanvas was built to solve" / "I read your post about onboarding challenges and it resonated deeply" / "a mutual connection, [Name], suggested you'd find this conversation valuable"].
+I chose to invite you specifically because [personalized reason — e.g., "your work scaling operations at [Company] is exactly the kind of challenge ARG-Builder was built to solve" / "I read your post about onboarding challenges and it resonated deeply" / "a mutual connection, [Name], suggested you'd find this conversation valuable"].
 
 Spots are limited to keep the conversation intimate. If you're interested, just reply "I'm in" and I'll send the venue details.
 
@@ -43,10 +43,10 @@ Looking forward to meeting you in person.
 
 Best,
 **Jamal Boularhbar**
-Founder & CEO, OpsCanvas
+Founder & CEO, ARG-Builder
 jamal.boularhbar@gmail.com
 
-P.S. — If June 17th doesn't work but you're curious about OpsCanvas, I'm also hosting a similar dinner in San Francisco on June 25th. Happy to connect either way.
+P.S. — If June 17th doesn't work but you're curious about ARG-Builder, I'm also hosting a similar dinner in San Francisco on June 25th. Happy to connect either way.
 
 ---
 
@@ -72,7 +72,7 @@ I'd love to have you there. Dinner's on me. Reply "in" if you're interested and 
 
 Hi [First Name],
 
-I'm Jamal Boularhbar, founder of OpsCanvas — an AI-powered operational knowledge platform for mid-market companies that have outgrown Google Docs but can't justify ServiceNow.
+I'm Jamal Boularhbar, founder of ARG-Builder — an AI-powered operational knowledge platform for mid-market companies that have outgrown Google Docs but can't justify ServiceNow.
 
 I'm hosting a small dinner for 8–10 operations and engineering leaders in San Francisco on **Wednesday, June 25th at 7:00 PM**. The format is simple: good food, good company, and an honest conversation about a problem that costs mid-market companies millions — **scattered, outdated, and unfindable operational knowledge**.
 
@@ -96,7 +96,7 @@ Reply "I'm in" and I'll send the venue confirmation.
 
 Warm regards,
 **Jamal Boularhbar**
-Founder & CEO, OpsCanvas
+Founder & CEO, ARG-Builder
 jamal.boularhbar@gmail.com
 
 P.S. — Curious about the product before dinner? Here's a 2-minute overview: [landing page link]
@@ -117,7 +117,7 @@ Interested? Reply "in" and I'll send details.
 
 ## Guest Selection Criteria
 
-The ideal dinner guest matches the OpsCanvas ICP and will contribute meaningfully to the conversation. Each invitee should meet at least three of the following criteria to ensure a productive and relevant evening.
+The ideal dinner guest matches the ARG-Builder ICP and will contribute meaningfully to the conversation. Each invitee should meet at least three of the following criteria to ensure a productive and relevant evening.
 
 | Criterion | Description |
 |---|---|
@@ -138,7 +138,7 @@ The dinner is the beginning of the relationship, not the end. The following sequ
 
 **Day +3:** Connect on LinkedIn (if not already connected) with a note referencing the dinner. Share the "State of Operational Knowledge" report as a value-add.
 
-**Day +7:** Send a brief email with a specific use case relevant to their company. For example: "Based on what you shared about onboarding challenges at [Company], here's how OpsCanvas handles that..." Include a screenshot or short video.
+**Day +7:** Send a brief email with a specific use case relevant to their company. For example: "Based on what you shared about onboarding challenges at [Company], here's how ARG-Builder handles that..." Include a screenshot or short video.
 
 **Day +14:** Offer the founding customer program (30% discount, locked 24 months). Create urgency by noting the limited spots remaining.
 

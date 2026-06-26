@@ -95,7 +95,7 @@ Maps to: `AdminLeadsPage`, `AdminLeadScoresPage`, `AdminGrowthDashboardPage`, Cl
 
 ### Content Calendar
 
-Maps to: `OpsCanvas LinkedIn Content Calendar.md`, `AdminContentCalendarPage`
+Maps to: `ARG-Builder LinkedIn Content Calendar.md`, `AdminContentCalendarPage`
 
 | Property | Type |
 |----------|------|
@@ -148,9 +148,9 @@ The deployment script creates **Vault entries** pointing to repo paths — not c
 | 90-Day Implementation Roadmap | `docs/roadmap/90-day-plan.md` |
 | Weekly Metrics Dashboard | `apps/playbooks/docs-seed/ARG Builder — Weekly Metrics Dashboard.md` |
 | Founder's Daily Launch Checklist | `apps/playbooks/docs-seed/ARG Builder — Founder's Daily Launch Checklist.md` |
-| GTM Strategy | `apps/playbooks/docs-seed/Go-to-Market Strategy: OpsCanvas by ARG Builder.md` |
-| LinkedIn Content Calendar | `apps/playbooks/docs-seed/OpsCanvas LinkedIn Content Calendar.md` |
-| Product Hunt Launch Guide | `apps/playbooks/docs-seed/OpsCanvas Product Hunt Launch Guide.md` |
+| GTM Strategy | `apps/playbooks/docs-seed/Go-to-Market Strategy by ARG-Builder.md` |
+| LinkedIn Content Calendar | `apps/playbooks/docs-seed/ARG-Builder LinkedIn Content Calendar.md` |
+| Product Hunt Launch Guide | `apps/playbooks/docs-seed/ARG-Builder Product Hunt Launch Guide.md` |
 | Startup Metrics Dashboard Design | `apps/playbooks/docs-seed/ARG-Builder: Startup Metrics Dashboard Design.md` |
 | Competitive Battle Cards | App: `/admin/battle-cards` + `ARG Builder — Competitive Battle Card.md` |
 | Template Bundles | `apps/playbooks/shared/templateBundles.ts` |

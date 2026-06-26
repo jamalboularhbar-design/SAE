@@ -20,9 +20,9 @@ const TIER1_GLOBS = [
 
 /** Tier 2 — GTM, sales, launch */
 const TIER2_FILES = [
-  "Go-to-Market Strategy: OpsCanvas by ARG Builder.md",
-  "OpsCanvas Product Hunt Launch Guide.md",
-  "OpsCanvas LinkedIn Content Calendar.md",
+  "Go-to-Market Strategy by ARG-Builder.md",
+  "ARG-Builder Product Hunt Launch Guide.md",
+  "ARG-Builder LinkedIn Content Calendar.md",
   "ARG Builder — Founder's Daily Launch Checklist.md",
   "ARG Builder — Weekly Metrics Dashboard.md",
   "ARG Builder — Competitive Battle Card.md",
@@ -35,7 +35,7 @@ const TIER2_FILES = [
   "ARG-Builder-OKR-Framework.md",
   "ARG-Builder: Startup Metrics Dashboard Design.md",
   "ARG-Builder: Product Launch Playbook.md",
-  "OpsCanvas-One-Pager.md",
+  "ARG-Builder-One-Pager.md",
   "Follow-Up 6: External Tool Integrations.md",
 ];
 
@@ -63,7 +63,7 @@ const MONOREPO_FILES = [
 const WORKSPACE_RULES = [
   { workspace: "Riad & Routes", test: (f) => /RR-|Riad|Routes|Luxury Travel/i.test(f) },
   { workspace: "ArtKech Design Studio", test: (f) => /AK-|ArtKech|Creative Studio/i.test(f) },
-  { workspace: "NexusAI Playbooks", test: (f) => /OpsCanvas|NexusAI|ARG-Builder(?!-(RR|AK))/i.test(f) },
+  { workspace: "NexusAI Playbooks", test: (f) => /ARG-Builder|NexusAI|ARG-Builder(?!-(RR|AK))/i.test(f) },
 ];
 
 function categorize(filename) {

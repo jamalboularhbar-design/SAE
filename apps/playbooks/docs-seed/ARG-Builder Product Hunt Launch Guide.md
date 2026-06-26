@@ -1,4 +1,4 @@
-# OpsCanvas Product Hunt Launch Guide
+# ARG-Builder Product Hunt Launch Guide
 
 **Target Launch Date:** Monday, June 9, 2026 (Week 4 of LinkedIn campaign)
 **Goal:** Top 5 Product of the Day, 500+ upvotes, 200+ lead captures
@@ -9,22 +9,22 @@
 
 ### Step 1: Create Your Maker Account
 
-If you don't already have one, create a Product Hunt account at **producthunt.com**. Use your personal account (Jamal Boularhbar) rather than a brand account — makers with personal profiles get more engagement. Complete your profile with a professional photo, bio mentioning your founder story, and links to LinkedIn and the OpsCanvas landing page.
+If you don't already have one, create a Product Hunt account at **producthunt.com**. Use your personal account (Jamal Boularhbar) rather than a brand account — makers with personal profiles get more engagement. Complete your profile with a professional photo, bio mentioning your founder story, and links to LinkedIn and the ARG-Builder landing page.
 
 ### Step 2: Set Up the "Coming Soon" Page
 
 Navigate to **producthunt.com/posts/new** and create a "Coming Soon" page with the following details:
 
-**Product Name:** OpsCanvas
+**Product Name:** ARG-Builder
 
 **Tagline (60 characters max):** AI-powered operational knowledge for scaling teams
 
 **Description:**
-> OpsCanvas turns scattered SOPs, playbooks, and operational guides into a living, searchable intelligence layer. Built for mid-market companies (200–2,000 employees) that have outgrown Google Docs but can't justify ServiceNow. Features include AI content governance, knowledge graph visualization, reading analytics, version control with diff view, and approval workflows — all at $15/user/month.
+> ARG-Builder turns scattered SOPs, playbooks, and operational guides into a living, searchable intelligence layer. Built for mid-market companies (200–2,000 employees) that have outgrown Google Docs but can't justify ServiceNow. Features include AI content governance, knowledge graph visualization, reading analytics, version control with diff view, and approval workflows — all at $15/user/month.
 
 **Topics/Categories:** Productivity, Artificial Intelligence, SaaS, Knowledge Management, Operations
 
-**Thumbnail:** Use the OpsCanvas logo (the teal/navy icon already generated)
+**Thumbnail:** Use the ARG-Builder logo (the teal/navy icon already generated)
 
 **Gallery Images (prepare 5):**
 1. Hero dashboard overview showing the main interface
@@ -37,7 +37,7 @@ Navigate to **producthunt.com/posts/new** and create a "Coming Soon" page with t
 
 The "Coming Soon" page allows people to subscribe for launch notification. Drive traffic to this page through the following channels over the 4 weeks before launch.
 
-Add a "We're launching on Product Hunt" banner to the OpsCanvas landing page with a direct link to the Coming Soon page. Include the Product Hunt "Upcoming" badge widget. Mention it in LinkedIn posts 7 and 10 from the content calendar. Add a P.S. line to nurture emails 2 and 3 inviting leads to follow on Product Hunt. Share the Coming Soon link in relevant Slack communities (Operations, SaaS, Knowledge Management groups).
+Add a "We're launching on Product Hunt" banner to the ARG-Builder landing page with a direct link to the Coming Soon page. Include the Product Hunt "Upcoming" badge widget. Mention it in LinkedIn posts 7 and 10 from the content calendar. Add a P.S. line to nurture emails 2 and 3 inviting leads to follow on Product Hunt. Share the Coming Soon link in relevant Slack communities (Operations, SaaS, Knowledge Management groups).
 
 **Target:** 300+ followers before launch day. Products with 200+ followers typically see 2–3x more first-day upvotes.
 
@@ -53,13 +53,13 @@ Product Hunt launches go live at **12:01 AM PT (3:01 AM ET)**. Prepare all mater
 
 **Maker Comment (post immediately after launch):**
 
-> Hi Product Hunt! I'm Jamal, founder of OpsCanvas.
+> Hi Product Hunt! I'm Jamal, founder of ARG-Builder.
 >
-> I built OpsCanvas because I watched operational knowledge chaos destroy efficiency at a hospitality company I was running. SOPs were in Google Docs, playbooks in Notion, onboarding guides were PDFs from years ago. When a new hire asked "how do we handle X?" — nobody knew where to look.
+> I built ARG-Builder because I watched operational knowledge chaos destroy efficiency at a hospitality company I was running. SOPs were in Google Docs, playbooks in Notion, onboarding guides were PDFs from years ago. When a new hire asked "how do we handle X?" — nobody knew where to look.
 >
 > I realized: if I could solve this for one company, I could solve it for thousands.
 >
-> **What makes OpsCanvas different from Notion/Confluence/Guru:**
+> **What makes ARG-Builder different from Notion/Confluence/Guru:**
 >
 > - **Knowledge Graph** — See how every document connects. Find gaps instantly.
 > - **AI Governance** — Auto-detect stale content, duplicates, and broken links. No manual audits.
@@ -79,11 +79,11 @@ Product Hunt launches go live at **12:01 AM PT (3:01 AM ET)**. Prepare all mater
 
 Prepare answers to the most common questions that will come up in comments. These should be ready to copy-paste within minutes of the question being asked.
 
-1. **"How is this different from Notion?"** — Notion is great for writing. OpsCanvas is built for governing. We have AI freshness scoring, duplicate detection, reading analytics beyond page views, and a knowledge graph that shows how all your documents connect. Notion doesn't tell you which SOPs are stale or which employees haven't read the compliance docs.
+1. **"How is this different from Notion?"** — Notion is great for writing. ARG-Builder is built for governing. We have AI freshness scoring, duplicate detection, reading analytics beyond page views, and a knowledge graph that shows how all your documents connect. Notion doesn't tell you which SOPs are stale or which employees haven't read the compliance docs.
 
 2. **"What's the pricing?"** — Starter is $299/month for up to 25 users. Professional is $15/user/month (min 25 users) with the full feature set. Enterprise is custom. Founding customers get 30% off locked for 24 months.
 
-3. **"Is there an API?"** — Yes, we have a public REST API with OpenAPI documentation. You can integrate OpsCanvas with your existing tools and workflows.
+3. **"Is there an API?"** — Yes, we have a public REST API with OpenAPI documentation. You can integrate ARG-Builder with your existing tools and workflows.
 
 4. **"What about data security?"** — Enterprise-grade: encrypted at rest and in transit, role-based access control, full audit trail, and SOC 2 compliance on our roadmap for Q4 2026.
 
@@ -149,11 +149,11 @@ Prepare answers to the most common questions that will come up in comments. Thes
 
 ### Slack Communities to Join (2 Weeks Before Launch)
 
-Join these communities and contribute genuinely before launch day. Do not spam — provide value first, then mention OpsCanvas when relevant.
+Join these communities and contribute genuinely before launch day. Do not spam — provide value first, then mention ARG-Builder when relevant.
 
 | Community | Focus | How to Contribute |
 |---|---|---|
-| **SaaStr Community** | SaaS founders and operators | Share insights about building OpsCanvas, answer questions about KM |
+| **SaaStr Community** | SaaS founders and operators | Share insights about building ARG-Builder, answer questions about KM |
 | **Ops Network** | Operations professionals | Discuss operational challenges, share the lead magnet report |
 | **Product Hunt Makers** | Product Hunt community | Engage with other launches, build relationships with active hunters |
 | **IndieHackers** | Solo founders and small teams | Share the building journey, revenue milestones |
@@ -161,7 +161,7 @@ Join these communities and contribute genuinely before launch day. Do not spam �
 
 ### Product Hunt Hunters to Reach Out To
 
-Identify 5–10 active Product Hunt hunters (people with 1,000+ followers who regularly hunt products) and reach out 2 weeks before launch. Offer them early access to the product and ask if they'd be willing to hunt OpsCanvas on launch day. A hunt from a well-known hunter can significantly boost visibility.
+Identify 5–10 active Product Hunt hunters (people with 1,000+ followers who regularly hunt products) and reach out 2 weeks before launch. Offer them early access to the product and ask if they'd be willing to hunt ARG-Builder on launch day. A hunt from a well-known hunter can significantly boost visibility.
 
 ---
 

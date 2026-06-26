@@ -2,7 +2,7 @@
 
 **A Data-Driven Report on How Mid-Market Companies Manage, Govern, and Scale Their Operational Documentation**
 
-*Published by OpsCanvas | June 2026*
+*Published by ARG-Builder | June 2026*
 *Author: Jamal Boularhbar, Founder & CEO*
 
 ---
@@ -99,7 +99,7 @@ The market is responding to this shift. The AI-powered knowledge management mark
 
 ### The Five Pillars
 
-Based on our research and experience building OpsCanvas, we propose a five-pillar framework for operational intelligence that any organization can use to evaluate their current state and plan improvements.
+Based on our research and experience building ARG-Builder, we propose a five-pillar framework for operational intelligence that any organization can use to evaluate their current state and plan improvements.
 
 **Pillar 1: Structured Content Architecture.** All operational knowledge should live in a single, structured system with consistent categorization, tagging, and cross-referencing. Documents should be organized by operational domain (e.g., onboarding, incident response, compliance) rather than by team or tool.
 
@@ -149,13 +149,13 @@ For a 200-person company at $75,000 average salary, a 60% reduction in search ti
 
 ---
 
-## About OpsCanvas
+## About ARG-Builder
 
-OpsCanvas is the AI-powered operational knowledge platform for mid-market companies. Built from the ground up for operational governance, OpsCanvas combines structured content management, AI-powered quality monitoring, deep reading analytics, and enterprise-grade version control in a single platform at $15 per user per month.
+ARG-Builder is the AI-powered operational knowledge platform for mid-market companies. Built from the ground up for operational governance, ARG-Builder combines structured content management, AI-powered quality monitoring, deep reading analytics, and enterprise-grade version control in a single platform at $15 per user per month.
 
 The platform includes 92 database tables, 109 application pages, and 288 shipped features — including knowledge graph visualization, duplicate detection, broken link scanning, approval workflows, scheduled publishing, and comprehensive reading analytics.
 
-**To see OpsCanvas in action, visit argbuilder-io.manus.space/product or request a demo at jamal.boularhbar@gmail.com.**
+**To see ARG-Builder in action, visit argbuilder-io.manus.space/product or request a demo at jamal.boularhbar@gmail.com.**
 
 ---
 

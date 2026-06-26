@@ -38,6 +38,16 @@ export async function runDbMaintenance(options?: { dryRun?: boolean }) {
 
   const fixOutput = await runNodeScript(join(scriptsDir, "fix-workspace-categories.mjs"), fixArgs);
 
+  let rebrandOutput = "";
+  try {
+    rebrandOutput = await runNodeScript(
+      join(scriptsDir, "rebrand-opscanvas-docs.mjs"),
+      dryRun ? ["--db", "--dry-run"] : ["--db"]
+    );
+  } catch (err) {
+    rebrandOutput = err instanceof Error ? err.message : String(err);
+  }
+
   let crossRefOutput = "";
   if (!dryRun) {
     crossRefOutput = await runNodeScript(join(scriptsDir, "generate-cross-refs.mjs"));
@@ -46,6 +56,7 @@ export async function runDbMaintenance(options?: { dryRun?: boolean }) {
   return {
     dryRun,
     fixOutput: fixOutput.trim(),
+    rebrandOutput: rebrandOutput.trim(),
     crossRefOutput: crossRefOutput.trim(),
   };
 }

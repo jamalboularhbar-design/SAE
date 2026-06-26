@@ -283,7 +283,7 @@
 - [x] Add "Add to Collection" button on DocumentDetail page for quick collection management
 - [x] Integrate ReadingTimeEstimate component into DocumentDetail page near document title
 - [x] Fix tRPC "Unexpected token '<', <!doctype" error (Vite catch-all serving HTML for API routes during HMR restarts)
-- [x] OpsCanvas product landing page with hero, features, pricing, and lead capture form (/product)
+- [x] ARG-Builder product landing page with hero, features, pricing, and lead capture form (/product)
 - [x] Leads database table and tRPC endpoints (submit, list, updateStatus)
 - [x] Admin Lead Management page (/admin/leads) with status pipeline
 - [x] ROI Calculator page — interactive savings estimator where prospects input team size and see projected savings
@@ -298,20 +298,20 @@
 - [x] Product Hunt launch day checklist
 - [x] Wire Stripe integration for self-serve Starter tier payments
 - [x] Upgrade demo video placeholder with animated product walkthrough
-- [x] Add domain setup guidance page and OpsCanvas branding updates
-- [x] Build complete OpsCanvas management system in Notion
-- [x] Check opscanvas.io domain availability (taken by existing company — pivoted to ARG Builder)
-- [x] Rebrand landing page from OpsCanvas to ARG Builder (parent AI company vision)
+- [x] Add domain setup guidance page and ARG-Builder branding updates
+- [x] Build complete ARG-Builder management system in Notion
+- [x] Check argbuilder.io domain availability (taken by existing company — pivoted to ARG Builder)
+- [x] Rebrand landing page from ARG-Builder to ARG Builder (parent AI company vision)
 - [x] Set up argbuilder.io custom domain for the Manus-hosted app (guidance provided — user action in Settings → Domains)
 - [x] Prepare LinkedIn posts for immediate publishing (Week 1: 3 posts) under ARG Builder brand
 - [x] Research and populate cold outreach target list with real mid-market companies for NY/SF
 - [x] Update Notion management system with ARG Builder branding
 
-## Rebrand: OpsCanvas → ARG Builder
+## Rebrand: ARG-Builder → ARG Builder
 
 - [x] Rewrite LandingPage.tsx with ARG Builder parent company branding (6 verticals, platform vision)
-- [x] Replace all OpsCanvas references in ROICalculatorPage.tsx with ARG Builder
-- [x] Replace OpsCanvas reference in AdminLeadsPage.tsx
+- [x] Replace all ARG-Builder references in ROICalculatorPage.tsx with ARG Builder
+- [x] Replace ARG-Builder reference in AdminLeadsPage.tsx
 - [x] Update client/index.html title from "Agent Reference Guide" to "ARG Builder"
 - [x] Update theme-color meta tag to teal (#14b8a6)
 - [x] Replace all "Agent Reference Guide" text across OnboardingTour, ExportDocx, exportPdf, EmbedDocument, AdminBrandingPage, PublicStatsPage, routers.ts, pdfExport.ts, Home.tsx

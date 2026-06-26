@@ -1,4 +1,4 @@
-# Go-to-Market Strategy: OpsCanvas by ARG Builder
+# Go-to-Market Strategy: ARG-Builder by ARG Builder
 
 ## Confidential — Prepared May 2026
 
@@ -6,21 +6,21 @@
 
 ## 1. Executive Summary
 
-This document outlines the complete go-to-market strategy for launching **OpsCanvas** — an AI-powered operational reference and knowledge management platform — into the North American mid-market and enterprise segments. The launch is targeted for **mid-June 2026** with in-person meetings in New York and San Francisco.
+This document outlines the complete go-to-market strategy for launching **ARG-Builder** — an AI-powered operational reference and knowledge management platform — into the North American mid-market and enterprise segments. The launch is targeted for **mid-June 2026** with in-person meetings in New York and San Francisco.
 
-OpsCanvas transforms how companies build, maintain, and consume operational knowledge. Unlike generic wikis (Notion, Confluence) or narrow training tools (Trainual), OpsCanvas delivers **structured operational intelligence** with AI-powered features, dual-persona workflows, analytics, and enterprise-grade governance — all in a premium, purpose-built experience.
+ARG-Builder transforms how companies build, maintain, and consume operational knowledge. Unlike generic wikis (Notion, Confluence) or narrow training tools (Trainual), ARG-Builder delivers **structured operational intelligence** with AI-powered features, dual-persona workflows, analytics, and enterprise-grade governance — all in a premium, purpose-built experience.
 
-The AI-driven knowledge management market is projected to grow from $5.23 billion in 2024 to $7.71 billion, with worldwide SaaS spending reaching $299 billion in 2025 [1] [2]. OpsCanvas enters this market with a differentiated product that is already built and functional, giving us a significant advantage over competitors still in development.
+The AI-driven knowledge management market is projected to grow from $5.23 billion in 2024 to $7.71 billion, with worldwide SaaS spending reaching $299 billion in 2025 [1] [2]. ARG-Builder enters this market with a differentiated product that is already built and functional, giving us a significant advantage over competitors still in development.
 
 ---
 
 ## 2. Product Naming and Positioning
 
-### Brand Name: **OpsCanvas**
+### Brand Name: **ARG-Builder**
 
 **Tagline:** "Paint the complete picture of how your company operates."
 
-**Why OpsCanvas:** The name combines "Ops" (immediately signals operational focus) with "Canvas" (implies a creative, visual, comprehensive workspace). It positions the product above utilitarian wiki tools while signaling that this is purpose-built for operations — not another generic docs platform. The name is unique in the SaaS landscape, memorable, and works equally well for mid-market HR directors and enterprise CTOs.
+**Why ARG-Builder:** The name combines "Ops" (immediately signals operational focus) with "Canvas" (implies a creative, visual, comprehensive workspace). It positions the product above utilitarian wiki tools while signaling that this is purpose-built for operations — not another generic docs platform. The name is unique in the SaaS landscape, memorable, and works equally well for mid-market HR directors and enterprise CTOs.
 
 **Alternative Names (Backup):**
 
@@ -32,11 +32,11 @@ The AI-driven knowledge management market is projected to grow from $5.23 billio
 
 ### Positioning Statement
 
-> For VP/Directors of Operations and HR leaders at mid-market and enterprise companies who struggle with scattered, outdated operational knowledge across multiple tools, **OpsCanvas** is an AI-powered operational reference platform that delivers structured, governed, and measurable knowledge management. Unlike Notion (too generic), Confluence (too technical), Trainual (too narrow), and Guru (too expensive), OpsCanvas provides dual-persona workflows, AI-powered content intelligence, and enterprise analytics in a premium experience that teams actually want to use.
+> For VP/Directors of Operations and HR leaders at mid-market and enterprise companies who struggle with scattered, outdated operational knowledge across multiple tools, **ARG-Builder** is an AI-powered operational reference platform that delivers structured, governed, and measurable knowledge management. Unlike Notion (too generic), Confluence (too technical), Trainual (too narrow), and Guru (too expensive), ARG-Builder provides dual-persona workflows, AI-powered content intelligence, and enterprise analytics in a premium experience that teams actually want to use.
 
 ### Category Creation
 
-OpsCanvas does not compete in the "knowledge base" or "wiki" category. We are creating the **Operational Intelligence Platform** category — a new segment that combines:
+ARG-Builder does not compete in the "knowledge base" or "wiki" category. We are creating the **Operational Intelligence Platform** category — a new segment that combines:
 
 - Structured operational documentation (not free-form wikis)
 - AI-powered content governance (not manual curation)
@@ -103,7 +103,7 @@ Carlos needs engineering playbooks, incident response docs, and architectural de
 
 ### Pricing Philosophy
 
-Position OpsCanvas as a **premium, purpose-built platform** — not a cheap wiki alternative. Price above Trainual ($249/mo) and below Guru Enterprise (custom, typically $25+/seat). The goal is to signal quality while remaining accessible for mid-market budgets.
+Position ARG-Builder as a **premium, purpose-built platform** — not a cheap wiki alternative. Price above Trainual ($249/mo) and below Guru Enterprise (custom, typically $25+/seat). The goal is to signal quality while remaining accessible for mid-market budgets.
 
 ### Pricing Tiers
 
@@ -198,7 +198,7 @@ For the launch phase (June–December 2026), the sales motion combines:
 >
 > At most companies I talk to, the answer is "I honestly don't know." That's because traditional wikis have zero governance. No one knows which docs are stale, who's reading what, or whether the onboarding guide from 2023 still reflects how things actually work.
 >
-> We built OpsCanvas to fix this. It's an AI-powered operational reference platform that tells you which docs are outdated, which ones your team actually reads, and automatically flags duplicates and broken links.
+> We built ARG-Builder to fix this. It's an AI-powered operational reference platform that tells you which docs are outdated, which ones your team actually reads, and automatically flags duplicates and broken links.
 >
 > {PersonalizedLine about their company — e.g., "I noticed {Company} just raised Series C — congrats. Rapid scaling is usually when ops documentation breaks down."}
 >
@@ -212,7 +212,7 @@ For the launch phase (June–December 2026), the sales motion combines:
 >
 > {FirstName}, one stat that surprised our early users:
 >
-> The average company has 40% of their operational docs outdated by more than 6 months. OpsCanvas surfaces this automatically — no manual audits needed.
+> The average company has 40% of their operational docs outdated by more than 6 months. ARG-Builder surfaces this automatically — no manual audits needed.
 >
 > Our AI also generates reading time estimates, detects near-duplicate content, and builds a knowledge graph showing how your docs connect.
 >
@@ -231,7 +231,7 @@ For the launch phase (June–December 2026), the sales motion combines:
 > - 60% reduction in "where do I find X?" Slack messages
 > - 3x improvement in process compliance
 >
-> OpsCanvas delivers this with AI-powered features that Notion and Confluence simply don't have: automated broken link detection, content freshness scoring, reading analytics per document, and role-based operational views.
+> ARG-Builder delivers this with AI-powered features that Notion and Confluence simply don't have: automated broken link detection, content freshness scoring, reading analytics per document, and role-based operational views.
 >
 > 15 minutes — I'll show you exactly how it works for {their industry}.
 >
@@ -243,7 +243,7 @@ For the launch phase (June–December 2026), the sales motion combines:
 >
 > {FirstName}, I know you're busy so I'll keep this short.
 >
-> If scattered ops docs aren't a pain point for you right now, no worries at all. But if your team is growing and you're starting to feel the "where is that process doc?" problem, OpsCanvas is worth 15 minutes of your time.
+> If scattered ops docs aren't a pain point for you right now, no worries at all. But if your team is growing and you're starting to feel the "where is that process doc?" problem, ARG-Builder is worth 15 minutes of your time.
 >
 > We're offering founding customer pricing for companies that join before July 31 — 30% below our standard rates, locked in for 2 years.
 >
@@ -372,7 +372,7 @@ To accelerate early adoption and build social proof, offer a **Founding Customer
 - Co-authored case study within 90 days
 - Early access to all new features
 
-**Benefits for OpsCanvas:**
+**Benefits for ARG-Builder:**
 - Immediate revenue and validation
 - Testimonials and case studies for sales collateral
 - Product feedback from real enterprise users

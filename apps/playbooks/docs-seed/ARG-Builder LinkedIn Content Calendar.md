@@ -1,6 +1,6 @@
-# OpsCanvas LinkedIn Content Calendar
+# ARG-Builder LinkedIn Content Calendar
 
-**Author:** Jamal Boularhbar, Founder & CEO, OpsCanvas
+**Author:** Jamal Boularhbar, Founder & CEO, ARG-Builder
 **Period:** May 19 – June 13, 2026 (4 weeks pre-launch)
 **Frequency:** 3 posts per week (Monday, Wednesday, Friday)
 **Goal:** Build authority as an operational knowledge leader, warm up target ICP (VP Ops, HR Directors, CTOs at 200–2,000 employee companies), and drive traffic to the landing page and ROI calculator.
@@ -61,7 +61,7 @@ Every time we onboarded a new concierge, it took 6 weeks before they could handl
 
 I realized: if I could solve this for one company, I could solve it for thousands.
 
-So I built OpsCanvas. An AI-powered platform that turns scattered operational knowledge into a living, searchable intelligence layer.
+So I built ARG-Builder. An AI-powered platform that turns scattered operational knowledge into a living, searchable intelligence layer.
 
 288 features. 92 database tables. 525+ documents. Not a prototype — a product.
 
@@ -80,7 +80,7 @@ Launching mid-June in New York and San Francisco.
 
 Most teams have no idea which documents are outdated, which SOPs are never read, or which playbooks have broken cross-references.
 
-OpsCanvas gives every document a freshness score. It scans for broken links. It detects duplicates. It flags content that hasn't been reviewed in 90 days.
+ARG-Builder gives every document a freshness score. It scans for broken links. It detects duplicates. It flags content that hasn't been reviewed in 90 days.
 
 Think of it as a fitness tracker for your operational knowledge.
 
@@ -101,7 +101,7 @@ Your SOPs reference your playbooks. Your playbooks link to your policies. Your p
 
 These connections exist — but they're invisible in Google Docs, Notion, and Confluence.
 
-OpsCanvas makes them visible. Our interactive knowledge graph shows you exactly how every document connects to every other document. You can see gaps. You can see orphans. You can see which documents are the load-bearing walls of your organization.
+ARG-Builder makes them visible. Our interactive knowledge graph shows you exactly how every document connects to every other document. You can see gaps. You can see orphans. You can see which documents are the load-bearing walls of your organization.
 
 One VP of Operations told me: "I've been running this team for 3 years and I never understood our documentation structure until I saw this graph."
 
@@ -114,7 +114,7 @@ That's the power of making the invisible visible.
 
 ### Post 6 — Friday, May 30
 **Format:** Text + Comparison Table
-**Hook:** "Notion vs. Confluence vs. Trainual vs. Guru vs. OpsCanvas — an honest comparison."
+**Hook:** "Notion vs. Confluence vs. Trainual vs. Guru vs. ARG-Builder — an honest comparison."
 
 I'm not going to pretend the alternatives are terrible. They're not. But they were built for different problems:
 
@@ -123,7 +123,7 @@ I'm not going to pretend the alternatives are terrible. They're not. But they we
 - Trainual: Perfect for onboarding. Limited beyond that.
 - Guru: Good knowledge cards. Expensive at scale ($25/seat).
 
-OpsCanvas is purpose-built for operational teams that need:
+ARG-Builder is purpose-built for operational teams that need:
 → AI content governance (not just AI writing)
 → Reading analytics (not just page views)
 → Version control with diff view and rollback
@@ -164,7 +164,7 @@ The market is moving. The question is whether your organization moves with it.
 **Format:** Text + Behind-the-Scenes
 **Hook:** "288 features in 8 months. Here's what I learned about building fast."
 
-When I started OpsCanvas, I set an aggressive goal: ship a production-ready platform in under a year. Not an MVP. Not a prototype. A real product.
+When I started ARG-Builder, I set an aggressive goal: ship a production-ready platform in under a year. Not an MVP. Not a prototype. A real product.
 
 Here's what made it possible:
 
@@ -197,7 +197,7 @@ Be honest. If your answer isn't the first option, your knowledge management need
 
 The gap between "we have documentation" and "our documentation is findable, current, and trusted" is where most companies lose millions in productivity.
 
-OpsCanvas closes that gap.
+ARG-Builder closes that gap.
 
 **CTA:** "Vote below and share your experience in the comments."
 **Hashtags:** #OperationsManagement #Onboarding #TeamProductivity
@@ -208,11 +208,11 @@ OpsCanvas closes that gap.
 
 ### Post 10 — Monday, June 9
 **Format:** Text + Launch Announcement Graphic
-**Hook:** "It's official. OpsCanvas is live."
+**Hook:** "It's official. ARG-Builder is live."
 
-After 8 months of building, 288 features, and more coffee than I care to admit — OpsCanvas is open for founding customers.
+After 8 months of building, 288 features, and more coffee than I care to admit — ARG-Builder is open for founding customers.
 
-What is OpsCanvas? The AI-powered operational knowledge platform for mid-market companies that have outgrown Google Docs but can't justify ServiceNow.
+What is ARG-Builder? The AI-powered operational knowledge platform for mid-market companies that have outgrown Google Docs but can't justify ServiceNow.
 
 What makes it different:
 → Knowledge graph visualization
@@ -226,15 +226,15 @@ Founding customer offer: 30% discount, locked for 24 months. Direct access to me
 First 20 customers only.
 
 **CTA:** "Request your demo → [link]. Or try the ROI calculator → [link]."
-**Hashtags:** #ProductLaunch #B2BSaaS #OpsCanvas
+**Hashtags:** #ProductLaunch #B2BSaaS #ARGBuilder
 
 ---
 
 ### Post 11 — Wednesday, June 11
 **Format:** Text + Video (2-min product walkthrough)
-**Hook:** "2 minutes. That's all it takes to see why OpsCanvas is different."
+**Hook:** "2 minutes. That's all it takes to see why ARG-Builder is different."
 
-I recorded a quick walkthrough of OpsCanvas. No slides. No pitch. Just the product.
+I recorded a quick walkthrough of ARG-Builder. No slides. No pitch. Just the product.
 
 You'll see:
 - How the knowledge graph maps document relationships
@@ -270,7 +270,7 @@ A second dinner is happening in San Francisco on June 25th.
 Spots are limited. DM me or comment below to reserve yours.
 
 **CTA:** "DM me 'NYC' or 'SF' to grab a seat."
-**Hashtags:** #OperationsLeaders #Networking #OpsCanvas
+**Hashtags:** #OperationsLeaders #Networking #ARGBuilder
 
 ---
 
@@ -278,11 +278,11 @@ Spots are limited. DM me or comment below to reserve yours.
 
 Each post should follow these principles to maintain consistency and maximize engagement across the four-week campaign.
 
-**Tone:** Confident but not arrogant. Data-driven but conversational. Founder-authentic, not corporate. Write as Jamal, not as "OpsCanvas the brand." Share real experiences, real numbers, and real opinions. Avoid buzzwords like "synergy," "leverage," and "disrupt." Speak plainly about complex problems.
+**Tone:** Confident but not arrogant. Data-driven but conversational. Founder-authentic, not corporate. Write as Jamal, not as "ARG-Builder the brand." Share real experiences, real numbers, and real opinions. Avoid buzzwords like "synergy," "leverage," and "disrupt." Speak plainly about complex problems.
 
 **Engagement Strategy:** End every post with a clear CTA. Ask questions that invite comments. Respond to every comment within 2 hours. Tag relevant people when appropriate (not spammy). Share other people's content about knowledge management 2 times per week (not included in the 3 posts above) to build reciprocity and community.
 
-**Visual Assets Needed:** 4 product screenshots (dashboard, knowledge graph, analytics, version control), 1 comparison table graphic, 1 market data visualization, 1 launch announcement graphic, 1 founder photo, and 1 product walkthrough video (2 minutes). All visuals should use the OpsCanvas brand palette: deep navy (#0B1628), luminous teal (#00D4AA), and white text.
+**Visual Assets Needed:** 4 product screenshots (dashboard, knowledge graph, analytics, version control), 1 comparison table graphic, 1 market data visualization, 1 launch announcement graphic, 1 founder photo, and 1 product walkthrough video (2 minutes). All visuals should use the ARG-Builder brand palette: deep navy (#0B1628), luminous teal (#00D4AA), and white text.
 
 **Posting Schedule:** Monday at 8:00 AM ET, Wednesday at 11:00 AM ET, Friday at 9:00 AM ET. These times are optimized for B2B decision-maker engagement based on LinkedIn's own publishing data [1].
 
