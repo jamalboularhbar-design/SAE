@@ -61,12 +61,61 @@ const ROVO_PALETTE = [
   { accent: '#00875A', glow: 'rgba(0,135,90,0.35)' },
 ];
 
-const CARD_W = 96;
-const CARD_H = 36;
-const CARD_W_COMPACT = 64;
-const CARD_H_COMPACT = 22;
-const CLUSTER_W = 136;
-const CLUSTER_H = 56;
+const CLUSTER_W = 148;
+const CLUSTER_H = 60;
+
+/** Comfortable card size when the toolbar reads 100% */
+const CARD_BASE_W = 114;
+const CARD_BASE_H = 46;
+
+type CardMetrics = {
+  w: number;
+  h: number;
+  titleMax: number;
+  showGroup: boolean;
+  density: 'compact' | 'normal' | 'comfortable';
+};
+
+function clamp(n: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, n));
+}
+
+/** Scale card size from zoom + graph density so titles stay readable without overlap chaos. */
+function resolveCardMetrics(
+  zoom: number,
+  nodeCount: number,
+  viewportW: number,
+  height: number,
+): CardMetrics {
+  const area = viewportW * height;
+  const densityFactor = clamp(Math.sqrt(50 / Math.max(nodeCount, 1)) * Math.sqrt(area / 520000), 0.68, 1.12);
+
+  const zoomFactor = clamp(zoom, 0.38, 1.45);
+  const w = Math.round(clamp(CARD_BASE_W * densityFactor * zoomFactor, 58, 148));
+  const h = Math.round(clamp(CARD_BASE_H * densityFactor * zoomFactor, 24, 56));
+
+  const density: CardMetrics['density'] =
+    h < 32 ? 'compact' : h >= 44 ? 'comfortable' : 'normal';
+
+  const titleMax = density === 'compact' ? 14 : density === 'comfortable' ? 30 : 24;
+
+  return {
+    w,
+    h,
+    titleMax,
+    showGroup: h >= 38,
+    density,
+  };
+}
+
+/** Pick an initial zoom so large graphs open readable, with 100% = comfortable card size. */
+function computeFitZoom(nodeCount: number, viewportW: number, height: number): number {
+  if (nodeCount <= 35) return 1;
+  const metrics = resolveCardMetrics(1, nodeCount, viewportW, height);
+  const area = viewportW * height;
+  const packed = nodeCount * metrics.w * metrics.h * 2.8;
+  return clamp(Math.sqrt(area / packed), 0.38, 1);
+}
 
 function categoryStyle(group: string | null, index: number) {
   if (!group) return ROVO_PALETTE[0];
@@ -201,6 +250,7 @@ export default function KnowledgeGraphView({
   const [tick, setTick] = useState(0);
   const [localCategory, setLocalCategory] = useState<string | null>(null);
   const dragStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
+  const autoFitRef = useRef(false);
   const [showDependencies, setShowDependencies] = useState(true);
   const [showReferences, setShowReferences] = useState(true);
 
@@ -209,14 +259,6 @@ export default function KnowledgeGraphView({
     const match = nodes.find((n) => n.slug === initialFocusSlug || n.id === initialFocusSlug);
     if (match) setSelectedId(match.id);
   }, [initialFocusSlug, nodes]);
-
-  useEffect(() => {
-    if (initialFocusSlug || nodes.length === 0) return;
-    if (isMobile && nodes.length > 35) {
-      setZoom(0.42);
-      setPan({ x: 0, y: 0 });
-    }
-  }, [isMobile, nodes.length, initialFocusSlug]);
 
   const isDark = theme === 'dark';
   const effectiveCategory = localCategory ?? (selectedCategory !== 'all' ? selectedCategory : null);
@@ -246,6 +288,37 @@ export default function KnowledgeGraphView({
   }, [nodes, edges, searchQuery, effectiveCategory, showDependencies, showReferences]);
 
   const isClusterMode = zoom < 0.52 && filtered.nodes.length > 35 && !searchQuery.trim();
+
+  const fitZoom = useMemo(
+    () => computeFitZoom(filtered.nodes.length, viewportW, height),
+    [filtered.nodes.length, viewportW, height],
+  );
+
+  const cardMetrics = useMemo(
+    () => resolveCardMetrics(zoom, filtered.nodes.length, viewportW, height),
+    [zoom, filtered.nodes.length, viewportW, height],
+  );
+
+  const cardSize = useMemo(
+    () => ({ w: cardMetrics.w, h: cardMetrics.h }),
+    [cardMetrics.w, cardMetrics.h],
+  );
+
+  useEffect(() => {
+    if (initialFocusSlug || filtered.nodes.length === 0) return;
+    const fit = computeFitZoom(filtered.nodes.length, viewportW, height);
+    if (isMobile && filtered.nodes.length > 35) {
+      setZoom(fit);
+      setPan({ x: 0, y: 0 });
+      autoFitRef.current = true;
+      return;
+    }
+    if (!autoFitRef.current && filtered.nodes.length > 80) {
+      setZoom(fit);
+      setPan({ x: 0, y: 0 });
+      autoFitRef.current = true;
+    }
+  }, [isMobile, filtered.nodes.length, initialFocusSlug, viewportW, height]);
 
   const degreeMap = useMemo(() => {
     const m = new Map<string, number>();
@@ -281,8 +354,6 @@ export default function KnowledgeGraphView({
     (id: string) => filtered.nodes.find((n) => n.id === id)?.label ?? id,
     [filtered.nodes],
   );
-
-  const cardSize = zoom < 0.95 ? { w: CARD_W_COMPACT, h: CARD_H_COMPACT } : { w: CARD_W, h: CARD_H };
 
   // Initialize document simulation
   useEffect(() => {
@@ -386,7 +457,7 @@ export default function KnowledgeGraphView({
             const dx = simNodes[ti].x - simNodes[si].x;
             const dy = simNodes[ti].y - simNodes[si].y;
             const dist = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
-            const ideal = edge.type === 'dependency' ? 130 : 100;
+            const ideal = edge.type === 'dependency' ? cardSize.w * 1.15 : cardSize.w * 0.95;
             const force = (dist - ideal) * 0.018;
             simNodes[si].vx += (dx / dist) * force;
             simNodes[si].vy += (dy / dist) * force;
@@ -492,7 +563,7 @@ export default function KnowledgeGraphView({
   };
 
   const resetView = () => {
-    setZoom(1);
+    setZoom(fitZoom);
     setPan({ x: 0, y: 0 });
     setLocalCategory(null);
     setSelectedId(null);
@@ -732,16 +803,24 @@ export default function KnowledgeGraphView({
                 const isDimmed =
                   (highlightIds.size > 0 && !highlightIds.has(node.id)) ||
                   (selectedId !== null && !connectedToSelected.has(node.id));
-                const compact = zoom < 0.95;
                 const { w, h } = cardSize;
+                const { density, titleMax, showGroup } = cardMetrics;
+                const titleClass =
+                  density === 'compact'
+                    ? 'text-[10px]'
+                    : density === 'comfortable'
+                      ? 'text-xs'
+                      : 'text-[11px]';
 
                 return (
                   <button
                     key={node.id}
                     type="button"
-                    className={`kg-rovo-card absolute text-left transition-all duration-200 ${
+                    className={`kg-rovo-card absolute text-left transition-all duration-300 ease-out ${
                       isSelected ? 'kg-rovo-card-selected z-30' : isHovered ? 'kg-rovo-card-active z-20' : 'z-10'
-                    } ${isDimmed ? 'kg-rovo-card-dimmed' : ''} ${compact ? 'kg-rovo-card-compact' : ''}`}
+                    } ${isDimmed ? 'kg-rovo-card-dimmed' : ''} ${
+                      density === 'compact' ? 'kg-rovo-card-compact' : density === 'comfortable' ? 'kg-rovo-card-comfortable' : ''
+                    }`}
                     style={{
                       left: node.x,
                       top: node.y,
@@ -757,14 +836,17 @@ export default function KnowledgeGraphView({
                   >
                     <div className="kg-rovo-card-inner h-full flex flex-col justify-center gap-0.5 overflow-hidden">
                       <div className="flex items-center gap-1.5 min-w-0">
-                        <FileText className="w-3 h-3 shrink-0 opacity-60" style={{ color: style.accent }} />
-                        <span className={`font-medium leading-tight truncate ${compact ? 'text-[9px]' : 'text-[11px]'}`}>
-                          {truncate(node.label, compact ? 12 : 22)}
+                        <FileText
+                          className={`shrink-0 opacity-60 ${density === 'compact' ? 'w-2.5 h-2.5' : 'w-3 h-3'}`}
+                          style={{ color: style.accent }}
+                        />
+                        <span className={`font-medium leading-tight truncate ${titleClass}`}>
+                          {truncate(node.label, titleMax)}
                         </span>
                       </div>
-                      {!compact && node.group && (
-                        <span className="text-[9px] text-muted-foreground truncate pl-[18px]">
-                          {truncate(node.group, 24)}
+                      {showGroup && node.group && (
+                        <span className="text-[10px] text-muted-foreground truncate pl-[18px]">
+                          {truncate(node.group, density === 'comfortable' ? 28 : 22)}
                         </span>
                       )}
                       {node.degree > 0 && (

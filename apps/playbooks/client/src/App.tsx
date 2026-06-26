@@ -57,7 +57,6 @@ import AdminHeatmapPage from "./pages/AdminHeatmapPage";
 import BreadcrumbTrail from "./components/BreadcrumbTrail";
 import ScrollToTop from "./components/ScrollToTop";
 import RouteScrollRestoration from "./components/RouteScrollRestoration";
-import RouteScrollRestoration from "./components/RouteScrollRestoration";
 import MobileBottomNav from "./components/MobileBottomNav";
 import NotificationsPage from "./pages/NotificationsPage";
 import DocumentGraphPage from "./pages/DocumentGraphPage";

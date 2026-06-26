@@ -375,6 +375,12 @@ html {
   box-shadow: var(--kg-card-shadow);
   cursor: pointer;
   overflow: hidden;
+  transition:
+    width 0.3s ease,
+    height 0.3s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .kg-rovo-card::before,
@@ -398,6 +404,10 @@ html {
 
 .kg-rovo-card-compact .kg-rovo-card-inner {
   padding: 3px 5px 3px 9px;
+}
+
+.kg-rovo-card-comfortable .kg-rovo-card-inner {
+  padding: 7px 10px 7px 13px;
 }
 
 .kg-rovo-card-active {
