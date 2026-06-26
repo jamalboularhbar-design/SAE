@@ -4,7 +4,7 @@ import { Link } from 'wouter';
 import { useState } from 'react';
 import {
   Search, Layers, History, FolderOpen, Download, Bookmark,
-  CheckCircle2, ArrowRight, Brain, Pen, MessageSquare, Sparkles, X, Minus,
+  CheckCircle2, ArrowRight, Brain, Pen, MessageSquare, Sparkles,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -13,8 +13,10 @@ import { BRAND } from '@/lib/brand';
 import SEO from '@/components/SEO';
 import VerticalShowcase from '@/components/VerticalShowcase';
 import ProductProofBar from '@/components/product/ProductProofBar';
-import ProductArchitectureStrip from '@/components/product/ProductArchitectureStrip';
 import ProductDemoSection from '@/components/product/ProductDemoSection';
+import ProductPlatformJourney from '@/components/product/ProductPlatformJourney';
+import ProductCaseStudyROI from '@/components/product/ProductCaseStudyROI';
+import ProductComparisonTable from '@/components/product/ProductComparisonTable';
 import IntegrationsStrip from '@/components/product/IntegrationsStrip';
 import SocialProofStrip from '@/components/product/SocialProofStrip';
 import { PLATFORM_STATS } from '@shared/platformStats';
@@ -52,15 +54,6 @@ const AI_TOOLS = [
   { icon: Sparkles, title: 'Summarizer & more', desc: 'Executive summaries, auto-tagging, workflows, meeting notes.' },
 ];
 
-const COMPARISON = [
-  { feature: 'Pre-written operating library', us: `${totalDocuments} docs ready`, notion: 'Start blank', templates: 'Static files' },
-  { feature: 'Built-in AI tools', us: `${AI_TOOL_COUNT} tools at /ai`, notion: 'Add-on AI', templates: 'None' },
-  { feature: 'Multi-brand workspaces', us: 'Native', notion: 'Workspaces only', templates: 'N/A' },
-  { feature: 'Structured architecture', us: 'COO-grade taxonomy', notion: 'You design it', templates: 'Inconsistent' },
-  { feature: 'Search & versioning', us: 'Full platform', notion: 'Yes', templates: 'Manual' },
-  { feature: 'Time to deploy', us: 'Minutes', notion: 'Weeks–months', templates: 'Hours (setup)' },
-];
-
 const STEPS = [
   { title: 'Join', desc: 'One plan, full library access. No onboarding calls, no configuration.' },
   { title: 'Search or browse', desc: 'Start from your most urgent function: pricing, hiring, launch, compliance.' },
@@ -73,19 +66,6 @@ const FAQS = [
   { q: 'Who writes the documents?', a: 'The library is built and maintained with AI-assisted research and drafting, structured under a single editorial architecture. Every document carries its preparation credit and review status.' },
   { q: 'Can I use these for client work?', a: 'Yes — consultants and agencies use Playbooks to structure client deliverables across multiple brand workspaces. White-label arrangements: ask.' },
 ];
-
-function CompareCell({ value, highlight }: { value: string; highlight?: boolean }) {
-  if (value === 'Yes' || value === 'Native' || value.startsWith(String(totalDocuments)) || value.includes('tools')) {
-    return <span className="text-teal-700 dark:text-teal-400 font-medium">{value}</span>;
-  }
-  if (value === 'None' || value === 'Start blank' || value === 'N/A') {
-    return <span className="text-muted-foreground flex items-center justify-center gap-1"><X className="w-3.5 h-3.5" />{value}</span>;
-  }
-  if (value === 'Add-on AI' || value === 'Manual' || value === 'Inconsistent') {
-    return <span className="text-muted-foreground flex items-center justify-center gap-1"><Minus className="w-3.5 h-3.5" />{value}</span>;
-  }
-  return <span className={highlight ? 'text-teal-700 dark:text-teal-400 font-medium' : 'text-muted-foreground'}>{value}</span>;
-}
 
 export default function LandingPage() {
   const { user } = useAuth({ redirectOnUnauthenticated: false });
@@ -198,6 +178,8 @@ export default function LandingPage() {
         </div>
       </section>
 
+      <ProductPlatformJourney />
+
       {/* Waitlist + vertical demos */}
       <section className="py-12 px-4 border-b border-border">
         <div className="max-w-xl mx-auto mb-12">
@@ -244,11 +226,7 @@ export default function LandingPage() {
 
       <ProductDemoSection />
 
-      <section className="px-4 py-16">
-        <div className="max-w-6xl mx-auto">
-          <ProductArchitectureStrip id="platform-arch" />
-        </div>
-      </section>
+      <ProductCaseStudyROI />
 
       <section className="px-4 pb-8">
         <div className="max-w-6xl mx-auto">
@@ -372,37 +350,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Compare */}
-      <section id="compare" className="py-24 px-4 bg-gradient-to-b from-transparent to-muted/30">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">How {BRAND.parentName} compares</h2>
-          <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            Pre-built library + AI intelligence + platform — not blank pages or dead template files.
-          </p>
-          <div className="overflow-x-auto rounded-xl border border-border">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border bg-muted/20">
-                  <th className="text-left p-4 font-semibold text-muted-foreground">Feature</th>
-                  <th className="p-4 font-semibold text-teal-700 dark:text-teal-400">{BRAND.productName}</th>
-                  <th className="p-4 font-semibold text-muted-foreground">Notion</th>
-                  <th className="p-4 font-semibold text-muted-foreground">Template packs</th>
-                </tr>
-              </thead>
-              <tbody>
-                {COMPARISON.map((row) => (
-                  <tr key={row.feature} className="border-b border-border/60 hover:bg-muted/20">
-                    <td className="p-4 text-foreground/80 font-medium">{row.feature}</td>
-                    <td className="p-4 text-center"><CompareCell value={row.us} highlight /></td>
-                    <td className="p-4 text-center"><CompareCell value={row.notion} /></td>
-                    <td className="p-4 text-center"><CompareCell value={row.templates} /></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+      {/* Compare — expanded table with clearer wins */}
+      <ProductComparisonTable />
 
       {/* How it works */}
       <section className="py-24 px-4">
