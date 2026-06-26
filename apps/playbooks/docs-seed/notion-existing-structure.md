@@ -24,8 +24,8 @@ Parent: Command Center
 
 ### Product Workspace: 35b8c474-cdec-816c-8b47-fa8e16e62047
 
-## What we need to ADD for OpsCanvas Launch Management:
-1. 🚀 OpsCanvas Launch Command Center (new top-level page under Master Hub)
+## What we need to ADD for ARG-Builder Launch Management:
+1. 🚀 ARG-Builder Launch Command Center (new top-level page under Master Hub)
    - Launch Timeline & Milestones
    - Sales Pipeline & CRM
    - Content Calendar

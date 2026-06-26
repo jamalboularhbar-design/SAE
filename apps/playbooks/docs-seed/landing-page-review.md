@@ -1,7 +1,7 @@
 # Landing Page Visual Review
 
 ## Hero Section
-- OpsCanvas branding with logo in nav
+- ARG-Builder branding with logo in nav
 - "Your team's knowledge, always within reach" headline with teal gradient
 - AI-Powered Operations Intelligence badge
 - Two CTAs: Request Early Access + See Features

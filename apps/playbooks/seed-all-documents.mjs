@@ -206,7 +206,7 @@ function isMetaSeedFile(filename) {
 }
 
 function isPersonaOrGtmFile(filename) {
-  return /RR-/i.test(filename) || /AK-/i.test(filename) || /^ARG Builder —/i.test(filename) || /^OpsCanvas /i.test(filename);
+  return /RR-/i.test(filename) || /AK-/i.test(filename) || /^ARG Builder —/i.test(filename) || /^ARG-Builder /i.test(filename) || /^OpsCanvas /i.test(filename);
 }
 
 async function insertBatch(connection, rows) {
