@@ -133,13 +133,18 @@ function resolveCardMetrics(
   };
 }
 
-/** Pick an initial zoom so large graphs open readable, with 100% = comfortable card size. */
+/** Default overview zoom for large graphs — user-preferred readable balance */
+const FIT_ZOOM_OVERVIEW = 0.5;
+
+/** Pick an initial zoom so large graphs open at 50% overview; 100% = comfortable card size. */
 function computeFitZoom(nodeCount: number, viewportW: number, height: number): number {
   if (nodeCount <= 35) return 1;
+  if (nodeCount > 80) return FIT_ZOOM_OVERVIEW;
   const metrics = resolveCardMetrics(1, nodeCount, viewportW, height);
   const area = viewportW * height;
   const packed = nodeCount * metrics.w * metrics.h * 2.8;
-  return clamp(Math.sqrt(area / packed), 0.38, 1);
+  const calculated = Math.sqrt(area / packed);
+  return clamp(Math.max(calculated, FIT_ZOOM_OVERVIEW), FIT_ZOOM_OVERVIEW, 1);
 }
 
 function categoryStyle(group: string | null, index: number) {

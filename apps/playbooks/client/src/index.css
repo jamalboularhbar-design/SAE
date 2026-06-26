@@ -216,7 +216,15 @@
     }
   }
 
-  /* Document prose tables — readable in light and dark mode */
+  /* Document prose tables — fit content width, scroll on narrow viewports */
+  .prose .doc-table-wrap table,
+  .prose table {
+    width: max-content;
+    max-width: 100%;
+    table-layout: auto;
+    border-collapse: collapse;
+  }
+
   .prose td {
     color: var(--foreground);
   }

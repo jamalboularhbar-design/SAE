@@ -629,7 +629,6 @@ export default function DocumentDetail() {
               prose-blockquote:border-accent/50 prose-blockquote:text-muted-foreground
               prose-hr:border-border/50
               print:prose-p:text-black print:prose-headings:text-black
-              [&_table]:block [&_table]:overflow-x-auto [&_table]:w-full
               [&_pre]:max-w-[calc(100vw-3rem)] [&_pre]:sm:max-w-none
               [&_.footnotes]:border-t [&_.footnotes]:border-border/30 [&_.footnotes]:mt-8 [&_.footnotes]:pt-4
               [&_.footnotes]:text-sm [&_.footnotes]:text-muted-foreground
@@ -676,6 +675,11 @@ export default function DocumentDetail() {
                     }
                     return <code className={className} {...props}>{children}</code>;
                   },
+                  table: ({ children, ...props }) => (
+                    <div className="doc-table-wrap overflow-x-auto my-4 max-w-full">
+                      <table {...props}>{children}</table>
+                    </div>
+                  ),
                 }}
               >
                 {interpolateTemplateVars(displayContent, document.category)}
