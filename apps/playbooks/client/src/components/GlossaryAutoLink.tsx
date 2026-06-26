@@ -1,9 +1,50 @@
-import { useMemo, useState, ReactNode } from 'react';
+import { useMemo, ReactNode } from 'react';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { trpc } from '@/lib/trpc';
+import { cn } from '@/lib/utils';
 
 interface GlossaryAutoLinkProps {
   children: ReactNode;
   className?: string;
+}
+
+function GlossaryTermTooltip({ term, definition }: { term: string; definition: string }) {
+  return (
+    <TooltipPrimitive.Root delayDuration={150}>
+      <TooltipPrimitive.Trigger asChild>
+        <span
+          tabIndex={0}
+          className="border-b border-dashed border-accent/60 text-accent cursor-help outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:rounded-sm"
+        >
+          {term}
+        </span>
+      </TooltipPrimitive.Trigger>
+      <TooltipPrimitive.Portal>
+        <TooltipPrimitive.Content
+          side="bottom"
+          align="center"
+          sideOffset={8}
+          collisionPadding={16}
+          avoidCollisions
+          className={cn(
+            'z-[100] rounded-lg border border-border bg-popover text-popover-foreground shadow-lg',
+            'animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
+            'data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2',
+            'min-w-[14rem] w-max max-w-[min(20rem,calc(100vw-2rem))] px-3 py-2.5'
+          )}
+        >
+          <p className="font-semibold text-foreground text-sm leading-snug mb-1">{term}</p>
+          <p className="text-muted-foreground text-xs leading-relaxed">{definition}</p>
+          <TooltipPrimitive.Arrow
+            className="fill-popover stroke-border"
+            width={12}
+            height={6}
+            style={{ strokeWidth: 1 }}
+          />
+        </TooltipPrimitive.Content>
+      </TooltipPrimitive.Portal>
+    </TooltipPrimitive.Root>
+  );
 }
 
 /**
@@ -12,7 +53,6 @@ interface GlossaryAutoLinkProps {
  */
 export default function GlossaryAutoLink({ children, className }: GlossaryAutoLinkProps) {
   const { data: terms } = trpc.glossary.list.useQuery({});
-  const [hoveredTerm, setHoveredTerm] = useState<string | null>(null);
 
   // Extract plain text from children for processing
   const textContent = useMemo(() => {
@@ -21,7 +61,7 @@ export default function GlossaryAutoLink({ children, className }: GlossaryAutoLi
       if (typeof node === 'number') return String(node);
       if (Array.isArray(node)) return node.map(extractText).join('');
       if (node && typeof node === 'object' && 'props' in node) {
-        return extractText((node as any).props.children);
+        return extractText((node as { props: { children?: ReactNode } }).props.children);
       }
       return '';
     };
@@ -81,23 +121,11 @@ export default function GlossaryAutoLink({ children, className }: GlossaryAutoLi
         if (seg.type === 'text') {
           return <span key={i}>{seg.value}</span>;
         }
+        if (!seg.definition) {
+          return <span key={i}>{seg.value}</span>;
+        }
         return (
-          <span
-            key={i}
-            className="relative inline-block"
-            onMouseEnter={() => setHoveredTerm(`${seg.value}-${i}`)}
-            onMouseLeave={() => setHoveredTerm(null)}
-          >
-            <span className="border-b border-dashed border-accent/60 text-accent cursor-help">
-              {seg.value}
-            </span>
-            {hoveredTerm === `${seg.value}-${i}` && seg.definition && (
-              <span className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-popover text-popover-foreground text-xs rounded-lg shadow-lg border border-border max-w-xs whitespace-normal">
-                <strong className="block mb-1">{seg.value}</strong>
-                {seg.definition}
-              </span>
-            )}
-          </span>
+          <GlossaryTermTooltip key={i} term={seg.value} definition={seg.definition} />
         );
       })}
     </span>
