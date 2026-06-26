@@ -93,7 +93,7 @@ import {
   getDocumentsForZipExport,
   getAllDocumentTitlesAndSlugs,
   getUserPersonalStats,
-  getUserPermissions, grantPermission, revokePermission, getAllPermissions,
+  getUserPermissions, grantPermission, revokePermission, getAllPermissions, userCanEditDocuments,
   getSlaConfig, upsertSlaConfig, getDocsExceedingSla,
   logWebhookEvent, getWebhookEventLogs, retryWebhookEvent,
   createAccessRequest, getAccessRequests, reviewAccessRequest, getUserAccessRequests,
@@ -1747,9 +1747,16 @@ export const appRouter = router({
 
   // ─── Quick Edit (inline) ──────────────────────────────────────────────
   quickEdit: router({
-    update: adminProcedure
+    canEdit: protectedProcedure.query(async ({ ctx }) => ({
+      canEdit: await userCanEditDocuments(ctx.user.openId, ctx.user.role),
+    })),
+    update: protectedProcedure
       .input(z.object({ documentId: z.number(), title: z.string().optional(), content: z.string().optional() }))
-      .mutation(async ({ input }) => {
+      .mutation(async ({ input, ctx }) => {
+        const canEdit = await userCanEditDocuments(ctx.user.openId, ctx.user.role);
+        if (!canEdit) {
+          throw new TRPCError({ code: 'FORBIDDEN', message: 'You do not have permission to edit documents.' });
+        }
         await quickEditDocument(input.documentId, { title: input.title, content: input.content });
         return { success: true };
       }),

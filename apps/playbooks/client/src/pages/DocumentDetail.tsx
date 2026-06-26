@@ -505,7 +505,12 @@ export default function DocumentDetail() {
             {document && <ShareDocument title={document.title} slug={document.slug} category={document.category} />}
             {document && (
               <div className="hidden md:block">
-                <QuickEditInline documentId={document.id} title={document.title} content={document.content || ''} onSaved={() => { /* invalidate via trpc utils */ }} />
+                <QuickEditInline
+                  documentId={document.id}
+                  documentSlug={document.slug}
+                  title={document.title}
+                  content={document.content || ''}
+                />
               </div>
             )}
             {document && <DistractionFreeMode><ReactMarkdown remarkPlugins={[remarkGfm]}>{displayContent}</ReactMarkdown></DistractionFreeMode>}

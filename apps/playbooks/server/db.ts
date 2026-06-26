@@ -3135,6 +3135,15 @@ export async function getUserPermissions(userOpenId: string) {
   return db.select().from(adminPermissions).where(eq(adminPermissions.userOpenId, userOpenId));
 }
 
+const DOCUMENT_EDIT_PERMISSIONS = new Set(['content_editor', 'full_admin']);
+
+/** Admins and delegated content editors may edit documents via Quick Edit / admin tools. */
+export async function userCanEditDocuments(userOpenId: string, role: string): Promise<boolean> {
+  if (role === 'admin') return true;
+  const perms = await getUserPermissions(userOpenId);
+  return perms.some((p) => DOCUMENT_EDIT_PERMISSIONS.has(p.permission));
+}
+
 export async function grantPermission(userOpenId: string, permission: string, grantedBy: string) {
   const db = await getDb();
   if (!db) return;
