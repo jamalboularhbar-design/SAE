@@ -1,0 +1,33 @@
+name: Trigger Railway redeploy
+
+# Requires GitHub secret: RAILWAY_TOKEN (Account token from railway.com/account/tokens, No Team)
+# Optional vars: RAILWAY_SERVICE_ID, RAILWAY_ENVIRONMENT_ID
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [deploy/production]
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Railway serviceInstanceDeploy
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          SERVICE_ID: ${{ vars.RAILWAY_SERVICE_ID }}
+          ENVIRONMENT_ID: ${{ vars.RAILWAY_ENVIRONMENT_ID }}
+        run: |
+          if [[ -z "$RAILWAY_TOKEN" ]]; then
+            echo "RAILWAY_TOKEN secret not configured — skipping API redeploy."
+            echo "Railway may already deploy automatically from the deploy/production branch push."
+            exit 0
+          fi
+          if [[ -z "$SERVICE_ID" || -z "$ENVIRONMENT_ID" ]]; then
+            echo "Set repository variables RAILWAY_SERVICE_ID and RAILWAY_ENVIRONMENT_ID — skipping API redeploy."
+            exit 0
+          fi
+          curl -sf -X POST https://backboard.railway.app/graphql/v2 \
+            -H "Authorization: Bearer ${RAILWAY_TOKEN}" \
+            -H "Content-Type: application/json" \
+            -d "{\"query\":\"mutation(\$serviceId:String!,\$environmentId:String!){serviceInstanceDeploy(serviceId:\$serviceId,environmentId:\$environmentId)}\",\"variables\":{\"serviceId\":\"${SERVICE_ID}\",\"environmentId\":\"${ENVIRONMENT_ID}\"}}"
