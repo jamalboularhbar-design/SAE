@@ -2,8 +2,9 @@ import { Redirect } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Loader2 } from "lucide-react";
 import Home from "./Home";
+import MarketingHomePage from "./MarketingHomePage";
 
-/** Authenticated app hub at `/`. Anonymous visitors go to public marketing at `/product`. */
+/** Authenticated → app hub. Anonymous → public marketing homepage. */
 export default function HomeGate() {
   const { isAuthenticated, loading } = useAuth({ redirectOnUnauthenticated: false });
 
@@ -16,7 +17,7 @@ export default function HomeGate() {
   }
 
   if (!isAuthenticated) {
-    return <Redirect to="/product" />;
+    return <MarketingHomePage />;
   }
 
   return <Home />;

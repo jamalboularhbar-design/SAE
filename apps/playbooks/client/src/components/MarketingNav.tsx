@@ -16,15 +16,14 @@ type MarketingNavProps = {
 };
 
 const PRODUCT_LINKS = [
-  { href: '#demo', label: 'Demo' },
-  { href: '#why', label: 'Why' },
-  { href: '#library', label: 'Library' },
-  { href: '#intelligence', label: 'Intelligence', accent: 'purple' as const },
-  { href: '#platform', label: 'Platform' },
-  { href: '#compare', label: 'Compare' },
-  { href: '/product/templates', label: 'Templates', accent: 'teal' as const, isRoute: true },
-  { href: '#pricing', label: 'Pricing' },
-  { href: '#faq', label: 'FAQ' },
+  { href: '/product#demo', label: 'Demo', isRoute: true },
+  { href: '/product#why', label: 'Why', isRoute: true },
+  { href: '/product#library', label: 'Library', isRoute: true },
+  { href: '/runtime', label: 'Runtime', isRoute: true, accent: 'teal' as const },
+  { href: '/ai', label: 'Intelligence', isRoute: true, accent: 'purple' as const },
+  { href: '/pricing', label: 'Pricing', isRoute: true },
+  { href: '/resources', label: 'Resources', isRoute: true },
+  { href: '/case-studies', label: 'Case studies', isRoute: true },
 ];
 
 function NavLink({
@@ -144,9 +143,19 @@ export default function MarketingNav({
                     className="hidden lg:flex border-teal-500/30 text-teal-700 dark:text-teal-300 hover:bg-teal-500/10 gap-1.5 px-2.5"
                   >
                     <Sparkles className="w-4 h-4 shrink-0" />
-                    <span className="hidden xl:inline">Nexus OS</span>
+                    <span className="hidden xl:inline">Console</span>
                   </Button>
                 </a>
+                <Link href="/runtime">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="hidden lg:flex border-indigo-500/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-500/10 gap-1.5 px-2.5"
+                  >
+                    <Sparkles className="w-4 h-4 shrink-0" />
+                    <span className="hidden xl:inline">{BRAND.nexusOsName}</span>
+                  </Button>
+                </Link>
               </>
             )}
 

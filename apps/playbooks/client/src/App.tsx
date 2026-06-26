@@ -120,6 +120,8 @@ import AdminKnowledgeGraphPage from "./pages/AdminKnowledgeGraphPage";
 import AdminPerformanceBenchmarksPage from "./pages/AdminPerformanceBenchmarksPage";
 import UserCollectionsPage from "./pages/UserCollectionsPage";
 import LandingPage from "./pages/LandingPage";
+import NexusOsLandingPage from "./pages/NexusOsLandingPage";
+import ResourcesBlogPage from "./pages/ResourcesBlogPage";
 import TemplatesBundlesPage from "./pages/TemplatesBundlesPage";
 import AdminLeadsPage from "./pages/AdminLeadsPage";
 import ROICalculatorPage from "./pages/ROICalculatorPage";
@@ -352,6 +354,8 @@ function Router() {
       <Route path={"/admin/benchmarks"} component={AdminPerformanceBenchmarksPage} />
       <Route path={"/my-collections"} component={UserCollectionsPage} />
       <Route path="/product" component={LandingPage} />
+      <Route path="/runtime" component={NexusOsLandingPage} />
+      <Route path="/resources" component={ResourcesBlogPage} />
       <Route path="/product/templates" component={TemplatesBundlesPage} />
       <Route path="/pricing" component={PricingPage} />
       <Route path="/start-trial" component={StartTrialPage} />

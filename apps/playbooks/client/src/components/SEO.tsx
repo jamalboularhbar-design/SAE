@@ -134,4 +134,12 @@ export const PAGE_SEO: Record<string, SEOProps> = {
     title: BRAND.aiHubName,
     description: `${BRAND.aiHubTagline}. Writing assistant, semantic search, AI chat, summarizer, workflows, and more.`,
   },
+  runtime: {
+    title: `${BRAND.nexusOsName} — Runtime`,
+    description: `${BRAND.nexusOsTagline} Multi-agent execution across Slack, Notion, and Gmail.`,
+  },
+  home: {
+    title: 'Home',
+    description: BRAND.seoDescription,
+  },
 };

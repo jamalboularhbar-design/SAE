@@ -14,14 +14,18 @@ import SEO from '@/components/SEO';
 import VerticalShowcase from '@/components/VerticalShowcase';
 import ProductProofBar from '@/components/product/ProductProofBar';
 import ProductDemoSection from '@/components/product/ProductDemoSection';
+import HubSpecialistStrip from '@/components/product/HubSpecialistStrip';
 import ProductPlatformJourney from '@/components/product/ProductPlatformJourney';
 import ProductCaseStudyROI from '@/components/product/ProductCaseStudyROI';
 import ProductComparisonTable from '@/components/product/ProductComparisonTable';
 import IntegrationsStrip from '@/components/product/IntegrationsStrip';
 import SocialProofStrip from '@/components/product/SocialProofStrip';
 import { PLATFORM_STATS } from '@shared/platformStats';
+import { BOOTSTRAP_PRICING } from '@shared/pricing';
 import LogoMark from '@/components/LogoMark';
 import MarketingNav from '@/components/MarketingNav';
+import FoundingUrgencyBar from '@/components/marketing/FoundingUrgencyBar';
+import JsonLd from '@/components/marketing/JsonLd';
 
 const FUNCTION_COUNT = Object.keys(categoryCounts).length;
 const AI_TOOL_COUNT = 11;
@@ -106,7 +110,17 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <SEO {...{ title: 'Product', description: `${BRAND.description} ${totalDocuments}+ documents, ${AI_TOOL_COUNT} AI tools, ${FUNCTION_COUNT} business functions.` }} />
+      <SEO {...{ title: 'Product', description: `${BRAND.description} ${totalDocuments}+ documents, ${AI_TOOL_COUNT} AI tools, ${FUNCTION_COUNT} business functions.`, canonical: `${BRAND.appUrl}/product` }} />
+      <JsonLd
+        id="product-page"
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: BRAND.productName,
+          description: BRAND.seoDescription,
+          url: `${BRAND.appUrl}/product`,
+        }}
+      />
 
       <MarketingNav subtitle="Playbooks" />
 
@@ -225,6 +239,8 @@ export default function LandingPage() {
       </section>
 
       <ProductDemoSection />
+
+      <HubSpecialistStrip />
 
       <ProductCaseStudyROI />
 
@@ -416,6 +432,7 @@ export default function LandingPage() {
       {/* Pricing */}
       <section id="pricing" className="py-24 px-4 bg-gradient-to-b from-transparent to-muted/30">
         <div className="max-w-4xl mx-auto text-center">
+          <FoundingUrgencyBar className="mb-10 text-left" />
           <h2 className="text-3xl sm:text-4xl font-bold mb-3">One plan. Everything.</h2>
           <p className="text-lg text-muted-foreground mb-14">Library + platform + {AI_TOOL_COUNT} AI tools. No tiers, no per-seat math.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -460,7 +477,10 @@ export default function LandingPage() {
               </Button>
             </div>
           </div>
-          <p className="text-sm text-muted-foreground mt-7">Founding pricing ends when the first 10 seats are taken — cohort then closes.</p>
+          <p className="text-sm text-muted-foreground mt-7">
+            Founding cohort limited to {BOOTSTRAP_PRICING.founding.seatCap} seats —{' '}
+            <Link href="/pricing" className="text-teal-600 dark:text-teal-400 hover:underline">view full pricing</Link>
+          </p>
         </div>
       </section>
 

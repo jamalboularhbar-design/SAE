@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { Play, Compass } from "lucide-react";
+import { BRAND } from "@/lib/brand";
 import { Button } from "@/components/ui/button";
 import ProductProofBar from "./ProductProofBar";
 import KnowledgeGraphTeaser from "./KnowledgeGraphTeaser";
@@ -16,8 +17,8 @@ export default function ProductDemoSection() {
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold mb-3">Interactive product demo</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Explore the knowledge graph and Nexus OS console — the same surfaces we use in founding-client demos.
-            Safe, read-only previews with live links when you want the full experience.
+            Explore the knowledge graph and Hub Specialist demo — the same jamal-hub-v2 roster that powers{' '}
+            {BRAND.nexusOsName} at {BRAND.nexusOsPath}.
           </p>
         </div>
 

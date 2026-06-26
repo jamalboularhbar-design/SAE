@@ -2,33 +2,38 @@ import { Link } from "wouter";
 import { MessageSquare, ArrowRight } from "lucide-react";
 import { BRAND } from "@/lib/brand";
 
+/** Example prompts aligned with jamal Hub workspaces + Nexus OS Brain routing */
 export const EXAMPLE_PROMPTS = [
   {
-    label: "Automotive — onboarding opérateur",
-    prompt: "Trouve la procédure d'onboarding opérateur production et liste les prérequis dans le graphe.",
-    href: "/ai/search",
-    locale: "FR",
-    external: false,
-  },
-  {
-    label: "BPO — attrition & formation",
-    prompt: "Quels playbooks couvrent la montée en compétence agent et la passation de poste en 48h ?",
-    href: "/ai/chat",
-    locale: "FR",
-    external: false,
-  },
-  {
-    label: "Cross-border — supplier compliance",
-    prompt: "Summarize Morocco cross-border supplier onboarding checklists and linked compliance docs.",
-    href: "/ai/search",
-    locale: "EN",
-    external: false,
-  },
-  {
-    label: "Nexus OS — ops briefing",
-    prompt: "Prepare a shift briefing for 5 new production operators — checklist, owners, and approval step.",
+    label: "Riad & Routes — guest briefing",
+    prompt:
+      "Prepare a pre-arrival briefing for an HNW guest in Marrakech — riad, driver, experiences, WhatsApp templates.",
     href: `${BRAND.nexusOsPath}/`,
-    locale: "EN",
+    locale: "Hub · RR",
+    external: true,
+  },
+  {
+    label: "ArtKech — creative brief",
+    prompt:
+      "Turn client notes into a luxury creative brief — brand voice, deliverables, revision rounds, preflight QA.",
+    href: `${BRAND.nexusOsPath}/`,
+    locale: "Hub · AK",
+    external: true,
+  },
+  {
+    label: "ARG-Builder — semantic search",
+    prompt:
+      "Which playbooks cover cross-border supplier onboarding and compliance checklists?",
+    href: "/ai/search",
+    locale: "Intelligence",
+    external: false,
+  },
+  {
+    label: "JB — LinkedIn post",
+    prompt:
+      "Draft a LinkedIn post for JB — unhurried luxury travel. Tagline: Some places require an introduction.",
+    href: `${BRAND.nexusOsPath}/`,
+    locale: "Hub · JB",
     external: true,
   },
 ] as const;
@@ -61,7 +66,7 @@ function PromptCard({ item }: { item: (typeof EXAMPLE_PROMPTS)[number] }) {
 }
 
 export default function ExamplePromptsPanel({
-  title = "Try these examples",
+  title = "Try these Hub examples",
   className = "",
 }: ExamplePromptsPanelProps) {
   return (
@@ -71,7 +76,8 @@ export default function ExamplePromptsPanel({
         <h2 className="text-lg font-semibold text-foreground">{title}</h2>
       </div>
       <p className="text-sm text-muted-foreground mb-4">
-        Founding-client scenarios — automotive, BPO, and cross-border ops. Paste into search or {BRAND.nexusOsName}.
+        Scenarios from your four Hub workspaces — paste into {BRAND.nexusOsName} or the Intelligence Hub.
+        Chief of Staff routes to the right specialist automatically.
       </p>
       <div className="space-y-3">
         {EXAMPLE_PROMPTS.map((item) => (
