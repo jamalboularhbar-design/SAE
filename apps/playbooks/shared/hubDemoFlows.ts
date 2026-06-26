@@ -29,7 +29,7 @@ export const HUB_DEMO_FLOWS: HubDemoFlow[] = [
       {
         specialistId: "chief-of-staff",
         specialistName: "Chief of Staff",
-        action: "Planned work across concierge playbooks for Riad & Routes workspace",
+        action: "Selected SOP Writer + Onboarding Specialist for guest journey playbooks",
       },
       {
         specialistId: "sop",
@@ -58,7 +58,7 @@ export const HUB_DEMO_FLOWS: HubDemoFlow[] = [
       {
         specialistId: "chief-of-staff",
         specialistName: "Chief of Staff",
-        action: "Routed to ArtKech design studio context",
+        action: "Matched Brand Strategist + Ghostwriter for ArtKech creative brief",
       },
       {
         specialistId: "brand",
@@ -87,7 +87,7 @@ export const HUB_DEMO_FLOWS: HubDemoFlow[] = [
       {
         specialistId: "chief-of-staff",
         specialistName: "Chief of Staff",
-        action: "Team plan: research → process → automation draft",
+        action: "Picked Research + Process Analyst for supplier compliance gaps",
       },
       {
         specialistId: "research-ai",
@@ -116,7 +116,7 @@ export const HUB_DEMO_FLOWS: HubDemoFlow[] = [
       {
         specialistId: "chief-of-staff",
         specialistName: "Chief of Staff",
-        action: "JB personal brand context loaded",
+        action: "Chose LinkedIn + Copywriter for JB personal brand tone",
       },
       {
         specialistId: "linkedin",

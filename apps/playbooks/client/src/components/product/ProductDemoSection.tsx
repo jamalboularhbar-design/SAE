@@ -2,7 +2,6 @@ import { Link } from "wouter";
 import { Play, Compass } from "lucide-react";
 import { BRAND } from "@/lib/brand";
 import { Button } from "@/components/ui/button";
-import ProductProofBar from "./ProductProofBar";
 import KnowledgeGraphTeaser from "./KnowledgeGraphTeaser";
 import NexusOsDemoTeaser from "./NexusOsDemoTeaser";
 import ExamplePromptsPanel from "./ExamplePromptsPanel";
@@ -17,12 +16,10 @@ export default function ProductDemoSection() {
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold mb-3">Interactive product demo</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Explore the knowledge graph and Hub Specialist demo — the same jamal-hub-v2 roster that powers{' '}
-            {BRAND.nexusOsName} at {BRAND.nexusOsPath}.
+            Explore the knowledge graph, then watch Hub Specialist pick the right expert for your job — the same
+            jamal-hub-v2 roster that powers {BRAND.nexusOsName} at {BRAND.nexusOsPath}.
           </p>
         </div>
-
-        <ProductProofBar className="mb-8 max-w-3xl mx-auto" compact />
 
         <div className="grid lg:grid-cols-2 gap-6 mb-6">
           <KnowledgeGraphTeaser />

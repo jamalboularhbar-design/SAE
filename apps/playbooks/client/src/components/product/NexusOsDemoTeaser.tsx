@@ -61,7 +61,7 @@ export default function NexusOsDemoTeaser({ defaultBusinessId = 'argbuilder' }: 
         <div className="min-w-0">
           <p className="text-sm font-semibold text-foreground">Hub Specialist · jamal-hub-v2</p>
           <p className="text-xs text-muted-foreground truncate">
-            {HUB_SPECIALIST_COUNT}+ specialists · Chief of Staff orchestrates your team
+            Chief of Staff picks the best specialist for each task — {HUB_SPECIALIST_COUNT}+ experts on call
           </p>
         </div>
       </div>
@@ -121,7 +121,7 @@ export default function NexusOsDemoTeaser({ defaultBusinessId = 'argbuilder' }: 
 
         <div className="rounded-lg border border-border/60 bg-muted/20 p-3 min-h-[140px]">
           <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1">
-            <Brain className="w-3 h-3" /> Hub execution trace
+            <Brain className="w-3 h-3" /> Specialist routing
           </p>
           <AnimatePresence mode="wait">
             {phase === 'idle' && (
@@ -131,8 +131,8 @@ export default function NexusOsDemoTeaser({ defaultBusinessId = 'argbuilder' }: 
                 animate={{ opacity: 1 }}
                 className="text-sm text-muted-foreground"
               >
-                Pick a workspace and example — watch Chief of Staff route to your real Hub specialists
-                (same roster as {BRAND.nexusOsPath}).
+                Pick a workspace and example — watch Chief of Staff match your request to the best Hub specialist,
+                not a generic chatbot (same roster as {BRAND.nexusOsPath}).
               </motion.p>
             )}
             {(phase === 'running' || phase === 'done') && (
@@ -172,7 +172,7 @@ export default function NexusOsDemoTeaser({ defaultBusinessId = 'argbuilder' }: 
 
         <p className="text-xs text-muted-foreground flex items-center gap-1.5">
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-teal-400" />
-          Ask once → Hub routes specialists → approval → Slack, Notion, Gmail
+          Ask once → best specialist chosen → approval → Slack, Notion, Gmail
         </p>
 
         <div className="flex flex-wrap gap-2 pt-1">

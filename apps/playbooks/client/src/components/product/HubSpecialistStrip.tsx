@@ -12,10 +12,11 @@ export default function HubSpecialistStrip() {
             <p className="text-xs uppercase tracking-wider text-indigo-400 font-medium mb-1 flex items-center gap-1.5">
               <Brain className="w-3.5 h-3.5" /> Hub Specialist · {HUB_ROSTER_STATS.hubVersion}
             </p>
-            <h2 className="text-2xl font-bold">The core of {BRAND.nexusOsName}</h2>
+            <h2 className="text-2xl font-bold">The right specialist, every time</h2>
             <p className="text-sm text-muted-foreground mt-1 max-w-xl">
-              {HUB_ROSTER_STATS.specialists} expert specialists across {HUB_ROSTER_STATS.categories} categories,
-              grounded in {HUB_ROSTER_STATS.businesses} business workspaces — Riad & Routes, ArtKech, ARG-Builder, and JB.
+              Hub Specialist is the core of {BRAND.nexusOsName}: Chief of Staff reads your request, picks the best
+              expert from {HUB_ROSTER_STATS.specialists} specialists across {HUB_ROSTER_STATS.businesses} workspaces,
+              and routes work with approvals — not one-size-fits-all AI.
             </p>
           </div>
           <Link href="/runtime">

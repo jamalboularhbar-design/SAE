@@ -17,7 +17,6 @@ type MarketingNavProps = {
 
 const PRODUCT_LINKS = [
   { href: '/product#demo', label: 'Demo', isRoute: true },
-  { href: '/product#why', label: 'Why', isRoute: true },
   { href: '/product#library', label: 'Library', isRoute: true },
   { href: '/runtime', label: 'Runtime', isRoute: true, accent: 'teal' as const },
   { href: '/ai', label: 'Intelligence', isRoute: true, accent: 'purple' as const },
