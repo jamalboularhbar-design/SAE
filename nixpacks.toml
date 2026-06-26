@@ -1,0 +1,12 @@
+# Force Node.js detection on Railway (Nixpacks / Railpack)
+[phases.setup]
+nixPkgs = ["nodejs_20", "pnpm"]
+
+[phases.install]
+cmds = ["corepack enable", "pnpm install --frozen-lockfile"]
+
+[phases.build]
+cmds = ["pnpm run build"]
+
+[start]
+cmd = "node_modules/.bin/drizzle-kit migrate && node seed-from-files.mjs && node --experimental-global-webcrypto dist/index.js"

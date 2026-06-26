@@ -1,0 +1,8 @@
+# NexusAI Playbooks - robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /embed/
+
+Sitemap: https://www.argbuilder.io/sitemap.xml
