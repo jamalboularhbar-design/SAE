@@ -392,12 +392,12 @@ html {
 .kg-rovo-card-inner,
 .kg-rovo-cluster-inner {
   position: relative;
-  padding: 8px 10px 8px 14px;
+  padding: 6px 8px 6px 12px;
   color: inherit;
 }
 
 .kg-rovo-card-compact .kg-rovo-card-inner {
-  padding: 6px 8px 6px 12px;
+  padding: 3px 5px 3px 9px;
 }
 
 .kg-rovo-card-active {

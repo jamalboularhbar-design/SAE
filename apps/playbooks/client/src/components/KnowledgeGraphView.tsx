@@ -61,12 +61,12 @@ const ROVO_PALETTE = [
   { accent: '#00875A', glow: 'rgba(0,135,90,0.35)' },
 ];
 
-const CARD_W = 172;
-const CARD_H = 68;
-const CARD_W_COMPACT = 108;
-const CARD_H_COMPACT = 38;
-const CLUSTER_W = 196;
-const CLUSTER_H = 84;
+const CARD_W = 96;
+const CARD_H = 36;
+const CARD_W_COMPACT = 64;
+const CARD_H_COMPACT = 22;
+const CLUSTER_W = 136;
+const CLUSTER_H = 56;
 
 function categoryStyle(group: string | null, index: number) {
   if (!group) return ROVO_PALETTE[0];
@@ -282,7 +282,7 @@ export default function KnowledgeGraphView({
     [filtered.nodes],
   );
 
-  const cardSize = zoom < 0.72 ? { w: CARD_W_COMPACT, h: CARD_H_COMPACT } : { w: CARD_W, h: CARD_H };
+  const cardSize = zoom < 0.95 ? { w: CARD_W_COMPACT, h: CARD_H_COMPACT } : { w: CARD_W, h: CARD_H };
 
   // Initialize document simulation
   useEffect(() => {
@@ -386,7 +386,7 @@ export default function KnowledgeGraphView({
             const dx = simNodes[ti].x - simNodes[si].x;
             const dy = simNodes[ti].y - simNodes[si].y;
             const dist = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
-            const ideal = edge.type === 'dependency' ? 200 : 160;
+            const ideal = edge.type === 'dependency' ? 130 : 100;
             const force = (dist - ideal) * 0.018;
             simNodes[si].vx += (dx / dist) * force;
             simNodes[si].vy += (dy / dist) * force;
@@ -732,7 +732,7 @@ export default function KnowledgeGraphView({
                 const isDimmed =
                   (highlightIds.size > 0 && !highlightIds.has(node.id)) ||
                   (selectedId !== null && !connectedToSelected.has(node.id));
-                const compact = zoom < 0.72;
+                const compact = zoom < 0.95;
                 const { w, h } = cardSize;
 
                 return (
@@ -758,8 +758,8 @@ export default function KnowledgeGraphView({
                     <div className="kg-rovo-card-inner h-full flex flex-col justify-center gap-0.5 overflow-hidden">
                       <div className="flex items-center gap-1.5 min-w-0">
                         <FileText className="w-3 h-3 shrink-0 opacity-60" style={{ color: style.accent }} />
-                        <span className={`font-medium leading-tight truncate ${compact ? 'text-[10px]' : 'text-xs'}`}>
-                          {truncate(node.label, compact ? 14 : 28)}
+                        <span className={`font-medium leading-tight truncate ${compact ? 'text-[9px]' : 'text-[11px]'}`}>
+                          {truncate(node.label, compact ? 12 : 22)}
                         </span>
                       </div>
                       {!compact && node.group && (

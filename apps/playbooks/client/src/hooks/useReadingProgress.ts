@@ -24,19 +24,12 @@ function saveProgressMap(map: Record<string, ReadingState>) {
 export function useReadingProgress(slug: string) {
   const [savedProgress, setSavedProgress] = useState<number>(0);
 
-  // Load saved progress on mount
+  // Load saved progress on mount (display only — do not auto-restore scroll; users expect top on navigation)
   useEffect(() => {
     const map = getProgressMap();
     const entry = map[slug];
     if (entry) {
       setSavedProgress(entry.scrollPercent);
-      // Restore scroll position after a short delay to let content render
-      setTimeout(() => {
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        if (maxScroll > 0) {
-          window.scrollTo({ top: (entry.scrollPercent / 100) * maxScroll, behavior: 'auto' });
-        }
-      }, 300);
     }
   }, [slug]);
 

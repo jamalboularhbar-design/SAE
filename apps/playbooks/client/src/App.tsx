@@ -56,6 +56,8 @@ import AdminVisibilityPage from "./pages/AdminVisibilityPage";
 import AdminHeatmapPage from "./pages/AdminHeatmapPage";
 import BreadcrumbTrail from "./components/BreadcrumbTrail";
 import ScrollToTop from "./components/ScrollToTop";
+import RouteScrollRestoration from "./components/RouteScrollRestoration";
+import RouteScrollRestoration from "./components/RouteScrollRestoration";
 import MobileBottomNav from "./components/MobileBottomNav";
 import NotificationsPage from "./pages/NotificationsPage";
 import DocumentGraphPage from "./pages/DocumentGraphPage";
@@ -476,6 +478,7 @@ function App() {
           <main id="main-content" role="main">
             <Router />
           </main>
+          <RouteScrollRestoration />
           <ScrollToTop />
           <MobileBottomNav />
           <AdminQuickActionToolbar />
