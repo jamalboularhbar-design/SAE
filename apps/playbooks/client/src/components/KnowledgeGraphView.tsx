@@ -80,6 +80,12 @@ function clamp(n: number, min: number, max: number) {
   return Math.min(max, Math.max(min, n));
 }
 
+function snapZoom(z: number): number {
+  const clamped = clamp(z, 0.35, 2.2);
+  if (Math.abs(clamped - 1) < 0.04) return 1;
+  return Math.round(clamped * 100) / 100;
+}
+
 /** Scale card size from zoom + graph density so titles stay readable without overlap chaos. */
 function resolveCardMetrics(
   zoom: number,
@@ -87,23 +93,42 @@ function resolveCardMetrics(
   viewportW: number,
   height: number,
 ): CardMetrics {
-  const area = viewportW * height;
-  const densityFactor = clamp(Math.sqrt(50 / Math.max(nodeCount, 1)) * Math.sqrt(area / 520000), 0.68, 1.12);
-
   const zoomFactor = clamp(zoom, 0.38, 1.45);
-  const w = Math.round(clamp(CARD_BASE_W * densityFactor * zoomFactor, 58, 148));
-  const h = Math.round(clamp(CARD_BASE_H * densityFactor * zoomFactor, 24, 56));
+
+  // At 100% zoom — always use comfortable, readable cards (user-controlled detail level)
+  if (zoomFactor >= 0.92) {
+    const w = Math.round(clamp(CARD_BASE_W * zoomFactor, 108, 148));
+    const h = Math.round(clamp(CARD_BASE_H * zoomFactor, 42, 56));
+    return {
+      w,
+      h,
+      titleMax: h >= 48 ? 32 : 28,
+      showGroup: true,
+      density: h >= 48 ? 'comfortable' : 'normal',
+    };
+  }
+
+  // Zoomed out — shrink with density so the overview stays scannable
+  const area = viewportW * height;
+  const densityFactor = clamp(
+    Math.sqrt(60 / Math.max(nodeCount, 1)) * Math.sqrt(area / 520000),
+    0.62,
+    1,
+  );
+
+  const w = Math.round(clamp(CARD_BASE_W * densityFactor * zoomFactor, 52, 108));
+  const h = Math.round(clamp(CARD_BASE_H * densityFactor * zoomFactor, 22, 44));
 
   const density: CardMetrics['density'] =
-    h < 32 ? 'compact' : h >= 44 ? 'comfortable' : 'normal';
+    h < 30 ? 'compact' : h >= 40 ? 'normal' : 'compact';
 
-  const titleMax = density === 'compact' ? 14 : density === 'comfortable' ? 30 : 24;
+  const titleMax = density === 'compact' ? 14 : 22;
 
   return {
     w,
     h,
     titleMax,
-    showGroup: h >= 38,
+    showGroup: h >= 36,
     density,
   };
 }
@@ -552,7 +577,7 @@ export default function KnowledgeGraphView({
 
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
-    setZoom((z) => Math.min(2.2, Math.max(0.35, z - e.deltaY * 0.001)));
+    setZoom((z) => snapZoom(z - e.deltaY * 0.001));
   };
 
   const expandCluster = (label: string) => {
@@ -630,11 +655,18 @@ export default function KnowledgeGraphView({
           )}
 
           <div className="ml-auto flex items-center gap-1">
-            <button onClick={() => setZoom((z) => Math.max(0.35, z - 0.12))} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground" title="Zoom out">
+            <button onClick={() => setZoom((z) => snapZoom(z - 0.1))} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground" title="Zoom out">
               <ZoomOut className="w-4 h-4" />
             </button>
-            <span className="text-xs text-muted-foreground w-10 text-center tabular-nums">{Math.round(zoom * 100)}%</span>
-            <button onClick={() => setZoom((z) => Math.min(2.2, z + 0.12))} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground" title="Zoom in">
+            <button
+              type="button"
+              onClick={() => setZoom(1)}
+              className="text-xs text-muted-foreground w-10 text-center tabular-nums hover:text-foreground"
+              title="Reset to 100%"
+            >
+              {Math.round(zoom * 100)}%
+            </button>
+            <button onClick={() => setZoom((z) => snapZoom(z + 0.1))} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground" title="Zoom in">
               <ZoomIn className="w-4 h-4" />
             </button>
             <button onClick={resetView} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground" title="Reset view">
